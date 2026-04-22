@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import Sidebar from '../components/ui/Sidebar.astro'
+import VideoSection from '../components/sections/VideoSection.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.groupLessons
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="Group Surf Lessons in Tamarindo | Learn to Surf Together" subtitle="Fun, affordable, and social. Our group surf lessons are perfect for friends, families, and solo travelers who want to share the stoke." image="/images/group-lessons-hero.jpg" imageAlt="Group surf lessons Tamarindo Costa Rica" breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}/>
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Group Surf Lessons in Tamarindo — Learn to Surf Together</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>group surf lessons in Tamarindo</strong> are the most popular and affordable way to learn to surf. With small groups of 4-6 students per certified instructor, you'll receive quality coaching while enjoying the energy of learning alongside other surfers. Taught in small groups to guarantee personalized attention, fast learning, and maximum safety.</p>
+        <p class="text-gray-700 leading-relaxed mb-6">Whether you're a solo traveler looking for new friends, a couple, a family, or a group of friends, our <strong>group surfing lessons in Tamarindo</strong> create a fun, supportive environment where everyone catches their first wave.</p>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-10">
+          {[
+            { h: 'Who Can Take?', items: ['Solo travelers', 'Couples', 'Friends groups', 'Beginners', 'Kids & families', 'Anyone wanting to learn'] },
+            { h: "What's Included", items: ['90-minute surf lesson', 'Professional certified instructor', 'Foam guard', 'Safety briefing', 'Surfboard included', 'Photos on request'] },
+            { h: 'Perfect For:', items: ['First-time surfers', 'Budget-conscious travelers', 'Social experience seekers', 'Groups of 4–6 people'] },
+          ].map(col => (
+            <div>
+              <h3 class="font-bold text-gray-900 mb-3">{col.h}</h3>
+              <ul class="space-y-1">{col.items.map(i => <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+
+        <FAQ items={[
+          { question: 'How big are the group surf lessons?', answer: 'We keep groups small — maximum 6 students per certified instructor — to ensure everyone gets proper attention and feedback.' },
+          { question: 'Are group lessons good for beginners?', answer: 'Yes! Group lessons are designed for beginners. The shared experience is motivating and the friendly competition helps everyone progress faster.' },
+          { question: 'Can my family all join the same group lesson?', answer: 'Absolutely! Families are welcome. We can accommodate mixed skill levels and age groups in the same session.' },
+          { question: 'What if I\'m more advanced than the rest of the group?', answer: 'If you\'re looking for more intensive coaching, we\'d recommend our semi-private or private lessons for a more personalized experience.' },
+        ]} columns={1}/>
+      </div>
+
+      <div>
+        <Sidebar price="$50" priceLabel="/ Per Person" includes={['90-minute surf lesson','Professional certified instructor','Surfboard included','Foam guard','Safety briefing','Photos on request']} ctaLabel="Book Group Lesson"/>
+      </div>
+    </div>
+  </section>
+
+  <WhyChooseUs bg="gray" title="Why Our Group Surf Lessons Are the Best in Tamarindo"/>
+
+  <VideoSection title="Experience Group Surf Lessons in Tamarindo" subtitle="Our group lessons are fun, energetic, and led by certified instructors who make sure every person in the group catches waves." bgImage="/images/video-group.jpg" cta={{ label: 'Book Your Group Lesson', href: '/book-now' }}/>
+
+  <Testimonials items={[
+    { name: 'Alex Martinez', role: 'Solo Traveler', text: 'Came alone, left with new friends and the ability to surf! The group lesson was the best decision I made on my Costa Rica trip. Highly recommend.' },
+    { name: 'The Thompson Family', role: 'Family of 4', text: 'All four of us did the group lesson together — from 10-year-old to dad. The instructor made it work for everyone. We all stood up on the board!' },
+  ]} title="What Surfers Say About Group Lessons in Tamarindo"/>
+
+  <NeedHelp/>
+</BaseLayout>

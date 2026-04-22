@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.contact
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="Contact Us" image="/images/contact-hero.jpg" imageAlt="Surf school near me Tamarindo" breadcrumb={{ label: 'Contact' }} height="medium"/>
+
+  <!-- Contact form + info -->
+  <section class="py-20 container mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Get in touch with us</h2>
+        <p class="text-gray-600 leading-relaxed mb-4">If you're searching for a <strong>surf school near me Tamarindo</strong>, you've just found the perfect place. At Pura Vida Surf School, we make it easy to get in touch, ask questions, check availability, or book your surf lessons and surf camp packages in just a few minutes.</p>
+        <p class="text-gray-600 leading-relaxed mb-6">Whether you're a beginner catching your first wave, an intermediate surfer looking to level up, or a traveler comparing options for the <strong>best surf school in Tamarindo</strong>, our team is here to guide you with fast responses, friendly support, and the pura vida spirit.</p>
+        <div class="flex gap-4 mt-4">
+          <a href="https://www.facebook.com/puravidasurfschool" target="_blank" rel="noopener" aria-label="Facebook" class="w-10 h-10 bg-gray-100 hover:bg-teal-50 rounded-full flex items-center justify-center transition-colors">
+            <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@puravidasurfschool" target="_blank" rel="noopener" aria-label="YouTube" class="w-10 h-10 bg-gray-100 hover:bg-teal-50 rounded-full flex items-center justify-center transition-colors">
+            <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/puravidasurfschool" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 bg-gray-100 hover:bg-teal-50 rounded-full flex items-center justify-center transition-colors">
+            <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+        <form id="contact-form" class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <input type="text" name="name" placeholder="Full Name" required class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-teal-500 transition-colors"/>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input type="email" name="email" placeholder="Email Address" required class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-teal-500 transition-colors"/>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+              <input type="tel" name="phone" placeholder="Phone Number" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-teal-500 transition-colors"/>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+              <input type="text" name="subject" placeholder="Subject" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-teal-500 transition-colors"/>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea name="message" rows="4" placeholder="Additional Message" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-teal-500 transition-colors resize-none"></textarea>
+          </div>
+          <button type="submit" class="btn-primary w-full">Send My Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map + Info -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div class="bg-gray-200 rounded-2xl overflow-hidden h-64">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15722.56!2d-85.8415!3d10.2994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9e4a4a4a4a4a4a%3A0x0!2sTamarindo%2C+Costa+Rica!5e0!3m2!1sen!2sus!4v1"
+            class="w-full h-full border-0"
+            loading="lazy"
+            title="Pura Vida Surf School location Tamarindo"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-200">
+          <h2 class="text-2xl font-bold text-gray-900 mb-5">Reach us here</h2>
+          <div class="space-y-4">
+            <div>
+              <p class="font-semibold text-gray-900 text-sm">Location</p>
+              <p class="text-gray-600 text-sm">Tamarindo Beach, Costa Rica</p>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900 text-sm">Mail Address</p>
+              <a href="mailto:info@puravidasurfschool.com" class="text-teal-600 hover:underline text-sm">info@puravidasurfschool.com</a>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900 text-sm">Phone Number</p>
+              <a href="tel:+50661987851" class="text-teal-600 hover:underline text-sm">+506 6198-7851</a>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900 text-sm">WhatsApp</p>
+              <a href="https://wa.me/50661987851" target="_blank" rel="noopener" class="text-teal-600 hover:underline text-sm">Chat with us on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

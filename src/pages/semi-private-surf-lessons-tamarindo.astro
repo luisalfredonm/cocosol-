@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import Sidebar from '../components/ui/Sidebar.astro'
+import VideoSection from '../components/sections/VideoSection.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.semiPrivateLessons
+const faqs = [
+  { question: 'What do semi-private surf lessons in Tamarindo include?', answer: 'Semi-private lessons include a certified instructor, surfboard, foam guard, safety briefing, and 90 minutes of instruction for 2-3 people.' },
+  { question: 'Are semi-private surf lessons suitable for beginners?', answer: 'Absolutely! Semi-private lessons are perfect for beginners who want to share the experience with a partner or a friend while still getting personalized attention.' },
+  { question: 'How long is a semi-private surf lesson?', answer: 'Each session is 90 minutes, including land training and time in the water.' },
+  { question: 'Do you offer discounts for multiple semi-private lessons?', answer: 'Yes! Ask us about our Pura Vida Surf Packages which offer multiple lessons at a better rate than single sessions.' },
+]
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="Semi-Private Surf Lessons Tamarindo — Small Group Surfing Experience" image="/images/semi-private-hero.jpg" imageAlt="Semi-private surf lessons Tamarindo" breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}/>
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Semi-Private Surf Lessons Tamarindo — Learn Together</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>semi-private surf lessons Tamarindo</strong> are the perfect option for couples, friends, or small groups of 2-3 people who want to share the experience while still receiving personalized attention from a certified instructor. You get the social energy of learning with someone you know, plus the focused coaching that helps you progress faster.</p>
+        <p class="text-gray-700 leading-relaxed mb-6">These <strong>semi-private surfing lessons in Tamarindo</strong> are a great value — you share the cost with your group while still benefiting from a professional, certified surf instructor who adapts the session to your levels and goals.</p>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+          {[
+            { h: 'Who Can Take Surf Lessons?', items: ['Beginners', 'Kids', 'Intermediate Surfers', 'Families'] },
+            { h: "What's Included", items: ['90-minute surf lesson', 'Professional certified instructor', 'Foam guard', 'Safety briefing', 'Surfboard included', 'Photos on request'] },
+            { h: 'Perfect For:', items: ['Couples', 'Friends traveling together', 'Anyone who wants semi-private attention', 'People looking to learn and earn surf technique'] },
+          ].map(col => (
+            <div>
+              <h3 class="font-bold text-gray-900 mb-3">{col.h}</h3>
+              <ul class="space-y-1">{col.items.map(i => <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+
+        <section class="py-12 border-t border-gray-100">
+          <FAQ items={faqs} title="Frequently Asked Questions" columns={1}/>
+        </section>
+      </div>
+      <div>
+        <Sidebar price="$50" priceLabel="/ Per Person" includes={['90-minute surf lesson', 'Professional certified instructor', 'Surfboard included', 'Foam guard', 'Safety briefing', 'Photos on request']} ctaLabel="Check Availability"/>
+      </div>
+    </div>
+  </section>
+
+  <VideoSection title="See Our Semi-Private Surf Lessons in Tamarindo in Action" subtitle="Watch what a semi-private session looks like — personalized coaching for 2-3 people on Tamarindo Beach." bgImage="/images/video-semi-private.jpg" cta={{ label: 'Check Availability', href: '/book-now' }}/>
+
+  <Testimonials items={[
+    { name: 'Carlos & Maria', role: 'Couple travelers', text: 'We did semi-private lessons as a couple and it was perfect. The instructor gave us individual feedback while we had fun together. Definitely recommend!' },
+    { name: 'The Johnson Family', role: 'Family', text: 'Booked semi-private for our family of 3 and it was the highlight of our Costa Rica trip. Patient instructor, great waves, unforgettable experience.' },
+  ]}/>
+
+  <NeedHelp/>
+
+  <section class="py-10 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Also Available at Pura Vida Surf School</h2>
+      <div class="flex flex-wrap gap-3">
+        <a href="/private-surf-lessons-tamarindo" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-teal-400 transition-colors">Private Surf Lessons Tamarindo</a>
+        <a href="/group-surf-lessons-tamarindo" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-teal-400 transition-colors">Group Surf Lessons Tamarindo</a>
+        <a href="/surf-camp-tamarindo" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-teal-400 transition-colors">Surf Camp Tamarindo</a>
+        <a href="/surf-packages" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-teal-400 transition-colors">Surf Packages</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

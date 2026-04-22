@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import Sidebar from '../components/ui/Sidebar.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.surfCamp7Days
+const included = [
+  { label:'6 Surf Lessons', desc:'6 surf lessons at your level. Beginners learn fundamentals, intermediates refine technique.' },
+  { label:'1 Surf Trip to a Nearby Beach', desc:'Guided surf trip to discover new breaks around the Tamarindo area.' },
+  { label:'Video Analysis (Select Days)', desc:'Your instructor records you surfing so you can see and correct your technique.' },
+  { label:'Photo Package', desc:'Professional surf photos so you can remember every wave.' },
+  { label:'Your Own Rash Guard', desc:'A Pura Vida Surf School rash guard included.' },
+  { label:'Unlimited Surfboard Rentals', desc:'Unlimited board access throughout the entire week of your camp.' },
+  { label:'Daily Breakfast (if lodging option includes it)', desc:'Fuel up for every surf session.' },
+  { label:'Pura Vida Experience', desc:'Local guides, cultural tips, and authentic Costa Rica moments.' },
+]
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="7 Days Surf Camp Tamarindo — Your One-Week Surf Experience In Paradise" subtitle="The ultimate all-inclusive surf camp in Tamarindo. 6 lessons, surf trips, video analysis, and pura vida vibes." image="/images/7-day-camp-hero.jpg" imageAlt="7 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '/book-now' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose Our 7 Days Surf Camp In Tamarindo?</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Tamarindo is one of the most iconic surf towns in Costa Rica, known for its warm water, consistent waves, friendly locals, and stunning natural beauty. This is the vacation they truly want — the one that truly makes them feel alive. Whether you sleep in Tamarindo for a week or longer, this surf camp gives you a complete experience built around safety, fun, and improvement.</p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-10">
+          <div>
+            <h3 class="font-bold text-gray-900 mb-3">Feel the Pura Vida Vibe</h3>
+            <ul class="space-y-2 text-sm text-gray-600">{['Structured 7-day progression plan','Certified instructors included','Video analysis to correct technique','Surf trips to secret spots','Perfect to learn at','Pura vida experience'].map(i=><li class="flex items-center gap-2"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+          </div>
+          <div>
+            <h3 class="font-bold text-gray-900 mb-3">This camp is for:</h3>
+            <ul class="space-y-2 text-sm text-gray-600">{['Complete beginners','Intermediate surfers','Couples','Friends','Families','Solo Travelers','Digital nomads'].map(i=><li class="flex items-center gap-2"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-900 mb-4">What's Included in Your One-Week Surf Camp</h3>
+        <div class="space-y-2 mb-10">
+          {included.map((item,i) => (
+            <details class="group border border-gray-200 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between px-5 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50 list-none">
+                {item.label}
+                <svg class="w-5 h-5 text-teal-500 shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              </summary>
+              <div class="px-5 pb-4 text-gray-600 text-sm">{item.desc}</div>
+            </details>
+          ))}
+        </div>
+
+        <!-- Gallery -->
+        <div class="grid grid-cols-3 gap-3 mb-10">
+          {[1,2,3,4,5,6].map(n=><img src={`/images/camp-gallery-${n}.jpg`} alt="7 days surf camp Tamarindo" class="rounded-xl w-full h-32 object-cover" width="280" height="180" loading="lazy"/>)}
+        </div>
+
+        <!-- Premium Home -->
+        <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Your Premium Home in Tamarindo</h3>
+          <p class="text-gray-600 text-sm mb-4">Our surf camp caters to travelers who appreciate the finer things. Just 200m from the beach, you can hear the waves from your room.</p>
+          <div class="grid grid-cols-2 gap-3">
+            {[{icon:'🏊',label:'Pool'},{icon:'❄️',label:'Full A/C'},{icon:'📶',label:'WiFi'},{icon:'🤝',label:'Social'}].map(a=>(
+              <div class="flex items-center gap-2 text-sm text-gray-700">
+                <span class="text-lg">{a.icon}</span>{a.label}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <FAQ items={[
+          { question: 'What should I bring to the 7-day surf camp?', answer: 'Sunblock, a towel, and lots of energy! We provide all professional surfing gear, rash guard, and board.' },
+          { question: 'Is accommodation included?', answer: 'Accommodation is optional. We work with partner hotels and hostels in Tamarindo. Let us know if you need lodging and we\'ll set you up.' },
+          { question: 'What if the weather is bad?', answer: 'Costa Rica has a tropical climate and rain doesn\'t always affect surfing. If conditions are unsafe, we reschedule at no extra cost.' },
+          { question: 'Is the 7-day camp good for complete beginners?', answer: 'Absolutely! The structured 7-day progression is designed to take you from zero to confidently surfing green waves by the end of the week.' },
+        ]}/>
+      </div>
+
+      <div>
+        <Sidebar price="$1,399" priceLabel="/ Per Person" includes={['6 Surf Lessons','1 Surf Trip','Video analysis','Photo package','Your own rash guard','Unlimited board rental','Pura vida experience']} ctaLabel="Book Your Surf Camp" ctaColor="dark" sidebarTitle="Start your surfing journey today."/>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 container mx-auto px-4 text-center">
+    <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1 rounded-full mb-4">Ready to Ride?</span>
+    <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
+    <a href="/book-now" class="btn-primary text-lg px-8">Book 7-Day Surf Camp</a>
+    <p class="mt-4 text-sm text-gray-500">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+  </section>
+
+  <Testimonials items={[{ name: 'Jake S.', role: 'Digital Nomad', text: 'One week, 6 lessons, and I went from total beginner to surfing real waves. The video analysis sessions were game-changing. Best week of my year!' }, { name: 'Emma R.', role: 'Solo Traveler', text: 'Came alone and left with new friends, a new skill, and a new addiction. The 7-day camp is worth every penny. Already planning to come back!' }]}/>
+
+  <NeedHelp/>
+</BaseLayout>

@@ -1,0 +1,66 @@
+---
+export interface Props {
+  title: string
+  subtitle?: string
+  image: string
+  imageAlt: string
+  cta?: { label: string; href: string }
+  ctaSecondary?: { label: string; href: string }
+  breadcrumb?: { label: string; href?: string }
+  height?: 'full' | 'large' | 'medium'
+  overlay?: 'dark' | 'medium' | 'light'
+}
+const {
+  title, subtitle, image, imageAlt,
+  cta, ctaSecondary,
+  breadcrumb,
+  height = 'large',
+  overlay = 'dark',
+} = Astro.props
+
+const heightClass = { full: 'h-screen min-h-[600px]', large: 'h-[65vh] min-h-[480px]', medium: 'h-[50vh] min-h-[380px]' }[height]
+const overlayClass = { dark: 'bg-black/55', medium: 'bg-black/40', light: 'bg-black/25' }[overlay]
+---
+
+<section class={`relative ${heightClass} flex items-end pb-14 md:pb-20`}>
+  <div class="absolute inset-0">
+    <img
+      src={image}
+      alt={imageAlt}
+      class="w-full h-full object-cover"
+      width="1920"
+      height="900"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class={`absolute inset-0 ${overlayClass}`}></div>
+  </div>
+
+  <div class="relative z-10 container mx-auto px-4 w-full">
+    {breadcrumb && (
+      <nav class="mb-4 flex items-center gap-2 text-white/70 text-sm" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        {breadcrumb.href
+          ? <a href={breadcrumb.href} class="hover:text-white transition-colors">{breadcrumb.label}</a>
+          : <span class="text-white">{breadcrumb.label}</span>
+        }
+      </nav>
+    )}
+
+    <h1 class="text-3xl md:text-5xl font-bold text-white max-w-3xl leading-tight">
+      {title}
+    </h1>
+
+    {subtitle && (
+      <p class="mt-3 text-lg text-white/85 max-w-xl">{subtitle}</p>
+    )}
+
+    {(cta || ctaSecondary) && (
+      <div class="mt-6 flex flex-wrap gap-4">
+        {cta && <a href={cta.href} class="btn-primary">{cta.label}</a>}
+        {ctaSecondary && <a href={ctaSecondary.href} class="btn-secondary">{ctaSecondary.label}</a>}
+      </div>
+    )}
+  </div>
+</section>

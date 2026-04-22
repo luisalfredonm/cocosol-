@@ -1,0 +1,53 @@
+---
+export interface Feature {
+  title: string
+  description: string
+  icon?: 'badge' | 'group' | 'location' | 'dollar' | 'shield' | 'star'
+}
+export interface Props {
+  title?: string
+  features?: Feature[]
+  bg?: 'white' | 'gray' | 'teal'
+}
+const {
+  title = 'Why Choose Our Surf School?',
+  bg = 'white',
+  features = [
+    { icon: 'badge', title: 'Certified and Experienced Surf Instructors', description: 'Our certified surf instructors bring years of experience teaching surfers of all ages and levels on Tamarindo Beach.' },
+    { icon: 'group', title: 'Small Groups and Personalized Coaching', description: "We keep groups small so that every student gets individual attention and progresses faster. It's not just instruction — it's a personalized experience." },
+    { icon: 'location', title: 'Perfect Location on Tamarindo Beach', description: "Tamarindo is a world-class surf destination with consistent waves ideal for learning. Warm water, gentle breaks, perfect conditions year-round." },
+  ],
+} = Astro.props
+
+const bgClass = { white: 'bg-white', gray: 'bg-gray-50', teal: 'bg-teal-600' }[bg]
+const textClass = bg === 'teal' ? 'text-white' : 'text-gray-900'
+const descClass = bg === 'teal' ? 'text-white/80' : 'text-gray-600'
+
+const icons: Record<string, string> = {
+  badge: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
+  group: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0',
+  location: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z',
+  dollar: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  shield: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+  star: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z',
+}
+---
+
+<section class={`py-20 ${bgClass}`}>
+  <div class="container mx-auto px-4">
+    <h2 class={`text-3xl font-bold text-center mb-12 ${textClass}`}>{title}</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      {features.map(f => (
+        <div class="text-center">
+          <div class={`w-16 h-16 ${bg === 'teal' ? 'bg-white/20' : 'bg-teal-50'} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
+            <svg class={`w-8 h-8 ${bg === 'teal' ? 'text-white' : 'text-teal-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={icons[f.icon ?? 'badge']}/>
+            </svg>
+          </div>
+          <h3 class={`text-lg font-bold mb-2 ${textClass}`}>{f.title}</h3>
+          <p class={`text-sm leading-relaxed ${descClass}`}>{f.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

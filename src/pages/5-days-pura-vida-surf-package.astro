@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import Sidebar from '../components/ui/Sidebar.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.package5Days
+const itinerary = [
+  { day:'1', title:'Foundation & Safety', desc:'Surf theory, equipment intro, ocean awareness, and your first full session in the white water.' },
+  { day:'2', title:'Pop-up & Balance', desc:'Mastering the pop-up technique, foot positioning, and riding the white water confidently.' },
+  { day:'3', title:'Reading Waves', desc:'Introduction to green wave surfing. Learn to identify and position yourself for real waves.' },
+  { day:'4', title:'Surf Trip', desc:'Guided surf trip to a nearby beach. Experience different wave conditions with your instructor.' },
+  { day:'5', title:'Open Surf & Review', desc:'Free surfing session with instructor feedback. Consolidate everything learned during the week.' },
+]
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="5 Days Pura Vida Surf Package — Most Popular Tamarindo Surf Experience" subtitle="Our most popular surf package. 4 lessons + 1 surf trip, designed for real progression." image="/images/5-day-package-hero.jpg" imageAlt="5 days surf package Tamarindo Costa Rica" breadcrumb={{ label: 'Surf Packages', href: '/surf-packages' }}/>
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">5 Days Pura Vida Surf Package — Tamarindo</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>5 Days Pura Vida Surf Package</strong> is the most popular option for travelers who want real surfing progression in Tamarindo. With 4 surf lessons plus a guided surf trip, this package gives you the perfect balance of structured coaching and adventure. By day 5, most students are confidently catching green waves on their own.</p>
+        <p class="text-gray-700 leading-relaxed mb-6">This <strong>5 day surf package in Tamarindo</strong> is designed for beginners who want more than just a taste of surfing — it's for people who want to actually learn. Our certified instructors adapt every lesson to your level, ensuring steady progress in a supportive and fun environment.</p>
+
+        <h3 class="font-bold text-gray-900 mb-4">Your 5-Day Itinerary</h3>
+        <div class="space-y-3 mb-10">
+          {itinerary.map(d => (
+            <div class="flex gap-4 p-4 bg-gray-50 rounded-xl">
+              <div class="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">{d.day}</div>
+              <div>
+                <p class="font-semibold text-gray-900">{d.title}</p>
+                <p class="text-gray-600 text-sm mt-1">{d.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <FAQ items={[
+          { question: 'Why is the 5-day package the most popular?', answer: 'It offers the best balance between time investment and surf progression. 4 lessons is enough to go from zero to confidently catching green waves, and the surf trip adds a memorable adventure to the mix.' },
+          { question: 'What\'s included in the surf trip?', answer: 'The surf trip includes transportation to a nearby beach, your surfboard, and guidance from your instructor. It\'s a chance to experience different wave conditions.' },
+          { question: 'Can beginners do the 5-day package?', answer: 'Yes! The 5-day package is designed for beginners. The progressive structure ensures you build skills day by day at a comfortable pace.' },
+          { question: 'Can I customize the schedule?', answer: 'We can work around your availability. Just let us know your dates and we\'ll schedule the 4 lessons and surf trip in a way that works for you.' },
+        ]}/>
+      </div>
+
+      <div>
+        <Sidebar price="$405" priceLabel="/ 5 Days per person" includes={['4 Surf Lessons','1 Surf Trip','90 minutes surf lesson','Professional, certified instructor','Surfboard included','Rash guard','Safety briefing','Photos on request']} ctaLabel="Book This Package — Most Popular" ctaColor="dark" sidebarTitle="Our most popular surf package in Tamarindo."/>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-teal-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold text-gray-900 text-center mb-10">Why Choose Us?</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        {[{title:'Most Affordable',desc:'Competitive pricing without compromising on safety or quality.'},{title:'Safety First',desc:'ISA certified instructors trained in ocean rescue and first aid.'},{title:'Professional Coach',desc:'Personalized feedback tailored to your specific skill level every session.'}].map(c=>(
+          <div class="text-center bg-white rounded-2xl p-6 border border-gray-100">
+            <h3 class="font-bold text-gray-900 mb-2">{c.title}</h3>
+            <p class="text-gray-600 text-sm">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 container mx-auto px-4 text-center">
+    <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1 rounded-full mb-4">Ready to Ride?</span>
+    <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
+    <a href="/book-now" class="btn-primary text-lg px-8">Book 5-Day Package</a>
+    <p class="mt-4 text-sm text-gray-500">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+  </section>
+
+  <Testimonials items={[{ name: 'Sarah K.', role: 'Traveler from USA', text: 'The 5-day package was incredible. I went from never surfing to catching green waves by day 4. The surf trip on day 4 was the highlight of my entire Costa Rica trip!' }, { name: 'Marco B.', role: 'Surfer', text: 'Best investment of my vacation. The instructor was patient, knowledgeable, and pushed me just the right amount. Came back the following year for the 7-day camp!' }]}/>
+
+  <NeedHelp/>
+</BaseLayout>

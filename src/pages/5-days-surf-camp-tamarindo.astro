@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import Sidebar from '../components/ui/Sidebar.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.surfCamp5Days
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="5 Days Surf Camp Tamarindo — Surf Package Costa Rica" subtitle="5 days of surfing, progression, and pura vida. The perfect short surf camp for travelers with limited time." image="/images/5-day-camp-hero.jpg" imageAlt="5 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '/book-now' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">5 Days Surf Camp Tamarindo — All You Need in 5 Days</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>5 Days Surf Camp in Tamarindo</strong> is the perfect option for travelers who want an immersive surf experience without committing to a full week. With 4 surf lessons, a guided surf trip, video analysis, and daily access to a surfboard, this camp delivers real progression in just 5 days.</p>
+        <p class="text-gray-700 leading-relaxed mb-6">Like our 7-day camp, the <strong>5 day surf camp Costa Rica</strong> includes all essential equipment, certified instructors, and the authentic pura vida spirit that makes Tamarindo so special. By day 5, most campers are surfing green waves with confidence.</p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-10">
+          <div>
+            <h3 class="font-bold text-gray-900 mb-3">What's Included</h3>
+            <ul class="space-y-2">{['4 Surf lessons with certified instructors','High quality surfboard & rash guard','Surf theory & video analysis','One guided surf trip','Beach transportation (when needed)','Unlimited board rental during camp','Adventure activity of your choice (ATV, Zip-line, Catamaran)'].map(i=><li class="flex items-start gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-teal-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+          </div>
+          <div>
+            <h3 class="font-bold text-gray-900 mb-3">This camp is for:</h3>
+            <ul class="space-y-2">{['Complete beginners','Intermediate surfers','Travelers with 5 days in Tamarindo','Couples & solo travelers','Anyone wanting serious progression'].map(i=><li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 mb-10">
+          {[1,2,3,4,5,6].map(n=><img src={`/images/camp-gallery-${n}.jpg`} alt="5 days surf camp Tamarindo" class="rounded-xl w-full h-32 object-cover" width="280" height="180" loading="lazy"/>)}
+        </div>
+
+        <FAQ items={[
+          { question: 'What is the difference between the 5-day and 7-day camp?', answer: 'The 5-day camp has 4 lessons vs 6 in the 7-day version. Both include a surf trip, video analysis, and the same quality of instruction. Choose based on how much time you have.' },
+          { question: 'Is accommodation included in the 5-day camp?', answer: 'Accommodation is optional. We can connect you with our partner hotels and hostels in Tamarindo at preferential rates.' },
+          { question: 'What if I have only 5 days in Costa Rica?', answer: 'The 5-day camp is designed exactly for this scenario. You\'ll maximize your surf progression in the time available and leave with real surfing skills.' },
+        ]}/>
+      </div>
+
+      <div>
+        <Sidebar price="$1,049" priceLabel="/ Per Person" includes={['4 Surf Lessons','1 Surf Trip','Video analysis','Your own rash guard','Unlimited board rental','Adventure activity']} ctaLabel="Book Your Surf Camp" ctaColor="dark"/>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 container mx-auto px-4 text-center">
+    <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1 rounded-full mb-4">Ready to Ride?</span>
+    <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
+    <a href="/book-now" class="btn-primary text-lg px-8">Book 5-Day Surf Camp</a>
+    <p class="mt-4 text-sm text-gray-500">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+  </section>
+
+  <Testimonials items={[{ name: 'Laura T.', role: 'Traveler', text: 'Had 5 days in Tamarindo and the surf camp was the perfect way to spend them. By day 4 I was surfing real waves. The video analysis helped so much!' }, { name: 'Ryan M.', role: 'Surfer', text: 'Compact but complete. The 5-day camp gave me everything I needed to go from paddling to riding. The instructor was patient and incredibly skilled at teaching.' }]} title="What They Say About Our 5-Day Surf Camp"/>
+
+  <NeedHelp/>
+</BaseLayout>

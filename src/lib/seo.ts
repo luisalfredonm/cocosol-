@@ -1,0 +1,140 @@
+export interface PageSEO {
+  slug: string
+  keyfocus: string
+  title: string
+  description: string
+  synonyms: string[]
+  related: string[]
+}
+
+export const seoData: Record<string, PageSEO> = {
+  home: {
+    slug: '/',
+    keyfocus: 'surf school tamarindo',
+    title: 'Surf School Tamarindo | Learn to Surf in Costa Rica',
+    description: 'Surf school Tamarindo offering beginner-friendly lessons, surf camps, and packages. Learn with certified instructors in Costa Rica. Book Now!',
+    synonyms: ['surf classes tamarindo', 'surf instruction costa rica', 'surf training tamarindo'],
+    related: ['Surf School Tamarindo', 'Tamarindo Surf school'],
+  },
+  surfLessons: {
+    slug: '/tamarindo-surf-lessons',
+    keyfocus: 'tamarindo surf lessons',
+    title: 'Tamarindo Surf Lessons | Learn to Surf in Costa Rica',
+    description: 'Learn to surf in Tamarindo with certified instructors. Safe, fun, and perfect for beginners & families. Private, semi-private & group lessons.',
+    synonyms: ['Surf lessons in Tamarindo', 'Learn to surf Tamarindo', 'Surf school Tamarindo', 'Surf classes Tamarindo', 'Tamarindo surfing lessons'],
+    related: ['Surf lessons Costa Rica', 'Best surf school in Tamarindo', 'Beginner surf lessons Tamarindo'],
+  },
+  privateLessons: {
+    slug: '/private-surf-lessons-tamarindo',
+    keyfocus: 'private surf lessons Tamarindo',
+    title: 'Private Surf Lessons Tamarindo | One-on-One Surf Coaching',
+    description: 'Book private surf lessons Tamarindo for personalized coaching and faster progress. One-on-one instruction for all levels.',
+    synonyms: ['Tamarindo private surf lesson', 'one-on-one surf lessons Tamarindo', 'personalized surf lessons Tamarindo', 'private surf classes tamarindo'],
+    related: ['surf lessons in Tamarindo', 'Tamarindo surf school', 'beginner surf lessons Tamarindo', 'surf coaching Costa Rica'],
+  },
+  semiPrivateLessons: {
+    slug: '/semi-private-surf-lessons-tamarindo',
+    keyfocus: 'semi-private surf lessons Tamarindo',
+    title: 'Semi-Private Surf Lessons Tamarindo | Small Group Coaching',
+    description: 'Book semi-private surf lessons Tamarindo for small group coaching. Certified instructors, equipment included, safe and fun learning. Reserve your surf session today!',
+    synonyms: ['semi private surf lessons costa rica', 'couple surf lessons tamarindo', 'small group surf lessons tamarindo', 'surf lessons for couples tamarindo', '2-3 person surf lesson tamarindo'],
+    related: ['surf lessons for couples Tamarindo', 'small group surf coaching Costa Rica'],
+  },
+  groupLessons: {
+    slug: '/group-surf-lessons-tamarindo',
+    keyfocus: 'group surf lessons tamarindo',
+    title: 'Group Surf Lessons in Tamarindo | Learn to Surf Together',
+    description: 'Fun and safe group surf lessons in Tamarindo. Perfect for friends, families, and solo travelers. Certified instructors and beginner-friendly waves. Book now!',
+    synonyms: ['group surfing lessons tamarindo', 'surf group lessons tamarindo', 'group surf classes tamarindo', 'surf lessons for groups tamarindo', 'beginner group surf lessons tamarindo'],
+    related: ['beginner surf lessons tamarindo', 'surf lessons tamarindo costa rica', 'surf school tamarindo', 'group activities tamarindo costa rica'],
+  },
+  surfPackages: {
+    slug: '/surf-packages',
+    keyfocus: 'surf packages tamarindo',
+    title: 'Surf Packages in Tamarindo | Pura Vida Surf School',
+    description: 'Choose from our 3, 5, or 7-day surf packages in Tamarindo. Designed for beginners and intermediate surfers looking for progress and fun.',
+    synonyms: ['tamarindo surf packages', 'surf package costa rica', 'multi-day surf lessons tamarindo'],
+    related: ['surf lessons tamarindo', 'surf camp tamarindo', 'best surf school tamarindo'],
+  },
+  package3Days: {
+    slug: '/3-days-pura-vida-surf-package',
+    keyfocus: '3 days surf package tamarindo',
+    title: '3 Days Pura Vida Surf Package Tamarindo | $245',
+    description: 'Start your surfing journey with our 3-day surf package in Tamarindo. 3 surf lessons, certified instructor, surfboard included. From $245.',
+    synonyms: ['3 day surf package tamarindo', 'short surf package costa rica', '3 surf lessons tamarindo'],
+    related: ['surf packages tamarindo', 'beginner surf lessons tamarindo', 'surf camp tamarindo'],
+  },
+  package5Days: {
+    slug: '/5-days-pura-vida-surf-package',
+    keyfocus: '5 days surf package tamarindo',
+    title: '5 Days Pura Vida Surf Package Tamarindo | $405',
+    description: 'Our most popular 5-day surf package in Tamarindo. 4 surf lessons + 1 surf trip, certified instructor, surfboard included. From $405.',
+    synonyms: ['5 day surf package tamarindo', '5 days surf lessons tamarindo', 'pura vida surf package'],
+    related: ['surf packages tamarindo', 'surf camp tamarindo', 'private surf lessons tamarindo'],
+  },
+  surfCamp: {
+    slug: '/surf-camp-tamarindo',
+    keyfocus: 'tamarindo surf camp',
+    title: 'Tamarindo Surf Camp | Pura Vida Surf School Costa Rica',
+    description: "Stay and surf in Tamarindo with our all-inclusive surf camp. Daily lessons, accommodation, and adventure tours in Costa Rica's surf paradise. Book your Tamarindo surf camp today!",
+    synonyms: ['surf camp costa rica tamarindo', 'surf camp in tamarindo', 'tamarindo surf retreat', 'costa rica surf camp tamarindo', 'surf vacation tamarindo', 'surf and stay tamarindo'],
+    related: ['surf camp costa rica'],
+  },
+  surfCamp7Days: {
+    slug: '/7-days-surf-camp-tamarindo',
+    keyfocus: '7 days surf camp tamarindo',
+    title: '7 Days Surf Camp Tamarindo | All-Inclusive Surf Package',
+    description: 'Join our 7 days surf camp in Tamarindo. Daily lessons, surf trips, gear, photos, and pura vida vibes. Perfect for beginners and intermediates. Book today!',
+    synonyms: ['7 day surf camp costa rica', 'week surf camp tamarindo', '7 day surf package tamarindo', 'surf camp one week tamarindo', 'tamarindo 7 days surf vacation'],
+    related: ['surf vacations costa rica', 'tamarindo surf packages', 'best surf camp in tamarindo', 'surf camp tamarindo costa rica'],
+  },
+  surfCamp5Days: {
+    slug: '/5-days-surf-camp-tamarindo',
+    keyfocus: '5 days surf camp tamarindo',
+    title: '5 Days Surf Camp Tamarindo | Surf Package Costa Rica',
+    description: 'Book our 5 days surf camp in Tamarindo. Daily lessons, surf trips, gear, photos, and pura vida vibes. Perfect for beginners and intermediates.',
+    synonyms: ['5 day surf camp costa rica', 'short surf camp tamarindo', 'tamarindo 5 day surf package', 'costa rica 5 day surf vacation'],
+    related: ['surf camp tamarindo costa rica', 'tamarindo surf lessons', 'best surf camp in tamarindo'],
+  },
+  aboutUs: {
+    slug: '/best-surf-school-in-tamarindo',
+    keyfocus: 'best surf school in Tamarindo',
+    title: 'Best Surf School in Tamarindo | About Us',
+    description: 'Learn why we are the best surf school in Tamarindo. Certified instructors, local experience, and a pura vida approach to teaching. Meet our team today!',
+    synonyms: ['top surf school in tamarindo', 'best surf lessons tamarindo', 'tamarindo surf school', 'leading surf school in tamarindo', 'best surfing instructors tamarindo'],
+    related: ['surf lessons tamarindo costa rica', 'surf instructors tamarindo', 'tamarindo surf camp', 'surf school costa rica'],
+  },
+  contact: {
+    slug: '/surf-school-near-me-tamarindo',
+    keyfocus: 'surf school near me Tamarindo',
+    title: 'Surf School Near Me Tamarindo | Contact Us',
+    description: 'Looking for a surf school near you in Tamarindo? Contact us to book surf lessons, surf camps, and packages. Quick replies on WhatsApp.',
+    synonyms: ['surf school near me costa rica', 'tamarindo surf school near me', 'surf lessons near me tamarindo', 'nearest surf school tamarindo'],
+    related: ['tamarindo surf lessons', 'surf school tamarindo costa rica', 'best surf school in tamarindo', 'private surf lessons tamarindo'],
+  },
+  bookNow: {
+    slug: '/book-now',
+    keyfocus: 'book surf lessons tamarindo',
+    title: 'Book Surf Lessons & Surf Camps In Tamarindo, Costa Rica',
+    description: 'Book your surf lessons, surf packages or surf camp in Tamarindo online. Choose your experience and secure your spot with our professional surf school.',
+    synonyms: ['book surf classes tamarindo', 'reserve surf lessons tamarindo', 'surf lesson booking tamarindo'],
+    related: ['private surf lessons tamarindo', 'surf packages tamarindo', 'surf camp tamarindo'],
+  },
+}
+
+export const ROUTES = {
+  HOME: '/',
+  SURF_LESSONS: '/tamarindo-surf-lessons',
+  PRIVATE: '/private-surf-lessons-tamarindo',
+  SEMI_PRIVATE: '/semi-private-surf-lessons-tamarindo',
+  GROUP: '/group-surf-lessons-tamarindo',
+  PACKAGES: '/surf-packages',
+  PKG_3: '/3-days-pura-vida-surf-package',
+  PKG_5: '/5-days-pura-vida-surf-package',
+  CAMP: '/surf-camp-tamarindo',
+  CAMP_7: '/7-days-surf-camp-tamarindo',
+  CAMP_5: '/5-days-surf-camp-tamarindo',
+  ABOUT: '/best-surf-school-in-tamarindo',
+  CONTACT: '/surf-school-near-me-tamarindo',
+  BOOK: '/book-now',
+}

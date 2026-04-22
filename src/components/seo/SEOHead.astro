@@ -1,0 +1,52 @@
+---
+export interface Props {
+  title: string
+  description: string
+  slug: string
+  keyfocus?: string
+  image?: string
+  noindex?: boolean
+}
+const { title, description, slug, keyfocus, image = '/og-default.jpg', noindex = false } = Astro.props
+const site = 'https://puravidasurfschool.com'
+const canonical = slug === '/' ? site : `${site}${slug}`
+const ogImage = `${site}${image}`
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'SportsActivityLocation'],
+      '@id': `${site}/#business`,
+      name: 'Pura Vida Surf School',
+      description: 'Surf school in Tamarindo, Costa Rica offering private, semi-private and group surf lessons, surf camps and packages.',
+      url: site,
+      telephone: '+50661987851',
+      email: 'info@puravidasurfschool.com',
+      image: ogImage,
+      priceRange: '$50-$1399',
+      currenciesAccepted: 'USD, CRC',
+      address: { '@type': 'PostalAddress', addressLocality: 'Tamarindo', addressRegion: 'Guanacaste', addressCountry: 'CR' },
+      geo: { '@type': 'GeoCoordinates', latitude: 10.2994, longitude: -85.8415 },
+      openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '07:00', closes: '17:00' }],
+      sameAs: ['https://www.facebook.com/puravidasurfschool', 'https://www.instagram.com/puravidasurfschool'],
+    },
+    { '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: title, description, isPartOf: { '@id': `${site}/#website` }, inLanguage: 'en-US' },
+  ],
+}
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex,nofollow" />}
+{keyfocus && <meta name="keywords" content={keyfocus} />}
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="Pura Vida Surf School" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

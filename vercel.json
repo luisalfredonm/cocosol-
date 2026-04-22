@@ -1,0 +1,32 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ],
+  "redirects": [
+    { "source": "/about", "destination": "/best-surf-school-in-tamarindo", "permanent": true },
+    { "source": "/about-us", "destination": "/best-surf-school-in-tamarindo", "permanent": true },
+    { "source": "/contact", "destination": "/surf-school-near-me-tamarindo", "permanent": true },
+    { "source": "/contact-us", "destination": "/surf-school-near-me-tamarindo", "permanent": true },
+    { "source": "/surf-lessons", "destination": "/tamarindo-surf-lessons", "permanent": true },
+    { "source": "/surf-camp", "destination": "/surf-camp-tamarindo", "permanent": true },
+    { "source": "/packages", "destination": "/surf-packages", "permanent": true },
+    { "source": "/private-surf-lessons", "destination": "/private-surf-lessons-tamarindo", "permanent": true },
+    { "source": "/group-surf-lessons", "destination": "/group-surf-lessons-tamarindo", "permanent": true },
+    { "source": "/7-days-surf-camp", "destination": "/7-days-surf-camp-tamarindo", "permanent": true },
+    { "source": "/5-days-surf-camp", "destination": "/5-days-surf-camp-tamarindo", "permanent": true }
+  ]
+}

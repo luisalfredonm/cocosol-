@@ -1,0 +1,105 @@
+---
+import { ROUTES } from '../../lib/seo'
+const navLinks = [
+  {
+    label: 'Surf Lessons',
+    href: ROUTES.SURF_LESSONS,
+    children: [
+      { label: 'Private Surf Lessons', href: ROUTES.PRIVATE },
+      { label: 'Semi-Private Surf Lessons', href: ROUTES.SEMI_PRIVATE },
+      { label: 'Group Surf Lessons', href: ROUTES.GROUP },
+    ],
+  },
+  {
+    label: 'Surf Packages',
+    href: ROUTES.PACKAGES,
+    children: [
+      { label: '3 Days Pura Vida Surf', href: ROUTES.PKG_3 },
+      { label: '5 Days Pura Vida Surf', href: ROUTES.PKG_5 },
+    ],
+  },
+  {
+    label: 'Surf Camp',
+    href: ROUTES.CAMP,
+    children: [
+      { label: '7 Days Surf Camp', href: ROUTES.CAMP_7 },
+      { label: '5 Days Surf Camp', href: ROUTES.CAMP_5 },
+    ],
+  },
+  { label: 'About Us', href: ROUTES.ABOUT },
+  { label: 'Contact', href: ROUTES.CONTACT },
+]
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2">
+        <img src="/images/logo.png" alt="Pura Vida Surf School Tamarindo" class="h-12 w-auto" width="120" height="48" loading="eager" />
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-6" aria-label="Main navigation">
+        {navLinks.map(link => (
+          <div class="relative group">
+            <a
+              href={link.href}
+              class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-medium text-sm transition-colors py-5"
+            >
+              {link.label}
+              {link.children && (
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              )}
+            </a>
+            {link.children && (
+              <div class="absolute top-full left-0 w-56 bg-white shadow-lg rounded-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+                {link.children.map(child => (
+                  <a href={child.href} class="block px-4 py-2.5 text-sm text-gray-700 hover:text-teal-600 hover:bg-teal-50 transition-colors">
+                    {child.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </nav>
+
+      <!-- CTA + Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <a href={ROUTES.BOOK} class="hidden md:inline-block bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all duration-200 shadow-[0_4px_14px_rgba(0,188,212,0.3)] hover:shadow-[0_6px_20px_rgba(0,188,212,0.45)] hover:-translate-y-px">
+          Book Now
+        </a>
+        <button id="menu-toggle" class="lg:hidden p-2 text-gray-700" aria-label="Toggle menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 px-4 pb-4">
+    {navLinks.map(link => (
+      <div>
+        <a href={link.href} class="block py-3 font-semibold text-gray-800 border-b border-gray-100">{link.label}</a>
+        {link.children && link.children.map(child => (
+          <a href={child.href} class="block py-2 pl-4 text-sm text-gray-600 hover:text-teal-600">{child.label}</a>
+        ))}
+      </div>
+    ))}
+    <a href={ROUTES.BOOK} class="mt-4 block w-full text-center bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold py-3 rounded-xl transition-all duration-200 shadow-[0_4px_14px_rgba(0,188,212,0.3)]">Book Now</a>
+  </div>
+</header>
+
+<!-- Spacer for fixed header -->
+<div class="h-16"></div>
+
+<script>
+  const toggle = document.getElementById('menu-toggle')
+  const menu = document.getElementById('mobile-menu')
+  toggle?.addEventListener('click', () => menu?.classList.toggle('hidden'))
+</script>

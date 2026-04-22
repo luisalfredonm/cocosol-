@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import VideoSection from '../components/sections/VideoSection.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import { seoData } from '../lib/seo'
+
+const seo = seoData.surfLessons
+const faqs = [
+  { question: 'Do I need experience to take surf lessons?', answer: 'Not at all! Our surf lessons are designed for complete beginners. Our certified instructors will guide you step by step from land training to catching your first waves.' },
+  { question: 'How long is a surf lesson?', answer: 'All our surf lessons are 90 minutes. This includes a safety briefing on the beach and time in the water with your instructor.' },
+  { question: 'What is the best option to start?', answer: 'For beginners, we recommend a private lesson for the fastest progress, or a group lesson for a social experience at a lower price.' },
+  { question: 'What can I expect on a regular day?', answer: 'Your instructor will meet you at the beach, provide all equipment, give a safety briefing, and guide you through your first waves.' },
+  { question: 'What sets your surf camp apart?', answer: 'We are a local surf school with certified instructors who know Tamarindo\'s waves inside and out. Small groups, personalized attention, and a true pura vida experience.' },
+  { question: 'Is equipment included?', answer: 'Yes! Surfboard, foam guard, and all necessary equipment are included in every lesson.' },
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero
+    title="Tamarindo Surf Lessons | Best Surfing Lessons In Tamarindo, Costa Rica"
+    subtitle="Learn to surf in Tamarindo with certified instructors. Safe, fun, and perfect for beginners & families."
+    image="/images/surf-lessons-hero.jpg"
+    imageAlt="Tamarindo surf lessons Costa Rica"
+    cta={{ label: 'Book Your Lesson', href: '/book-now' }}
+    height="large"
+  />
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose Tamarindo for Surf Lessons?</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">If you're dreaming of riding your first wave in warm tropical water surrounded by golden beaches, friendly locals, and consistent waves, then Tamarindo, Costa Rica is where you should learn. Our certified surf instructors, safe learning conditions, and personalized lessons make <strong>surf lessons in Tamarindo</strong> accessible for everyone from kids to grandparents.</p>
+        <div class="grid md:grid-cols-3 gap-6 mt-8">
+          {[
+            { h: 'Who Can Take Surf Lessons?', items: ['Beginners', 'Kids', 'Intermediate Surfers', 'Families'] },
+            { h: "What's Included", items: ['90-minute surf lesson', 'Professional certified instructor', 'Foam guard', 'Safety briefing', 'Surfboard included', 'Photos on request'] },
+            { h: 'What to Bring', items: ['Swimwear or board shorts', 'Towel', 'Sunscreen (reef-safe)', 'Water bottle'] },
+          ].map(col => (
+            <div>
+              <h3 class="font-bold text-gray-900 mb-3">{col.h}</h3>
+              <ul class="space-y-1">
+                {col.items.map(i => (
+                  <li class="flex items-center gap-2 text-sm text-gray-600">
+                    <svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    {i}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div class="bg-teal-50 border border-teal-100 rounded-2xl p-6">
+          <h3 class="font-bold text-gray-900 mb-4">What You'll Learn:</h3>
+          {['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rules', 'Surf etiquette', 'How to handle the board'].map(i => (
+            <div class="flex items-center gap-2 text-sm text-gray-700 mb-2">
+              <svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              {i}
+            </div>
+          ))}
+          <a href="/book-now" class="mt-4 btn-primary block text-center">Choose Your Surf Lesson</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <VideoSection title="Learn to surf in Tamarindo most beautiful beaches with certified instructors who truly care about your progress." bullets={['Use the pura vida lifestyle', 'Feel the vibes', 'Ride the wave']} bgImage="/images/video-surf-lessons.jpg" cta={{ label: 'Choose Your Surf Lesson', href: '/book-now' }}/>
+
+  <section class="py-20 container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-gray-900 mb-3">Our Surf Lessons in Tamarindo</h2>
+    <p class="text-gray-600 mb-10">We offer three main types of surfing lessons taught in small groups to guarantee personalized attention, fast learning, and maximum safety.</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      {[
+        { title: 'Private Surf Lessons in Tamarindo', href: '/private-surf-lessons-tamarindo', price: '$90', desc: 'One-on-one personalized coaching for faster progress and full instructor focus.', img: '/images/private-lessons-card.jpg' },
+        { title: 'Semi-Private Surf Lessons in Tamarindo', href: '/semi-private-surf-lessons-tamarindo', price: '$50', desc: 'Learn together with 2-3 people. Great for couples and small groups of friends.', img: '/images/semi-private-card.jpg' },
+        { title: 'Group Surf Lessons in Tamarindo', href: '/group-surf-lessons-tamarindo', price: '$50', desc: 'The most affordable option. Small groups, big fun. Perfect for solo travelers.', img: '/images/group-lessons-card.jpg' },
+      ].map(l => (
+        <div class="border border-gray-200 rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+          <div class="relative h-48">
+            <img src={l.img} alt={l.title} class="w-full h-full object-cover" width="400" height="250" loading="lazy"/>
+            <span class="absolute top-3 right-3 bg-teal-500 text-white text-sm font-bold px-3 py-1 rounded-full">{l.price}</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-gray-900 mb-2">{l.title}</h3>
+            <p class="text-gray-600 text-sm mb-4">{l.desc}</p>
+            <a href={l.href} class="btn-outline text-sm">View Details</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-16 bg-teal-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold text-gray-900 mb-3 text-center">Pura Vida Surf Package</h2>
+      <p class="text-gray-600 text-center max-w-2xl mx-auto mb-8">The perfect option for travelers who want structured surf lessons without committing to a full surf camp.</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        {[
+          { days: '3 Days', price: '$245', href: '/3-days-pura-vida-surf-package', detail: '3 Surf lessons + 1 Surf Trip' },
+          { days: '5 Days', price: '$405', href: '/5-days-pura-vida-surf-package', detail: '4 Surf lessons + 1 Surf Trip', popular: true },
+          { days: '7 Days', price: '$565', href: '/7-days-surf-camp-tamarindo', detail: '6 Surf lessons + 1 Surf Trip' },
+        ].map(p => (
+          <div class={`bg-white rounded-2xl p-6 border text-center ${p.popular ? 'border-teal-500 ring-2 ring-teal-500' : 'border-gray-200'}`}>
+            {p.popular && <span class="inline-block bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">Most Popular</span>}
+            <h3 class="font-bold text-gray-900 mb-1">{p.days} Pura Vida Surf</h3>
+            <p class="text-gray-500 text-sm mb-3">{p.detail}</p>
+            <p class="text-3xl font-bold text-teal-600 mb-4">From {p.price}</p>
+            <a href={p.href} class="btn-primary text-sm">More Details</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials items={[
+    { name: 'William Bowman', role: 'Surfer', text: 'Amazing experience! The instructor was patient, knowledgeable, and made me feel safe in the water the whole time. I caught my first wave on day one!' },
+    { name: 'Stephanie Smith', role: 'Designer', text: 'Best decision of our Costa Rica trip. The small group made it personal and the instructor truly cared about our progress. Will definitely come back!' },
+  ]} bg="gray"/>
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Surf School FAQs — Everything You Need to Know</h2>
+        <a href="/surf-school-near-me-tamarindo" class="btn-outline mt-4">Contact Us on WhatsApp</a>
+      </div>
+      <FAQ items={faqs}/>
+    </div>
+  </section>
+
+  <NeedHelp/>
+</BaseLayout>

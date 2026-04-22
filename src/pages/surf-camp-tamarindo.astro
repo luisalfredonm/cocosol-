@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import VideoSection from '../components/sections/VideoSection.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.surfCamp
+const camps = [
+  { title: '7 Days Surf Camp', href: '/7-days-surf-camp-tamarindo', price: '$1,399', features: ['7 surf lessons guided by certified experienced instructors','High quality surfboard & rash guard','Surf theory & video analysis','One surf trip','Beach transportation (when needed)','Unlimited board rental during camp','Adventure activity of your choice (ATV, Zip-line, Catamaran)'] },
+  { title: '5 Days Surf Camp', href: '/5-days-surf-camp-tamarindo', price: '$1,049', features: ['5 surf lessons guided by certified experienced instructors','High quality surfboard & rash guard','Surf theory & video analysis','One surf trip','Beach transportation (when needed)','Unlimited board rental during camp','Adventure activity of your choice (ATV, Zip-line, Catamaran)'] },
+]
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="Tamarindo Surf Camp in Costa Rica" subtitle="Live the pura vida lifestyle every day, learn to surf, and connect with fellow travelers in Tamarindo." image="/images/surf-camp-hero.jpg" imageAlt="Tamarindo surf camp Costa Rica" cta={{ label: 'Reserve Your Surf Camp', href: '/book-now' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">What's Included in Our Tamarindo Surf Camp</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Imagine waking up steps from the beach, grabbing your board, and surfing perfect warm waves every single day. Our <strong>Tamarindo Surf Camp</strong> was created for beginners, intermediates, and travelers who want a complete surf experience in Costa Rica. We blend fun, professional instruction, ocean safety, and adventure to help you surf confidently and progress fast.</p>
+        <p class="text-gray-700 leading-relaxed mb-6">Tamarindo offers some of the most consistent waves in Central America — ideal for learning and improving. Surf with certified instructors, enjoy guided sessions, and explore Costa Rica like a local.</p>
+
+        <h3 class="font-bold text-gray-900 mb-3">Everything Included:</h3>
+        <ul class="space-y-2 mb-8">{['Daily surf lessons with certified instructors','Accommodation options available','Surfboards & equipment provided','Surf theory & coaching sessions','Adventure activity of your choice (ATV, Zip-Line, Catamaran)'].map(i=><li class="flex items-center gap-2 text-gray-700"><svg class="w-5 h-5 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+
+        <FAQ title="Payment Questions" items={[
+          { question: 'Where Can I Find Information?', answer: 'Contact us via WhatsApp at +506 6198-7851 or through our contact form. We respond quickly and are happy to answer any questions about the surf camp.' },
+          { question: 'What Are Your Terms And Conditions?', answer: 'We require a deposit to reserve your spot. Full payment is due before the camp begins. We have a flexible rescheduling policy in case of bad weather or unforeseen circumstances.' },
+          { question: 'Can I Buy Directly From The School?', answer: 'Yes! You can book directly through our website using our secure online booking system. We accept credit cards via BAC San José and cash payments at the school.' },
+          { question: 'Do You Offer Group Discounts?', answer: 'Yes! Groups of 4 or more receive special pricing. Contact us for a custom quote for your group.' },
+        ]} columns={2}/>
+      </div>
+
+      <div>
+        <div class="bg-teal-50 border border-teal-100 rounded-2xl p-6">
+          <h3 class="font-bold text-gray-900 mb-3">What to Bring</h3>
+          <ul class="space-y-2 mb-5">{['Change of clothes','Life vest (provided)','Expert instructors (provided)'].map(i=><li class="flex items-center gap-2 text-sm text-gray-700"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+          <a href="/book-now" class="btn-primary block text-center">Check Surf Camp Availability</a>
+          <div class="flex items-center gap-2 mt-4 text-sm text-gray-600">
+            <svg class="w-4 h-4 text-teal-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            If you need help: <a href="tel:+50661987851" class="font-semibold text-teal-600">+506 6198-7851</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <VideoSection title="Join with us and enjoy the fun of water sports" subtitle="Experience the pura vida lifestyle with daily surfing, new friends, and unforgettable moments on Tamarindo Beach." bgImage="/images/video-camp.jpg" cta={{ label: 'Check Surf Camp Availability', href: '/book-now' }}/>
+
+  <!-- Camp Packages -->
+  <section class="py-20 container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-gray-900 text-center mb-10">Surf Camp Packages</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      {camps.map(c => (
+        <div class="border border-gray-200 rounded-2xl p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">{c.title}</h3>
+          <p class="text-3xl font-bold text-teal-600 mb-4">${c.price.replace('$','')} <span class="text-sm font-normal text-gray-500">per person</span></p>
+          <ul class="space-y-2 mb-6">{c.features.map(f=><li class="flex items-start gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-teal-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01"/></svg>{f}</li>)}</ul>
+          <a href={c.href} class="btn-outline block text-center">View Surf Camps</a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Testimonials items={[{ name: 'Jess Armijo', role: 'Diver', text: 'The surf camp was an incredible experience. Waking up every morning to surf, improving every day, and the adventure activity at the end was the perfect way to finish the week.' }, { name: 'William Bowman', role: 'Surfer', text: 'I came to Tamarindo not knowing how to surf and left riding green waves confidently. The instructors are amazing and the camp atmosphere is really special.' }]} title="What they say"/>
+
+  <NeedHelp/>
+</BaseLayout>

@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import Sidebar from '../components/ui/Sidebar.astro'
+import VideoSection from '../components/sections/VideoSection.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.privateLessons
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="Private Surf Lessons Tamarindo — A Personalized Surfing Experience in Costa Rica" image="/images/private-lessons-hero.jpg" imageAlt="Private surf lessons Tamarindo one on one" breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}/>
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Private Surf Lessons Tamarindo — Personalized One-on-One Coaching</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Tamarindo has the best <strong>private surf lessons Tamarindo</strong> has to offer. Our one-on-one lessons are designed for adaptability and faster progression. Whether you're starting your first steps on a surfboard or looking to refine your technique, our experienced instructors are here to help you achieve your goals.</p>
+        <p class="text-gray-700 leading-relaxed mb-6">These <strong>private surf lessons in Tamarindo</strong> provide customized feedback, safety guidance, and a step-by-step experience tailored to your level. Every session is scheduled around the best tides and waves to maximize your time in the water.</p>
+
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Perfect For:</h3>
+        <ul class="space-y-2 mb-8">
+          {['Beginners who want one-on-one attention and a safe introduction to surfing','Intermediate surfers looking to improve technique and progress faster','Travelers who prefer a personalized experience instead of group lessons','Surfers who want guaranteed waves and full focus from an instructor','Families, couples, and anyone who wants a fully customized surf session'].map(i => (
+            <li class="flex items-start gap-2 text-gray-700">
+              <svg class="w-5 h-5 text-teal-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              {i}
+            </li>
+          ))}
+        </ul>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-10">
+          {[
+            { h: 'Who Can Take?', items: ['Beginners', 'Kids', 'Intermediate Surfers', 'Families'] },
+            { h: "What's Included", items: ['90-minute surf lesson', 'Professional certified instructor', 'Foam guard', 'Safety briefing', 'Surfboard included', 'Photos on request'] },
+            { h: 'What to Bring', items: ['Swimwear', 'Sunscreen (reef-safe)', 'Towel', 'Water bottle'] },
+          ].map(col => (
+            <div>
+              <h3 class="font-bold text-gray-900 mb-3">{col.h}</h3>
+              <ul class="space-y-1">{col.items.map(i => <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-5 mb-8">
+          <h3 class="font-bold text-gray-900 mb-2">Best Time of Day for Private Surf Lessons in Tamarindo</h3>
+          <p class="text-gray-600 text-sm">The best time for learning is the morning, early afternoon, when the waves are smoother and the wind is lighter. We schedule lessons based on tide and wave conditions to guarantee the best experience.</p>
+        </div>
+
+        <FAQ items={[
+          { question: 'What do private surf lessons in Tamarindo include?', answer: 'Every private lesson includes a certified instructor, surfboard, foam guard, safety briefing on the beach, and 90 minutes of one-on-one instruction in the water. Photos are available on request.' },
+          { question: 'Are private surf lessons suitable for beginners?', answer: 'Absolutely! Private lessons are perfect for beginners because you get 100% of the instructor\'s attention. You\'ll progress much faster than in a group setting.' },
+          { question: 'How long is a private surf lesson in Tamarindo?', answer: 'Each session is 90 minutes, including a land safety briefing and time in the water.' },
+          { question: 'Do I need to bring my own surfboard?', answer: 'No — a surfboard is included with every lesson. We provide the right board for your level and size.' },
+        ]} columns={1}/>
+      </div>
+
+      <div>
+        <Sidebar price="$90" priceLabel="/ 90 Minutes" includes={['Surfboard included','Professional, certified instructor','Foam guard','Safety briefing','Photos available on request']} ctaLabel="Check Availability"/>
+      </div>
+    </div>
+  </section>
+
+  <VideoSection title="See Our Private Surf Lessons in Tamarindo in Action" subtitle="Watch what a private session looks like — personalized coaching, one-on-one attention, and real progress on the waves of Tamarindo Beach." bgImage="/images/video-private.jpg" cta={{ label: 'Check Availability', href: '/book-now' }}/>
+
+  <!-- Gallery -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="grid grid-cols-2 gap-3">
+          {[1,2,3,4].map(n => <img src={`/images/private-gallery-${n}.jpg`} alt="Private surf lessons Tamarindo gallery" class="rounded-xl w-full h-40 object-cover" width="300" height="200" loading="lazy"/>)}
+        </div>
+        <div>
+          <span class="section-label mb-2 block">Our Gallery</span>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Surf Moments from Our Private Surf Lessons in Tamarindo</h2>
+          <p class="text-gray-600 leading-relaxed text-sm">Explore our gallery and take a look at the amazing moments captured during our <strong>private surf lessons Tamarindo</strong>. These images show the personalized instruction, safety techniques, and the joy that make our Tamarindo private surf lessons so unique.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="py-16 container mx-auto px-4 text-center">
+    <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1 rounded-full mb-4">Ready to Ride?</span>
+    <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
+    <p class="text-gray-600 mb-6 max-w-lg mx-auto">Select your preferred date and time. Our booking system will guide you through the remaining steps.</p>
+    <a href="/book-now" class="btn-primary text-lg px-8">Book Your Private Lesson</a>
+    <p class="mt-4 text-sm text-gray-500">Secure payments · Trusted instructors · Flexible rescheduling</p>
+  </section>
+
+  <Testimonials items={[
+    { name: 'Stephanie Smith', role: 'Designer', text: 'Best experience on our whole vacation! Franky was AWESOME! He was kind and patient. Fully prepared us on land, so when we hit the ocean, everyone was successful.' },
+    { name: 'Jess Armijo', role: 'Diver', text: 'In facilisi odio metus nunc himenaeos semper consectetur tempus adipiscing elit. Ut hac habitant feugiat cursus lectus faucibus.' },
+  ]} title="What Surfers Say About Our Private Surf Lessons in Tamarindo"/>
+
+  <NeedHelp/>
+
+  <section class="py-10 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Also Available at Pura Vida Surf School</h2>
+      <div class="flex flex-wrap gap-3">
+        {[{l:'Semi-Private Surf Lessons',h:'/semi-private-surf-lessons-tamarindo'},{l:'Group Surf Lessons',h:'/group-surf-lessons-tamarindo'},{l:'Surf Packages',h:'/surf-packages'},{l:'Surf Camp Tamarindo',h:'/surf-camp-tamarindo'}].map(x=>(
+          <a href={x.h} class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-teal-400 transition-colors">{x.l}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

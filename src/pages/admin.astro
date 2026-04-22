@@ -1,0 +1,691 @@
+---
+export const prerender = false
+
+import { supabase } from '../lib/supabase'
+import { formatCurrency, formatTime } from '../lib/classTypes'
+import '../styles/global.css'
+
+const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD ?? 'admin'
+const authCookie = Astro.cookies.get('pvss_admin')
+const isAuthenticated = authCookie?.value === ADMIN_PASSWORD
+
+const DOW_LABELS = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+// ── POST handlers ──────────────────────────────────────────────────────────
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData()
+  const action = form.get('action') as string
+
+  if (action === 'login') {
+    const password = form.get('password') as string
+    if (password === ADMIN_PASSWORD) {
+      Astro.cookies.set('pvss_admin', ADMIN_PASSWORD, {
+        httpOnly: true, secure: true, sameSite: 'lax', maxAge: 60 * 60 * 8, path: '/',
+      })
+    }
+    return Astro.redirect('/admin')
+  }
+
+  if (!isAuthenticated) return Astro.redirect('/admin')
+
+  try {
+    // Booking status
+    if (action === 'update') {
+      const id = form.get('id') as string
+      const status = form.get('status') as string
+      await supabase.from('bookings').update({ status }).eq('id', id)
+      return Astro.redirect('/admin?tab=bookings')
+    }
+
+    // Class type update
+    if (action === 'update_class_type') {
+      const id = form.get('id') as string
+      const minParticipants = parseInt(form.get('min_participants_per_booking') as string)
+      const maxParticipants = parseInt(form.get('max_participants_per_booking') as string)
+      const normalizedMin = Number.isNaN(minParticipants) ? 1 : Math.max(1, minParticipants)
+      const normalizedMaxRaw = Number.isNaN(maxParticipants) ? normalizedMin : Math.max(1, maxParticipants)
+      const normalizedMax = Math.max(normalizedMin, normalizedMaxRaw)
+      await supabase.from('class_types').update({
+        name: form.get('name'),
+        price_per_person: parseFloat(form.get('price_per_person') as string),
+        min_participants_per_booking: normalizedMin,
+        max_participants_per_booking: normalizedMax,
+        max_capacity: parseInt(form.get('max_capacity') as string),
+        duration_minutes: parseInt(form.get('duration_minutes') as string),
+        description: form.get('description'),
+        badge: (form.get('badge') as string) || null,
+        active: form.get('active') === 'true',
+        sort_order: parseInt(form.get('sort_order') as string),
+      }).eq('id', id)
+      return Astro.redirect('/admin?tab=class-types')
+    }
+
+    // Weekly slots
+    if (action === 'add_weekly_slot') {
+      const class_type_id = form.get('class_type_id') as string
+      const day_of_week = parseInt(form.get('day_of_week') as string)
+      const start_time = form.get('start_time') as string
+      await supabase.from('weekly_slots').upsert(
+        { class_type_id, day_of_week, start_time },
+        { onConflict: 'class_type_id,day_of_week,start_time' }
+      )
+      return Astro.redirect('/admin?tab=weekly-slots')
+    }
+    if (action === 'delete_weekly_slot') {
+      await supabase.from('weekly_slots').delete().eq('id', parseInt(form.get('id') as string))
+      return Astro.redirect('/admin?tab=weekly-slots')
+    }
+
+    // Date-specific capacity overrides
+    if (action === 'set_capacity') {
+      await supabase.from('tour_capacity').upsert(
+        {
+          class_type_id: form.get('class_type_id'),
+          capacity_date: form.get('capacity_date'),
+          max_capacity: parseInt(form.get('max_capacity') as string),
+        },
+        { onConflict: 'class_type_id,capacity_date' }
+      )
+      return Astro.redirect('/admin?tab=capacity')
+    }
+    if (action === 'delete_capacity') {
+      await supabase.from('tour_capacity').delete().eq('id', parseInt(form.get('id') as string))
+      return Astro.redirect('/admin?tab=capacity')
+    }
+
+    // Date-specific slot overrides
+    if (action === 'add_slot') {
+      await supabase.from('tour_slots').upsert(
+        {
+          class_type_id: form.get('class_type_id'),
+          slot_date: form.get('slot_date'),
+          start_time: form.get('start_time'),
+        },
+        { onConflict: 'class_type_id,slot_date,start_time' }
+      )
+      return Astro.redirect('/admin?tab=date-slots')
+    }
+    if (action === 'delete_slot') {
+      await supabase.from('tour_slots').delete().eq('id', parseInt(form.get('id') as string))
+      return Astro.redirect('/admin?tab=date-slots')
+    }
+  } catch (e) {
+    console.error('Admin action error:', e)
+  }
+}
+
+// Logout
+if (Astro.url.searchParams.get('logout') === '1') {
+  Astro.cookies.delete('pvss_admin', { path: '/' })
+  return Astro.redirect('/admin')
+}
+
+// ── Data fetching ──────────────────────────────────────────────────────────
+let bookings: any[] = []
+let classTypes: any[] = []
+let weeklySlots: any[] = []
+let capacities: any[] = []
+let dateSlots: any[] = []
+let stats = { total: 0, confirmed: 0, pending: 0, cancelled: 0, revenue: 0 }
+
+const activeTab = Astro.url.searchParams.get('tab') ?? 'bookings'
+const statusFilter = Astro.url.searchParams.get('status') ?? ''
+const dateFilter = Astro.url.searchParams.get('date') ?? ''
+
+if (isAuthenticated) {
+  const [
+    { data: allBookings },
+    { data: ctData },
+    { data: wsData },
+    { data: capData },
+    { data: dsData },
+    { data: statsData },
+  ] = await Promise.all([
+    supabase.from('bookings').select('*')
+      .order('booking_date', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(200),
+    supabase.from('class_types').select('*').order('sort_order'),
+    supabase.from('weekly_slots').select('*, class_types(name)').order('class_type_id').order('day_of_week').order('start_time'),
+    supabase.from('tour_capacity').select('*, class_types(name)').order('capacity_date', { ascending: true }),
+    supabase.from('tour_slots').select('*, class_types(name)').order('slot_date', { ascending: true }).order('start_time'),
+    supabase.from('bookings').select('status, total_amount'),
+  ])
+
+  classTypes = ctData ?? []
+  weeklySlots = wsData ?? []
+  capacities = capData ?? []
+  dateSlots = dsData ?? []
+
+  for (const b of statsData ?? []) {
+    stats.total++
+    if (b.status === 'confirmed') { stats.confirmed++; stats.revenue += Number(b.total_amount) }
+    if (b.status === 'pending') stats.pending++
+    if (b.status === 'cancelled') stats.cancelled++
+  }
+
+  let q = (allBookings ?? [])
+  if (statusFilter) q = q.filter((b: any) => b.status === statusFilter)
+  if (dateFilter) q = q.filter((b: any) => b.booking_date === dateFilter)
+  bookings = q
+
+  const ctMap: Record<string, string> = {}
+  for (const ct of classTypes) ctMap[ct.id] = ct.name
+}
+
+const classTypesById: Record<string, any> = {}
+for (const ct of classTypes) classTypesById[ct.id] = ct
+
+// Pre-compute weekly slots grouped by service → day
+const weeklySlotsByService: Record<string, Record<number, any[]>> = {}
+for (const s of weeklySlots) {
+  if (!weeklySlotsByService[s.class_type_id]) weeklySlotsByService[s.class_type_id] = {}
+  const byDay = weeklySlotsByService[s.class_type_id]
+  if (!byDay[s.day_of_week]) byDay[s.day_of_week] = []
+  byDay[s.day_of_week].push(s)
+}
+
+function statusBadge(status: string) {
+  if (status === 'confirmed') return 'bg-green-100 text-green-800'
+  if (status === 'pending') return 'bg-amber-100 text-amber-800'
+  return 'bg-red-100 text-red-800'
+}
+
+const TABS = [
+  { id: 'bookings', label: 'Bookings' },
+  { id: 'class-types', label: 'Prices & Services' },
+  { id: 'weekly-slots', label: 'Weekly Schedule' },
+  { id: 'capacity', label: 'Capacity Overrides' },
+  { id: 'date-slots', label: 'Date Slot Overrides' },
+]
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Pura Vida Surf School</title>
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+
+{!isAuthenticated ? (
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm">
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-3">
+          <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+        </div>
+        <h1 class="text-xl font-bold text-gray-900">Pura Vida Admin</h1>
+        <p class="text-gray-500 text-sm mt-1">Enter your password to continue</p>
+      </div>
+      <form method="POST">
+        <input type="hidden" name="action" value="login" />
+        <input type="password" name="password" placeholder="Password" required autofocus
+          class="w-full border border-gray-200 rounded-xl px-4 py-2.5 mb-4 outline-none focus:border-teal-500 text-sm" />
+        <button type="submit"
+          class="w-full bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold py-2.5 rounded-xl transition-colors text-sm">
+          Log In
+        </button>
+      </form>
+    </div>
+  </div>
+) : (
+  <div>
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+          </svg>
+        </div>
+        <span class="font-bold text-gray-900">Pura Vida — Admin</span>
+      </div>
+      <a href="/admin?logout=1" class="text-sm text-gray-400 hover:text-red-500 transition-colors">Log out</a>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        {[
+          { label: 'Total', value: stats.total, color: 'text-gray-900' },
+          { label: 'Confirmed', value: stats.confirmed, color: 'text-green-700' },
+          { label: 'Pending', value: stats.pending, color: 'text-amber-700' },
+          { label: 'Revenue', value: `$${stats.revenue.toLocaleString('en-US', { minimumFractionDigits: 0 })}`, color: 'text-teal-700' },
+        ].map(s => (
+          <div class="bg-white rounded-2xl p-5 shadow-sm">
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">{s.label}</p>
+            <p class={`text-2xl font-extrabold ${s.color}`}>{s.value}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex flex-wrap gap-1 mb-6 bg-white rounded-xl shadow-sm p-1 w-fit">
+        {TABS.map(t => (
+          <a href={`/admin?tab=${t.id}`}
+            class={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${activeTab === t.id || (activeTab === '' && t.id === 'bookings') ? 'tab-active' : 'tab-inactive'}`}>
+            {t.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- ══ TAB: BOOKINGS ══════════════════════════════════════════════════ -->
+      {(activeTab === 'bookings' || activeTab === '') && (
+        <div>
+          <form method="GET" class="bg-white rounded-2xl shadow-sm p-4 mb-4 flex flex-wrap gap-3 items-end">
+            <input type="hidden" name="tab" value="bookings" />
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1">Status</label>
+              <select name="status" class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500">
+                <option value="">All</option>
+                <option value="confirmed" selected={statusFilter === 'confirmed'}>Confirmed</option>
+                <option value="pending" selected={statusFilter === 'pending'}>Pending</option>
+                <option value="cancelled" selected={statusFilter === 'cancelled'}>Cancelled</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1">Date</label>
+              <input type="date" name="date" value={dateFilter} class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500" />
+            </div>
+            <button type="submit" class="bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Filter</button>
+            <a href="/admin?tab=bookings" class="text-sm text-gray-400 hover:text-gray-600 py-2">Clear</a>
+          </form>
+
+          <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            {bookings.length === 0 ? (
+              <div class="text-center py-16 text-gray-400"><p class="font-semibold">No bookings found</p></div>
+            ) : (
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-b border-gray-100 bg-gray-50">
+                      {['Ref', 'Service', 'Date & Time', 'Customer', 'Guests', 'Total', 'Status', 'Actions'].map(h => (
+                        <th class="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-50">
+                    {bookings.map(b => {
+                      const ctName = classTypesById[b.class_type_id]?.name ?? b.class_type_id
+                      const ref = b.id.slice(-8).toUpperCase()
+                      const bDate = new Date(b.booking_date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                      return (
+                        <tr class="hover:bg-gray-50">
+                          <td class="px-4 py-3 font-mono text-xs text-gray-400 font-bold">#{ref}</td>
+                          <td class="px-4 py-3 font-medium text-gray-900 max-w-[140px]">{ctName}</td>
+                          <td class="px-4 py-3 text-gray-600 whitespace-nowrap">
+                            {bDate}<br/>
+                            <span class="text-xs text-gray-400">{formatTime(b.start_time)}</span>
+                          </td>
+                          <td class="px-4 py-3">
+                            <p class="font-medium text-gray-900">{b.customer_name}</p>
+                            <p class="text-xs text-gray-400">{b.customer_email}</p>
+                            {b.customer_phone && <p class="text-xs text-gray-400">{b.customer_phone}</p>}
+                            {b.customer_country && <p class="text-xs text-gray-400">{b.customer_country}</p>}
+                          </td>
+                          <td class="px-4 py-3 text-center font-bold text-gray-900">{b.participants}</td>
+                          <td class="px-4 py-3 font-bold text-teal-700 whitespace-nowrap">{formatCurrency(Number(b.total_amount))}</td>
+                          <td class="px-4 py-3">
+                            <span class={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${statusBadge(b.status)}`}>{b.status}</span>
+                          </td>
+                          <td class="px-4 py-3">
+                            <form method="POST" class="flex gap-1">
+                              <input type="hidden" name="action" value="update" />
+                              <input type="hidden" name="id" value={b.id} />
+                              {b.status !== 'confirmed' && (
+                                <button type="submit" name="status" value="confirmed"
+                                  class="text-xs bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded-lg transition-colors">✓</button>
+                              )}
+                              {b.status !== 'cancelled' && (
+                                <button type="submit" name="status" value="cancelled"
+                                  class="text-xs bg-red-100 hover:bg-red-200 text-red-700 px-2 py-1 rounded-lg transition-colors">✗</button>
+                              )}
+                            </form>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <!-- ══ TAB: CLASS TYPES ════════════════════════════════════════════════ -->
+      {activeTab === 'class-types' && (
+        <div class="space-y-4">
+          <p class="text-sm text-gray-500">Edit prices, booking limits, and details for each service. Changes are reflected immediately in the booking wizard.</p>
+          {classTypes.map(ct => (
+            <details class="bg-white rounded-2xl shadow-sm overflow-hidden">
+              <summary class="px-6 py-4 cursor-pointer flex items-center justify-between hover:bg-gray-50 transition-colors list-none">
+                <div class="flex items-center gap-4">
+                  <span class={`w-2 h-2 rounded-full ${ct.active ? 'bg-green-400' : 'bg-gray-300'}`}></span>
+                  <div>
+                    <p class="font-bold text-gray-900">{ct.name}</p>
+                    <p class="text-sm text-gray-400">
+                      {ct.category} · {formatCurrency(ct.price_per_person)}/person · booking {ct.min_participants_per_booking ?? 1}-{ct.max_participants_per_booking ?? ct.max_capacity}
+                    </p>
+                  </div>
+                </div>
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 border-t border-gray-100 pt-4">
+                <form method="POST">
+                  <input type="hidden" name="action" value="update_class_type" />
+                  <input type="hidden" name="id" value={ct.id} />
+                  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                    <div class="lg:col-span-2">
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Name</label>
+                      <input type="text" name="name" value={ct.name} required
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Badge (optional)</label>
+                      <input type="text" name="badge" value={ct.badge ?? ''}
+                        placeholder="e.g. Best Value"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Price per Person (USD)</label>
+                      <input type="number" name="price_per_person" value={ct.price_per_person} step="0.01" min="0" required
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Min Guests per Booking</label>
+                      <input
+                        type="number"
+                        name="min_participants_per_booking"
+                        value={ct.min_participants_per_booking ?? 1}
+                        min="1"
+                        max="100"
+                        required
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Max Guests per Booking</label>
+                      <input
+                        type="number"
+                        name="max_participants_per_booking"
+                        value={ct.max_participants_per_booking ?? ct.max_capacity}
+                        min="1"
+                        max="100"
+                        required
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Max Capacity</label>
+                      <input type="number" name="max_capacity" value={ct.max_capacity} min="1" max="100" required
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Duration (minutes)</label>
+                      <input type="number" name="duration_minutes" value={ct.duration_minutes} min="30" required
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Sort Order</label>
+                      <input type="number" name="sort_order" value={ct.sort_order} min="0"
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Active</label>
+                      <select name="active" class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500">
+                        <option value="true" selected={ct.active}>Yes — visible in booking</option>
+                        <option value="false" selected={!ct.active}>No — hidden</option>
+                      </select>
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-3">
+                      <label class="block text-xs font-semibold text-gray-500 mb-1">Description</label>
+                      <textarea name="description" rows={2}
+                        class="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-teal-500 resize-none">{ct.description}</textarea>
+                    </div>
+                  </div>
+                  <button type="submit"
+                    class="bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold px-5 py-2 rounded-lg text-sm transition-colors">
+                    Save Changes
+                  </button>
+                </form>
+              </div>
+            </details>
+          ))}
+        </div>
+      )}
+
+      <!-- ══ TAB: WEEKLY SCHEDULE ═══════════════════════════════════════════ -->
+      {activeTab === 'weekly-slots' && (
+        <div>
+          <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+            <h2 class="font-bold text-gray-900 mb-1">Add recurring time slot</h2>
+            <p class="text-sm text-gray-500 mb-4">
+              Define which days and times each service runs. These repeat every week automatically.
+              If you add a date-specific override (Date Slot Overrides tab), it takes priority for that day.
+            </p>
+            <form method="POST" class="flex flex-wrap gap-3 items-end">
+              <input type="hidden" name="action" value="add_weekly_slot" />
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1">Service</label>
+                <select name="class_type_id" required class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500">
+                  {classTypes.filter(ct => ct.active).map(ct => (
+                    <option value={ct.id}>{ct.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1">Day of Week</label>
+                <select name="day_of_week" required class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500">
+                  {DOW_LABELS.slice(1).map((d, i) => (
+                    <option value={i + 1}>{d}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1">Start Time</label>
+                <input type="time" name="start_time" required class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500" />
+              </div>
+              <button type="submit" class="bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">
+                Add Slot
+              </button>
+            </form>
+          </div>
+
+          {/* Group by service */}
+          {classTypes.filter(ct => weeklySlotsByService[ct.id]).map(ct => (
+            <div class="bg-white rounded-2xl shadow-sm p-6 mb-4">
+              <h3 class="font-bold text-gray-900 mb-4">{ct.name}</h3>
+              <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                {[1,2,3,4,5,6,7].map(dow => {
+                  const daySlots: any[] = weeklySlotsByService[ct.id]?.[dow] ?? []
+                  return (
+                    <div class={`rounded-xl border p-3 ${daySlots.length > 0 ? 'border-teal-200 bg-teal-50' : 'border-gray-100 bg-gray-50 opacity-50'}`}>
+                      <p class="text-xs font-bold text-gray-700 mb-2">{DOW_LABELS[dow]}</p>
+                      {daySlots.length === 0 ? (
+                        <p class="text-xs text-gray-400">No slots</p>
+                      ) : (
+                        <div class="space-y-1">
+                          {daySlots.map((s: any) => (
+                            <div class="flex items-center justify-between gap-2">
+                              <span class="text-sm font-bold text-teal-700">{formatTime(s.start_time)}</span>
+                              <form method="POST">
+                                <input type="hidden" name="action" value="delete_weekly_slot" />
+                                <input type="hidden" name="id" value={s.id} />
+                                <button type="submit" class="text-xs text-red-400 hover:text-red-600 font-bold leading-none">×</button>
+                              </form>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
+
+          {weeklySlots.length === 0 && (
+            <div class="bg-white rounded-2xl shadow-sm text-center py-12 text-gray-400">
+              <p class="font-semibold">No weekly slots configured yet</p>
+              <p class="text-sm mt-1">Add your first slot using the form above</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      <!-- ══ TAB: CAPACITY OVERRIDES ════════════════════════════════════════ -->
+      {activeTab === 'capacity' && (
+        <div>
+          <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+            <h2 class="font-bold text-gray-900 mb-1">Date-specific capacity override</h2>
+            <p class="text-sm text-gray-500 mb-4">
+              Optional for future use. Capacity limits are currently not enforced during booking to maximize incoming reservations.
+            </p>
+            <form method="POST" class="flex flex-wrap gap-3 items-end">
+              <input type="hidden" name="action" value="set_capacity" />
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1">Service</label>
+                <select name="class_type_id" required class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500">
+                  {classTypes.filter(ct => ct.active).map(ct => (
+                    <option value={ct.id}>{ct.name} (default: {ct.max_capacity})</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1">Date</label>
+                <input type="date" name="capacity_date" required class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1">Max Capacity (0 = block)</label>
+                <input type="number" name="max_capacity" min="0" max="100" required
+                  class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500 w-28" />
+              </div>
+              <button type="submit" class="bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Save</button>
+            </form>
+          </div>
+          <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            {capacities.length === 0 ? (
+              <div class="text-center py-12 text-gray-400">
+                <p class="font-semibold">No overrides yet</p>
+                <p class="text-sm mt-1">All services use their default capacity</p>
+              </div>
+            ) : (
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-gray-100 bg-gray-50">
+                    {['Service', 'Date', 'Override', 'Default', ''].map(h => (
+                      <th class="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50">
+                  {capacities.map((c: any) => (
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-3 font-medium text-gray-900">{c.class_types?.name ?? c.class_type_id}</td>
+                      <td class="px-4 py-3 text-gray-600">
+                        {new Date(c.capacity_date + 'T12:00:00').toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' })}
+                      </td>
+                      <td class="px-4 py-3">
+                        <span class={`font-bold text-lg ${c.max_capacity === 0 ? 'text-red-600' : 'text-teal-700'}`}>
+                          {c.max_capacity === 0 ? 'BLOCKED' : c.max_capacity}
+                        </span>
+                      </td>
+                      <td class="px-4 py-3 text-gray-400">{classTypesById[c.class_type_id]?.max_capacity ?? '—'}</td>
+                      <td class="px-4 py-3">
+                        <form method="POST">
+                          <input type="hidden" name="action" value="delete_capacity" />
+                          <input type="hidden" name="id" value={c.id} />
+                          <button type="submit" class="text-xs text-red-500 hover:text-red-700 font-semibold">Delete</button>
+                        </form>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+      )}
+
+      <!-- ══ TAB: DATE SLOT OVERRIDES ═══════════════════════════════════════ -->
+      {activeTab === 'date-slots' && (
+        <div>
+          <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+            <h2 class="font-bold text-gray-900 mb-1">Date-specific slot override</h2>
+            <p class="text-sm text-gray-500 mb-4">
+              If any slots exist for a service on a specific date, they <strong>replace</strong> the weekly template entirely for that day.
+              Use this for holidays, special events, or irregular schedules.
+            </p>
+            <form method="POST" class="flex flex-wrap gap-3 items-end">
+              <input type="hidden" name="action" value="add_slot" />
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1">Service</label>
+                <select name="class_type_id" required class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500">
+                  {classTypes.filter(ct => ct.active).map(ct => (
+                    <option value={ct.id}>{ct.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1">Date</label>
+                <input type="date" name="slot_date" required class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1">Start Time</label>
+                <input type="time" name="start_time" required class="border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-teal-500" />
+              </div>
+              <button type="submit" class="bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Add</button>
+            </form>
+          </div>
+          <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            {dateSlots.length === 0 ? (
+              <div class="text-center py-12 text-gray-400">
+                <p class="font-semibold">No date slot overrides</p>
+                <p class="text-sm mt-1">All services follow their weekly template</p>
+              </div>
+            ) : (
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-gray-100 bg-gray-50">
+                    {['Service', 'Date', 'Time', ''].map(h => (
+                      <th class="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50">
+                  {dateSlots.map((s: any) => (
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-3 font-medium text-gray-900">{s.class_types?.name ?? s.class_type_id}</td>
+                      <td class="px-4 py-3 text-gray-600">
+                        {new Date(s.slot_date + 'T12:00:00').toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' })}
+                      </td>
+                      <td class="px-4 py-3 font-bold text-teal-700">{formatTime(s.start_time)}</td>
+                      <td class="px-4 py-3">
+                        <form method="POST">
+                          <input type="hidden" name="action" value="delete_slot" />
+                          <input type="hidden" name="id" value={s.id} />
+                          <button type="submit" class="text-xs text-red-500 hover:text-red-700 font-semibold">Delete</button>
+                        </form>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+      )}
+
+    </main>
+  </div>
+)}
+</body>
+</html>

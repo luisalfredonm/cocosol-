@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.aboutUs
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="Pura Vida Surf School — The Best Surf School In Tamarindo" image="/images/about-hero.jpg" imageAlt="Best surf school in Tamarindo Costa Rica" breadcrumb={{ label: 'About Us' }} height="medium"/>
+
+  <!-- Intro -->
+  <section class="py-20 container mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="grid grid-cols-2 gap-3">
+        {['/images/about-1.jpg','/images/about-2.jpg','/images/about-3.jpg','/images/about-4.jpg'].map((src,i)=>(
+          <img src={src} alt="Best surf school in Tamarindo" class={`rounded-xl w-full h-48 object-cover ${i%2===1?'mt-6':''}`} width="350" height="250" loading="lazy"/>
+        ))}
+      </div>
+      <div>
+        <span class="section-label mb-2 block">Welcome to Pura Vida Surf School</span>
+        <h2 class="text-4xl font-bold text-gray-900">Your Local Surf Family in Tamarindo, Costa Rica</h2>
+        <p class="mt-4 text-gray-600 leading-relaxed">Welcome to Pura Vida Surf School, proudly recognized by students from around the world as the <strong>best surf school in Tamarindo</strong>. Our mission is simple: to share our passion for surfing through high-quality instruction, local knowledge, and the warm, welcoming pura vida spirit that makes Tamarindo so special.</p>
+        <p class="mt-3 text-gray-600 leading-relaxed">Whether you're a beginner catching your first wave or an intermediate surfer looking to improve technique, our team is dedicated to helping you progress quickly, safely, and with confidence.</p>
+        <ul class="mt-4 space-y-2">
+          {['Certified and experienced surf instructors','Personalized coaching for all levels','Deep local knowledge of Tamarindo\'s waves','Safe, fun, and inclusive environment'].map(i=>(
+            <li class="flex items-center gap-2 text-gray-700">
+              <svg class="w-5 h-5 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              {i}
+            </li>
+          ))}
+        </ul>
+        <div class="mt-6 flex gap-4">
+          <a href="/tamarindo-surf-lessons" class="btn-primary">Discover More</a>
+          <div class="flex items-center gap-2 bg-teal-50 border border-teal-100 rounded-xl px-4 py-2">
+            <span class="text-2xl font-bold text-teal-600">15+</span>
+            <span class="text-gray-600 text-xs">Years<br/>Experience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="section-label mb-2 block">Our Story</span>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Story — How It All Started</h2>
+          <p class="text-gray-600 leading-relaxed mb-4">Pura Vida Surf School was born from a deep love for the ocean and a desire to create a space where students from all over the world could learn to surf in a safe, supportive, and unforgettable environment. Our founders grew up surfing Tamarindo's legendary waves and wanted to share the same magic with visitors.</p>
+          <p class="text-gray-600 leading-relaxed mb-4">What started as a small team of passionate local surfers has grown into one of the <strong>top surf schools in Tamarindo</strong>, recognized for personalized instruction, authenticity, and a commitment to excellence.</p>
+          <p class="text-gray-600 leading-relaxed">Through the years, we've taught thousands of surfers — from 6-year-old beginners trying surfing for the first time to grandparents discovering the joy of riding waves in a way that feels natural, fun, and empowering.</p>
+        </div>
+        <div>
+          <img src="/images/our-story.jpg" alt="Pura Vida Surf School story Tamarindo" class="rounded-2xl w-full h-80 object-cover" width="600" height="480" loading="lazy"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid grid-cols-3 gap-8 text-center">
+      {[{num:'1%',label:'Customer Satisfaction'},{num:'10+',label:'Expert Instructors'},{num:'15+',label:'Years Experience'}].map(s=>(
+        <div>
+          <p class="text-4xl font-bold text-teal-600">{s.num}</p>
+          <p class="text-gray-600 text-sm mt-1">{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="py-16 bg-teal-600">
+    <div class="container mx-auto px-4 text-center">
+      <span class="section-label text-white/80 block mb-2">Our Team</span>
+      <h2 class="text-3xl font-bold text-white mb-6">Meet Our Surf Instructors</h2>
+      <p class="text-white/80 max-w-xl mx-auto mb-6 text-sm">Our certified instructors are passionate local surfers who know Tamarindo's waves like the back of their hand. They're patient, encouraging, and genuinely invested in your progress.</p>
+      <a href="/surf-school-near-me-tamarindo" class="inline-block bg-white text-teal-600 font-bold px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors">All Instructors</a>
+    </div>
+  </section>
+
+  <!-- Latest blog -->
+  <section class="py-16 container mx-auto px-4">
+    <span class="section-label mb-2 block">Insight</span>
+    <h2 class="text-3xl font-bold text-gray-900 mb-3">Latest News & Articles</h2>
+    <p class="text-gray-600 mb-6 max-w-xl">Stay informed with surf tips, local knowledge, and stories from Tamarindo.</p>
+    <a href="/blog" class="btn-outline">All Articles</a>
+  </section>
+</BaseLayout>

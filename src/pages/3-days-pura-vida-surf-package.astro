@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import Sidebar from '../components/ui/Sidebar.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.package3Days
+const itinerary = [
+  { day: '1', title: 'Introduction & Basics', desc: 'Safety briefing, equipment intro, and your first 1.5-hour lesson in the white water. Learn to pop up and basic paddling.' },
+  { day: '2', title: 'Technique & Positioning', desc: 'Perfecting the pop-up and learning to read the waves more effectively. Work on foot positioning and balance.' },
+  { day: '3', title: 'Ocean Awareness & Fun', desc: 'Independent ride session under supervision to build lasting confidence. Start reading and catching real waves on your own.' },
+]
+---
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <Hero title="3 Days Surf Package In Tamarindo — Pura Vida Surf Experience" subtitle="The perfect introduction to surfing in Costa Rica for first-time surfers and travelers with limited time." image="/images/3-day-package-hero.jpg" imageAlt="3 days surf package Tamarindo" breadcrumb={{ label: 'Surf Packages', href: '/surf-packages' }}/>
+
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">3 Days Pura Vida Surf Package — Tamarindo</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>3 Days Surf Package in Tamarindo</strong> is the perfect introduction to surfing in Costa Rica. Designed for beginners and travelers with limited time, this package combines professional surf lessons, quality equipment, and personalized coaching in a fun and relaxed environment. Learn the basics of paddling, balance, and wave riding while enjoying the warm waters of Tamarindo Beach.</p>
+        <p class="text-gray-700 leading-relaxed mb-6">This short surf package is ideal for first-time surfers looking to experience the Pura Vida lifestyle and catch their first waves safely and confidently.</p>
+
+        <h3 class="font-bold text-gray-900 mb-3">Ideal For:</h3>
+        <ul class="space-y-2 mb-8">{['First-time surfers','Short stays in Tamarindo','Travelers who want a taste of surfing','Anyone curious about surf who has never tried it'].map(i=><li class="flex items-center gap-2 text-sm text-gray-700"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+
+        <h3 class="font-bold text-gray-900 mb-4">Your 3-Day Itinerary</h3>
+        <div class="space-y-3 mb-10">
+          {itinerary.map(d => (
+            <div class="flex gap-4 p-4 bg-gray-50 rounded-xl">
+              <div class="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">{d.day}</div>
+              <div>
+                <p class="font-semibold text-gray-900">{d.title}</p>
+                <p class="text-gray-600 text-sm mt-1">{d.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <FAQ items={[
+          { question: 'What should I bring?', answer: 'Sunblock, a towel, and lots of energy! We provide all the professional surfing gear you\'ll need.' },
+          { question: 'Is it safe for non-swimmers?', answer: 'Basic swimming ability is recommended. The lessons take place in shallow water with our certified instructors by your side at all times.' },
+          { question: 'Can I upgrade to more lessons during my stay?', answer: 'Yes! If you love it (and you will!), you can add extra lessons or upgrade to the 5-day package. Just ask your instructor or contact us.' },
+        ]}/>
+      </div>
+
+      <div>
+        <Sidebar price="$245" priceLabel="/ 3 Days per person" includes={['3 Surf lessons','90 minutes surf lesson','Professional, certified instructor','Surfboard included','Rash guard','Safety briefing','Photos on request']} ctaLabel="Book This Package" ctaColor="dark" sidebarTitle="Start your surfing journey today with our highly rated 3-day introductory course."/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-teal-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold text-gray-900 text-center mb-10">Why Choose Us?</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        {[{title:'Most Affordable',desc:'Competitive pricing without compromising on safety or the quality of your experience.'},{title:'Safety First',desc:'Our instructors are ISA certified and trained in ocean rescue and first aid.'},{title:'Professional Coach',desc:'Personalized feedback and coaching tailored to your specific skill level.'}].map(c=>(
+          <div class="text-center bg-white rounded-2xl p-6 border border-gray-100">
+            <h3 class="font-bold text-gray-900 mb-2">{c.title}</h3>
+            <p class="text-gray-600 text-sm">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="py-16 container mx-auto px-4 text-center">
+    <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1 rounded-full mb-4">Ready to Ride?</span>
+    <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
+    <p class="text-gray-600 mb-6 max-w-lg mx-auto">Select your preferred dates. Our booking system will guide you through the remaining steps.</p>
+    <a href="/book-now" class="btn-primary text-lg px-8">Book 3-Day Package</a>
+    <p class="mt-4 text-sm text-gray-500">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+  </section>
+
+  <Testimonials items={[{ name: 'John Doe', role: 'Traveler', text: 'The 3-day package was the perfect amount of time to get comfortable on the board. By day 3 I was catching green waves on my own. Incredible experience!' }, { name: 'Maria Lopez', role: 'First-timer', text: 'Never surfed before and was nervous. The instructor was so patient and encouraging. I stood up on my first day! Worth every penny.' }]}/>
+
+  <NeedHelp/>
+</BaseLayout>
