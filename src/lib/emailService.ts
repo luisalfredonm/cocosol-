@@ -11,6 +11,22 @@ interface BookingEmailData {
   totalAmount: number
 }
 
+interface CartSummaryItem {
+  bookingId: string
+  classTypeId: string
+  bookingDate: string
+  startTime: string
+  participants: number
+  totalAmount: number
+}
+
+interface CartSummaryEmailData {
+  checkoutId: string
+  customerName: string
+  customerEmail: string
+  items: CartSummaryItem[]
+}
+
 function formatDate(dateStr: string): string {
   return new Date(dateStr + 'T12:00:00').toLocaleDateString('en-US', {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
@@ -22,80 +38,231 @@ function getClassTypeName(classTypeId: string): string {
   return classType?.name ?? classTypeId
 }
 
-export async function sendConfirmationEmail(data: BookingEmailData): Promise<void> {
-  const resendApiKey = import.meta.env.RESEND_API_KEY
-  if (!resendApiKey) return
-
-  const classTypeName = getClassTypeName(data.classTypeId)
-
-  const html = `
-    <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
-      <div style="background:#0F6E56;padding:32px 24px;text-align:center">
-        <h1 style="color:white;margin:0;font-size:24px">Booking Confirmed!</h1>
-        <p style="color:#a7f3d0;margin:8px 0 0">Pura Vida Surf School - Tamarindo, Costa Rica</p>
-      </div>
-      <div style="padding:32px 24px">
-        <p style="font-size:16px">Hi ${data.customerName},</p>
-        <p>Your surf session is confirmed. We can't wait to see you in the water!</p>
-
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin:24px 0">
-          <h2 style="margin:0 0 16px;font-size:18px;color:#065f46">Booking Details</h2>
-          <table style="width:100%;border-collapse:collapse">
-            <tr><td style="padding:6px 0;color:#6b7280">Booking ID</td><td style="padding:6px 0;font-weight:600">#${data.bookingId.slice(-8).toUpperCase()}</td></tr>
-            <tr><td style="padding:6px 0;color:#6b7280">Service</td><td style="padding:6px 0;font-weight:600">${classTypeName}</td></tr>
-            <tr><td style="padding:6px 0;color:#6b7280">Date</td><td style="padding:6px 0;font-weight:600">${formatDate(data.bookingDate)}</td></tr>
-            <tr><td style="padding:6px 0;color:#6b7280">Time</td><td style="padding:6px 0;font-weight:600">${formatTime(data.startTime)}</td></tr>
-            <tr><td style="padding:6px 0;color:#6b7280">Participants</td><td style="padding:6px 0;font-weight:600">${data.participants}</td></tr>
-            <tr><td style="padding:6px 0;color:#6b7280">Total Paid</td><td style="padding:6px 0;font-weight:600;color:#0F6E56">${formatCurrency(data.totalAmount)}</td></tr>
-          </table>
-        </div>
-
-        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:20px;margin:24px 0">
-          <h3 style="margin:0 0 8px;font-size:16px;color:#9a3412">Meeting Point</h3>
-          <p style="margin:0;color:#7c2d12">Meet your instructor at the Pura Vida Surf School tent on Tamarindo Beach, 15 minutes before your session start time.</p>
-        </div>
-
-        <p>Questions? Reply to this email or WhatsApp us: <a href="https://wa.me/50661987851" style="color:#0F6E56">+506 6198 7851</a></p>
-        <p style="color:#9ca3af;font-size:14px">Cancellations must be made 24 hours in advance. See our <a href="https://puravidasurfschool.com/book-now" style="color:#6b7280">cancellation policy</a>.</p>
-      </div>
-      <div style="background:#f9fafb;padding:16px 24px;text-align:center">
-        <p style="margin:0;color:#9ca3af;font-size:12px">Pura Vida Surf School - Tamarindo, Guanacaste, Costa Rica</p>
-      </div>
-    </div>
+function emailShell(params: { preheader: string; title: string; subtitle: string; body: string }): string {
+  const { preheader, title, subtitle, body } = params
+  return `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>${title}</title>
+    </head>
+    <body style="margin:0;padding:0;background:#eef3f7;">
+      <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${preheader}</div>
+      <table role="presentation" style="width:100%;border-collapse:collapse;background:#eef3f7;">
+        <tr>
+          <td align="center" style="padding:28px 12px;">
+            <table role="presentation" style="width:100%;max-width:680px;border-collapse:collapse;background:#ffffff;border-radius:18px;overflow:hidden;">
+              <tr>
+                <td style="background:linear-gradient(135deg,#0b5f66 0%,#0f766e 55%,#14b8a6 100%);padding:32px 30px;color:#ffffff;">
+                  <p style="margin:0;font-size:12px;letter-spacing:1px;text-transform:uppercase;opacity:.9;">Pura Vida Surf School</p>
+                  <h1 style="margin:10px 0 8px;font-size:28px;line-height:1.2;font-family:Georgia,serif;">${title}</h1>
+                  <p style="margin:0;font-size:14px;line-height:1.6;color:#dff6f3;">${subtitle}</p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:28px 26px 22px;color:#1f2937;font-family:Arial,sans-serif;">
+                  ${body}
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:16px 26px 24px;border-top:1px solid #e5e7eb;color:#6b7280;font-size:12px;font-family:Arial,sans-serif;">
+                  Tamarindo, Guanacaste, Costa Rica<br/>
+                  Questions: <a href="mailto:info@puravidasurfschool.com" style="color:#0f766e;text-decoration:none;">info@puravidasurfschool.com</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+  </html>
   `
+}
 
-  await fetch('https://api.resend.com/emails', {
+function detailRows(rows: Array<{ label: string; value: string }>): string {
+  return rows.map(row => `
+    <tr>
+      <td style="padding:8px 0;color:#6b7280;font-size:13px;">${row.label}</td>
+      <td style="padding:8px 0;color:#111827;font-size:14px;font-weight:700;text-align:right;">${row.value}</td>
+    </tr>
+  `).join('')
+}
+
+async function sendEmail(payload: { to: string; subject: string; html: string; from?: string }): Promise<void> {
+  const resendApiKey = import.meta.env.RESEND_API_KEY
+  if (!resendApiKey) throw new Error('Missing RESEND_API_KEY')
+  const defaultFrom = (import.meta.env.FROM_EMAIL ?? '').toString().trim() || 'onboarding@resend.dev'
+  const from = payload.from ?? defaultFrom
+
+  const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${resendApiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: 'Pura Vida Surf School <bookings@puravidasurfschool.com>',
-      to: data.customerEmail,
-      subject: `Booking Confirmed - ${classTypeName} on ${formatDate(data.bookingDate)}`,
-      html,
+      from,
+      to: payload.to,
+      subject: payload.subject,
+      html: payload.html,
     }),
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => '')
+    throw new Error(`Resend rejected email (${response.status}): ${errorText}`)
+  }
+}
+
+export async function sendConfirmationEmail(data: BookingEmailData): Promise<void> {
+  const classTypeName = getClassTypeName(data.classTypeId)
+
+  const bookingDetails = detailRows([
+    { label: 'Booking ID', value: `#${data.bookingId.slice(-8).toUpperCase()}` },
+    { label: 'Service', value: classTypeName },
+    { label: 'Date', value: formatDate(data.bookingDate) },
+    { label: 'Time', value: formatTime(data.startTime) },
+    { label: 'Participants', value: String(data.participants) },
+    { label: 'Total Paid', value: formatCurrency(data.totalAmount) },
+  ])
+
+  const html = emailShell({
+    preheader: `Booking confirmed for ${formatDate(data.bookingDate)} at ${formatTime(data.startTime)}.`,
+    title: 'Booking Confirmed',
+    subtitle: 'Your surf session is locked in. We are excited to host you in Tamarindo.',
+    body: `
+      <p style="margin:0 0 14px;font-size:15px;line-height:1.7;">Hi ${data.customerName},</p>
+      <p style="margin:0 0 20px;font-size:15px;line-height:1.7;">Thanks for choosing us. Here is your elegant booking recap:</p>
+      <div style="border:1px solid #dbe8ed;border-radius:14px;padding:16px 18px;background:#f9fcfd;">
+        <table role="presentation" style="width:100%;border-collapse:collapse;">
+          ${bookingDetails}
+        </table>
+      </div>
+      <div style="margin-top:18px;border-left:4px solid #14b8a6;background:#f0fdfa;padding:12px 14px;border-radius:10px;">
+        <p style="margin:0;font-size:13px;line-height:1.7;color:#0f4f4b;">Please arrive 15 minutes early and bring sunscreen, towel, and hydration.</p>
+      </div>
+    `,
+  })
+
+  await sendEmail({
+    to: data.customerEmail,
+    subject: `Booking Confirmed - ${classTypeName} on ${formatDate(data.bookingDate)}`,
+    html,
   })
 }
 
 export async function sendAdminNotification(data: BookingEmailData): Promise<void> {
-  const resendApiKey = import.meta.env.RESEND_API_KEY
   const adminEmail = import.meta.env.ADMIN_EMAIL
-  if (!resendApiKey || !adminEmail) return
-
+  if (!adminEmail) return
   const classTypeName = getClassTypeName(data.classTypeId)
 
-  await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${resendApiKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: 'Bookings <bookings@puravidasurfschool.com>',
-      to: adminEmail,
-      subject: `New Booking: ${classTypeName} - ${formatDate(data.bookingDate)}`,
-      html: `<p><strong>New booking received!</strong></p>
-             <p>Customer: ${data.customerName} (${data.customerEmail})</p>
-             <p>Service: ${classTypeName}</p>
-             <p>Date: ${formatDate(data.bookingDate)} at ${formatTime(data.startTime)}</p>
-             <p>Participants: ${data.participants} - Total: ${formatCurrency(data.totalAmount)}</p>
-             <p>Booking ID: ${data.bookingId}</p>`,
-    }),
+  const html = emailShell({
+    preheader: `New booking received from ${data.customerName}.`,
+    title: 'New Booking Alert',
+    subtitle: 'A client completed a booking and requires operational follow-up.',
+    body: `
+      <div style="border:1px solid #dbe8ed;border-radius:14px;padding:16px 18px;background:#f9fcfd;">
+        <table role="presentation" style="width:100%;border-collapse:collapse;">
+          ${detailRows([
+            { label: 'Booking ID', value: data.bookingId },
+            { label: 'Client', value: data.customerName },
+            { label: 'Email', value: data.customerEmail },
+            { label: 'Service', value: classTypeName },
+            { label: 'Date', value: formatDate(data.bookingDate) },
+            { label: 'Time', value: formatTime(data.startTime) },
+            { label: 'Participants', value: String(data.participants) },
+            { label: 'Revenue', value: formatCurrency(data.totalAmount) },
+          ])}
+        </table>
+      </div>
+      <p style="margin:18px 0 0;font-size:13px;color:#6b7280;">Tip: confirm instructor assignment and equipment availability in advance.</p>
+    `,
+  })
+
+  await sendEmail({
+    to: adminEmail,
+    subject: `New Booking: ${classTypeName} - ${formatDate(data.bookingDate)}`,
+    html,
+  })
+}
+
+export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<void> {
+  const total = data.items.reduce((sum, item) => sum + item.totalAmount, 0)
+  const rows = data.items.map(item => `
+    <tr>
+      <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;">${getClassTypeName(item.classTypeId)}</td>
+      <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;">${formatDate(item.bookingDate)}</td>
+      <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;">${formatTime(item.startTime)}</td>
+      <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:center;">${item.participants}</td>
+      <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-weight:700;font-size:13px;text-align:right;">${formatCurrency(item.totalAmount)}</td>
+    </tr>
+  `).join('')
+
+  const html = emailShell({
+    preheader: `Booking summary for ${data.items.length} item${data.items.length === 1 ? '' : 's'}.`,
+    title: 'Booking Summary',
+    subtitle: `Checkout #${data.checkoutId.slice(0, 8).toUpperCase()} has been successfully confirmed.`,
+    body: `
+      <p style="margin:0 0 14px;font-size:15px;line-height:1.7;">Hi ${data.customerName},</p>
+      <p style="margin:0 0 18px;font-size:15px;line-height:1.7;">Here is your complete summary:</p>
+      <table role="presentation" style="width:100%;border-collapse:collapse;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
+        <thead>
+          <tr style="background:#f8fafc;">
+            <th style="text-align:left;padding:10px 8px;border-bottom:2px solid #d1d5db;font-size:12px;color:#475569;">SERVICE</th>
+            <th style="text-align:left;padding:10px 8px;border-bottom:2px solid #d1d5db;font-size:12px;color:#475569;">DATE</th>
+            <th style="text-align:left;padding:10px 8px;border-bottom:2px solid #d1d5db;font-size:12px;color:#475569;">TIME</th>
+            <th style="text-align:center;padding:10px 8px;border-bottom:2px solid #d1d5db;font-size:12px;color:#475569;">GUESTS</th>
+            <th style="text-align:right;padding:10px 8px;border-bottom:2px solid #d1d5db;font-size:12px;color:#475569;">SUBTOTAL</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div style="margin-top:16px;padding:12px 14px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:10px;">
+        <p style="margin:0;font-size:16px;font-weight:700;color:#0f766e;">Total paid: ${formatCurrency(total)}</p>
+      </div>
+    `,
+  })
+
+  await sendEmail({
+    to: data.customerEmail,
+    subject: `Booking Summary - ${data.items.length} item${data.items.length === 1 ? '' : 's'}`,
+    html,
+  })
+}
+
+export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Promise<void> {
+  const adminEmail = import.meta.env.ADMIN_EMAIL
+  if (!adminEmail) return
+  const total = data.items.reduce((sum, item) => sum + item.totalAmount, 0)
+  const itemRows = data.items.map((item, index) => `
+    <tr>
+      <td style="padding:8px 0;color:#6b7280;font-size:13px;">Item ${index + 1}</td>
+      <td style="padding:8px 0;color:#111827;font-size:13px;text-align:right;">${getClassTypeName(item.classTypeId)} | ${formatDate(item.bookingDate)} ${formatTime(item.startTime)} | ${item.participants} pax | ${formatCurrency(item.totalAmount)}</td>
+    </tr>
+  `).join('')
+
+  const html = emailShell({
+    preheader: `New checkout confirmed: ${data.items.length} item${data.items.length === 1 ? '' : 's'}.`,
+    title: 'Checkout Confirmed',
+    subtitle: 'A multi-item checkout has been completed and paid successfully.',
+    body: `
+      <div style="border:1px solid #dbe8ed;border-radius:14px;padding:16px 18px;background:#f9fcfd;">
+        <table role="presentation" style="width:100%;border-collapse:collapse;">
+          ${detailRows([
+            { label: 'Checkout ID', value: data.checkoutId },
+            { label: 'Customer', value: data.customerName },
+            { label: 'Email', value: data.customerEmail },
+            { label: 'Items', value: String(data.items.length) },
+            { label: 'Total', value: formatCurrency(total) },
+          ])}
+          ${itemRows}
+        </table>
+      </div>
+    `,
+  })
+
+  await sendEmail({
+    to: adminEmail,
+    subject: `Checkout Summary: ${data.items.length} item${data.items.length === 1 ? '' : 's'} - ${formatCurrency(total)}`,
+    html,
   })
 }

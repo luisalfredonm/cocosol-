@@ -11,6 +11,7 @@ export const supabase = createClient(supabaseUrl, supabaseKey)
 
 export interface DbBooking {
   id: string
+  checkout_id: string | null
   class_type_id: string
   booking_date: string
   start_time: string
@@ -24,6 +25,8 @@ export interface DbBooking {
   status: 'pending' | 'confirmed' | 'cancelled'
   payment_method: string | null
   stripe_payment_intent_id: string | null
+  checkout_summary_sent_at: string | null
+  checkout_admin_summary_sent_at: string | null
   created_at: string
   updated_at: string
 }

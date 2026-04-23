@@ -3,6 +3,7 @@
 
 CREATE TABLE IF NOT EXISTS bookings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  checkout_id UUID,
   class_type_id VARCHAR NOT NULL,
   booking_date DATE NOT NULL,
   start_time TIME NOT NULL,
@@ -16,9 +17,15 @@ CREATE TABLE IF NOT EXISTS bookings (
   status VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending','confirmed','cancelled')),
   payment_method VARCHAR(20) CHECK (payment_method IN ('stripe','paypal','cash')),
   stripe_payment_intent_id VARCHAR(255),
+  checkout_summary_sent_at TIMESTAMPTZ,
+  checkout_admin_summary_sent_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS checkout_id UUID;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS checkout_summary_sent_at TIMESTAMPTZ;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS checkout_admin_summary_sent_at TIMESTAMPTZ;
 
 CREATE TABLE IF NOT EXISTS availability_blocks (
   id SERIAL PRIMARY KEY,
@@ -45,6 +52,7 @@ CREATE INDEX IF NOT EXISTS idx_bookings_date ON bookings(booking_date);
 CREATE INDEX IF NOT EXISTS idx_bookings_class_date ON bookings(class_type_id, booking_date);
 CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status);
 CREATE INDEX IF NOT EXISTS idx_bookings_email ON bookings(customer_email);
+CREATE INDEX IF NOT EXISTS idx_bookings_checkout ON bookings(checkout_id);
 CREATE INDEX IF NOT EXISTS idx_availability_blocks_date ON availability_blocks(blocked_date);
 
 -- Tour capacity overrides per date

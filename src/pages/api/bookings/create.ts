@@ -5,6 +5,12 @@ import Stripe from 'stripe'
 import { supabase } from '../../../lib/supabase'
 import { getClassTypes, calculateTotal } from '../../../lib/classTypes'
 import { getMinParticipants, getMaxParticipants } from '../../../lib/classTypeHelpers'
+import {
+  sendAdminCartSummaryEmail,
+  sendAdminNotification,
+  sendCartSummaryEmail,
+  sendConfirmationEmail,
+} from '../../../lib/emailService'
 
 interface RawBookingItem {
   classTypeId?: unknown
@@ -19,6 +25,12 @@ interface NormalizedBookingItem {
   timeSlot: string
   participants: number
   totalAmount: number
+}
+
+function envFlag(name: string, fallback: boolean): boolean {
+  const raw = (import.meta.env[name] ?? '').toString().trim().toLowerCase()
+  if (!raw) return fallback
+  return raw === '1' || raw === 'true' || raw === 'yes' || raw === 'on'
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -94,6 +106,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const totalAmount = normalizedItems.reduce((sum, item) => sum + item.totalAmount, 0)
   const stripeKey = import.meta.env.STRIPE_SECRET_KEY
+  const checkoutId = crypto.randomUUID()
 
   // TEST MODE
   if (!stripeKey) {
@@ -102,6 +115,7 @@ export const POST: APIRoute = async ({ request }) => {
       .insert(
         normalizedItems.map(item => ({
           class_type_id: item.classTypeId,
+          checkout_id: checkoutId,
           booking_date: item.date,
           start_time: item.timeSlot,
           participants: item.participants,
@@ -120,10 +134,82 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (dbError || !bookings || bookings.length === 0) return json({ error: 'Failed to save bookings' }, 500)
 
+    const sendSummary = envFlag('EMAIL_SUMMARY_ENABLED', true)
+    const sendAdminSummary = envFlag('EMAIL_ADMIN_SUMMARY_ENABLED', true)
+    const sendIndividual = envFlag('EMAIL_INDIVIDUAL_ENABLED', false)
+    const nowIso = new Date().toISOString()
+
+    const summaryItems = normalizedItems.map((item, index) => ({
+      bookingId: bookings[index]?.id ?? '',
+      classTypeId: item.classTypeId,
+      bookingDate: item.date,
+      startTime: item.timeSlot,
+      participants: item.participants,
+      totalAmount: item.totalAmount,
+    }))
+
+    if (sendSummary) {
+      try {
+        await sendCartSummaryEmail({
+          checkoutId,
+          customerName: contact.name.trim(),
+          customerEmail: contact.email.trim().toLowerCase(),
+          items: summaryItems,
+        })
+        await supabase.from('bookings').update({ checkout_summary_sent_at: nowIso }).eq('checkout_id', checkoutId)
+      } catch (error) {
+        console.error('Failed to send customer checkout summary email (test mode)', { checkoutId, error })
+      }
+    }
+
+    if (sendAdminSummary) {
+      try {
+        await sendAdminCartSummaryEmail({
+          checkoutId,
+          customerName: contact.name.trim(),
+          customerEmail: contact.email.trim().toLowerCase(),
+          items: summaryItems,
+        })
+        await supabase.from('bookings').update({ checkout_admin_summary_sent_at: nowIso }).eq('checkout_id', checkoutId)
+      } catch (error) {
+        console.error('Failed to send admin checkout summary email (test mode)', { checkoutId, error })
+      }
+    }
+
+    if (sendIndividual) {
+      try {
+        await Promise.all([
+          ...summaryItems.map(item => sendConfirmationEmail({
+            bookingId: item.bookingId,
+            customerName: contact.name.trim(),
+            customerEmail: contact.email.trim().toLowerCase(),
+            classTypeId: item.classTypeId,
+            bookingDate: item.bookingDate,
+            startTime: item.startTime,
+            participants: item.participants,
+            totalAmount: item.totalAmount,
+          })),
+          ...summaryItems.map(item => sendAdminNotification({
+            bookingId: item.bookingId,
+            customerName: contact.name.trim(),
+            customerEmail: contact.email.trim().toLowerCase(),
+            classTypeId: item.classTypeId,
+            bookingDate: item.bookingDate,
+            startTime: item.startTime,
+            participants: item.participants,
+            totalAmount: item.totalAmount,
+          })),
+        ])
+      } catch (error) {
+        console.error('Failed to send individual booking emails (test mode)', { checkoutId, error })
+      }
+    }
+
     const bookingIds = bookings.map(b => b.id)
     return json({
       bookingId: bookingIds[0],
       bookingIds,
+      checkoutId,
       clientSecret: null,
       totalAmount,
     })
@@ -139,6 +225,7 @@ export const POST: APIRoute = async ({ request }) => {
       automatic_payment_methods: { enabled: true },
       metadata: {
         bookingItems: String(normalizedItems.length),
+        checkoutId,
         customerEmail: contact.email,
         customerName: contact.name,
       },
@@ -152,6 +239,7 @@ export const POST: APIRoute = async ({ request }) => {
     .insert(
       normalizedItems.map(item => ({
         class_type_id: item.classTypeId,
+        checkout_id: checkoutId,
         booking_date: item.date,
         start_time: item.timeSlot,
         participants: item.participants,
@@ -177,6 +265,7 @@ export const POST: APIRoute = async ({ request }) => {
   return json({
     bookingId: bookingIds[0],
     bookingIds,
+    checkoutId,
     clientSecret: paymentIntent.client_secret,
     totalAmount,
   })
