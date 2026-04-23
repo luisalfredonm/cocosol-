@@ -33,10 +33,10 @@ const navLinks = [
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
   <div class="container mx-auto px-4">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-2">
-        <img src="/images/logo.png" alt="Pura Vida Surf School Tamarindo" class="h-12 w-auto" width="120" height="48" loading="eager" />
+    <div class="flex items-center justify-between h-[107px] overflow-visible">
+      <!-- Logo: overflows below header -->
+      <a href="/" class="flex items-center relative z-[60]" style="margin-bottom:-29px">
+        <img src="/images/logo.png" alt="Pura Vida Surf School Tamarindo" class="w-auto" width="145" height="136" loading="eager" style="height:136px" />
       </a>
 
       <!-- Desktop Nav -->
@@ -45,7 +45,7 @@ const navLinks = [
           <div class="relative group">
             <a
               href={link.href}
-              class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-medium text-sm transition-colors py-5"
+              class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-semibold text-base leading-5 transition-colors py-5"
             >
               {link.label}
               {link.children && (
@@ -96,7 +96,7 @@ const navLinks = [
 </header>
 
 <!-- Spacer for fixed header -->
-<div class="h-16"></div>
+<div class="h-[107px]"></div>
 
 <script>
   const toggle = document.getElementById('menu-toggle')
