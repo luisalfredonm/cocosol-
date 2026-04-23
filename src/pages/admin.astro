@@ -400,6 +400,55 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+
+    /* ── Booking detail dialog ── */
+    .adm-dialog {
+      border: none; border-radius: 20px; padding: 0;
+      max-width: 460px; width: calc(100vw - 32px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08);
+      overflow: hidden; position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); margin: 0;
+    }
+    .adm-dialog::backdrop {
+      background: rgba(15,23,42,0.52);
+      backdrop-filter: blur(4px);
+    }
+    @keyframes adm-dialog-in {
+      from { opacity: 0; transform: translate(-50%, calc(-50% + 12px)) scale(0.97); }
+      to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    .adm-dialog[open] { animation: adm-dialog-in 0.2s ease; }
+    .adm-dialog-hd {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 22px 24px 16px;
+    }
+    .adm-dialog-close {
+      width: 30px; height: 30px; border-radius: 8px; border: none;
+      background: #F1F5F9; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: background 0.1s; flex-shrink: 0; margin-top: 2px;
+    }
+    .adm-dialog-close:hover { background: #E2E8F0; }
+    .adm-dialog-close svg { width: 15px; height: 15px; color: #64748B; }
+    .adm-dialog-sep { height: 1px; background: #F1F5F9; }
+    .adm-dialog-sec { padding: 16px 24px; }
+    .adm-dialog-sec-label {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.13em; color: #94A3B8; margin-bottom: 10px;
+    }
+    .adm-dialog-row {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: #475569; margin-bottom: 5px;
+    }
+    .adm-dialog-row svg { width: 15px; height: 15px; color: #CBD5E1; flex-shrink: 0; }
+    .adm-dialog-actions { padding: 14px 24px 22px; display: flex; gap: 8px; }
+    .adm-btn-view {
+      background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 8px;
+      padding: 5px 10px; cursor: pointer; display: inline-flex; align-items: center;
+      gap: 5px; font-size: 12px; font-weight: 600; color: #475569;
+      transition: all 0.1s; font-family: inherit; white-space: nowrap;
+    }
+    .adm-btn-view:hover { background: #EFF6FF; border-color: #93C5FD; color: #1D4ED8; }
+    .adm-btn-view svg { width: 13px; height: 13px; }
   </style>
 </head>
 <body>
@@ -702,16 +751,22 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                                   <span class={`adm-pill adm-pill-${b.status}`}>{b.status}</span>
                                 </td>
                                 <td>
-                                  <form method="POST" style="display:flex;gap:6px">
-                                    <input type="hidden" name="action" value="update" />
-                                    <input type="hidden" name="id" value={b.id} />
-                                    {b.status !== 'confirmed' && (
-                                      <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-confirm">✓ Confirm</button>
-                                    )}
-                                    {b.status !== 'cancelled' && (
-                                      <button type="submit" name="status" value="cancelled" class="adm-btn adm-btn-cancel">✗ Cancel</button>
-                                    )}
-                                  </form>
+                                  <div style="display:flex;align-items:center;gap:6px">
+                                    <button type="button" class="adm-btn-view" onclick={`document.getElementById('bd-${b.id}').showModal()`}>
+                                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                      View
+                                    </button>
+                                    <form method="POST" style="display:flex;gap:6px">
+                                      <input type="hidden" name="action" value="update" />
+                                      <input type="hidden" name="id" value={b.id} />
+                                      {b.status !== 'confirmed' && (
+                                        <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-confirm">✓ Confirm</button>
+                                      )}
+                                      {b.status !== 'cancelled' && (
+                                        <button type="submit" name="status" value="cancelled" class="adm-btn adm-btn-cancel">✗ Cancel</button>
+                                      )}
+                                    </form>
+                                  </div>
                                 </td>
                               </tr>
                             )
@@ -769,16 +824,22 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                                         <span class={`adm-pill adm-pill-${b.status}`}>{b.status}</span>
                                       </td>
                                       <td>
-                                        <form method="POST" style="display:flex;gap:6px">
-                                          <input type="hidden" name="action" value="update" />
-                                          <input type="hidden" name="id" value={b.id} />
-                                          {b.status !== 'confirmed' && (
-                                            <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-confirm">✓ Confirm</button>
-                                          )}
-                                          {b.status !== 'cancelled' && (
-                                            <button type="submit" name="status" value="cancelled" class="adm-btn adm-btn-cancel">✗ Cancel</button>
-                                          )}
-                                        </form>
+                                        <div style="display:flex;align-items:center;gap:6px">
+                                          <button type="button" class="adm-btn-view" onclick={`document.getElementById('bd-${b.id}').showModal()`}>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                            View
+                                          </button>
+                                          <form method="POST" style="display:flex;gap:6px">
+                                            <input type="hidden" name="action" value="update" />
+                                            <input type="hidden" name="id" value={b.id} />
+                                            {b.status !== 'confirmed' && (
+                                              <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-confirm">✓ Confirm</button>
+                                            )}
+                                            {b.status !== 'cancelled' && (
+                                              <button type="submit" name="status" value="cancelled" class="adm-btn adm-btn-cancel">✗ Cancel</button>
+                                            )}
+                                          </form>
+                                        </div>
                                       </td>
                                     </tr>
                                   )
@@ -795,6 +856,109 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                 </div>
               )
             })}
+
+          {/* Dialogs de detalle — uno por booking, pre-renderizados */}
+          {sortedBookings.map(b => {
+            const ct = classTypesById[b.class_type_id]
+            const ctName = ct?.name ?? b.class_type_id
+            const initials = getInitials(b.customer_name)
+            const [avBg, avFg] = avatarColor(b.customer_name)
+            const bDateFull = new Date(b.booking_date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })
+            const bookedOn = b.created_at ? new Date(b.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—'
+            const pricePerPerson = ct?.price_per_person ?? (Number(b.total_amount) / Math.max(b.participants, 1))
+            return (
+              <dialog id={`bd-${b.id}`} class="adm-dialog">
+
+                {/* Header */}
+                <div class="adm-dialog-hd">
+                  <div>
+                    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.13em;color:#94A3B8;margin-bottom:6px">Booking Detail</div>
+                    <div style="display:flex;align-items:center;gap:10px">
+                      <span style="font-family:ui-monospace,monospace;font-size:18px;font-weight:800;color:#0F172A;letter-spacing:-0.01em">#{b.id.slice(-8).toUpperCase()}</span>
+                      <span class={`adm-pill adm-pill-${b.status}`}>{b.status}</span>
+                    </div>
+                  </div>
+                  <button type="button" class="adm-dialog-close" onclick="this.closest('dialog').close()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                  </button>
+                </div>
+
+                <div class="adm-dialog-sep"></div>
+
+                {/* Servicio */}
+                <div class="adm-dialog-sec">
+                  <div class="adm-dialog-sec-label">Service</div>
+                  <div style="font-weight:700;color:#0F172A;font-size:16px;margin-bottom:12px">{ctName}</div>
+                  <div class="adm-dialog-row">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    {bDateFull}
+                  </div>
+                  <div class="adm-dialog-row">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    {formatTime(b.start_time)}{ct?.duration_minutes ? ` · ${ct.duration_minutes} min` : ''}
+                  </div>
+                  <div class="adm-dialog-row">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    {b.participants} {b.participants === 1 ? 'guest' : 'guests'}
+                  </div>
+                </div>
+
+                <div class="adm-dialog-sep"></div>
+
+                {/* Cliente */}
+                <div class="adm-dialog-sec">
+                  <div class="adm-dialog-sec-label">Customer</div>
+                  <div style="display:flex;align-items:flex-start;gap:12px">
+                    <div class="adm-avatar" style={`background:${avBg};color:${avFg};width:42px;height:42px;font-size:14px;flex-shrink:0`}>{initials}</div>
+                    <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                      <span style="font-weight:700;color:#0F172A;font-size:15px">{b.customer_name}</span>
+                      <a href={`mailto:${b.customer_email}`} style="font-size:13px;color:#2563EB;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{b.customer_email}</a>
+                      {b.customer_phone && <span style="font-size:13px;color:#475569">{b.customer_phone}</span>}
+                      {b.customer_country && <span style="font-size:13px;color:#94A3B8">{b.customer_country}</span>}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="adm-dialog-sep"></div>
+
+                {/* Pago */}
+                <div class="adm-dialog-sec">
+                  <div class="adm-dialog-sec-label">Payment</div>
+                  <div style="display:flex;justify-content:space-between;align-items:flex-end">
+                    <div>
+                      <div style="font-size:12.5px;color:#94A3B8;margin-bottom:3px">{b.participants} × {formatCurrency(pricePerPerson)}/person</div>
+                      <div style="font-size:28px;font-weight:800;color:#0097A7;letter-spacing:-0.04em;line-height:1">{formatCurrency(Number(b.total_amount))}</div>
+                    </div>
+                    <div style="text-align:right">
+                      <div style="font-size:10.5px;color:#94A3B8;text-transform:uppercase;letter-spacing:0.09em;font-weight:700">Booked on</div>
+                      <div style="font-size:13px;font-weight:600;color:#475569;margin-top:3px">{bookedOn}</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Acciones */}
+                {(b.status !== 'confirmed' || b.status !== 'cancelled') && (
+                  <div class="adm-dialog-actions">
+                    <form method="POST" style="display:contents">
+                      <input type="hidden" name="action" value="update" />
+                      <input type="hidden" name="id" value={b.id} />
+                      {b.status !== 'confirmed' && (
+                        <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-teal" style="flex:1;justify-content:center">
+                          ✓ Confirm Booking
+                        </button>
+                      )}
+                      {b.status !== 'cancelled' && (
+                        <button type="submit" name="status" value="cancelled" class="adm-btn adm-btn-cancel" style="flex:1;justify-content:center">
+                          ✗ Cancel
+                        </button>
+                      )}
+                    </form>
+                  </div>
+                )}
+
+              </dialog>
+            )
+          })}
 
           </div>
         )}
@@ -1131,5 +1295,11 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
   </div>
 )}
 
+<script>
+  // Cerrar dialog al hacer click en el backdrop
+  document.addEventListener('click', e => {
+    if (e.target instanceof HTMLDialogElement) e.target.close()
+  })
+</script>
 </body>
 </html>

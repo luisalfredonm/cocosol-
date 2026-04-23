@@ -54,9 +54,10 @@ const seo = seoData.home
     <div class="container mx-auto px-4">
       <span class="section-label text-white/80 block text-center mb-2">Best Surf School in Tamarindo</span>
       <h2 class="text-3xl font-bold text-white text-center mb-10">Surf School in Tamarindo for Every Level</h2>
-      <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {[
           { href: '/private-surf-lessons-tamarindo', title: 'Private Surf Lessons', img: '/images/private-lessons-card.jpg' },
+          { href: '/semi-private-surf-lessons-tamarindo', title: 'Semi-Private Surf Lessons', img: '/images/semi-private-lessons-card.jpg' },
           { href: '/group-surf-lessons-tamarindo', title: 'Group Surf Lessons', img: '/images/group-lessons-card.jpg' },
         ].map(c => (
           <a href={c.href} class="group relative rounded-2xl overflow-hidden h-64 block">
