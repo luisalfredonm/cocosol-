@@ -24,14 +24,19 @@ const seo = seoData.home
   <section class="py-20 container mx-auto px-4">
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <div class="grid grid-cols-2 gap-3">
-        {['/images/gallery-1.jpg','/images/gallery-2.jpg','/images/gallery-3.jpg','/images/gallery-4.jpg'].map((src,i) => (
-          <img src={src} alt="Surf lessons Tamarindo Costa Rica" class={`rounded-xl w-full h-48 object-cover ${i%2===1 ? 'mt-6' : ''}`} width="400" height="300" loading={i===0?'eager':'lazy'}/>
+        {[
+          { src: '/images/gallery-1.jpg', alt: 'Surf school Tamarindo — beginner lesson on the beach' },
+          { src: '/images/gallery-2.jpg', alt: 'Group surf lessons Tamarindo Costa Rica' },
+          { src: '/images/gallery-3.jpg', alt: 'Surf school Tamarindo — instructor guiding student on a wave' },
+          { src: '/images/gallery-4.jpg', alt: 'Surf school Tamarindo — students catching their first waves' },
+        ].map(({ src, alt }, i) => (
+          <img src={src} alt={alt} class={`rounded-xl w-full h-48 object-cover ${i%2===1 ? 'mt-6' : ''}`} width="400" height="300" loading={i===0?'eager':'lazy'}/>
         ))}
       </div>
       <div>
         <span class="section-label mb-2 block">Welcome to Pura Vida Surf School</span>
         <h2 class="text-4xl font-bold text-gray-900">Surf School In Tamarindo — Learn to Surf at Costa Rica's #1 Surf Town</h2>
-        <p class="mt-4 text-gray-600 leading-relaxed">When you come to Tamarindo, you've come to one of the best surf school in Tamarindo. We combine professional instruction, warm water environment, and personalized teaching to help you improve technique, gain confidence, and love the ocean.</p>
+        <p class="mt-4 text-gray-600 leading-relaxed">Pura Vida Surf School is the surf school Tamarindo visitors trust most. Located steps from the beach in one of <a href="https://www.visitcostarica.com/en/costa-rica/where-to-go/beaches/tamarindo" target="_blank" rel="noopener noreferrer" class="text-teal-600 underline hover:text-teal-800">Costa Rica's top surf destinations</a>, we combine certified instruction, warm water, and small groups to help you improve technique, build confidence, and fall in love with the ocean — whether it's your very first wave or you're pushing to the next level.</p>
         <ul class="mt-4 space-y-2">
           {['Certified surf instructors','Small groups and personalized coaching','Surfboards and equipment included'].map(i => (
             <li class="flex items-center gap-2 text-gray-700">
@@ -73,7 +78,7 @@ const seo = seoData.home
 
   <WhyChooseUs/>
 
-  <VideoSection title="Experience Surfing in Tamarindo" subtitle="Watch our students go from nervous beginners to confident surfers in just one session." bgImage="/images/video-bg.jpg" cta={{ label: 'Choose Your Surf Lesson', href: '/tamarindo-surf-lessons' }}/>
+  <VideoSection title="Experience Surfing in Tamarindo" subtitle="Watch our students go from nervous beginners to confident surfers in just one session." bgImage="/images/student-from-our-surf-school-in-Tamarindo.webp" cta={{ label: 'Choose Your Surf Lesson', href: '/tamarindo-surf-lessons' }}/>
 
   <!-- Surf camp -->
   <section class="py-20 bg-gray-50">
@@ -103,7 +108,7 @@ const seo = seoData.home
     <div class="grid md:grid-cols-2 gap-12 items-start">
       <div>
         <h2 class="text-3xl font-bold text-gray-900 mb-3">Surf School FAQs — Everything You Need to Know</h2>
-        <p class="text-gray-600 mb-6">Ask all our surf school are designed to answer the most frequently asked questions from students planning to learn to surf at Pura Vida Surf School.</p>
+        <p class="text-gray-600 mb-6">These are the most common questions we get from students planning their first visit to our surf school in Tamarindo. Can't find your answer? We reply fast on WhatsApp.</p>
         <a href="/surf-school-near-me-tamarindo" class="btn-outline">Contact Us on WhatsApp</a>
       </div>
       <FAQ items={[
