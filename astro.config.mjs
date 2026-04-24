@@ -11,4 +11,8 @@ export default defineConfig({
   adapter: vercel(),
   compressHTML: true,
   build: { inlineStylesheets: 'auto' },
+  prefetch: {
+    prefetchAll: false,
+    defaultStrategy: 'hover',
+  },
 })

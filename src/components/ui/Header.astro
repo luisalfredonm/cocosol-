@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets'
 import { ROUTES } from '../../lib/seo'
+import logoImg from '../../assets/images/logo.png'
 const navLinks = [
   {
     label: 'Surf Lessons',
@@ -33,10 +35,10 @@ const navLinks = [
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
   <div class="container mx-auto px-4">
-    <div class="flex items-center justify-between h-[107px] overflow-visible">
-      <!-- Logo: overflows below header -->
-      <a href="/" class="flex items-center relative z-[60]" style="margin-bottom:-29px">
-        <img src="/images/logo.png" alt="Pura Vida Surf School Tamarindo" class="w-auto" width="145" height="136" loading="eager" style="height:136px" />
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo: overflows below header intentionally -->
+      <a href="/" class="flex items-center relative" style="margin-bottom: -60px; z-index: 60;">
+        <Image src={logoImg} alt="Pura Vida Surf School Tamarindo" class="w-auto" width={145} height={136} loading="eager" decoding="sync" style="height:136px" formats={['avif', 'webp']} />
       </a>
 
       <!-- Desktop Nav -->
@@ -45,7 +47,8 @@ const navLinks = [
           <div class="relative group">
             <a
               href={link.href}
-              class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-semibold text-base leading-5 transition-colors py-5"
+              data-astro-prefetch
+              class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-medium text-sm transition-colors py-5"
             >
               {link.label}
               {link.children && (
@@ -69,7 +72,7 @@ const navLinks = [
 
       <!-- CTA + Mobile Toggle -->
       <div class="flex items-center gap-3">
-        <a href={ROUTES.BOOK} class="hidden md:inline-block bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all duration-200 shadow-[0_4px_14px_rgba(0,188,212,0.3)] hover:shadow-[0_6px_20px_rgba(0,188,212,0.45)] hover:-translate-y-px">
+        <a href={ROUTES.BOOK} data-astro-prefetch="viewport" class="hidden md:inline-block bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all duration-200 shadow-[0_4px_14px_rgba(0,188,212,0.3)] hover:shadow-[0_6px_20px_rgba(0,188,212,0.45)] hover:-translate-y-px">
           Book Now
         </a>
         <button id="menu-toggle" class="lg:hidden p-2 text-gray-700" aria-label="Toggle menu">
@@ -91,12 +94,12 @@ const navLinks = [
         ))}
       </div>
     ))}
-    <a href={ROUTES.BOOK} class="mt-4 block w-full text-center bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold py-3 rounded-xl transition-all duration-200 shadow-[0_4px_14px_rgba(0,188,212,0.3)]">Book Now</a>
+    <a href={ROUTES.BOOK} data-astro-prefetch class="mt-4 block w-full text-center bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold py-3 rounded-xl transition-all duration-200 shadow-[0_4px_14px_rgba(0,188,212,0.3)]">Book Now</a>
   </div>
 </header>
 
 <!-- Spacer for fixed header -->
-<div class="h-[107px]"></div>
+<div class="h-28"></div>
 
 <script>
   const toggle = document.getElementById('menu-toggle')
