@@ -29,6 +29,85 @@ if (Astro.request.method === 'POST') {
   if (!isAuthenticated) return Astro.redirect('/admin')
 
   try {
+    // ── Camp actions ──────────────────────────────────────────────────────
+    if (action === 'upsert_camp_room') {
+      const id = form.get('id') as string | null
+      const amenitiesRaw = (form.get('amenities') as string ?? '').split(',').map(a => a.trim()).filter(Boolean)
+      const payload = {
+        name: form.get('name'),
+        description: (form.get('description') as string) || null,
+        bed_type: form.get('bed_type') || 'Queen',
+        capacity: parseInt(form.get('capacity') as string) || 2,
+        amenities: amenitiesRaw,
+        photo_url: (form.get('photo_url') as string) || null,
+        floor_label: (form.get('floor_label') as string) || null,
+        is_active: form.get('is_active') === 'true',
+        sort_order: parseInt(form.get('sort_order') as string) || 0,
+      }
+      if (id) await supabase.from('camp_rooms').update(payload).eq('id', id)
+      else await supabase.from('camp_rooms').insert(payload)
+      return Astro.redirect('/admin?tab=camp-rooms')
+    }
+
+    if (action === 'delete_camp_room') {
+      await supabase.from('camp_rooms').delete().eq('id', form.get('id') as string)
+      return Astro.redirect('/admin?tab=camp-rooms')
+    }
+
+    if (action === 'upsert_camp_session') {
+      const id = form.get('id') as string | null
+      const startDate = form.get('start_date') as string
+      const campType = form.get('camp_type') as string
+      const nights = campType === '7day' ? 6 : 4
+      const startObj = new Date(startDate + 'T12:00:00')
+      startObj.setDate(startObj.getDate() + nights)
+      const endDate = startObj.toISOString().slice(0, 10)
+      const sessionPayload = {
+        camp_type: campType,
+        start_date: startDate,
+        end_date: endDate,
+        price_per_person_usd: parseFloat(form.get('price_per_person_usd') as string),
+        is_active: form.get('is_active') === 'true',
+      }
+      let sessionId = id
+      if (id) {
+        await supabase.from('camp_sessions').update(sessionPayload).eq('id', id)
+      } else {
+        const { data: newSession } = await supabase.from('camp_sessions').insert(sessionPayload).select('id').single()
+        sessionId = newSession?.id
+      }
+      // Sync rooms
+      if (sessionId) {
+        const roomIds = (form.getAll('room_ids') as string[]).filter(Boolean)
+        await supabase.from('camp_session_rooms').delete().eq('session_id', sessionId)
+        if (roomIds.length > 0) {
+          await supabase.from('camp_session_rooms').insert(roomIds.map(rid => ({ session_id: sessionId, room_id: rid })))
+        }
+      }
+      return Astro.redirect('/admin?tab=camp-sessions')
+    }
+
+    if (action === 'delete_camp_session') {
+      await supabase.from('camp_sessions').delete().eq('id', form.get('id') as string)
+      return Astro.redirect('/admin?tab=camp-sessions')
+    }
+
+    if (action === 'update_camp_booking_status') {
+      const { id, status } = Object.fromEntries(form)
+      await supabase.from('camp_bookings').update({ status, updated_at: new Date().toISOString() }).eq('id', id)
+      return Astro.redirect('/admin?tab=camp-bookings')
+    }
+
+    if (action === 'save_camp_settings') {
+      await supabase.from('camp_settings').update({
+        payment_mode: form.get('payment_mode'),
+        deposit_percentage: parseInt(form.get('deposit_percentage') as string) || 30,
+        updated_at: new Date().toISOString(),
+      }).eq('id', 1)
+      return Astro.redirect('/admin?tab=camp-settings')
+    }
+    // ── End camp actions ──────────────────────────────────────────────────
+
     if (action === 'update') {
       const id = form.get('id') as string
       const status = form.get('status') as string
@@ -122,6 +201,11 @@ let capacities: any[] = []
 let dateSlots: any[] = []
 let stats = { total: 0, confirmed: 0, pending: 0, cancelled: 0, revenue: 0 }
 
+let campRooms: any[] = []
+let campSessions: any[] = []
+let campBookings: any[] = []
+let campSettings: any = { payment_mode: 'full', deposit_percentage: 30 }
+
 const activeTab = Astro.url.searchParams.get('tab') ?? 'bookings'
 const statusFilter = Astro.url.searchParams.get('status') ?? ''
 const dateFilter = Astro.url.searchParams.get('date') ?? ''
@@ -151,6 +235,22 @@ if (isAuthenticated) {
   weeklySlots = wsData ?? []
   capacities = capData ?? []
   dateSlots = dsData ?? []
+
+  const [
+    { data: crData },
+    { data: csData },
+    { data: cbData },
+    { data: csetData },
+  ] = await Promise.all([
+    supabase.from('camp_rooms').select('*').order('sort_order'),
+    supabase.from('camp_sessions').select('*, camp_session_rooms(room_id)').order('start_date'),
+    supabase.from('camp_bookings').select('*, camp_sessions(camp_type,start_date,end_date), camp_rooms(name)').order('created_at', { ascending: false }).limit(200),
+    supabase.from('camp_settings').select('*').eq('id', 1).single(),
+  ])
+  campRooms = crData ?? []
+  campSessions = csData ?? []
+  campBookings = cbData ?? []
+  if (csetData) campSettings = csetData
 
   for (const b of statsData ?? []) {
     stats.total++
@@ -244,6 +344,10 @@ const TABS = [
   { id: 'weekly-slots',  label: 'Weekly Schedule',  icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
   { id: 'capacity',      label: 'Capacity',          icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4' },
   { id: 'date-slots',    label: 'Date Overrides',   icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' },
+  { id: 'camp-rooms',    label: 'Camp Rooms',       icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { id: 'camp-sessions', label: 'Camp Sessions',    icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+  { id: 'camp-bookings', label: 'Camp Bookings',    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z' },
+  { id: 'camp-settings', label: 'Camp Settings',    icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
 ]
 
 const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.id === 'bookings'))
@@ -1286,6 +1390,308 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                   </table>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        <!-- ══ TAB: CAMP ROOMS ═════════════════════════════════════════════ -->
+        {activeTab === 'camp-rooms' && (
+          <div class="adm-tab" style="display:flex;flex-direction:column;gap:16px">
+            <div class="adm-card adm-card-p">
+              <div style="font-size:15px;font-weight:700;color:#0F172A;margin-bottom:4px">Add / Edit Room</div>
+              <form method="POST" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;align-items:flex-end">
+                <input type="hidden" name="action" value="upsert_camp_room" />
+                <div>
+                  <label class="adm-label">Room Name *</label>
+                  <input type="text" name="name" required class="adm-input" placeholder="Ocean View Queen" />
+                </div>
+                <div>
+                  <label class="adm-label">Bed Type</label>
+                  <input type="text" name="bed_type" class="adm-input" placeholder="Queen" />
+                </div>
+                <div>
+                  <label class="adm-label">Capacity</label>
+                  <input type="number" name="capacity" min="1" max="4" value="2" class="adm-input" style="width:80px" />
+                </div>
+                <div>
+                  <label class="adm-label">Floor / Location</label>
+                  <input type="text" name="floor_label" class="adm-input" placeholder="2nd floor" />
+                </div>
+                <div>
+                  <label class="adm-label">Photo URL</label>
+                  <input type="url" name="photo_url" class="adm-input" placeholder="https://..." />
+                </div>
+                <div>
+                  <label class="adm-label">Sort Order</label>
+                  <input type="number" name="sort_order" value="0" class="adm-input" style="width:80px" />
+                </div>
+                <div style="grid-column:1/-1">
+                  <label class="adm-label">Description</label>
+                  <input type="text" name="description" class="adm-input" style="width:100%" placeholder="Brief description of the room" />
+                </div>
+                <div style="grid-column:1/-1">
+                  <label class="adm-label">Amenities (comma-separated)</label>
+                  <input type="text" name="amenities" class="adm-input" style="width:100%" placeholder="AC, WiFi, Hot water, Ocean view" />
+                </div>
+                <div>
+                  <label class="adm-label">Active</label>
+                  <select name="is_active" class="adm-input">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                </div>
+                <div style="display:flex;align-items:flex-end">
+                  <button type="submit" class="adm-btn adm-btn-teal">+ Add Room</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="adm-card">
+              {campRooms.length === 0 ? (
+                <div class="adm-empty">
+                  <p class="adm-empty-title">No rooms yet</p>
+                  <p class="adm-empty-sub">Add your first room above</p>
+                </div>
+              ) : (
+                <div style="overflow-x:auto">
+                  <table class="adm-tbl">
+                    <thead><tr><th>Room</th><th>Bed</th><th>Capacity</th><th>Amenities</th><th>Photo</th><th>Active</th><th></th></tr></thead>
+                    <tbody>
+                      {campRooms.map((r: any) => (
+                        <tr>
+                          <td>
+                            <div style="font-weight:700;color:#0F172A">{r.name}</div>
+                            {r.floor_label && <div style="font-size:11px;color:#94A3B8">{r.floor_label}</div>}
+                            {r.description && <div style="font-size:11px;color:#94A3B8;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{r.description}</div>}
+                          </td>
+                          <td>{r.bed_type}</td>
+                          <td>{r.capacity} pax</td>
+                          <td style="font-size:11px;max-width:180px">{(r.amenities ?? []).join(', ')}</td>
+                          <td>{r.photo_url ? <a href={r.photo_url} target="_blank" style="color:#0097A7;font-size:12px">View</a> : <span style="color:#CBD5E1">—</span>}</td>
+                          <td>
+                            <span style={`font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:${r.is_active ? '#D1FAE5' : '#FEE2E2'};color:${r.is_active ? '#065F46' : '#991B1B'}`}>
+                              {r.is_active ? 'Active' : 'Inactive'}
+                            </span>
+                          </td>
+                          <td>
+                            <form method="POST" style="display:inline">
+                              <input type="hidden" name="action" value="delete_camp_room" />
+                              <input type="hidden" name="id" value={r.id} />
+                              <button type="submit" class="adm-btn-ghost" onclick="return confirm('Delete this room?')">Delete</button>
+                            </form>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        <!-- ══ TAB: CAMP SESSIONS ══════════════════════════════════════════ -->
+        {activeTab === 'camp-sessions' && (
+          <div class="adm-tab" style="display:flex;flex-direction:column;gap:16px">
+            <div class="adm-card adm-card-p">
+              <div style="font-size:15px;font-weight:700;color:#0F172A;margin-bottom:4px">Create New Session</div>
+              <div style="font-size:12.5px;color:#94A3B8;margin-bottom:16px">Sessions always start on Sunday. End date is calculated automatically.</div>
+              <form method="POST" style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start">
+                <input type="hidden" name="action" value="upsert_camp_session" />
+                <div>
+                  <label class="adm-label">Camp Type</label>
+                  <select name="camp_type" required class="adm-input">
+                    <option value="5day">5-Day Camp (4 nights)</option>
+                    <option value="7day">7-Day Camp (6 nights)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="adm-label">Start Date (Sunday)</label>
+                  <input type="date" name="start_date" required class="adm-input" style="width:162px" />
+                </div>
+                <div>
+                  <label class="adm-label">Price / person (USD)</label>
+                  <input type="number" step="0.01" min="0" name="price_per_person_usd" required class="adm-input" placeholder="399.00" style="width:140px" />
+                </div>
+                <div>
+                  <label class="adm-label">Active</label>
+                  <select name="is_active" class="adm-input">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                </div>
+                <div style="width:100%">
+                  <label class="adm-label">Rooms for this session</label>
+                  <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:4px">
+                    {campRooms.filter((r:any) => r.is_active).map((r: any) => (
+                      <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:#475569;cursor:pointer">
+                        <input type="checkbox" name="room_ids" value={r.id} style="accent-color:#0097A7" />
+                        {r.name}
+                      </label>
+                    ))}
+                    {campRooms.filter((r:any) => r.is_active).length === 0 && (
+                      <span style="font-size:12px;color:#94A3B8">Add rooms first in the Camp Rooms tab</span>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <button type="submit" class="adm-btn adm-btn-teal" style="margin-top:8px">+ Create Session</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="adm-card">
+              {campSessions.length === 0 ? (
+                <div class="adm-empty">
+                  <p class="adm-empty-title">No sessions yet</p>
+                  <p class="adm-empty-sub">Create your first camp session above</p>
+                </div>
+              ) : (
+                <div style="overflow-x:auto">
+                  <table class="adm-tbl">
+                    <thead><tr><th>Type</th><th>Start</th><th>End</th><th>Price/pax</th><th>Rooms</th><th>Active</th><th></th></tr></thead>
+                    <tbody>
+                      {campSessions.map((s: any) => {
+                        const assignedRooms = (s.camp_session_rooms ?? []).length
+                        return (
+                          <tr>
+                            <td><span style={`font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:${s.camp_type==='7day'?'#EDE9FE':'#E0F7FA'};color:${s.camp_type==='7day'?'#5B21B6':'#006064'}`}>{s.camp_type === '7day' ? '7-Day' : '5-Day'}</span></td>
+                            <td style="font-weight:600">{new Date(s.start_date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</td>
+                            <td>{new Date(s.end_date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</td>
+                            <td style="font-weight:700;color:#0097A7">${Number(s.price_per_person_usd).toFixed(2)}</td>
+                            <td>{assignedRooms} room{assignedRooms !== 1 ? 's' : ''}</td>
+                            <td><span style={`font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:${s.is_active?'#D1FAE5':'#FEE2E2'};color:${s.is_active?'#065F46':'#991B1B'}`}>{s.is_active?'Active':'Inactive'}</span></td>
+                            <td>
+                              <form method="POST" style="display:inline">
+                                <input type="hidden" name="action" value="delete_camp_session" />
+                                <input type="hidden" name="id" value={s.id} />
+                                <button type="submit" class="adm-btn-ghost" onclick="return confirm('Delete this session and all its bookings?')">Delete</button>
+                              </form>
+                            </td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        <!-- ══ TAB: CAMP BOOKINGS ══════════════════════════════════════════ -->
+        {activeTab === 'camp-bookings' && (
+          <div class="adm-tab" style="display:flex;flex-direction:column;gap:16px">
+            <div class="adm-card">
+              {campBookings.length === 0 ? (
+                <div class="adm-empty">
+                  <p class="adm-empty-title">No camp bookings yet</p>
+                  <p class="adm-empty-sub">Bookings will appear here once clients reserve a camp</p>
+                </div>
+              ) : (
+                <div style="overflow-x:auto">
+                  <table class="adm-tbl">
+                    <thead>
+                      <tr><th>Guest</th><th>Camp</th><th>Room</th><th>Dates</th><th>Guests</th><th>Charged</th><th>Full Total</th><th>Payment</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                      {campBookings.map((b: any) => (
+                        <tr>
+                          <td>
+                            <div style="font-weight:700;color:#0F172A">{b.guest1_name}</div>
+                            <div style="font-size:11px;color:#94A3B8">{b.guest1_email}</div>
+                            <div style="font-size:11px;color:#94A3B8">{b.guest1_phone}</div>
+                            {(b.guests_json ?? []).slice(1).map((g: any) => (
+                              <div style="font-size:11px;color:#64748B;margin-top:2px">+ {g.name}{g.email ? ` · ${g.email}` : ''}</div>
+                            ))}
+                          </td>
+                          <td>
+                            <span style={`font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:${b.camp_sessions?.camp_type==='7day'?'#EDE9FE':'#E0F7FA'};color:${b.camp_sessions?.camp_type==='7day'?'#5B21B6':'#006064'}`}>
+                              {b.camp_sessions?.camp_type === '7day' ? '7-Day' : '5-Day'}
+                            </span>
+                          </td>
+                          <td style="font-weight:600">{b.camp_rooms?.name ?? '—'}</td>
+                          <td style="font-size:12px">
+                            {b.camp_sessions ? (
+                              <span>{new Date(b.camp_sessions.start_date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})} → {new Date(b.camp_sessions.end_date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span>
+                            ) : '—'}
+                          </td>
+                          <td>{b.persons}</td>
+                          <td style="font-weight:700;color:#0097A7">${Number(b.charged_amount_usd).toFixed(2)}</td>
+                          <td>${Number(b.full_amount_usd).toFixed(2)}</td>
+                          <td>
+                            <span style="font-size:11px;background:#F1F5F9;padding:2px 7px;border-radius:999px;color:#475569">
+                              {b.payment_mode === 'deposit' ? `Deposit ${Math.round((b.charged_amount_usd/b.full_amount_usd)*100)}%` : 'Full'}
+                            </span>
+                          </td>
+                          <td>
+                            <span style={`font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:${b.status==='confirmed'?'#D1FAE5':b.status==='pending'?'#FEF9C3':'#FEE2E2'};color:${b.status==='confirmed'?'#065F46':b.status==='pending'?'#A16207':'#991B1B'}`}>
+                              {b.status}
+                            </span>
+                          </td>
+                          <td>
+                            <form method="POST" style="display:flex;gap:4px">
+                              <input type="hidden" name="action" value="update_camp_booking_status" />
+                              <input type="hidden" name="id" value={b.id} />
+                              <select name="status" class="adm-input" style="font-size:12px;padding:4px 8px;width:auto">
+                                <option value="pending" selected={b.status==='pending'}>Pending</option>
+                                <option value="confirmed" selected={b.status==='confirmed'}>Confirmed</option>
+                                <option value="cancelled" selected={b.status==='cancelled'}>Cancelled</option>
+                              </select>
+                              <button type="submit" class="adm-btn adm-btn-teal" style="font-size:12px;padding:4px 10px">Save</button>
+                            </form>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        <!-- ══ TAB: CAMP SETTINGS ══════════════════════════════════════════ -->
+        {activeTab === 'camp-settings' && (
+          <div class="adm-tab" style="display:flex;flex-direction:column;gap:16px;max-width:480px">
+            <div class="adm-card adm-card-p">
+              <div style="font-size:15px;font-weight:700;color:#0F172A;margin-bottom:4px">Payment Configuration</div>
+              <div style="font-size:12.5px;color:#94A3B8;line-height:1.5;margin-bottom:20px">
+                Choose whether clients pay the full amount or a deposit at booking time. Changes take effect immediately for new bookings.
+              </div>
+              <form method="POST" style="display:flex;flex-direction:column;gap:16px">
+                <input type="hidden" name="action" value="save_camp_settings" />
+                <div>
+                  <label class="adm-label">Payment Mode</label>
+                  <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+                    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:12px 14px;border:1.5px solid #E2E8F0;border-radius:12px;transition:border-color 0.15s" id="mode-full-label">
+                      <input type="radio" name="payment_mode" value="full" checked={campSettings.payment_mode === 'full'} style="accent-color:#0097A7" onchange="document.getElementById('deposit-row').style.opacity='0.4'" />
+                      <div>
+                        <div style="font-size:13px;font-weight:600;color:#0F172A">Full payment</div>
+                        <div style="font-size:11.5px;color:#94A3B8">Client pays 100% at booking</div>
+                      </div>
+                    </label>
+                    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:12px 14px;border:1.5px solid #E2E8F0;border-radius:12px;transition:border-color 0.15s">
+                      <input type="radio" name="payment_mode" value="deposit" checked={campSettings.payment_mode === 'deposit'} style="accent-color:#0097A7" onchange="document.getElementById('deposit-row').style.opacity='1'" />
+                      <div>
+                        <div style="font-size:13px;font-weight:600;color:#0F172A">Deposit</div>
+                        <div style="font-size:11.5px;color:#94A3B8">Client pays a % now, rest at check-in</div>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div id="deposit-row" style={`opacity:${campSettings.payment_mode === 'deposit' ? '1' : '0.4'}`}>
+                  <label class="adm-label">Deposit Percentage</label>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <input type="number" name="deposit_percentage" min="10" max="100" value={campSettings.deposit_percentage} class="adm-input" style="width:100px" />
+                    <span style="font-size:13px;color:#64748B">%</span>
+                  </div>
+                  <div style="font-size:11.5px;color:#94A3B8;margin-top:4px">
+                    Example: with 30% deposit on a $798 booking → client pays $239.40 now
+                  </div>
+                </div>
+                <button type="submit" class="adm-btn adm-btn-teal" style="width:fit-content">Save Settings</button>
+              </form>
             </div>
           </div>
         )}

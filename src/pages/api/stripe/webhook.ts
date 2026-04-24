@@ -49,6 +49,16 @@ export const POST: APIRoute = async ({ request }) => {
   if (event.type === 'payment_intent.succeeded') {
     const intent = event.data.object as Stripe.PaymentIntent
 
+    // Camp booking — identified by metadata.booking_type
+    if (intent.metadata?.booking_type === 'camp') {
+      await supabase
+        .from('camp_bookings')
+        .update({ status: 'confirmed', updated_at: new Date().toISOString() })
+        .eq('stripe_payment_intent_id', intent.id)
+        .eq('status', 'pending')
+      return new Response('ok', { status: 200 })
+    }
+
     await supabase
       .from('bookings')
       .update({ status: 'confirmed' })
@@ -171,11 +181,20 @@ export const POST: APIRoute = async ({ request }) => {
 
   if (event.type === 'payment_intent.payment_failed') {
     const intent = event.data.object as Stripe.PaymentIntent
-    await supabase
-      .from('bookings')
-      .update({ status: 'cancelled' })
-      .eq('stripe_payment_intent_id', intent.id)
-      .eq('status', 'pending')
+
+    if (intent.metadata?.booking_type === 'camp') {
+      await supabase
+        .from('camp_bookings')
+        .update({ status: 'cancelled' })
+        .eq('stripe_payment_intent_id', intent.id)
+        .eq('status', 'pending')
+    } else {
+      await supabase
+        .from('bookings')
+        .update({ status: 'cancelled' })
+        .eq('stripe_payment_intent_id', intent.id)
+        .eq('status', 'pending')
+    }
   }
 
   return new Response('ok', { status: 200 })
