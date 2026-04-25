@@ -1,0 +1,221 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import { seoData } from '../lib/seo'
+
+const seo = seoData.blog
+
+const categories = ['All', 'Beginners', 'Tips & Technique', 'Tamarindo Guide', 'Surf Travel']
+
+const posts = [
+  {
+    slug: '#',
+    category: 'Beginners',
+    title: 'What to Expect on Your First Surf Lesson in Tamarindo',
+    excerpt: 'Nervous about your first surf lesson? Here\'s exactly what happens from the moment you arrive at the beach to catching your first wave — no experience needed.',
+    date: 'April 18, 2025',
+    readTime: '5 min read',
+    image: '/images/surf-school-tamarindo-beginner-lesson.jpg',
+    featured: true,
+  },
+  {
+    slug: '#',
+    category: 'Tamarindo Guide',
+    title: 'Best Time to Surf in Tamarindo, Costa Rica',
+    excerpt: 'Tamarindo offers surfable waves year-round, but knowing when to visit can make the difference between good and great conditions. Here\'s our local breakdown by month.',
+    date: 'April 10, 2025',
+    readTime: '6 min read',
+    image: '/images/tamarindo-beach-surf.jpg',
+    featured: false,
+  },
+  {
+    slug: '#',
+    category: 'Tips & Technique',
+    title: 'How to Choose the Right Surf Lesson for Your Level',
+    excerpt: 'Private, semi-private, or group? 3-day package or 7-day camp? This guide breaks down every option so you can pick the surf lesson that fits your goals and budget.',
+    date: 'March 28, 2025',
+    readTime: '7 min read',
+    image: '/images/surf-school-tamarindo-private-class.jpg',
+    featured: false,
+  },
+  {
+    slug: '#',
+    category: 'Surf Travel',
+    title: '5 Reasons Why Tamarindo Is the Best Place to Learn to Surf',
+    excerpt: 'From forgiving beach breaks to warm water and a vibrant surf community, Tamarindo has everything a beginner surfer needs. Discover what makes this town so special.',
+    date: 'March 15, 2025',
+    readTime: '5 min read',
+    image: '/images/tamarindo-surf-lessons-instructor-teaching-beginner.jpg',
+    featured: false,
+  },
+  {
+    slug: '#',
+    category: 'Tips & Technique',
+    title: 'Surf Etiquette: Rules Every Beginner Must Know Before Paddling Out',
+    excerpt: 'The ocean has unwritten rules. Learning surf etiquette before your first session makes you safer, more respected in the water, and more confident on the board.',
+    date: 'March 3, 2025',
+    readTime: '6 min read',
+    image: '/images/surf-school-tamarindo-students.jpg',
+    featured: false,
+  },
+  {
+    slug: '#',
+    category: 'Tamarindo Guide',
+    title: 'A Complete Travel Guide to Tamarindo, Costa Rica',
+    excerpt: 'Planning your trip to Tamarindo? From the best beaches and restaurants to surf spots and activities, here\'s everything you need to plan the perfect pura vida vacation.',
+    date: 'February 20, 2025',
+    readTime: '9 min read',
+    image: '/images/student-from-our-surf-school-in-Tamarindo.jpg',
+    featured: false,
+  },
+]
+
+const featured = posts.find(p => p.featured)
+const rest = posts.filter(p => !p.featured)
+
+const categoryColors: Record<string, string> = {
+  'Beginners':       'bg-green-100 text-green-700',
+  'Tips & Technique':'bg-blue-100 text-blue-700',
+  'Tamarindo Guide': 'bg-amber-100 text-amber-700',
+  'Surf Travel':     'bg-purple-100 text-purple-700',
+}
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <section class="bg-gray-900 py-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20" style="background-image: url('/images/surf-school-tamarindo-surf-instructor-student.jpg'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900/95"></div>
+    <div class="relative z-10 container mx-auto px-4 text-center">
+      <span class="inline-block bg-[#00BCD4]/20 text-[#4DD0E1] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase border border-[#00BCD4]/30">
+        Surf School Blog
+      </span>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
+        Surf Tips, Guides & Stories<br class="hidden md:block"/> from Tamarindo
+      </h1>
+      <p class="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed">
+        Learn how to surf faster, plan your Tamarindo trip, and get insider tips from our certified instructors at Pura Vida Surf School.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FEATURED POST ─────────────────────────────────────────────────────── -->
+  {featured && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <p class="text-xs font-bold text-[#00BCD4] uppercase tracking-widest mb-6">Featured Article</p>
+        <a href={featured.slug}
+          class="group grid md:grid-cols-2 gap-10 items-center bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/30 hover:shadow-xl transition-all duration-300">
+          <!-- Image -->
+          <div class="overflow-hidden" style="height: 360px;">
+            <img
+              src={featured.image}
+              alt={featured.title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              width="700" height="360"
+              loading="eager"
+            />
+          </div>
+          <!-- Content -->
+          <div class="p-8 md:p-10">
+            <span class={`inline-block text-xs font-bold px-3 py-1 rounded-full mb-4 ${categoryColors[featured.category]}`}>
+              {featured.category}
+            </span>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4 leading-snug group-hover:text-[#00BCD4] transition-colors">
+              {featured.title}
+            </h2>
+            <p class="text-gray-600 leading-relaxed mb-6">{featured.excerpt}</p>
+            <div class="flex items-center gap-4 text-sm text-gray-400">
+              <span>{featured.date}</span>
+              <span>·</span>
+              <span>{featured.readTime}</span>
+            </div>
+            <div class="mt-6 inline-flex items-center gap-2 text-[#00BCD4] font-semibold text-sm group-hover:gap-3 transition-all">
+              Read Article
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- ── ALL POSTS ─────────────────────────────────────────────────────────── -->
+  <section class="pb-20 bg-white">
+    <div class="container mx-auto px-4">
+
+      <!-- Category filter (visual only) -->
+      <div class="flex flex-wrap gap-2 mb-10">
+        {categories.map((cat, i) => (
+          <button
+            class={`px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
+              i === 0
+                ? 'bg-[#00BCD4] text-white border-[#00BCD4]'
+                : 'bg-white text-gray-600 border-gray-200 hover:border-[#00BCD4] hover:text-[#00BCD4]'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {rest.map(post => (
+          <a href={post.slug}
+            class="group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/30 hover:shadow-xl transition-all duration-300">
+            <!-- Image -->
+            <div class="overflow-hidden" style="height: 220px;">
+              <img
+                src={post.image}
+                alt={post.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                width="600" height="220"
+                loading="lazy"
+              />
+            </div>
+            <!-- Content -->
+            <div class="flex flex-col flex-1 p-6">
+              <span class={`inline-block self-start text-xs font-bold px-3 py-1 rounded-full mb-3 ${categoryColors[post.category]}`}>
+                {post.category}
+              </span>
+              <h2 class="text-lg font-extrabold text-gray-900 mb-3 leading-snug group-hover:text-[#00BCD4] transition-colors flex-1">
+                {post.title}
+              </h2>
+              <p class="text-gray-500 text-sm leading-relaxed mb-5 line-clamp-3">{post.excerpt}</p>
+              <div class="flex items-center justify-between text-xs text-gray-400 mt-auto pt-4 border-t border-gray-100">
+                <span>{post.date}</span>
+                <span>{post.readTime}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+  <section class="py-16 bg-[#00BCD4]">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-extrabold text-white mb-4">Ready to Catch Your First Wave?</h2>
+      <p class="text-white/80 max-w-xl mx-auto mb-8 leading-relaxed">
+        Stop reading and start surfing. Book a lesson with our certified instructors in Tamarindo and experience the pura vida life.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="/book-now" class="px-8 py-3.5 bg-white text-[#00BCD4] font-bold rounded-2xl hover:bg-gray-50 transition-colors shadow-lg">
+          Book a Surf Lesson
+        </a>
+        <a href="/tamarindo-surf-lessons" class="px-8 py-3.5 bg-white/15 text-white font-semibold rounded-2xl border border-white/30 hover:bg-white/25 transition-colors">
+          View All Lessons
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <NeedHelp />
+
+</BaseLayout>

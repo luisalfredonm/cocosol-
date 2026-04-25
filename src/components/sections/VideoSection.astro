@@ -12,27 +12,54 @@ export interface Props {
 }
 const { title, subtitle, bullets, videoId, bgImage = '/images/video-bg.jpg', cta } = Astro.props
 const isLocalBg = typeof bgImage !== 'string'
+const videoHref = videoId ? `https://www.youtube.com/watch?v=${videoId}` : 'https://www.youtube.com/@puravidasurfschool'
 ---
+
 <section class="relative overflow-hidden" style="height:637px">
-  <div class="absolute inset-0 flex items-center justify-center">
+
+  <!-- Background image -->
+  <div class="absolute inset-0">
     {isLocalBg ? (
-      <Image src={bgImage as ImageMetadata} alt="Surf experience Tamarindo" class="w-full h-full object-cover object-[center_25%]" widths={[640, 1280, 1920]} formats={['avif', 'webp']} loading="lazy" decoding="async" sizes="100vw"/>
+      <Image
+        src={bgImage as ImageMetadata}
+        alt="Surf experience Tamarindo"
+        class="w-full h-full object-cover object-[center_25%]"
+        widths={[640, 1280, 1920]}
+        formats={['avif', 'webp']}
+        loading="lazy"
+        decoding="async"
+        sizes="100vw"
+      />
     ) : (
-      <img src={bgImage as string} alt="Surf experience Tamarindo" class="w-full h-full object-cover object-[center_25%]" width="1920" height="700" loading="lazy" decoding="async"/>
+      <img
+        src={bgImage as string}
+        alt="Surf experience Tamarindo"
+        class="w-full h-full object-cover object-[center_25%]"
+        width="1920" height="700"
+        loading="lazy" decoding="async"
+      />
     )}
-    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="absolute inset-0 bg-black/62"></div>
   </div>
+
+  <!-- Content -->
   <div class="relative z-10 container mx-auto px-4 h-full flex items-center">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div class="grid md:grid-cols-2 gap-12 items-center w-full">
+
+      <!-- Left: text -->
       <div>
-        <span class="section-label text-teal-300 mb-2 block">Experience</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
-        {subtitle && <p class="text-white/80 leading-relaxed mb-4">{subtitle}</p>}
+        <span class="section-label text-[#4DD0E1] mb-3 block">Experience</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 leading-snug">{title}</h2>
+        {subtitle && <p class="text-white/75 leading-relaxed mb-5">{subtitle}</p>}
         {bullets && (
           <ul class="space-y-2 mb-6">
             {bullets.map(b => (
-              <li class="flex items-center gap-2 text-white/90 text-sm">
-                <svg class="w-4 h-4 text-teal-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <li class="flex items-center gap-2 text-white/85 text-sm">
+                <span class="w-4 h-4 rounded-full bg-[#00BCD4]/30 flex items-center justify-center shrink-0">
+                  <svg class="w-2.5 h-2.5 text-[#4DD0E1]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </span>
                 {b}
               </li>
             ))}
@@ -40,16 +67,39 @@ const isLocalBg = typeof bgImage !== 'string'
         )}
         {cta && <a href={cta.href} class="btn-primary">{cta.label}</a>}
       </div>
-      {videoId && (
-        <div class="flex items-center justify-center">
-          <a href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" rel="noopener" aria-label="Play surf video"
-            class="w-20 h-20 bg-white/20 hover:bg-white/30 border-2 border-white rounded-full flex items-center justify-center transition-colors group">
-            <svg class="w-8 h-8 text-white ml-1 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+
+      <!-- Right: play button — always visible -->
+      <div class="flex flex-col items-center justify-center gap-5">
+
+        <!-- Animated rings + play button -->
+        <a href={videoHref} target="_blank" rel="noopener noreferrer" aria-label="Watch surf video"
+          class="relative flex items-center justify-center group">
+
+          <!-- Pulse rings -->
+          <span class="absolute w-36 h-36 rounded-full border border-white/15 animate-ping" style="animation-duration:2.5s"></span>
+          <span class="absolute w-28 h-28 rounded-full border border-white/20"></span>
+
+          <!-- Button -->
+          <span class="relative w-20 h-20 rounded-full flex items-center justify-center
+            bg-white/15 backdrop-blur-sm border-2 border-white/60
+            group-hover:bg-[#00BCD4] group-hover:border-[#00BCD4]
+            transition-all duration-300 shadow-xl shadow-black/30">
+            <svg class="w-8 h-8 text-white ml-1 group-hover:scale-110 transition-transform duration-200" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z"/>
             </svg>
-          </a>
+          </span>
+        </a>
+
+        <!-- Label -->
+        <div class="text-center">
+          <p class="text-white font-semibold text-sm tracking-wide">Watch Us In Action</p>
+          <p class="text-white/45 text-xs mt-0.5">
+            {videoId ? 'Play video' : 'View our YouTube channel'}
+          </p>
         </div>
-      )}
+
+      </div>
     </div>
   </div>
+
 </section>

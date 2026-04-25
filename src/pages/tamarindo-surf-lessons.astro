@@ -6,6 +6,7 @@ import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import FAQSchema from '../components/seo/FAQSchema.astro'
 import { seoData } from '../lib/seo'
 
 import heroImg      from '../assets/images/tamarindo-surf-lessons-instructor-teaching-beginner.webp'
@@ -49,6 +50,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero

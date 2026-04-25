@@ -128,6 +128,14 @@ export const seoData: Record<string, PageSEO> = {
     synonyms: ['book surf classes tamarindo', 'reserve surf lessons tamarindo', 'surf lesson booking tamarindo'],
     related: ['private surf lessons tamarindo', 'surf packages tamarindo', 'surf camp tamarindo'],
   },
+  blog: {
+    slug: '/blog',
+    keyfocus: 'surf school tamarindo blog',
+    title: 'Surf Blog — Tips, Guides & News | Pura Vida Surf School Tamarindo',
+    description: 'Read our surf blog for beginner tips, Tamarindo travel guides, surfing techniques, and updates from Pura Vida Surf School in Costa Rica.',
+    synonyms: ['surf tips tamarindo', 'tamarindo surf guide', 'learn to surf blog costa rica'],
+    related: ['surf school tamarindo', 'surf lessons tamarindo', 'tamarindo travel guide'],
+  },
 }
 
 export const ROUTES = {

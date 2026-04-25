@@ -6,6 +6,7 @@ import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 
@@ -31,9 +32,16 @@ const whyUs = [
 ]
 
 const gallery = [gallery1, gallery2, gallery3]
+
+const faqs = [
+  { question: 'What should I bring?',                        answer: "Sunblock, a towel, and lots of energy! We provide all the professional surfing gear you'll need." },
+  { question: 'Is it safe for non-swimmers?',                answer: 'Basic swimming ability is recommended. The lessons take place in shallow water with our certified instructors by your side at all times.' },
+  { question: 'Can I upgrade to more lessons during my stay?', answer: "Yes! If you love it (and you will!), you can add extra lessons or upgrade to the 5-day package. Just ask your instructor or contact us." },
+]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
@@ -109,11 +117,7 @@ const gallery = [gallery1, gallery2, gallery3]
 
         <!-- FAQ -->
         <div class="border-t border-gray-100 pt-10">
-          <FAQ items={[
-            { question: 'What should I bring?',                        answer: "Sunblock, a towel, and lots of energy! We provide all the professional surfing gear you'll need." },
-            { question: 'Is it safe for non-swimmers?',                answer: 'Basic swimming ability is recommended. The lessons take place in shallow water with our certified instructors by your side at all times.' },
-            { question: 'Can I upgrade to more lessons during my stay?', answer: "Yes! If you love it (and you will!), you can add extra lessons or upgrade to the 5-day package. Just ask your instructor or contact us." },
-          ]}/>
+          <FAQ items={faqs}/>
         </div>
 
       </div>

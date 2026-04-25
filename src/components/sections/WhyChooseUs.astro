@@ -6,11 +6,13 @@ export interface Feature {
 }
 export interface Props {
   title?: string
+  subtitle?: string
   features?: Feature[]
   bg?: 'white' | 'gray' | 'teal'
 }
 const {
   title = 'Why Choose Our Surf School?',
+  subtitle,
   bg = 'white',
   features = [
     { icon: 'badge', title: 'Certified and Experienced Surf Instructors', description: 'Our certified surf instructors bring years of experience teaching surfers of all ages and levels on Tamarindo Beach.' },
@@ -35,7 +37,10 @@ const icons: Record<string, string> = {
 
 <section class={`py-20 ${bgClass}`}>
   <div class="container mx-auto px-4">
-    <h2 class={`text-3xl font-bold text-center mb-12 ${textClass}`}>{title}</h2>
+    <h2 class={`text-3xl font-bold text-center ${subtitle ? 'mb-4' : 'mb-12'} ${textClass}`}>{title}</h2>
+    {subtitle && (
+      <p class={`text-center max-w-3xl mx-auto mb-12 leading-relaxed ${descClass}`}>{subtitle}</p>
+    )}
     <div class="grid md:grid-cols-3 gap-8">
       {features.map(f => (
         <div class="text-center">

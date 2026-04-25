@@ -5,9 +5,16 @@ import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import FAQSchema from '../components/seo/FAQSchema.astro'
 import CampBookingWizard from '../components/booking/CampBookingWizard'
 import { seoData } from '../lib/seo'
 const seo = seoData.surfCamp7Days
+const faqs = [
+  { question: 'What should I bring to the 7-day surf camp?', answer: 'Sunblock, a towel, and lots of energy! We provide all professional surfing gear, rash guard, and board.' },
+  { question: 'Is accommodation included?', answer: "Accommodation is optional. We work with partner hotels and hostels in Tamarindo. Let us know if you need lodging and we'll set you up." },
+  { question: 'What if the weather is bad?', answer: "Costa Rica has a tropical climate and rain doesn't always affect surfing. If conditions are unsafe, we reschedule at no extra cost." },
+  { question: 'Is the 7-day camp good for complete beginners?', answer: 'Absolutely! The structured 7-day progression is designed to take you from zero to confidently surfing green waves by the end of the week.' },
+]
 const included = [
   { label:'6 Surf Lessons', desc:'6 surf lessons at your level. Beginners learn fundamentals, intermediates refine technique.' },
   { label:'1 Surf Trip to a Nearby Beach', desc:'Guided surf trip to discover new breaks around the Tamarindo area.' },
@@ -20,6 +27,7 @@ const included = [
 ]
 ---
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <FAQSchema slot="head" items={faqs} />
   <Hero title="7 Days Surf Camp Tamarindo — Your One-Week Surf Experience In Paradise" subtitle="The ultimate all-inclusive surf camp in Tamarindo. 6 lessons, surf trips, video analysis, and pura vida vibes." image="/images/7-day-camp-hero.jpg" imageAlt="7 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '#book' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
 
   <section class="py-16 container mx-auto px-4">
@@ -70,12 +78,7 @@ const included = [
           </div>
         </div>
 
-        <FAQ items={[
-          { question: 'What should I bring to the 7-day surf camp?', answer: 'Sunblock, a towel, and lots of energy! We provide all professional surfing gear, rash guard, and board.' },
-          { question: 'Is accommodation included?', answer: 'Accommodation is optional. We work with partner hotels and hostels in Tamarindo. Let us know if you need lodging and we\'ll set you up.' },
-          { question: 'What if the weather is bad?', answer: 'Costa Rica has a tropical climate and rain doesn\'t always affect surfing. If conditions are unsafe, we reschedule at no extra cost.' },
-          { question: 'Is the 7-day camp good for complete beginners?', answer: 'Absolutely! The structured 7-day progression is designed to take you from zero to confidently surfing green waves by the end of the week.' },
-        ]}/>
+        <FAQ items={faqs}/>
       </div>
 
       <div>

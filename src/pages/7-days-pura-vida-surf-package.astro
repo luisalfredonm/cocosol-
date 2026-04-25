@@ -6,6 +6,7 @@ import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 
@@ -35,9 +36,18 @@ const whyUs = [
 ]
 
 const gallery = [gallery1, gallery2, gallery3]
+
+const faqs = [
+  { question: 'Who is the 7-day package best for?',             answer: 'The 7-day package is perfect for travelers staying a full week who want to make the most of their time. It gives you the highest number of lessons and the best overall surf progression. Beginners and intermediates both benefit enormously from a full week of consistent coaching.' },
+  { question: 'What is included in the surf trip on day 5?',    answer: "The surf trip includes transportation to a nearby beach, your surfboard, and guidance from your instructor. It's a chance to experience different wave conditions and apply everything you've learned in a new environment." },
+  { question: 'Do I need previous surf experience?',            answer: 'No experience needed. Our instructors start from zero and progressively build your skills each day. The 7-day format gives you the time to go from complete beginner to confidently surfing green waves.' },
+  { question: 'Can the schedule be adjusted to my trip?',       answer: "Yes. We'll work with your availability to schedule all 7 days in the best order. Just contact us and we'll plan the week around your arrival and departure dates." },
+  { question: 'How does the 7-day package compare to the 5-day?', answer: "The 7-day package adds 2 extra lessons (6 total vs 4) plus more time to review and consolidate your technique. For travelers spending a full week in Tamarindo, it's the best value and the most transformative experience." },
+]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
@@ -113,13 +123,7 @@ const gallery = [gallery1, gallery2, gallery3]
 
         <!-- FAQ -->
         <div class="border-t border-gray-100 pt-10">
-          <FAQ items={[
-            { question: 'Who is the 7-day package best for?',             answer: 'The 7-day package is perfect for travelers staying a full week who want to make the most of their time. It gives you the highest number of lessons and the best overall surf progression. Beginners and intermediates both benefit enormously from a full week of consistent coaching.' },
-            { question: 'What is included in the surf trip on day 5?',    answer: "The surf trip includes transportation to a nearby beach, your surfboard, and guidance from your instructor. It's a chance to experience different wave conditions and apply everything you've learned in a new environment." },
-            { question: 'Do I need previous surf experience?',            answer: 'No experience needed. Our instructors start from zero and progressively build your skills each day. The 7-day format gives you the time to go from complete beginner to confidently surfing green waves.' },
-            { question: 'Can the schedule be adjusted to my trip?',       answer: "Yes. We'll work with your availability to schedule all 7 days in the best order. Just contact us and we'll plan the week around your arrival and departure dates." },
-            { question: 'How does the 7-day package compare to the 5-day?', answer: 'The 7-day package adds 2 extra lessons (6 total vs 4) plus more time to review and consolidate your technique. For travelers spending a full week in Tamarindo, it\'s the best value and the most transformative experience.' },
-          ]}/>
+          <FAQ items={faqs}/>
         </div>
 
       </div>

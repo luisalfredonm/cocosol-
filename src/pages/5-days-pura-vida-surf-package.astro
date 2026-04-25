@@ -6,6 +6,7 @@ import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 
@@ -31,9 +32,17 @@ const whyUs = [
 ]
 
 const gallery = [gallery1, gallery2, gallery3]
+
+const faqs = [
+  { question: "Why is the 5-day package the most popular?",   answer: "It offers the best balance between time investment and surf progression. 4 lessons is enough to go from zero to confidently catching green waves, and the surf trip adds a memorable adventure to the mix." },
+  { question: "What's included in the surf trip?",            answer: "The surf trip includes transportation to a nearby beach, your surfboard, and guidance from your instructor. It's a chance to experience different wave conditions." },
+  { question: 'Can beginners do the 5-day package?',          answer: "Yes! The 5-day package is designed for beginners. The progressive structure ensures you build skills day by day at a comfortable pace." },
+  { question: 'Can I customize the schedule?',                answer: "We can work around your availability. Just let us know your dates and we'll schedule the 4 lessons and surf trip in a way that works for you." },
+]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
@@ -95,12 +104,7 @@ const gallery = [gallery1, gallery2, gallery3]
 
         <!-- FAQ -->
         <div class="border-t border-gray-100 pt-10">
-          <FAQ items={[
-            { question: "Why is the 5-day package the most popular?",   answer: "It offers the best balance between time investment and surf progression. 4 lessons is enough to go from zero to confidently catching green waves, and the surf trip adds a memorable adventure to the mix." },
-            { question: "What's included in the surf trip?",            answer: "The surf trip includes transportation to a nearby beach, your surfboard, and guidance from your instructor. It's a chance to experience different wave conditions." },
-            { question: 'Can beginners do the 5-day package?',          answer: "Yes! The 5-day package is designed for beginners. The progressive structure ensures you build skills day by day at a comfortable pace." },
-            { question: 'Can I customize the schedule?',                answer: "We can work around your availability. Just let us know your dates and we'll schedule the 4 lessons and surf trip in a way that works for you." },
-          ]}/>
+          <FAQ items={faqs}/>
         </div>
 
       </div>

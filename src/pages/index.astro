@@ -7,6 +7,7 @@ import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import FAQSchema from '../components/seo/FAQSchema.astro'
 import { seoData } from '../lib/seo'
 
 import heroImg from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
@@ -49,10 +50,19 @@ const stats = [
   { value: '4.9★', label: 'Average Rating' },
   { value: '100%', label: 'ISA Certified' },
 ]
+
+const faqs = [
+  { question: 'Do I need to know how to swim to surf?', answer: 'Basic swimming ability is recommended for safety. Our instructors will assess your comfort level before entering the water.' },
+  { question: 'What is the best option to learn surf?', answer: 'For first-timers, we recommend either a private lesson for maximum personal attention, or a group lesson for a fun social experience at a lower price.' },
+  { question: 'What can I expect on a regular day at the school?', answer: 'Your instructor will meet you at the beach, provide all equipment, run a 15-minute safety briefing, then guide you in the water for your session.' },
+  { question: 'What sets your surf camp apart from others?', answer: 'We are a locally-owned school with certified instructors who know Tamarindo inside and out. We keep groups small and focus on real progress, not just fun.' },
+  { question: 'Can kids take lessons?', answer: 'Absolutely! We welcome kids from age 6. Our instructors are trained to work with young surfers and ensure a safe, fun experience.' },
+]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
   <link slot="head" rel="preload" as="image" href={preloadHero.src} type="image/webp" fetchpriority="high"/>
+  <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
@@ -147,6 +157,9 @@ const stats = [
           Best Surf School in Tamarindo
         </span>
         <h2 class="text-4xl font-extrabold text-white">Surf School in Tamarindo for Every Level</h2>
+        <p class="text-white/80 max-w-2xl mx-auto mt-5 text-lg leading-relaxed">
+          Whether you're brand new to surfing or have some experience, we offer tailored surf lessons to help you grow confidently and comfortably. Our lesson structure focuses on safety, technique, ocean awareness, and having fun in the water. Our Tamarindo Surf School programs are designed for all levels, from beginners to advanced surfers.
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
@@ -190,12 +203,12 @@ const stats = [
   </section>
 
   <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
-  <WhyChooseUs/>
+  <WhyChooseUs subtitle="Tamarindo is known as Costa Rica's surf capital for good reason. The long, sandy beach, forgiving waves, and year-round warm weather make it one of the best places in the world to learn how to surf. At Pura Vida Surf School, we elevate your experience beyond just a surf lesson. We focus on safety, technique, confidence, and pure enjoyment — the perfect combination to help you progress fast and have the time of your life. Many travelers choose our Surf School in Tamarindo because of our certified instructors and perfect waves." />
 
   <!-- ── VIDEO ─────────────────────────────────────────────────────────────── -->
   <VideoSection
     title="Experience Surfing in Tamarindo"
-    subtitle="Watch our students go from nervous beginners to confident surfers in just one session."
+    subtitle="Our surf classes in Tamarindo turn complete beginners into confident wave riders — watch the transformation happen in real time."
     bgImage={videoBg}
     cta={{ label: 'Choose Your Surf Lesson', href: '/tamarindo-surf-lessons' }}
   />
@@ -283,13 +296,7 @@ const stats = [
 
         <!-- Right: FAQ items -->
         <div class="md:col-span-3">
-          <FAQ items={[
-            { question: 'Do I need to know how to swim to surf?', answer: 'Basic swimming ability is recommended for safety. Our instructors will assess your comfort level before entering the water.' },
-            { question: 'What is the best option to learn surf?', answer: 'For first-timers, we recommend either a private lesson for maximum personal attention, or a group lesson for a fun social experience at a lower price.' },
-            { question: 'What can I expect on a regular day at the school?', answer: 'Your instructor will meet you at the beach, provide all equipment, run a 15-minute safety briefing, then guide you in the water for your session.' },
-            { question: 'What sets your surf camp apart from others?', answer: 'We are a locally-owned school with certified instructors who know Tamarindo inside and out. We keep groups small and focus on real progress, not just fun.' },
-            { question: 'Can kids take lessons?', answer: 'Absolutely! We welcome kids from age 6. Our instructors are trained to work with young surfers and ensure a safe, fun experience.' },
-          ]}/>
+          <FAQ items={faqs}/>
         </div>
 
       </div>

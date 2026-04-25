@@ -6,7 +6,7 @@ import vercel from '@astrojs/vercel'
 
 export default defineConfig({
   site: 'https://puravidasurfschool.com',
-  integrations: [react(), tailwind({ applyBaseStyles: false }), sitemap()],
+  integrations: [react(), tailwind({ applyBaseStyles: false }), sitemap({ filter: (page) => !page.includes('/admin') })],
   output: 'static',
   adapter: vercel(),
   compressHTML: true,
