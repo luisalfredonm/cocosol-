@@ -160,10 +160,10 @@ function Summary({ state }: { state: WizardState }) {
 
 // ── Main Wizard ───────────────────────────────────────────────────────────────
 
-export default function CampBookingWizard() {
+export default function CampBookingWizard({ preselectedCampType }: { preselectedCampType?: '5day' | '7day' }) {
   const [s, setS] = useState<WizardState>({
-    step: 1,
-    campType: null,
+    step: preselectedCampType ? 2 : 1,
+    campType: preselectedCampType ?? null,
     sessions: [],
     selectedSession: null,
     selectedRoom: null,

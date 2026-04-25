@@ -1,0 +1,362 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.surfPackages
+
+const packages = [
+  {
+    days: '3 Days',
+    title: '3 Days Pura Vida Surf Package',
+    href: '/3-days-pura-vida-surf-package',
+    price: '$245',
+    priceNote: 'per person',
+    lessons: '3 Surf Lessons',
+    trip: '1 Surf Trip',
+    tag: null,
+    featured: false,
+    features: [
+      '90 minutes surf lesson',
+      'Professional, certified instructor',
+      'Surfboard included',
+      'Rash guard',
+      'Safety briefing',
+      'Photos available on request',
+    ],
+  },
+  {
+    days: '5 Days',
+    title: '5 Days Pura Vida Surf Package',
+    href: '/5-days-pura-vida-surf-package',
+    price: '$405',
+    priceNote: 'per person',
+    lessons: '4 Surf Lessons',
+    trip: '1 Surf Trip',
+    tag: 'Most Popular',
+    featured: true,
+    features: [
+      '90 minutes surf lesson',
+      'Professional, certified instructor',
+      'Surfboard included',
+      'Rash guard',
+      'Safety briefing',
+      'Photos available on request',
+    ],
+  },
+  {
+    days: '7 Days',
+    title: '7 Days Pura Vida Surf Package',
+    href: '/7-days-pura-vida-surf-package',
+    price: '$565',
+    priceNote: 'per person',
+    lessons: '6 Surf Lessons',
+    trip: '1 Surf Trip',
+    tag: 'Best Value',
+    featured: false,
+    features: [
+      '90 minutes surf lesson',
+      'Professional, certified instructor',
+      'Surfboard included',
+      'Rash guard',
+      'Safety briefing',
+      'Photos available on request',
+    ],
+  },
+]
+
+const whatYouLearn = [
+  'How to pop up',
+  'Wave timing',
+  'Basic paddling',
+  'Safety rules',
+  'Surf etiquette',
+  'How to handle the board',
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <section class="relative flex items-center justify-center overflow-hidden" style="min-height: 70vh;">
+    <img
+      src="/images/surf-packages-hero.jpg"
+      alt="Surf packages Tamarindo Costa Rica"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      width="1920" height="1080"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-900/55 via-slate-900/40 to-slate-900/75"/>
+
+    <!-- Breadcrumb -->
+    <nav class="absolute top-6 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 z-10">
+      <ol class="flex items-center gap-2 text-white/60 text-sm">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li class="text-white/30">/</li>
+        <li class="text-white font-medium">Surf Packages Tamarindo</li>
+      </ol>
+    </nav>
+
+    <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
+      <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold px-5 py-2.5 rounded-full mb-7 border border-white/20">
+        <span class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></span>
+        Tamarindo · Costa Rica
+      </span>
+
+      <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight">
+        Surf Packages<br/>
+        <span class="text-teal-400">In Tamarindo</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-white/75 mb-10 max-w-2xl mx-auto leading-relaxed">
+        Choose from our 3, 5, or 7-day surf packages designed for beginners and intermediate surfers looking for progress and fun.
+      </p>
+
+      <a href="#packages"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-teal-500 text-white font-bold rounded-2xl hover:bg-teal-400 transition-all text-lg shadow-xl shadow-teal-900/30 hover:-translate-y-0.5">
+        See All Packages
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── SEO CONTENT + SIDEBAR ─────────────────────────────────────────────── -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid lg:grid-cols-3 gap-12 items-start">
+
+        <!-- Left: SEO content -->
+        <div class="lg:col-span-2">
+          <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Pura Vida Surf Packages</span>
+          <h2 class="text-3xl font-extrabold text-gray-900 mb-5">Pura Vida Surf Packages</h2>
+
+          <p class="text-gray-700 leading-relaxed mb-4">
+            If you are looking for flexible, professional, and results-driven <strong>surf packages in Tamarindo</strong>, our Pura Vida Surf Packages are designed exactly for you. These packages are ideal for travelers who want to focus purely on surfing, skill progression, and enjoying the ocean in Tamarindo, Costa Rica — without committing to accommodations or a full surf camp experience.
+          </p>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            Our surf packages in Tamarindo are available in 3-day, 5-day, and 7-day options, giving you the freedom to choose a program that fits your schedule and surf goals. Whether you are a complete beginner or an intermediate surfer looking to improve technique and confidence, our structured packages provide consistent feedback every day.
+          </p>
+          <p class="text-gray-700 leading-relaxed mb-10">
+            All lessons are led by certified local surf instructors who know Tamarindo's waves, tides, and beach conditions inside and out. Safety is always a priority, and every session includes instruction on proper technique, paddling, wave selection, positioning, and surf etiquette.
+          </p>
+
+          <!-- Two info boxes -->
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="w-7 h-7 bg-teal-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </span>
+                What is a Surf Package?
+              </h3>
+              <ul class="space-y-2.5">
+                {['Multiple surf lessons', 'Better value than single lessons', 'Structured learning plan', 'Ideal for short stays in Tamarindo'].map(i => (
+                  <li class="flex items-center gap-2.5 text-sm text-gray-600">
+                    <svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    {i}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+              <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="w-7 h-7 bg-teal-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </span>
+                Who Can Take Surf Lessons?
+              </h3>
+              <ul class="space-y-2.5">
+                {['Beginners', 'Kids', 'Intermediate Surfers', 'Families'].map(i => (
+                  <li class="flex items-center gap-2.5 text-sm text-gray-600">
+                    <svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    {i}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: What you'll learn sticky card -->
+        <div class="lg:sticky lg:top-28">
+          <div class="bg-gradient-to-br from-teal-600 to-teal-800 rounded-3xl p-7 text-white shadow-xl shadow-teal-900/20">
+            <h3 class="font-extrabold text-xl mb-6">What You'll Learn</h3>
+            <ul class="space-y-3 mb-7">
+              {whatYouLearn.map(i => (
+                <li class="flex items-center gap-3 text-sm text-teal-50">
+                  <span class="w-5 h-5 bg-white/15 rounded-full flex items-center justify-center shrink-0">
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </span>
+                  {i}
+                </li>
+              ))}
+            </ul>
+
+            <a href="#packages" class="block text-center py-3.5 px-6 bg-white text-teal-700 font-bold rounded-2xl hover:bg-teal-50 transition-colors text-sm mb-4">
+              Choose Your Package
+            </a>
+
+            <div class="flex items-center gap-2.5 text-sm text-teal-200 pt-1">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+              Questions? Call us:
+              <a href="tel:+50661987851" class="font-bold text-white hover:underline">+506 6198-7851</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PACKAGE COMPARISON ─────────────────────────────────────────────────── -->
+  <section id="packages" class="py-20 bg-gray-50" style="scroll-margin-top: 96px;">
+    <div class="container mx-auto px-4">
+
+      <div class="text-center mb-14">
+        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Package Comparison</span>
+        <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Choose the Right Package for You</h2>
+        <p class="text-gray-500 max-w-2xl mx-auto text-lg">
+          We have the perfect option for travelers looking for high-quality Tamarindo surf lessons without booking a full surf camp.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-start">
+        {packages.map(p => (
+          <div class={`relative flex flex-col rounded-3xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+            p.featured
+              ? 'ring-2 ring-teal-500 shadow-teal-100'
+              : 'border border-gray-200 bg-white'
+          }`}>
+
+            {p.tag && (
+              <div class="absolute top-0 inset-x-0 flex justify-center z-10">
+                <span class={`text-xs font-bold px-5 py-1.5 rounded-b-2xl tracking-wide ${
+                  p.featured ? 'bg-teal-500 text-white' : 'bg-slate-800 text-white'
+                }`}>
+                  {p.tag}
+                </span>
+              </div>
+            )}
+
+            <!-- Header -->
+            <div class={`px-7 py-8 ${p.tag ? 'pt-12' : ''} ${
+              p.featured
+                ? 'bg-gradient-to-br from-teal-500 to-teal-700 text-white'
+                : 'bg-white'
+            }`}>
+              <span class={`text-xs font-bold uppercase tracking-widest mb-2 block ${
+                p.featured ? 'text-teal-100' : 'text-teal-600'
+              }`}>
+                {p.days}
+              </span>
+              <h3 class={`text-xl font-extrabold leading-snug mb-1 ${p.featured ? 'text-white' : 'text-gray-900'}`}>
+                {p.title}
+              </h3>
+              <p class={`text-sm ${p.featured ? 'text-teal-100' : 'text-gray-400'}`}>
+                {p.lessons} · {p.trip}
+              </p>
+            </div>
+
+            <!-- Body -->
+            <div class="bg-white px-7 py-6 flex-1 flex flex-col">
+              <div class="flex items-baseline gap-1.5 mb-6">
+                <span class="text-4xl font-extrabold text-gray-900">
+                  {p.price}
+                </span>
+                <span class="text-gray-400 text-sm">{p.priceNote}</span>
+              </div>
+
+              <ul class="space-y-2.5 mb-8 flex-1">
+                {[p.lessons, p.trip, ...p.features].map(f => (
+                  <li class="flex items-start gap-2.5 text-sm text-gray-600">
+                    <svg class="w-4 h-4 text-teal-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
+              <a href={p.href} class={`block text-center py-3.5 px-6 rounded-2xl font-bold text-sm transition-all ${
+                p.featured
+                  ? 'bg-teal-600 text-white hover:bg-teal-700'
+                  : 'bg-gray-900 text-white hover:bg-gray-800'
+              }`}>
+                View Package Details →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-center text-gray-400 text-sm mt-8">
+        Our Tamarindo surf lessons fill up fast — especially during peak season — so we recommend reserving your spot in advance.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── TRUST STRIP ────────────────────────────────────────────────────────── -->
+  <section class="py-14 bg-white border-t border-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        {[
+          { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', label: 'ISA Certified Instructors' },
+          { icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', label: 'Best Value in Tamarindo' },
+          { icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z', label: 'Flexible Scheduling' },
+          { icon: 'M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z', label: 'Photos on Request' },
+        ].map(t => (
+          <div class="flex flex-col items-center text-center gap-3">
+            <div class="w-12 h-12 bg-teal-50 rounded-2xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={t.icon}/>
+              </svg>
+            </div>
+            <span class="text-sm font-semibold text-gray-700">{t.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ──────────────────────────────────────────────────────────── -->
+  <section class="py-20 bg-gradient-to-br from-slate-900 to-slate-800">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-4xl font-extrabold text-white mb-4">Ready to Start Surfing?</h2>
+      <p class="text-slate-400 text-lg mb-10 max-w-xl mx-auto">
+        Pick your package, see everything included, and book your spot directly. No redirects, no confusion — just surfing.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/3-days-pura-vida-surf-package"
+          class="px-7 py-4 bg-white/10 text-white border border-white/20 font-bold rounded-2xl hover:bg-white/20 transition-all text-sm hover:-translate-y-0.5">
+          3-Day Package — $245
+        </a>
+        <a href="/5-days-pura-vida-surf-package"
+          class="px-7 py-4 bg-teal-500 text-white font-bold rounded-2xl hover:bg-teal-400 transition-all text-sm shadow-xl shadow-teal-900/30 hover:-translate-y-0.5">
+          5-Day Package — $405 ✦
+        </a>
+        <a href="/7-days-pura-vida-surf-package"
+          class="px-7 py-4 bg-white/10 text-white border border-white/20 font-bold rounded-2xl hover:bg-white/20 transition-all text-sm hover:-translate-y-0.5">
+          7-Day Package — $565
+        </a>
+      </div>
+      <p class="mt-6 text-slate-600 text-sm">Secure booking · Flexible rescheduling · Expert instructors</p>
+    </div>
+  </section>
+
+  <NeedHelp/>
+
+</BaseLayout>

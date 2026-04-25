@@ -5,11 +5,12 @@ import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import CampBookingWizard from '../components/booking/CampBookingWizard'
 import { seoData } from '../lib/seo'
 const seo = seoData.surfCamp5Days
 ---
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
-  <Hero title="5 Days Surf Camp Tamarindo — Surf Package Costa Rica" subtitle="5 days of surfing, progression, and pura vida. The perfect short surf camp for travelers with limited time." image="/images/5-day-camp-hero.jpg" imageAlt="5 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '/book-now' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
+  <Hero title="5 Days Surf Camp Tamarindo — Surf Package Costa Rica" subtitle="5 days of surfing, progression, and pura vida. The perfect short surf camp for travelers with limited time." image="/images/5-day-camp-hero.jpg" imageAlt="5 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '#book' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
 
   <section class="py-16 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
@@ -41,16 +42,23 @@ const seo = seoData.surfCamp5Days
       </div>
 
       <div>
-        <Sidebar price="$1,049" priceLabel="/ Per Person" includes={['4 Surf Lessons','1 Surf Trip','Video analysis','Your own rash guard','Unlimited board rental','Adventure activity']} ctaLabel="Book Your Surf Camp" ctaColor="dark"/>
+        <Sidebar price="$1,049" priceLabel="/ Per Person" includes={['4 Surf Lessons','1 Surf Trip','Video analysis','Your own rash guard','Unlimited board rental','Adventure activity']} ctaLabel="Book Your Surf Camp" ctaColor="dark" ctaHref="#book"/>
       </div>
     </div>
   </section>
 
-  <section class="py-16 container mx-auto px-4 text-center">
-    <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1 rounded-full mb-4">Ready to Ride?</span>
-    <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
-    <a href="/book-now" class="btn-primary text-lg px-8">Book 5-Day Surf Camp</a>
-    <p class="mt-4 text-sm text-gray-500">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+  <section id="book" class="py-16 bg-gray-50 min-h-[800px]" style="scroll-margin-top: 96px;">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 5-Day Surf Camp</h2>
+        <p class="text-gray-500 max-w-md mx-auto">Select your start date and room. Your 5-Day Surf Camp is pre-selected — just pick your dates and complete the booking.</p>
+      </div>
+      <div class="max-w-4xl mx-auto">
+        <CampBookingWizard preselectedCampType="5day" client:load />
+      </div>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+    </div>
   </section>
 
   <Testimonials items={[{ name: 'Laura T.', role: 'Traveler', text: 'Had 5 days in Tamarindo and the surf camp was the perfect way to spend them. By day 4 I was surfing real waves. The video analysis helped so much!' }, { name: 'Ryan M.', role: 'Surfer', text: 'Compact but complete. The 5-day camp gave me everything I needed to go from paddling to riding. The instructor was patient and incredibly skilled at teaching.' }]} title="What They Say About Our 5-Day Surf Camp"/>

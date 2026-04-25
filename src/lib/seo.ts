@@ -49,7 +49,7 @@ export const seoData: Record<string, PageSEO> = {
     related: ['beginner surf lessons tamarindo', 'surf lessons tamarindo costa rica', 'surf school tamarindo', 'group activities tamarindo costa rica'],
   },
   surfPackages: {
-    slug: '/surf-packages',
+    slug: '/tamarindo-surf-packages',
     keyfocus: 'surf packages tamarindo',
     title: 'Surf Packages in Tamarindo | Pura Vida Surf School',
     description: 'Choose from our 3, 5, or 7-day surf packages in Tamarindo. Designed for beginners and intermediate surfers looking for progress and fun.',
@@ -136,7 +136,7 @@ export const ROUTES = {
   PRIVATE: '/private-surf-lessons-tamarindo',
   SEMI_PRIVATE: '/semi-private-surf-lessons-tamarindo',
   GROUP: '/group-surf-lessons-tamarindo',
-  PACKAGES: '/surf-packages',
+  PACKAGES: '/tamarindo-surf-packages',
   PKG_3: '/3-days-pura-vida-surf-package',
   PKG_5: '/5-days-pura-vida-surf-package',
   PKG_7: '/7-days-pura-vida-surf-package',
