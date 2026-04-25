@@ -5,6 +5,7 @@ import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 const seo = seoData.package5Days
 const itinerary = [
@@ -47,7 +48,7 @@ const itinerary = [
       </div>
 
       <div>
-        <Sidebar price="$405" priceLabel="/ 5 Days per person" includes={['4 Surf Lessons','1 Surf Trip','90 minutes surf lesson','Professional, certified instructor','Surfboard included','Rash guard','Safety briefing','Photos on request']} ctaLabel="Book This Package — Most Popular" ctaColor="dark" sidebarTitle="Our most popular surf package in Tamarindo."/>
+        <Sidebar price="$405" priceLabel="/ 5 Days per person" includes={['4 Surf Lessons','1 Surf Trip','90 minutes surf lesson','Professional, certified instructor','Surfboard included','Rash guard','Safety briefing','Photos on request']} ctaLabel="Book This Package — Most Popular" ctaColor="dark" ctaHref="#book" sidebarTitle="Our most popular surf package in Tamarindo."/>
       </div>
     </div>
   </section>
@@ -66,11 +67,19 @@ const itinerary = [
     </div>
   </section>
 
-  <section class="py-16 container mx-auto px-4 text-center">
-    <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1 rounded-full mb-4">Ready to Ride?</span>
-    <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
-    <a href="/book-now" class="btn-primary text-lg px-8">Book 5-Day Package</a>
-    <p class="mt-4 text-sm text-gray-500">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+  <!-- Booking wizard embedded -->
+  <section id="book" class="py-16 bg-gray-50 min-h-[800px]" style="scroll-margin-top: 96px;">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 5-Day Package</h2>
+        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 5-Day Package is pre-selected — just pick your dates and complete the booking.</p>
+      </div>
+      <div class="max-w-4xl mx-auto">
+        <BookingWizard client:load />
+      </div>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+    </div>
   </section>
 
   <Testimonials items={[{ name: 'Sarah K.', role: 'Traveler from USA', text: 'The 5-day package was incredible. I went from never surfing to catching green waves by day 4. The surf trip on day 4 was the highlight of my entire Costa Rica trip!' }, { name: 'Marco B.', role: 'Surfer', text: 'Best investment of my vacation. The instructor was patient, knowledgeable, and pushed me just the right amount. Came back the following year for the 7-day camp!' }]}/>

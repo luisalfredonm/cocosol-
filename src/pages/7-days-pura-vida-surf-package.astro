@@ -6,6 +6,7 @@ import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
+import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 const seo = seoData.package7Days
 
@@ -118,40 +119,25 @@ const itinerary = [
           ]}
           ctaLabel="Book This Package"
           ctaColor="teal"
+          ctaHref="#book"
         />
       </div>
 
     </div>
   </section>
 
-  <!-- Book Now CTA -->
-  <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4 text-center">
-      <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Ready to Ride?</span>
-      <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
-      <p class="text-gray-500 mb-8 max-w-md mx-auto">Select your preferred date and time from the calendar below. Our booking system will guide you through the remaining steps.</p>
-
-      <div class="max-w-3xl mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-        <!-- Amelia booking widget placeholder -->
-        <div class="p-8 text-center text-gray-400">
-          [Booking widget — embed your Amelia shortcode here]
-        </div>
+  <!-- Booking wizard embedded -->
+  <section id="book" class="py-16 bg-gray-50 min-h-[800px]" style="scroll-margin-top: 96px;">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 7-Day Package</h2>
+        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 7-Day Package is pre-selected — just pick your dates and complete the booking.</p>
       </div>
-
-      <div class="flex items-center justify-center gap-6 mt-6 text-sm text-gray-500">
-        <span class="flex items-center gap-1.5">
-          <svg class="w-4 h-4 text-teal-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-          Secure Payments
-        </span>
-        <span class="flex items-center gap-1.5">
-          <svg class="w-4 h-4 text-teal-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-          Trusted Instructors
-        </span>
-        <span class="flex items-center gap-1.5">
-          <svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          Flexible Rescheduling
-        </span>
+      <div class="max-w-4xl mx-auto">
+        <BookingWizard client:load />
       </div>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
     </div>
   </section>
 

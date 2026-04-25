@@ -6,6 +6,7 @@ import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 const seo = seoData.privateLessons
 ---
@@ -56,12 +57,12 @@ const seo = seoData.privateLessons
       </div>
 
       <div>
-        <Sidebar price="$90" priceLabel="/ 90 Minutes" includes={['Surfboard included','Professional, certified instructor','Foam guard','Safety briefing','Photos available on request']} ctaLabel="Check Availability"/>
+        <Sidebar price="$90" priceLabel="/ 90 Minutes" includes={['Surfboard included','Professional, certified instructor','Foam guard','Safety briefing','Photos available on request']} ctaLabel="Check Availability" ctaHref="#book"/>
       </div>
     </div>
   </section>
 
-  <VideoSection title="See Our Private Surf Lessons in Tamarindo in Action" subtitle="Watch what a private session looks like — personalized coaching, one-on-one attention, and real progress on the waves of Tamarindo Beach." bgImage="/images/video-private.jpg" cta={{ label: 'Check Availability', href: '/book-now' }}/>
+  <VideoSection title="See Our Private Surf Lessons in Tamarindo in Action" subtitle="Watch what a private session looks like — personalized coaching, one-on-one attention, and real progress on the waves of Tamarindo Beach." bgImage="/images/video-private.jpg" cta={{ label: 'Check Availability', href: '#book' }}/>
 
   <!-- Gallery -->
   <section class="py-16 bg-gray-50">
@@ -79,13 +80,19 @@ const seo = seoData.privateLessons
     </div>
   </section>
 
-  <!-- Booking -->
-  <section class="py-16 container mx-auto px-4 text-center">
-    <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1 rounded-full mb-4">Ready to Ride?</span>
-    <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
-    <p class="text-gray-600 mb-6 max-w-lg mx-auto">Select your preferred date and time. Our booking system will guide you through the remaining steps.</p>
-    <a href="/book-now" class="btn-primary text-lg px-8">Book Your Private Lesson</a>
-    <p class="mt-4 text-sm text-gray-500">Secure payments · Trusted instructors · Flexible rescheduling</p>
+  <!-- Booking wizard embedded -->
+  <section id="book" class="py-16 bg-gray-50 min-h-[800px]" style="scroll-margin-top: 96px;">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your Private Lesson</h2>
+        <p class="text-gray-500 max-w-md mx-auto">Select your date and time below. Your private lesson is pre-selected — just pick when you want to surf.</p>
+      </div>
+      <div class="max-w-4xl mx-auto">
+        <BookingWizard preselectedType="private" client:load />
+      </div>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure payments · Trusted instructors · Flexible rescheduling</p>
+    </div>
   </section>
 
   <Testimonials items={[

@@ -5,6 +5,7 @@ import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 const seo = seoData.package3Days
 const itinerary = [
@@ -47,7 +48,7 @@ const itinerary = [
       </div>
 
       <div>
-        <Sidebar price="$245" priceLabel="/ 3 Days per person" includes={['3 Surf lessons','90 minutes surf lesson','Professional, certified instructor','Surfboard included','Rash guard','Safety briefing','Photos on request']} ctaLabel="Book This Package" ctaColor="dark" sidebarTitle="Start your surfing journey today with our highly rated 3-day introductory course."/>
+        <Sidebar price="$245" priceLabel="/ 3 Days per person" includes={['3 Surf lessons','90 minutes surf lesson','Professional, certified instructor','Surfboard included','Rash guard','Safety briefing','Photos on request']} ctaLabel="Book This Package" ctaColor="dark" ctaHref="#book" sidebarTitle="Start your surfing journey today with our highly rated 3-day introductory course."/>
       </div>
     </div>
   </section>
@@ -67,13 +68,19 @@ const itinerary = [
     </div>
   </section>
 
-  <!-- Booking -->
-  <section class="py-16 container mx-auto px-4 text-center">
-    <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1 rounded-full mb-4">Ready to Ride?</span>
-    <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
-    <p class="text-gray-600 mb-6 max-w-lg mx-auto">Select your preferred dates. Our booking system will guide you through the remaining steps.</p>
-    <a href="/book-now" class="btn-primary text-lg px-8">Book 3-Day Package</a>
-    <p class="mt-4 text-sm text-gray-500">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+  <!-- Booking wizard embedded -->
+  <section id="book" class="py-16 bg-gray-50 min-h-[800px]" style="scroll-margin-top: 96px;">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 3-Day Package</h2>
+        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 3-Day Package is pre-selected — just pick your dates and complete the booking.</p>
+      </div>
+      <div class="max-w-4xl mx-auto">
+        <BookingWizard client:load />
+      </div>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+    </div>
   </section>
 
   <Testimonials items={[{ name: 'John Doe', role: 'Traveler', text: 'The 3-day package was the perfect amount of time to get comfortable on the board. By day 3 I was catching green waves on my own. Incredible experience!' }, { name: 'Maria Lopez', role: 'First-timer', text: 'Never surfed before and was nervous. The instructor was so patient and encouraging. I stood up on my first day! Worth every penny.' }]}/>

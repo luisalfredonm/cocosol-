@@ -8,8 +8,9 @@ import { seoData } from '../lib/seo'
 const seo = seoData.bookNow
 
 // Pre-select class type from URL param (e.g. /book-now?type=private)
+// Camps are handled by CampBookingWizard on /surf-camp-tamarindo — not here
 const typeParam = Astro.url.searchParams.get('type') as any
-const validTypes = ['private','semi-private','group','pkg-3-days','pkg-5-days','camp-5-days','camp-7-days']
+const validTypes = ['private','semi-private','group','pkg-3-private','pkg-3-semi','pkg-5-private','pkg-5-semi','camp-7-private','camp-7-semi','camp-5-days']
 const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
 ---
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
@@ -40,23 +41,61 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
   </section>
 
   <!-- Quick links to specific services -->
-  <section class="py-8 bg-gray-50">
+  <section class="py-10 bg-gray-50">
     <div class="container mx-auto px-4">
-      <p class="text-center text-sm font-semibold text-gray-500 mb-4 uppercase tracking-widest">Book by service</p>
-      <div class="flex flex-wrap justify-center gap-3">
-        {[
-          { label: 'Private Lesson', href: '/book-now?type=private' },
-          { label: 'Semi-Private Lesson', href: '/book-now?type=semi-private' },
-          { label: 'Group Lesson', href: '/book-now?type=group' },
-          { label: '3-Day Package', href: '/book-now?type=pkg-3-days' },
-          { label: '5-Day Package', href: '/book-now?type=pkg-5-days' },
-          { label: '5-Day Surf Camp', href: '/book-now?type=camp-5-days' },
-          { label: '7-Day Surf Camp', href: '/book-now?type=camp-7-days' },
-        ].map(link => (
-          <a href={link.href} class="text-sm border border-gray-200 hover:border-teal-400 hover:text-teal-600 px-4 py-2 rounded-xl transition-colors bg-white">
-            {link.label}
-          </a>
-        ))}
+      <p class="text-center text-sm font-semibold text-gray-400 mb-8 uppercase tracking-widest">Book by service</p>
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+
+        <!-- Surf Lessons -->
+        <div>
+          <p class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-3 px-1">Surf Lessons</p>
+          <div class="flex flex-col gap-2">
+            {[
+              { label: 'Private Lesson', href: '/book-now?type=private' },
+              { label: 'Semi-Private Lesson', href: '/book-now?type=semi-private' },
+              { label: 'Group Lesson', href: '/book-now?type=group' },
+            ].map(link => (
+              <a href={link.href} class="text-sm border border-gray-200 hover:border-teal-400 hover:text-teal-600 px-4 py-2.5 rounded-xl transition-colors bg-white text-gray-700 font-medium">
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Surf Packages -->
+        <div>
+          <p class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-3 px-1">Surf Packages</p>
+          <div class="flex flex-col gap-2">
+            {[
+              { label: '3-Day Private Package', href: '/book-now?type=pkg-3-private' },
+              { label: '3-Day Semi-Private Package', href: '/book-now?type=pkg-3-semi' },
+              { label: '5-Day Private Package', href: '/book-now?type=pkg-5-private' },
+              { label: '5-Day Semi-Private Package', href: '/book-now?type=pkg-5-semi' },
+              { label: '7-Day Private Package', href: '/book-now?type=camp-7-private' },
+              { label: '7-Day Semi-Private Package', href: '/book-now?type=camp-7-semi' },
+            ].map(link => (
+              <a href={link.href} class="text-sm border border-gray-200 hover:border-teal-400 hover:text-teal-600 px-4 py-2.5 rounded-xl transition-colors bg-white text-gray-700 font-medium">
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Surf Camps -->
+        <div>
+          <p class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-3 px-1">Surf Camps</p>
+          <div class="flex flex-col gap-2">
+            {[
+              { label: '5-Day Surf Camp', href: '/surf-camp-tamarindo#book-camp' },
+              { label: '7-Day Surf Camp', href: '/surf-camp-tamarindo#book-camp' },
+            ].map(link => (
+              <a href={link.href} class="text-sm border border-gray-200 hover:border-teal-400 hover:text-teal-600 px-4 py-2.5 rounded-xl transition-colors bg-white text-gray-700 font-medium">
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   </section>

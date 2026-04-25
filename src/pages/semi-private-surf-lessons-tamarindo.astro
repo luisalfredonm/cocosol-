@@ -6,6 +6,7 @@ import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 const seo = seoData.semiPrivateLessons
 const faqs = [
@@ -43,12 +44,27 @@ const faqs = [
         </section>
       </div>
       <div>
-        <Sidebar price="$50" priceLabel="/ Per Person" includes={['90-minute surf lesson', 'Professional certified instructor', 'Surfboard included', 'Foam guard', 'Safety briefing', 'Photos on request']} ctaLabel="Check Availability"/>
+        <Sidebar price="$50" priceLabel="/ Per Person" includes={['90-minute surf lesson', 'Professional certified instructor', 'Surfboard included', 'Foam guard', 'Safety briefing', 'Photos on request']} ctaLabel="Check Availability" ctaHref="#book"/>
       </div>
     </div>
   </section>
 
-  <VideoSection title="See Our Semi-Private Surf Lessons in Tamarindo in Action" subtitle="Watch what a semi-private session looks like — personalized coaching for 2-3 people on Tamarindo Beach." bgImage="/images/video-semi-private.jpg" cta={{ label: 'Check Availability', href: '/book-now' }}/>
+  <VideoSection title="See Our Semi-Private Surf Lessons in Tamarindo in Action" subtitle="Watch what a semi-private session looks like — personalized coaching for 2-3 people on Tamarindo Beach." bgImage="/images/video-semi-private.jpg" cta={{ label: 'Check Availability', href: '#book' }}/>
+
+  <!-- Booking wizard embedded -->
+  <section id="book" class="py-16 bg-gray-50 min-h-[800px]" style="scroll-margin-top: 96px;">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your Semi-Private Lesson</h2>
+        <p class="text-gray-500 max-w-md mx-auto">Select your date and time below. Your semi-private lesson is pre-selected — just pick when you want to surf.</p>
+      </div>
+      <div class="max-w-4xl mx-auto">
+        <BookingWizard preselectedType="semi-private" client:load />
+      </div>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure payments · Trusted instructors · Flexible rescheduling</p>
+    </div>
+  </section>
 
   <Testimonials items={[
     { name: 'Carlos & Maria', role: 'Couple travelers', text: 'We did semi-private lessons as a couple and it was perfect. The instructor gave us individual feedback while we had fun together. Definitely recommend!' },
