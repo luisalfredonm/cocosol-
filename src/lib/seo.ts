@@ -72,6 +72,14 @@ export const seoData: Record<string, PageSEO> = {
     synonyms: ['5 day surf package tamarindo', '5 days surf lessons tamarindo', 'pura vida surf package'],
     related: ['surf packages tamarindo', 'surf camp tamarindo', 'private surf lessons tamarindo'],
   },
+  package7Days: {
+    slug: '/7-days-pura-vida-surf-package',
+    keyfocus: '7 days surf package tamarindo',
+    title: '7 Days Pura Vida Surf Package Tamarindo | $565',
+    description: 'Our complete 7-day surf package in Tamarindo. 6 surf lessons + 1 surf trip, certified instructor, surfboard included. Full immersion experience from $565.',
+    synonyms: ['7 day surf package tamarindo', '7 days surf lessons tamarindo', 'week surf package tamarindo', 'full week surf package costa rica'],
+    related: ['surf packages tamarindo', 'surf camp tamarindo', '5 days surf package tamarindo'],
+  },
   surfCamp: {
     slug: '/surf-camp-tamarindo',
     keyfocus: 'tamarindo surf camp',
@@ -131,6 +139,7 @@ export const ROUTES = {
   PACKAGES: '/surf-packages',
   PKG_3: '/3-days-pura-vida-surf-package',
   PKG_5: '/5-days-pura-vida-surf-package',
+  PKG_7: '/7-days-pura-vida-surf-package',
   CAMP: '/surf-camp-tamarindo',
   CAMP_7: '/7-days-surf-camp-tamarindo',
   CAMP_5: '/5-days-surf-camp-tamarindo',

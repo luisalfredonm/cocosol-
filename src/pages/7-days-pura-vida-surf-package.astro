@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import Sidebar from '../components/ui/Sidebar.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import NeedHelp from '../components/sections/NeedHelp.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
+import { seoData } from '../lib/seo'
+const seo = seoData.package7Days
+
+const itinerary = [
+  { day:'1', title:'Foundation & Safety', desc:'Surf theory, equipment intro, ocean awareness, and your first full session in the white water. Learn how to read the ocean and stay safe.' },
+  { day:'2', title:'Pop-up & Balance', desc:'Mastering the pop-up technique, foot positioning, and riding the white water confidently with proper body alignment.' },
+  { day:'3', title:'Reading Waves', desc:'Introduction to green wave surfing. Learn to identify and position yourself for real unbroken waves with instructor guidance.' },
+  { day:'4', title:'Green Wave Riding', desc:'Build on your wave reading skills and start catching your first green waves. Instructor will coach your timing and board angle.' },
+  { day:'5', title:'Surf Trip', desc:"Guided surf trip to a nearby beach. Experience different wave conditions and put everything you've learned to the test." },
+  { day:'6', title:'Advanced Technique', desc:'Focus on turns, trim, and wave selection. Solidify your technique with personalized instructor feedback on each wave.' },
+  { day:'7', title:'Open Surf & Celebration', desc:'Free surfing session — catch as many waves as you can. Final review with your instructor and celebrate your surf journey!' },
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+
+  <Hero
+    title="7 Days Pura Vida Surf Package — The Complete Surf Experience in Tamarindo"
+    subtitle="Our most complete surf package. 6 lessons + 1 surf trip, designed for full surf immersion and real progression."
+    image="/images/7-day-package-hero.jpg"
+    imageAlt="7 days surf package Tamarindo Costa Rica"
+    breadcrumb={{ label: 'Surf Packages', href: '/surf-packages' }}
+  />
+
+  <!-- Main content -->
+  <section class="py-16 container mx-auto px-4">
+    <div class="grid lg:grid-cols-3 gap-12">
+
+      <!-- Left: content -->
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+          7 Days Surf Package in Tamarindo – The Complete Surf Experience
+        </h2>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          Our <strong>7 Days Pura Vida Surf Package</strong> is the ultimate surf experience for travelers who want full immersion in surfing and the Pura Vida lifestyle. This package includes multiple surf lessons, continuous coaching, and time to truly connect with the ocean while improving technique, confidence, and wave reading skills. Surf consistently throughout the week and experience noticeable progress in a supportive and professional environment.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-6">
+          Ideal for beginners and intermediate surfers, this package is perfect for travelers who want more than just lessons — it's a full surf journey in one of Costa Rica's best surf towns.
+        </p>
+
+        <!-- Ideal For -->
+        <div class="bg-teal-50 border border-teal-100 rounded-2xl p-5 mb-8">
+          <h3 class="font-bold text-gray-900 mb-3">Ideal For</h3>
+          <ul class="space-y-2">
+            {['Surf progression-focused travelers', 'Longer stays in Tamarindo', 'Complete surf immersion experience'].map(item => (
+              <li class="flex items-center gap-2 text-gray-700 text-sm">
+                <svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- 7-Day Itinerary -->
+        <h3 class="font-bold text-gray-900 mb-4">Your 7-Day Itinerary</h3>
+        <div class="space-y-3 mb-10">
+          {itinerary.map(d => (
+            <div class="flex gap-4 p-4 bg-gray-50 rounded-xl">
+              <div class="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">{d.day}</div>
+              <div>
+                <p class="font-semibold text-gray-900">{d.title}</p>
+                <p class="text-gray-600 text-sm mt-1">{d.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- FAQ -->
+        <FAQ items={[
+          {
+            question: 'Who is the 7-day package best for?',
+            answer: 'The 7-day package is perfect for travelers staying a full week who want to make the most of their time. It gives you the highest number of lessons and the best overall surf progression. Beginners and intermediates both benefit enormously from a full week of consistent coaching.'
+          },
+          {
+            question: 'What is included in the surf trip on day 5?',
+            answer: 'The surf trip includes transportation to a nearby beach, your surfboard, and guidance from your instructor. It\'s a chance to experience different wave conditions and apply everything you\'ve learned in a new environment.'
+          },
+          {
+            question: 'Do I need previous surf experience?',
+            answer: 'No experience needed. Our instructors start from zero and progressively build your skills each day. The 7-day format gives you the time to go from complete beginner to confidently surfing green waves.'
+          },
+          {
+            question: 'Can the schedule be adjusted to my trip?',
+            answer: 'Yes. We\'ll work with your availability to schedule all 7 days in the best order. Just contact us and we\'ll plan the week around your arrival and departure dates.'
+          },
+          {
+            question: 'How does the 7-day package compare to the 5-day?',
+            answer: 'The 7-day package adds 2 extra lessons (6 total vs 4) plus more time to review and consolidate your technique. For travelers spending a full week in Tamarindo, it\'s the best value and the most transformative experience.'
+          },
+        ]}/>
+      </div>
+
+      <!-- Right: pricing sidebar -->
+      <div>
+        <Sidebar
+          price="$565"
+          priceLabel="/ 7 Days per Person"
+          sidebarTitle="Start your surfing journey today with our highly rated 7-days introductory course."
+          includes={[
+            'Surf Board Included',
+            'Life Vest',
+            'Expert Instructors',
+            '6 Surf Lessons',
+            '1 Surf Trip Nearby Beach',
+            'Rash guard',
+            'Safety briefing',
+            'Photos on request',
+          ]}
+          ctaLabel="Book This Package"
+          ctaColor="teal"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Book Now CTA -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4 text-center">
+      <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Ready to Ride?</span>
+      <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Spot</h2>
+      <p class="text-gray-500 mb-8 max-w-md mx-auto">Select your preferred date and time from the calendar below. Our booking system will guide you through the remaining steps.</p>
+
+      <div class="max-w-3xl mx-auto bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <!-- Amelia booking widget placeholder -->
+        <div class="p-8 text-center text-gray-400">
+          [Booking widget — embed your Amelia shortcode here]
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center gap-6 mt-6 text-sm text-gray-500">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-teal-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+          Secure Payments
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-teal-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          Trusted Instructors
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Flexible Rescheduling
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-teal-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold text-gray-900 text-center mb-10">Why Choose Us?</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        {[
+          {
+            icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+            title: 'Most Affordable',
+            desc: 'Competitive pricing without compromising on safety or the quality of your experience.',
+          },
+          {
+            icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+            title: 'Safety First',
+            desc: 'Our instructors are ISA certified and trained in ocean rescue and first aid.',
+          },
+          {
+            icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+            title: 'Professional Coach',
+            desc: 'Personalized feedback and coaching tailored to your specific skill level every session.',
+          },
+        ].map(c => (
+          <div class="text-center bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+            <div class="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={c.icon}/>
+              </svg>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2">{c.title}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <Testimonials items={[
+    {
+      name: 'Emily R.',
+      role: 'Traveler from Canada',
+      text: 'The 7-day package was life-changing. I arrived never having surfed before and left catching green waves on my own. The instructors were so patient and the surf trip on day 5 was the highlight of my entire trip to Costa Rica!',
+    },
+    {
+      name: 'David M.',
+      role: 'Surfer from Germany',
+      text: 'Best week of my life. Having 7 full days of coaching meant I could really focus and see real progress each day. By day 6 I was doing proper turns. Worth every penny — I\'ll be back for the surf camp next year.',
+    },
+  ]}/>
+
+  <NeedHelp/>
+
+</BaseLayout>
