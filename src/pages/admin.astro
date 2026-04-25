@@ -199,7 +199,8 @@ let classTypes: any[] = []
 let weeklySlots: any[] = []
 let capacities: any[] = []
 let dateSlots: any[] = []
-let stats = { total: 0, confirmed: 0, pending: 0, cancelled: 0, revenue: 0 }
+let stats     = { total: 0, confirmed: 0, pending: 0, cancelled: 0, revenue: 0 }
+let campStats = { total: 0, confirmed: 0, pending: 0, cancelled: 0, revenue: 0 }
 
 let campRooms: any[] = []
 let campSessions: any[] = []
@@ -251,6 +252,13 @@ if (isAuthenticated) {
   campSessions = csData ?? []
   campBookings = cbData ?? []
   if (csetData) campSettings = csetData
+
+  for (const b of (cbData ?? [])) {
+    campStats.total++
+    if (b.status === 'confirmed') { campStats.confirmed++; campStats.revenue += Number(b.charged_amount_usd ?? b.full_amount_usd ?? 0) }
+    if (b.status === 'pending')   campStats.pending++
+    if (b.status === 'cancelled') campStats.cancelled++
+  }
 
   for (const b of statsData ?? []) {
     stats.total++
@@ -338,17 +346,22 @@ function avatarColor(name: string): [string, string] {
   return colors[Math.abs(h) % colors.length]
 }
 
-const TABS = [
-  { id: 'bookings',      label: 'Bookings',        icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01' },
+const TABS_LESSONS = [
+  { id: 'bookings',      label: 'Bookings',          icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01' },
   { id: 'class-types',   label: 'Prices & Services', icon: 'M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z' },
-  { id: 'weekly-slots',  label: 'Weekly Schedule',  icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
-  { id: 'capacity',      label: 'Capacity',          icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4' },
-  { id: 'date-slots',    label: 'Date Overrides',   icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' },
-  { id: 'camp-rooms',    label: 'Camp Rooms',       icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-  { id: 'camp-sessions', label: 'Camp Sessions',    icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
-  { id: 'camp-bookings', label: 'Camp Bookings',    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z' },
-  { id: 'camp-settings', label: 'Camp Settings',    icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
+  { id: 'weekly-slots',  label: 'Weekly Schedule',   icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+  { id: 'capacity',      label: 'Capacity',           icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4' },
+  { id: 'date-slots',    label: 'Date Overrides',    icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' },
 ]
+
+const TABS_CAMP = [
+  { id: 'camp-bookings', label: 'Camp Bookings',     icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01' },
+  { id: 'camp-rooms',    label: 'Camp Rooms',        icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { id: 'camp-sessions', label: 'Camp Sessions',     icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+  { id: 'camp-settings', label: 'Camp Settings',     icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
+]
+
+const TABS = [...TABS_LESSONS, ...TABS_CAMP]
 
 const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.id === 'bookings'))
 ---
@@ -603,9 +616,9 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
         </div>
       </div>
 
-      <div class="adm-nav-label">Management</div>
       <nav style="flex:1">
-        {TABS.map(t => {
+        <div class="adm-nav-label">Surf Lessons & Packages</div>
+        {TABS_LESSONS.map(t => {
           const isActive = activeTab === t.id || (activeTab === '' && t.id === 'bookings')
           return (
             <a href={`/admin?tab=${t.id}`} class={`adm-nav-link ${isActive ? 'adm-active' : ''}`}>
@@ -615,6 +628,22 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
               <span>{t.label}</span>
               {t.id === 'bookings' && stats.pending > 0 && (
                 <span class="adm-nav-badge">{stats.pending}</span>
+              )}
+            </a>
+          )
+        })}
+
+        <div class="adm-nav-label" style="margin-top:18px">Surf Camp</div>
+        {TABS_CAMP.map(t => {
+          const isActive = activeTab === t.id
+          return (
+            <a href={`/admin?tab=${t.id}`} class={`adm-nav-link ${isActive ? 'adm-active' : ''}`}>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d={t.icon} />
+              </svg>
+              <span>{t.label}</span>
+              {t.id === 'camp-bookings' && campStats.pending > 0 && (
+                <span class="adm-nav-badge">{campStats.pending}</span>
               )}
             </a>
           )
@@ -658,53 +687,104 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
       <!-- Content -->
       <main class="adm-content">
 
-        <!-- STATS ROW -->
-        <div class="adm-stats">
-          <div class="adm-stat">
-            <div class="adm-stat-icon" style="background:#EFF6FF">
-              <svg style="color:#2563EB" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-              </svg>
+        <!-- STATS ROW — condicional por sección -->
+        {['camp-bookings','camp-rooms','camp-sessions','camp-settings'].includes(activeTab) ? (
+          <!-- Camp stats -->
+          <div class="adm-stats">
+            <div class="adm-stat">
+              <div class="adm-stat-icon" style="background:#EFF6FF">
+                <svg style="color:#2563EB" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+              </div>
+              <div>
+                <div class="adm-stat-label">Total Camp Bookings</div>
+                <div class="adm-stat-value">{campStats.total}</div>
+              </div>
             </div>
-            <div>
-              <div class="adm-stat-label">Total Bookings</div>
-              <div class="adm-stat-value">{stats.total}</div>
+            <div class="adm-stat">
+              <div class="adm-stat-icon" style="background:#F0FDF4">
+                <svg style="color:#16A34A" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="adm-stat-label">Confirmed</div>
+                <div class="adm-stat-value" style="color:#16A34A">{campStats.confirmed}</div>
+              </div>
+            </div>
+            <div class="adm-stat">
+              <div class="adm-stat-icon" style="background:#FEFCE8">
+                <svg style="color:#CA8A04" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="adm-stat-label">Pending</div>
+                <div class="adm-stat-value" style="color:#CA8A04">{campStats.pending}</div>
+              </div>
+            </div>
+            <div class="adm-stat">
+              <div class="adm-stat-icon" style="background:#E0F7FA">
+                <svg style="color:#0097A7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="adm-stat-label">Camp Revenue</div>
+                <div class="adm-stat-value" style="color:#0097A7">${campStats.revenue.toLocaleString('en-US', { minimumFractionDigits: 0 })}</div>
+              </div>
             </div>
           </div>
-          <div class="adm-stat">
-            <div class="adm-stat-icon" style="background:#F0FDF4">
-              <svg style="color:#16A34A" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
+        ) : (
+          <!-- Surf Lessons stats -->
+          <div class="adm-stats">
+            <div class="adm-stat">
+              <div class="adm-stat-icon" style="background:#EFF6FF">
+                <svg style="color:#2563EB" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                </svg>
+              </div>
+              <div>
+                <div class="adm-stat-label">Total Bookings</div>
+                <div class="adm-stat-value">{stats.total}</div>
+              </div>
             </div>
-            <div>
-              <div class="adm-stat-label">Confirmed</div>
-              <div class="adm-stat-value" style="color:#16A34A">{stats.confirmed}</div>
+            <div class="adm-stat">
+              <div class="adm-stat-icon" style="background:#F0FDF4">
+                <svg style="color:#16A34A" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="adm-stat-label">Confirmed</div>
+                <div class="adm-stat-value" style="color:#16A34A">{stats.confirmed}</div>
+              </div>
+            </div>
+            <div class="adm-stat">
+              <div class="adm-stat-icon" style="background:#FEFCE8">
+                <svg style="color:#CA8A04" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="adm-stat-label">Pending</div>
+                <div class="adm-stat-value" style="color:#CA8A04">{stats.pending}</div>
+              </div>
+            </div>
+            <div class="adm-stat">
+              <div class="adm-stat-icon" style="background:#E0F7FA">
+                <svg style="color:#0097A7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="adm-stat-label">Revenue</div>
+                <div class="adm-stat-value" style="color:#0097A7">${stats.revenue.toLocaleString('en-US', { minimumFractionDigits: 0 })}</div>
+              </div>
             </div>
           </div>
-          <div class="adm-stat">
-            <div class="adm-stat-icon" style="background:#FEFCE8">
-              <svg style="color:#CA8A04" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="adm-stat-label">Pending</div>
-              <div class="adm-stat-value" style="color:#CA8A04">{stats.pending}</div>
-            </div>
-          </div>
-          <div class="adm-stat">
-            <div class="adm-stat-icon" style="background:#E0F7FA">
-              <svg style="color:#0097A7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="adm-stat-label">Revenue</div>
-              <div class="adm-stat-value" style="color:#0097A7">${stats.revenue.toLocaleString('en-US', { minimumFractionDigits: 0 })}</div>
-            </div>
-          </div>
-        </div>
+        )}
 
         <!-- ══ TAB: BOOKINGS ════════════════════════════════════════════════ -->
         {(activeTab === 'bookings' || activeTab === '') && (
