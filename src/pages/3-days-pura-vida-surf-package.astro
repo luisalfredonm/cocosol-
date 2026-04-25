@@ -77,7 +77,7 @@ const itinerary = [
         <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 3-Day Package is pre-selected — just pick your dates and complete the booking.</p>
       </div>
       <div class="max-w-4xl mx-auto">
-        <BookingWizard client:load />
+        <BookingWizard filterIds={["pkg-3-private", "pkg-3-semi"]} client:load />
       </div>
       <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
     </div>

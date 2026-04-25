@@ -149,11 +149,12 @@ function reducer(state: WizardState, action: Action): WizardState {
 
 interface Props {
   preselectedType?: string
+  filterIds?: string[]
 }
 
 const STEP_LABELS = ['Service', 'Date', 'Time', 'Guests', 'Cart', 'Contact', 'Payment', 'Done']
 
-export default function BookingWizard({ preselectedType }: Props) {
+export default function BookingWizard({ preselectedType, filterIds }: Props) {
   const [classTypes, setClassTypes] = useState<DbClassType[]>([])
   const [loadingTypes, setLoadingTypes] = useState(true)
 
@@ -184,6 +185,7 @@ export default function BookingWizard({ preselectedType }: Props) {
     isLoading: false, error: null,
   })
 
+  const visibleClassTypes = filterIds ? classTypes.filter(ct => filterIds.includes(ct.id)) : classTypes
   const classType = classTypes.find(ct => ct.id === state.classTypeId) ?? null
   const totalAmount = classType ? calculateTotal(classType, state.participants) : 0
 
@@ -323,7 +325,7 @@ export default function BookingWizard({ preselectedType }: Props) {
         )}
 
         {state.step === 1 && (
-          <StepClassType classTypes={classTypes} onSelect={id => dispatch({ type: 'SET_CLASS', id })} />
+          <StepClassType classTypes={visibleClassTypes} onSelect={id => dispatch({ type: 'SET_CLASS', id })} />
         )}
         {state.step === 2 && state.classTypeId && (
           <StepDate classTypeId={state.classTypeId} onSelect={date => dispatch({ type: 'SET_DATE', date })} onBack={() => dispatch({ type: 'PREV_STEP' })} />
