@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
@@ -7,72 +8,160 @@ import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
+
+import heroImg  from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
+import gallery1 from '../assets/images/family-surf-lessons-tamarindo.webp'
+import gallery2 from '../assets/images/surf-school-tamarindo-students.webp'
+import gallery3 from '../assets/images/surf-school-tamarindo-private-class.webp'
+
 const seo = seoData.package3Days
+
 const itinerary = [
-  { day: '1', title: 'Introduction & Basics', desc: 'Safety briefing, equipment intro, and your first 1.5-hour lesson in the white water. Learn to pop up and basic paddling.' },
-  { day: '2', title: 'Technique & Positioning', desc: 'Perfecting the pop-up and learning to read the waves more effectively. Work on foot positioning and balance.' },
-  { day: '3', title: 'Ocean Awareness & Fun', desc: 'Independent ride session under supervision to build lasting confidence. Start reading and catching real waves on your own.' },
+  { day: '1', title: 'Introduction & Basics',       desc: 'Safety briefing, equipment intro, and your first 1.5-hour lesson in the white water. Learn to pop up and basic paddling.' },
+  { day: '2', title: 'Technique & Positioning',     desc: 'Perfecting the pop-up and learning to read the waves more effectively. Work on foot positioning and balance.' },
+  { day: '3', title: 'Ocean Awareness & Fun',       desc: 'Independent ride session under supervision to build lasting confidence. Start reading and catching real waves on your own.' },
 ]
+
+const idealFor = ['First-time surfers', 'Short stays in Tamarindo', 'Travelers who want a taste of surfing', 'Anyone curious about surf who has never tried it']
+
+const whyUs = [
+  { icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', title: 'Most Affordable',   desc: 'Competitive pricing without compromising on safety or the quality of your experience.' },
+  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'Safety First',       desc: 'Our instructors are ISA certified and trained in ocean rescue and first aid.' },
+  { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', title: 'Professional Coach', desc: 'Personalized feedback and coaching tailored to your specific skill level.' },
+]
+
+const gallery = [gallery1, gallery2, gallery3]
 ---
+
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
-  <Hero title="3 Days Surf Package In Tamarindo — Pura Vida Surf Experience" subtitle="The perfect introduction to surfing in Costa Rica for first-time surfers and travelers with limited time." image="/images/3-day-package-hero.jpg" imageAlt="3 days surf package Tamarindo" breadcrumb={{ label: 'Surf Packages', href: '/tamarindo-surf-packages' }}/>
 
-  <section class="py-16 container mx-auto px-4">
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <Hero
+    title="3 Days Surf Package In Tamarindo — Pura Vida Surf Experience"
+    subtitle="The perfect introduction to surfing in Costa Rica for first-time surfers and travelers with limited time."
+    image={heroImg}
+    imageAlt="3 days surf package Tamarindo"
+    breadcrumb={{ label: 'Surf Packages', href: '/tamarindo-surf-packages' }}
+    cta={{ label: 'Book This Package', href: '#book' }}
+    height="large"
+  />
+
+  <!-- ── MAIN CONTENT ───────────────────────────────────────────────────────── -->
+  <section class="py-20 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
+
+      <!-- Left col -->
       <div class="lg:col-span-2">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">3 Days Pura Vida Surf Package — Tamarindo</h2>
+
+        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">3-Day Program</span>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">3 Days Pura Vida Surf Package — Tamarindo</h2>
         <p class="text-gray-700 leading-relaxed mb-4">Our <strong>3 Days Surf Package in Tamarindo</strong> is the perfect introduction to surfing in Costa Rica. Designed for beginners and travelers with limited time, this package combines professional surf lessons, quality equipment, and personalized coaching in a fun and relaxed environment. Learn the basics of paddling, balance, and wave riding while enjoying the warm waters of Tamarindo Beach.</p>
-        <p class="text-gray-700 leading-relaxed mb-6">This short surf package is ideal for first-time surfers looking to experience the Pura Vida lifestyle and catch their first waves safely and confidently.</p>
+        <p class="text-gray-700 leading-relaxed mb-8">This short surf package is ideal for first-time surfers looking to experience the Pura Vida lifestyle and catch their first waves safely and confidently.</p>
 
-        <h3 class="font-bold text-gray-900 mb-3">Ideal For:</h3>
-        <ul class="space-y-2 mb-8">{['First-time surfers','Short stays in Tamarindo','Travelers who want a taste of surfing','Anyone curious about surf who has never tried it'].map(i=><li class="flex items-center gap-2 text-sm text-gray-700"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+        <!-- Ideal For -->
+        <div class="border-l-4 border-[#00BCD4] bg-[#00BCD4]/5 rounded-r-2xl pl-5 pr-6 py-4 mb-8">
+          <h3 class="font-bold text-gray-900 mb-3">Ideal For:</h3>
+          <ul class="space-y-2">
+            {idealFor.map(i => (
+              <li class="flex items-center gap-2.5 text-sm text-gray-700">
+                <span class="w-4 h-4 rounded-full bg-[#00BCD4]/20 flex items-center justify-center shrink-0">
+                  <svg class="w-2.5 h-2.5 text-[#00BCD4]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </span>
+                {i}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <h3 class="font-bold text-gray-900 mb-4">Your 3-Day Itinerary</h3>
+        <!-- Itinerary -->
+        <h3 class="font-bold text-gray-900 mb-4 text-lg">Your 3-Day Itinerary</h3>
         <div class="space-y-3 mb-10">
           {itinerary.map(d => (
-            <div class="flex gap-4 p-4 bg-gray-50 rounded-xl">
-              <div class="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">{d.day}</div>
+            <div class="flex gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100 hover:border-[#00BCD4]/20 transition-colors">
+              <div class="w-9 h-9 bg-[#00BCD4] text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0 shadow-sm shadow-[#00BCD4]/30">{d.day}</div>
               <div>
                 <p class="font-semibold text-gray-900">{d.title}</p>
-                <p class="text-gray-600 text-sm mt-1">{d.desc}</p>
+                <p class="text-gray-500 text-sm mt-1 leading-relaxed">{d.desc}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <FAQ items={[
-          { question: 'What should I bring?', answer: 'Sunblock, a towel, and lots of energy! We provide all the professional surfing gear you\'ll need.' },
-          { question: 'Is it safe for non-swimmers?', answer: 'Basic swimming ability is recommended. The lessons take place in shallow water with our certified instructors by your side at all times.' },
-          { question: 'Can I upgrade to more lessons during my stay?', answer: 'Yes! If you love it (and you will!), you can add extra lessons or upgrade to the 5-day package. Just ask your instructor or contact us.' },
-        ]}/>
+        <!-- Gallery strip -->
+        <div class="grid grid-cols-3 gap-3 mb-10">
+          {gallery.map((img, i) => (
+            <div class="overflow-hidden rounded-2xl shadow-sm">
+              <Image
+                src={img}
+                alt="3 days surf package Tamarindo"
+                class="w-full h-36 object-cover hover:scale-105 transition-transform duration-500"
+                widths={[200, 400]}
+                formats={['avif', 'webp']}
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 768px) 22vw, 50vw"
+              />
+            </div>
+          ))}
+        </div>
+
+        <!-- FAQ -->
+        <div class="border-t border-gray-100 pt-10">
+          <FAQ items={[
+            { question: 'What should I bring?',                        answer: "Sunblock, a towel, and lots of energy! We provide all the professional surfing gear you'll need." },
+            { question: 'Is it safe for non-swimmers?',                answer: 'Basic swimming ability is recommended. The lessons take place in shallow water with our certified instructors by your side at all times.' },
+            { question: 'Can I upgrade to more lessons during my stay?', answer: "Yes! If you love it (and you will!), you can add extra lessons or upgrade to the 5-day package. Just ask your instructor or contact us." },
+          ]}/>
+        </div>
+
       </div>
 
+      <!-- Sidebar -->
       <div>
-        <Sidebar price="$245" priceLabel="/ 3 Days per person" includes={['3 Surf lessons','90 minutes surf lesson','Professional, certified instructor','Surfboard included','Rash guard','Safety briefing','Photos on request']} ctaLabel="Book This Package" ctaColor="dark" ctaHref="#book" sidebarTitle="Start your surfing journey today with our highly rated 3-day introductory course."/>
+        <Sidebar
+          price="$245"
+          priceLabel="/ 3 Days per person"
+          sidebarTitle="Start your surfing journey today with our highly rated 3-day introductory course."
+          includes={['3 Surf lessons', '90 minutes surf lesson', 'Professional, certified instructor', 'Surfboard included', 'Rash guard', 'Safety briefing', 'Photos on request']}
+          ctaLabel="Book This Package"
+          ctaColor="dark"
+          ctaHref="#book"
+        />
       </div>
+
     </div>
   </section>
 
-  <!-- Why Choose Us -->
-  <section class="py-16 bg-teal-50">
+  <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
+  <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
-      <h2 class="text-2xl font-bold text-gray-900 text-center mb-10">Why Choose Us?</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        {[{title:'Most Affordable',desc:'Competitive pricing without compromising on safety or the quality of your experience.'},{title:'Safety First',desc:'Our instructors are ISA certified and trained in ocean rescue and first aid.'},{title:'Professional Coach',desc:'Personalized feedback and coaching tailored to your specific skill level.'}].map(c=>(
-          <div class="text-center bg-white rounded-2xl p-6 border border-gray-100">
+      <div class="text-center mb-12">
+        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Our Promise</span>
+        <h2 class="text-3xl font-extrabold text-gray-900">Why Choose Us?</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {whyUs.map(c => (
+          <div class="bg-white rounded-3xl p-7 border border-gray-100 shadow-sm hover:border-[#00BCD4]/30 hover:shadow-md transition-all text-center">
+            <div class="w-12 h-12 bg-[#00BCD4]/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+              <svg class="w-6 h-6 text-[#00BCD4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={c.icon}/>
+              </svg>
+            </div>
             <h3 class="font-bold text-gray-900 mb-2">{c.title}</h3>
-            <p class="text-gray-600 text-sm">{c.desc}</p>
+            <p class="text-gray-500 text-sm leading-relaxed">{c.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Booking wizard embedded -->
-  <section id="book" class="py-16 bg-gray-50 min-h-[800px]" style="scroll-margin-top: 96px;">
+  <!-- ── BOOKING WIZARD ─────────────────────────────────────────────────────── -->
+  <section id="book" class="py-16 bg-white min-h-[800px]" style="scroll-margin-top: 96px;">
     <div class="container mx-auto px-4">
       <div class="text-center mb-10">
-        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
+        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
         <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 3-Day Package</h2>
         <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 3-Day Package is pre-selected — just pick your dates and complete the booking.</p>
       </div>
@@ -83,7 +172,12 @@ const itinerary = [
     </div>
   </section>
 
-  <Testimonials items={[{ name: 'John Doe', role: 'Traveler', text: 'The 3-day package was the perfect amount of time to get comfortable on the board. By day 3 I was catching green waves on my own. Incredible experience!' }, { name: 'Maria Lopez', role: 'First-timer', text: 'Never surfed before and was nervous. The instructor was so patient and encouraging. I stood up on my first day! Worth every penny.' }]}/>
+  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
+  <Testimonials items={[
+    { name: 'John Doe',    role: 'Traveler',    text: 'The 3-day package was the perfect amount of time to get comfortable on the board. By day 3 I was catching green waves on my own. Incredible experience!' },
+    { name: 'Maria Lopez', role: 'First-timer', text: 'Never surfed before and was nervous. The instructor was so patient and encouraging. I stood up on my first day! Worth every penny.' },
+  ]}/>
 
   <NeedHelp/>
+
 </BaseLayout>

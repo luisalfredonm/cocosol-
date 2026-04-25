@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
@@ -9,54 +10,133 @@ import FAQ from '../components/ui/FAQ.astro'
 import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
+
+import heroImg  from '../assets/images/family-surf-lessons-tamarindo.webp'
+import gallery1 from '../assets/images/surf-school-tamarindo-students.webp'
+import gallery2 from '../assets/images/surf-school-tamarindo-private-class.webp'
+import gallery3 from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
+import gallery4 from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
+import videoBg  from '../assets/images/surf-school-tamarindo-students.webp'
+
 const seo = seoData.groupLessons
+
+const faqs = [
+  { question: 'How big are the group surf lessons?', answer: 'We keep groups small — maximum 6 students per certified instructor — to ensure everyone gets proper attention and feedback.' },
+  { question: 'Are group lessons good for beginners?', answer: 'Yes! Group lessons are designed for beginners. The shared experience is motivating and the friendly competition helps everyone progress faster.' },
+  { question: 'Can my family all join the same group lesson?', answer: 'Absolutely! Families are welcome. We can accommodate mixed skill levels and age groups in the same session.' },
+  { question: "What if I'm more advanced than the rest of the group?", answer: "If you're looking for more intensive coaching, we'd recommend our semi-private or private lessons for a more personalized experience." },
+]
+
+const cols = [
+  { h: 'Who Can Take?',  items: ['Solo travelers', 'Couples', 'Friends groups', 'Beginners', 'Kids & families', 'Anyone wanting to learn'] },
+  { h: "What's Included", items: ['90-minute surf lesson', 'Professional certified instructor', 'Foam guard', 'Safety briefing', 'Surfboard included', 'Photos on request'] },
+  { h: 'Perfect For:',   items: ['First-time surfers', 'Budget-conscious travelers', 'Social experience seekers', 'Groups of 4–6 people'] },
+]
+
+const gallery = [gallery1, gallery2, gallery3, gallery4]
 ---
+
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
-  <Hero title="Group Surf Lessons in Tamarindo | Learn to Surf Together" subtitle="Fun, affordable, and social. Our group surf lessons are perfect for friends, families, and solo travelers who want to share the stoke." image="/images/group-lessons-hero.jpg" imageAlt="Group surf lessons Tamarindo Costa Rica" breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}/>
 
-  <section class="py-16 container mx-auto px-4">
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <Hero
+    title="Group Surf Lessons in Tamarindo | Learn to Surf Together"
+    subtitle="Fun, affordable, and social. Our group surf lessons are perfect for friends, families, and solo travelers who want to share the stoke."
+    image={heroImg}
+    imageAlt="Group surf lessons Tamarindo Costa Rica"
+    breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}
+    cta={{ label: 'Check Availability', href: '#book' }}
+    height="large"
+  />
+
+  <!-- ── MAIN CONTENT ───────────────────────────────────────────────────────── -->
+  <section class="py-20 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
-      <div class="lg:col-span-2">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">Group Surf Lessons in Tamarindo — Learn to Surf Together</h2>
-        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>group surf lessons in Tamarindo</strong> are the most popular and affordable way to learn to surf. With small groups of 4-6 students per certified instructor, you'll receive quality coaching while enjoying the energy of learning alongside other surfers. Taught in small groups to guarantee personalized attention, fast learning, and maximum safety.</p>
-        <p class="text-gray-700 leading-relaxed mb-6">Whether you're a solo traveler looking for new friends, a couple, a family, or a group of friends, our <strong>group surfing lessons in Tamarindo</strong> create a fun, supportive environment where everyone catches their first wave.</p>
 
-        <div class="grid md:grid-cols-3 gap-6 mb-10">
-          {[
-            { h: 'Who Can Take?', items: ['Solo travelers', 'Couples', 'Friends groups', 'Beginners', 'Kids & families', 'Anyone wanting to learn'] },
-            { h: "What's Included", items: ['90-minute surf lesson', 'Professional certified instructor', 'Foam guard', 'Safety briefing', 'Surfboard included', 'Photos on request'] },
-            { h: 'Perfect For:', items: ['First-time surfers', 'Budget-conscious travelers', 'Social experience seekers', 'Groups of 4–6 people'] },
-          ].map(col => (
-            <div>
-              <h3 class="font-bold text-gray-900 mb-3">{col.h}</h3>
-              <ul class="space-y-1">{col.items.map(i => <li class="flex items-center gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-teal-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>{i}</li>)}</ul>
+      <!-- Left col -->
+      <div class="lg:col-span-2">
+
+        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Up to 6 Students</span>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Group Surf Lessons in Tamarindo — Learn to Surf Together</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>group surf lessons in Tamarindo</strong> are the most popular and affordable way to learn to surf. With small groups of 4-6 students per certified instructor, you'll receive quality coaching while enjoying the energy of learning alongside other surfers. Taught in small groups to guarantee personalized attention, fast learning, and maximum safety.</p>
+        <p class="text-gray-700 leading-relaxed mb-8">Whether you're a solo traveler looking for new friends, a couple, a family, or a group of friends, our <strong>group surfing lessons in Tamarindo</strong> create a fun, supportive environment where everyone catches their first wave.</p>
+
+        <!-- 3-col cards -->
+        <div class="grid md:grid-cols-3 gap-4 mb-8">
+          {cols.map(col => (
+            <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+              <h3 class="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">{col.h}</h3>
+              <ul class="space-y-2">
+                {col.items.map(i => (
+                  <li class="flex items-center gap-2.5 text-sm text-gray-600">
+                    <span class="w-4 h-4 rounded-full bg-[#00BCD4]/15 flex items-center justify-center shrink-0">
+                      <svg class="w-2.5 h-2.5 text-[#00BCD4]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                    </span>
+                    {i}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
 
-        <FAQ items={[
-          { question: 'How big are the group surf lessons?', answer: 'We keep groups small — maximum 6 students per certified instructor — to ensure everyone gets proper attention and feedback.' },
-          { question: 'Are group lessons good for beginners?', answer: 'Yes! Group lessons are designed for beginners. The shared experience is motivating and the friendly competition helps everyone progress faster.' },
-          { question: 'Can my family all join the same group lesson?', answer: 'Absolutely! Families are welcome. We can accommodate mixed skill levels and age groups in the same session.' },
-          { question: 'What if I\'m more advanced than the rest of the group?', answer: 'If you\'re looking for more intensive coaching, we\'d recommend our semi-private or private lessons for a more personalized experience.' },
-        ]} columns={1}/>
+        <!-- Gallery -->
+        <div class="grid grid-cols-2 gap-3 mb-10">
+          {gallery.map((img, i) => (
+            <div class={`overflow-hidden rounded-2xl shadow-sm ${i % 2 === 1 ? 'mt-4' : ''}`}>
+              <Image
+                src={img}
+                alt="Group surf lessons Tamarindo"
+                class="w-full h-40 object-cover hover:scale-105 transition-transform duration-500"
+                widths={[200, 400]}
+                formats={['avif', 'webp']}
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 768px) 25vw, 50vw"
+              />
+            </div>
+          ))}
+        </div>
+
+        <!-- FAQ -->
+        <div class="border-t border-gray-100 pt-10">
+          <FAQ items={faqs} columns={1}/>
+        </div>
+
       </div>
 
+      <!-- Right col: Sidebar -->
       <div>
-        <Sidebar price="$50" priceLabel="/ Per Person" includes={['90-minute surf lesson','Professional certified instructor','Surfboard included','Foam guard','Safety briefing','Photos on request']} ctaLabel="Check Availability" ctaHref="#book"/>
+        <Sidebar
+          price="$50"
+          priceLabel="/ Per Person"
+          includes={['90-minute surf lesson', 'Professional certified instructor', 'Surfboard included', 'Foam guard', 'Safety briefing', 'Photos on request']}
+          ctaLabel="Check Availability"
+          ctaHref="#book"
+        />
       </div>
+
     </div>
   </section>
 
+  <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
   <WhyChooseUs bg="gray" title="Why Our Group Surf Lessons Are the Best in Tamarindo"/>
 
-  <VideoSection title="Experience Group Surf Lessons in Tamarindo" subtitle="Our group lessons are fun, energetic, and led by certified instructors who make sure every person in the group catches waves." bgImage="/images/video-group.jpg" cta={{ label: 'Book Your Group Lesson', href: '#book' }}/>
+  <!-- ── VIDEO SECTION ──────────────────────────────────────────────────────── -->
+  <VideoSection
+    title="Experience Group Surf Lessons in Tamarindo"
+    subtitle="Our group lessons are fun, energetic, and led by certified instructors who make sure every person in the group catches waves."
+    bgImage={videoBg}
+    cta={{ label: 'Book Your Group Lesson', href: '#book' }}
+  />
 
-  <!-- Booking wizard embedded -->
-  <section id="book" class="py-16 bg-gray-50 min-h-[800px]" style="scroll-margin-top: 96px;">
+  <!-- ── BOOKING WIZARD ─────────────────────────────────────────────────────── -->
+  <section id="book" class="py-16 bg-white min-h-[800px]" style="scroll-margin-top: 96px;">
     <div class="container mx-auto px-4">
       <div class="text-center mb-10">
-        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
+        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
         <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your Group Lesson</h2>
         <p class="text-gray-500 max-w-md mx-auto">Select your date and time below. Your group lesson is pre-selected — just pick when you want to surf.</p>
       </div>
@@ -67,10 +147,33 @@ const seo = seoData.groupLessons
     </div>
   </section>
 
+  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
   <Testimonials items={[
-    { name: 'Alex Martinez', role: 'Solo Traveler', text: 'Came alone, left with new friends and the ability to surf! The group lesson was the best decision I made on my Costa Rica trip. Highly recommend.' },
-    { name: 'The Thompson Family', role: 'Family of 4', text: 'All four of us did the group lesson together — from 10-year-old to dad. The instructor made it work for everyone. We all stood up on the board!' },
+    { name: 'Alex Martinez',       role: 'Solo Traveler', text: 'Came alone, left with new friends and the ability to surf! The group lesson was the best decision I made on my Costa Rica trip. Highly recommend.' },
+    { name: 'The Thompson Family', role: 'Family of 4',   text: 'All four of us did the group lesson together — from 10-year-old to dad. The instructor made it work for everyone. We all stood up on the board!' },
   ]} title="What Surfers Say About Group Lessons in Tamarindo"/>
 
+  <!-- ── NEED HELP ──────────────────────────────────────────────────────────── -->
   <NeedHelp/>
+
+  <!-- ── SEO INTERNAL LINKS ─────────────────────────────────────────────────── -->
+  <section class="py-10 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-widest">Also Available at Pura Vida Surf School</h2>
+      <div class="flex flex-wrap gap-2">
+        {[
+          { l: 'Private Surf Lessons Tamarindo',      h: '/private-surf-lessons-tamarindo' },
+          { l: 'Semi-Private Surf Lessons Tamarindo', h: '/semi-private-surf-lessons-tamarindo' },
+          { l: 'Surf Packages Tamarindo',             h: '/tamarindo-surf-packages' },
+          { l: 'Surf Camp Tamarindo',                 h: '/surf-camp-tamarindo' },
+        ].map(x => (
+          <a href={x.h} data-astro-prefetch="viewport"
+            class="px-4 py-2 bg-white hover:bg-[#00BCD4]/8 border border-gray-200 hover:border-[#00BCD4]/40 hover:text-[#00BCD4] rounded-full text-sm text-gray-600 transition-colors font-medium">
+            {x.l}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
