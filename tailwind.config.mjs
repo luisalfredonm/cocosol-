@@ -17,7 +17,7 @@ export default {
         navy: { 900: '#0A1628' },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter Variable', 'Inter Fallback', 'system-ui', 'sans-serif'],
       },
     },
   },

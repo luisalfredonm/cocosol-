@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
@@ -8,6 +9,16 @@ import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import CampBookingWizard from '../components/booking/CampBookingWizard'
 import { seoData } from '../lib/seo'
+
+import heroImg    from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
+import gallery1   from '../assets/images/family-surf-lessons-tamarindo.webp'
+import gallery2   from '../assets/images/surf-school-tamarindo-students.webp'
+import gallery3   from '../assets/images/surf-school-tamarindo-private-class.webp'
+import gallery4   from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
+import gallery5   from '../assets/images/student-from-our-surf-school-in-Tamarindo.webp'
+import gallery6   from '../assets/images/tamarindo-surf-lessons-instructor-teaching-beginner.webp'
+
+const galleryImgs = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6]
 const seo = seoData.surfCamp5Days
 const faqs = [
   { question: 'What is the difference between the 5-day and 7-day camp?', answer: 'The 5-day camp has 4 lessons vs 6 in the 7-day version. Both include a surf trip, video analysis, and the same quality of instruction. Choose based on how much time you have.' },
@@ -17,7 +28,7 @@ const faqs = [
 ---
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
   <FAQSchema slot="head" items={faqs} />
-  <Hero title="5 Days Surf Camp Tamarindo — Surf Package Costa Rica" subtitle="5 days of surfing, progression, and pura vida. The perfect short surf camp for travelers with limited time." image="/images/5-day-camp-hero.jpg" imageAlt="5 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '#book' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
+  <Hero title="5 Days Surf Camp Tamarindo — Surf Package Costa Rica" subtitle="5 days of surfing, progression, and pura vida. The perfect short surf camp for travelers with limited time." image={heroImg} imageAlt="5 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '#book' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
 
   <section class="py-16 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
@@ -38,7 +49,18 @@ const faqs = [
         </div>
 
         <div class="grid grid-cols-3 gap-3 mb-10">
-          {[1,2,3,4,5,6].map(n=><img src={`/images/camp-gallery-${n}.jpg`} alt="5 days surf camp Tamarindo" class="rounded-xl w-full h-32 object-cover" width="280" height="180" loading="lazy"/>)}
+          {galleryImgs.map((img, i) => (
+            <Image
+              src={img}
+              alt="5 days surf camp Tamarindo"
+              class="rounded-xl w-full h-32 object-cover"
+              widths={[280, 560]}
+              formats={['avif', 'webp']}
+              loading="lazy"
+              decoding="async"
+              sizes="(min-width: 768px) 18vw, 33vw"
+            />
+          ))}
         </div>
 
         <FAQ items={faqs}/>
@@ -58,7 +80,7 @@ const faqs = [
         <p class="text-gray-500 max-w-md mx-auto">Select your start date and room. Your 5-Day Surf Camp is pre-selected — just pick your dates and complete the booking.</p>
       </div>
       <div class="max-w-4xl mx-auto">
-        <CampBookingWizard preselectedCampType="5day" client:load />
+        <CampBookingWizard preselectedCampType="5day" client:idle />
       </div>
       <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
     </div>

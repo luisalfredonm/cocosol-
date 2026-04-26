@@ -3,8 +3,18 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
+import FAQSchema from '../components/seo/FAQSchema.astro'
 import { seoData } from '../lib/seo'
 const seo = seoData.surfCamp
+
+const faqs = [
+  { question: 'Do I need surf experience to join the camp?', answer: 'No experience needed. Both camps are designed for complete beginners. Our certified instructors build your skills day by day from zero. By the end of the week, most campers are surfing green waves confidently.' },
+  { question: 'Is accommodation included in the camp?', answer: 'Accommodation is available as an add-on. We work with partner hotels and hostels in Tamarindo at preferential rates. Contact us to find the best option for your budget and preferences.' },
+  { question: "What's the difference between 5-day and 7-day?", answer: 'The 5-day camp has 4 lessons and 1 surf trip. The 7-day adds 2 extra lessons, a second surf trip, and a photo package. If you have the time, the 7-day delivers significantly more progression.' },
+  { question: 'What if the weather or waves are bad?', answer: "Costa Rica's tropical climate means rain doesn't always stop surfing. If conditions are unsafe, we reschedule at no extra cost. Safety always comes first." },
+  { question: 'Can I join a camp alone?', answer: "Absolutely — solo travelers are welcome and common. You'll meet fellow surfers from around the world and leave with new friends. The camp atmosphere makes it easy to connect." },
+  { question: 'What should I bring to camp?', answer: 'Just sunblock, a towel, and energy. We provide surfboards, rash guard, and all equipment. Travel light — the ocean does the rest.' },
+]
 
 const camps = [
   {
@@ -84,6 +94,7 @@ const whyUs = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -358,14 +369,7 @@ const whyUs = [
         <h2 class="text-3xl font-extrabold text-gray-900">Frequently Asked Questions</h2>
         <p class="text-gray-500 mt-3">Everything you need to know before booking your surf camp.</p>
       </div>
-      <FAQ columns={2} items={[
-        { question: 'Do I need surf experience to join the camp?', answer: 'No experience needed. Both camps are designed for complete beginners. Our certified instructors build your skills day by day from zero. By the end of the week, most campers are surfing green waves confidently.' },
-        { question: 'Is accommodation included in the camp?', answer: 'Accommodation is available as an add-on. We work with partner hotels and hostels in Tamarindo at preferential rates. Contact us to find the best option for your budget and preferences.' },
-        { question: "What's the difference between 5-day and 7-day?", answer: 'The 5-day camp has 4 lessons and 1 surf trip. The 7-day adds 2 extra lessons, a second surf trip, and a photo package. If you have the time, the 7-day delivers significantly more progression.' },
-        { question: 'What if the weather or waves are bad?', answer: "Costa Rica's tropical climate means rain doesn't always stop surfing. If conditions are unsafe, we reschedule at no extra cost. Safety always comes first." },
-        { question: 'Can I join a camp alone?', answer: "Absolutely — solo travelers are welcome and common. You'll meet fellow surfers from around the world and leave with new friends. The camp atmosphere makes it easy to connect." },
-        { question: 'What should I bring to camp?', answer: 'Just sunblock, a towel, and energy. We provide surfboards, rash guard, and all equipment. Travel light — the ocean does the rest.' },
-      ]}/>
+      <FAQ columns={2} items={faqs}/>
     </div>
   </section>
 
