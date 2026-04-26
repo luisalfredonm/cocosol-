@@ -33,9 +33,14 @@ const faqs = [
   <section class="py-16 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
       <div class="lg:col-span-2">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">5 Days Surf Camp Tamarindo — All You Need in 5 Days</h2>
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">What You Get in 5 Packed Days of Surfing</h2>
         <p class="text-gray-700 leading-relaxed mb-4">Our <strong>5 Days Surf Camp in Tamarindo</strong> is the perfect option for travelers who want an immersive surf experience without committing to a full week. With 4 surf lessons, a guided surf trip, video analysis, and daily access to a surfboard, this camp delivers real progression in just 5 days.</p>
-        <p class="text-gray-700 leading-relaxed mb-6">Like our 7-day camp, the <strong>5 day surf camp Costa Rica</strong> includes all essential equipment, certified instructors, and the authentic pura vida spirit that makes Tamarindo so special. By day 5, most campers are surfing green waves with confidence.</p>
+        <p class="text-gray-700 leading-relaxed mb-4">Like our 7-day camp, this short program includes all essential equipment, certified instructors, and the authentic pura vida spirit that makes Tamarindo so special. By day 5, most campers are surfing green waves with confidence.</p>
+
+        <!-- Why 5 days works -->
+        <div class="bg-teal-50 border border-teal-100 rounded-2xl px-6 py-5 mb-8">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>Why 5 days is enough:</strong> Five consecutive days in the water is the sweet spot for most beginner travelers. You have enough time to build real technique, correct your mistakes session by session, and experience a genuine surf trip without needing to extend your vacation. The structured format — land briefing, water session, and video review — ensures that every single day moves you forward. Instructors track your progress across all five sessions and adapt the coaching plan based on how you're developing. By your final lesson, the goal is always the same: catch a green wave on your own and ride it all the way to the shore. The 5-day format has proven itself as the ideal entry point for travelers who are short on time but serious about learning to surf properly.</p>
+        </div>
 
         <div class="grid md:grid-cols-2 gap-6 mb-10">
           <div>
@@ -52,7 +57,7 @@ const faqs = [
           {galleryImgs.map((img, i) => (
             <Image
               src={img}
-              alt="5 days surf camp Tamarindo"
+              alt="Campers surfing at Tamarindo Beach Costa Rica"
               class="rounded-xl w-full h-32 object-cover"
               widths={[280, 560]}
               formats={['avif', 'webp']}
@@ -86,7 +91,7 @@ const faqs = [
     </div>
   </section>
 
-  <Testimonials items={[{ name: 'Laura T.', role: 'Traveler', text: 'Had 5 days in Tamarindo and the surf camp was the perfect way to spend them. By day 4 I was surfing real waves. The video analysis helped so much!' }, { name: 'Ryan M.', role: 'Surfer', text: 'Compact but complete. The 5-day camp gave me everything I needed to go from paddling to riding. The instructor was patient and incredibly skilled at teaching.' }]} title="What They Say About Our 5-Day Surf Camp"/>
+  <Testimonials items={[{ name: 'Laura T.', role: 'Traveler', text: 'The short camp was the best investment of my Costa Rica trip. By day 4 I was catching real waves on my own. The video analysis made a huge difference!' }, { name: 'Ryan M.', role: 'Surfer', text: 'Compact but complete. The 5-day camp gave me everything I needed to go from paddling to riding. The instructor was patient and incredibly skilled at teaching.' }]} title="What They Say About Our 5-Day Surf Camp"/>
 
   <NeedHelp/>
 </BaseLayout>

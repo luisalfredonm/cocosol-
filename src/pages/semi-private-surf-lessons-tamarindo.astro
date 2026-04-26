@@ -21,7 +21,7 @@ import videoBg  from '../assets/images/surf-school-tamarindo-surf-instructor-stu
 const seo = seoData.semiPrivateLessons
 
 const faqs = [
-  { question: 'What do semi-private surf lessons in Tamarindo include?', answer: 'Semi-private lessons include a certified instructor, surfboard, foam guard, safety briefing, and 90 minutes of instruction for 2-3 people.' },
+  { question: 'What does a semi-private surf lesson include?', answer: 'Semi-private lessons include a certified instructor, surfboard, foam guard, safety briefing, and 90 minutes of instruction for 2-3 people.' },
   { question: 'Are semi-private surf lessons suitable for beginners?', answer: 'Absolutely! Semi-private lessons are perfect for beginners who want to share the experience with a partner or a friend while still getting personalized attention.' },
   { question: 'How long is a semi-private surf lesson?', answer: 'Each session is 90 minutes, including land training and time in the water.' },
   { question: 'Do you offer discounts for multiple semi-private lessons?', answer: 'Yes! Ask us about our Pura Vida Surf Packages which offer multiple lessons at a better rate than single sessions.' },
@@ -58,8 +58,20 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
 
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Up to 3 Students</span>
         <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Semi-Private Surf Lessons Tamarindo — Learn Together</h2>
-        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>semi-private surf lessons Tamarindo</strong> are the perfect option for couples, friends, or small groups of 2-3 people who want to share the experience while still receiving personalized attention from a certified instructor. You get the social energy of learning with someone you know, plus the focused coaching that helps you progress faster.</p>
-        <p class="text-gray-700 leading-relaxed mb-8">These <strong>semi-private surfing lessons in Tamarindo</strong> are a great value — you share the cost with your group while still benefiting from a professional, certified surf instructor who adapts the session to your levels and goals.</p>
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>semi-private surf lessons in Tamarindo</strong> are the perfect option for couples, friends, or small groups of 2-3 people who want to share the experience while still receiving personalized attention from a certified instructor. You get the social energy of learning with someone you know, plus the focused coaching that helps you progress faster.</p>
+        <p class="text-gray-700 leading-relaxed mb-4">These small-group sessions are a great value — you share the cost with your group while still benefiting from a professional, certified surf instructor who adapts the session to your levels and goals.</p>
+        <p class="text-gray-700 leading-relaxed mb-8">Whether you are a couple looking for a shared adventure, friends visiting Tamarindo for a week, or a family with kids, this format gives you real coaching without the higher cost of one-on-one instruction. Most students in our small-group sessions stand up on the board within the first 30 minutes on the water.</p>
+
+        <!-- Comparison note -->
+        <div class="bg-[#00BCD4]/5 border border-[#00BCD4]/20 rounded-2xl px-6 py-4 mb-8">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>Semi-private vs. group lessons:</strong> Group lessons fit up to 6 students and are the most affordable entry point. Semi-private keeps it to 2-3 people maximum — your instructor spends far more time with each surfer, giving corrections after every wave. If you are traveling with a partner or a small group of friends and want faster results without paying for a private session, semi-private is the smartest choice.</p>
+        </div>
+
+        <!-- What to Expect -->
+        <div class="bg-gray-50 border border-gray-100 rounded-3xl p-6 mb-8">
+          <h3 class="text-lg font-bold text-gray-900 mb-3">What to Expect on the Day of Your Lesson</h3>
+          <p class="text-gray-700 leading-relaxed text-sm">Your instructor will meet you on Tamarindo Beach for a 15-minute land warm-up covering ocean safety, paddling technique, and how to pop up correctly on the board. After the briefing, you move into the water for the rest of your 90-minute session. Expect real, hands-on coaching with corrections after every wave — not just a quick demonstration and then watching from the shore. All skill levels are welcome, and the instructor will adjust the coaching pace for each person in your group so nobody feels left behind. You do not need any prior experience. Just bring reef-safe sunscreen, a positive attitude, and a willingness to get in the water.</p>
+        </div>
 
         <!-- 3-col cards -->
         <div class="grid md:grid-cols-3 gap-4 mb-8">
@@ -88,7 +100,7 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
             <div class={`overflow-hidden rounded-2xl shadow-sm ${i % 2 === 1 ? 'mt-4' : ''}`}>
               <Image
                 src={img}
-                alt="Semi-private surf lessons Tamarindo"
+                alt="Small group surf lesson in Tamarindo"
                 class="w-full h-40 object-cover hover:scale-105 transition-transform duration-500"
                 widths={[200, 400]}
                 formats={['avif', 'webp']}
@@ -123,8 +135,8 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
 
   <!-- ── VIDEO SECTION ──────────────────────────────────────────────────────── -->
   <VideoSection
-    title="See Our Semi-Private Surf Lessons in Tamarindo in Action"
-    subtitle="Watch what a semi-private session looks like — personalized coaching for 2-3 people on Tamarindo Beach."
+    title="See What a Small-Group Surf Session Looks Like in Tamarindo"
+    subtitle="Watch what a semi-private lesson looks like — personalized coaching for 2-3 people on Tamarindo Beach."
     bgImage={videoBg}
     cta={{ label: 'Check Availability', href: '#book' }}
   />

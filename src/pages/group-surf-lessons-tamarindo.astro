@@ -61,7 +61,12 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Up to 6 Students</span>
         <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Group Surf Lessons in Tamarindo — Learn to Surf Together</h2>
         <p class="text-gray-700 leading-relaxed mb-4">Our <strong>group surf lessons in Tamarindo</strong> are the most popular and affordable way to learn to surf. With small groups of 4-6 students per certified instructor, you'll receive quality coaching while enjoying the energy of learning alongside other surfers. Taught in small groups to guarantee personalized attention, fast learning, and maximum safety.</p>
-        <p class="text-gray-700 leading-relaxed mb-8">Whether you're a solo traveler looking for new friends, a couple, a family, or a group of friends, our <strong>group surfing lessons in Tamarindo</strong> create a fun, supportive environment where everyone catches their first wave.</p>
+        <p class="text-gray-700 leading-relaxed mb-8">Whether you're a solo traveler looking for new friends, a couple, a family, or a group of friends, this shared format creates a fun, supportive environment where everyone encourages each other and catches their first wave.</p>
+
+        <!-- Why group lessons work -->
+        <div class="bg-[#00BCD4]/5 border border-[#00BCD4]/20 rounded-2xl px-6 py-4 mb-8">
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>Why group lessons work:</strong> Learning alongside others has a unique advantage — you get to watch fellow students make and correct the same mistakes you face, which helps you understand surfing mechanics faster. The friendly energy in the group keeps motivation high and makes the whole session more enjoyable. Our instructors are experienced at managing 4-6 students simultaneously, giving each person corrections after every wave. Sessions are scheduled around the best morning tide windows, so you always surf in the cleanest and safest conditions available on the beach.</p>
+        </div>
 
         <!-- 3-col cards -->
         <div class="grid md:grid-cols-3 gap-4 mb-8">
@@ -90,7 +95,7 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
             <div class={`overflow-hidden rounded-2xl shadow-sm ${i % 2 === 1 ? 'mt-4' : ''}`}>
               <Image
                 src={img}
-                alt="Group surf lessons Tamarindo"
+                alt="Beginner surfers riding waves at Tamarindo Beach"
                 class="w-full h-40 object-cover hover:scale-105 transition-transform duration-500"
                 widths={[200, 400]}
                 formats={['avif', 'webp']}
@@ -124,11 +129,11 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
   </section>
 
   <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
-  <WhyChooseUs bg="gray" title="Why Our Group Surf Lessons Are the Best in Tamarindo"/>
+  <WhyChooseUs bg="gray" title="Why Pura Vida Surf School Is Tamarindo's First Choice"/>
 
   <!-- ── VIDEO SECTION ──────────────────────────────────────────────────────── -->
   <VideoSection
-    title="Experience Group Surf Lessons in Tamarindo"
+    title="Watch a Shared Surf Session at Tamarindo Beach"
     subtitle="Our group lessons are fun, energetic, and led by certified instructors who make sure every person in the group catches waves."
     bgImage={videoBg}
     cta={{ label: 'Book Your Group Lesson', href: '#book' }}
@@ -153,7 +158,7 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
   <Testimonials items={[
     { name: 'Alex Martinez',       role: 'Solo Traveler', text: 'Came alone, left with new friends and the ability to surf! The group lesson was the best decision I made on my Costa Rica trip. Highly recommend.' },
     { name: 'The Thompson Family', role: 'Family of 4',   text: 'All four of us did the group lesson together — from 10-year-old to dad. The instructor made it work for everyone. We all stood up on the board!' },
-  ]} title="What Surfers Say About Group Lessons in Tamarindo"/>
+  ]} title="What Students Say About Learning to Surf Together"/>
 
   <!-- ── NEED HELP ──────────────────────────────────────────────────────────── -->
   <NeedHelp/>
