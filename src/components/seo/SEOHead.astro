@@ -38,6 +38,14 @@ const jsonLd = {
       },
     },
     { '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: title, description, isPartOf: { '@id': `${site}/#website` }, inLanguage: 'en-US' },
+    {
+      '@type': 'WebSite',
+      '@id': `${site}/#website`,
+      url: site,
+      name: 'Pura Vida Surf School',
+      inLanguage: 'en-US',
+      potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: `${site}/blog?q={search_term_string}` }, 'query-input': 'required name=search_term_string' },
+    },
   ],
 }
 ---
@@ -51,6 +59,7 @@ const jsonLd = {
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={title} />
 <meta property="og:site_name" content="Pura Vida Surf School" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />

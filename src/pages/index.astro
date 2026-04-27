@@ -24,7 +24,12 @@ import videoBg from '../assets/images/student-from-our-surf-school-in-Tamarindo.
 
 const seo = seoData.home
 
-const preloadHero = await getImage({ src: heroImg, format: 'webp', width: 1920 })
+const [heroW640, heroW1280, heroW1920] = await Promise.all([
+  getImage({ src: heroImg, format: 'avif', width: 640 }),
+  getImage({ src: heroImg, format: 'avif', width: 1280 }),
+  getImage({ src: heroImg, format: 'avif', width: 1920 }),
+])
+const heroPreloadSrcSet = `${heroW640.src} 640w, ${heroW1280.src} 1280w, ${heroW1920.src} 1920w`
 
 const gallery = [
   { img: gallery1, alt: 'Surf school Tamarindo — certified instructor on the beach' },
@@ -61,7 +66,7 @@ const faqs = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
-  <link slot="head" rel="preload" as="image" href={preloadHero.src} type="image/webp" fetchpriority="high"/>
+  <link slot="head" rel="preload" as="image" imagesrcset={heroPreloadSrcSet} imagesizes="100vw" fetchpriority="high"/>
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
@@ -299,26 +304,6 @@ const faqs = [
           <FAQ items={faqs}/>
         </div>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ── LATEST NEWS ────────────────────────────────────────────────────────── -->
-  <section class="py-16 bg-white border-t border-gray-100">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-        <div>
-          <span class="section-label mb-2 block">Insight</span>
-          <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Latest News & Articles</h2>
-          <p class="text-gray-500 max-w-lg">Read our blog to keep yourself sharp. Stay informed with our latest updates.</p>
-        </div>
-        <a href="/blog"
-          class="shrink-0 inline-flex items-center gap-2 px-6 py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-2xl hover:border-[#00BCD4] hover:text-[#00BCD4] transition-colors text-sm">
-          All Articles
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
-        </a>
       </div>
     </div>
   </section>

@@ -12,6 +12,7 @@ export interface Props {
   breadcrumb?: { label: string; href?: string }
   height?: 'full' | 'large' | 'medium'
   overlay?: 'dark' | 'medium' | 'light'
+  objectPosition?: string
 }
 const {
   title, subtitle, image, imageAlt,
@@ -19,6 +20,7 @@ const {
   breadcrumb,
   height = 'large',
   overlay = 'dark',
+  objectPosition = 'center top',
 } = Astro.props
 
 const heightClass = { full: 'h-screen min-h-[600px]', large: 'h-[65vh] min-h-[480px]', medium: 'h-[50vh] min-h-[380px]' }[height]
@@ -32,7 +34,8 @@ const isLocal = typeof image !== 'string'
       <Image
         src={image as ImageMetadata}
         alt={imageAlt}
-        class="w-full h-full object-cover object-top"
+        class="w-full h-full object-cover"
+        style={`object-position: ${objectPosition}`}
         widths={[640, 1280, 1920]}
         formats={['avif', 'webp']}
         loading="eager"
@@ -44,7 +47,8 @@ const isLocal = typeof image !== 'string'
       <img
         src={image as string}
         alt={imageAlt}
-        class="w-full h-full object-cover object-top"
+        class="w-full h-full object-cover"
+        style={`object-position: ${objectPosition}`}
         width="1920"
         height="900"
         loading="eager"

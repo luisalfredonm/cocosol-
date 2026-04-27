@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets'
+import { Image, getImage } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
@@ -19,6 +19,13 @@ import gallery4 from '../assets/images/semi-private-surf-costa-rica-beginner-boa
 import videoBg  from '../assets/images/semi-private-surf-tamarindo-2-person.webp'
 
 const seo = seoData.semiPrivateLessons
+
+const [heroW640, heroW1280, heroW1920] = await Promise.all([
+  getImage({ src: heroImg, format: 'avif', width: 640 }),
+  getImage({ src: heroImg, format: 'avif', width: 1280 }),
+  getImage({ src: heroImg, format: 'avif', width: 1920 }),
+])
+const heroPreloadSrcSet = `${heroW640.src} 640w, ${heroW1280.src} 1280w, ${heroW1920.src} 1920w`
 
 const faqs = [
   { question: 'What does a semi-private surf lesson include?', answer: 'Semi-private lessons include a certified instructor, surfboard, foam guard, safety briefing, and 90 minutes of instruction for 2-3 people.' },
@@ -42,6 +49,7 @@ const gallery = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <link slot="head" rel="preload" as="image" imagesrcset={heroPreloadSrcSet} imagesizes="100vw" fetchpriority="high" />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
@@ -49,6 +57,7 @@ const gallery = [
     title="Semi-Private Surf Lessons Tamarindo — Small Group Surfing Experience"
     image={heroImg}
     imageAlt="Semi-private surf class Tamarindo couple riding wave together"
+    objectPosition="center center"
     breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}
     cta={{ label: 'Check Availability', href: '#book' }}
     height="large"
