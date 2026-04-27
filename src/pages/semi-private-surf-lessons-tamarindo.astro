@@ -11,12 +11,12 @@ import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 
-import heroImg  from '../assets/images/surf-school-tamarindo-students.webp'
-import gallery1 from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
-import gallery2 from '../assets/images/surf-school-tamarindo-private-class.webp'
-import gallery3 from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import gallery4 from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
-import videoBg  from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
+import heroImg  from '../assets/images/semi-private-surf-tamarindo-wave-riding.webp'
+import gallery1 from '../assets/images/semi-private-surf-instructor-tamarindo.webp'
+import gallery2 from '../assets/images/couple-surf-lessons-tamarindo-instructor.webp'
+import gallery3 from '../assets/images/small-group-surf-lessons-tamarindo-2-3.webp'
+import gallery4 from '../assets/images/semi-private-surf-costa-rica-beginner-board.webp'
+import videoBg  from '../assets/images/semi-private-surf-tamarindo-2-person.webp'
 
 const seo = seoData.semiPrivateLessons
 
@@ -33,7 +33,12 @@ const cols = [
   { h: 'Perfect For:',               items: ['Couples', 'Friends traveling together', 'Anyone who wants semi-private attention', 'People looking to learn and earn surf technique'] },
 ]
 
-const gallery = [gallery1, gallery2, gallery3, gallery4]
+const gallery = [
+  { img: gallery1, alt: 'Small group surf coaching Tamarindo board technique correction' },
+  { img: gallery2, alt: 'Couple surf lessons Tamarindo with certified instructor in water' },
+  { img: gallery3, alt: 'Small group surf lessons Tamarindo 2-3 students on beach' },
+  { img: gallery4, alt: 'Semi-private surf lessons Costa Rica beginners on foam board' },
+]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
@@ -43,7 +48,7 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
   <Hero
     title="Semi-Private Surf Lessons Tamarindo — Small Group Surfing Experience"
     image={heroImg}
-    imageAlt="Semi-private surf lessons Tamarindo"
+    imageAlt="Semi-private surf class Tamarindo couple riding wave together"
     breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}
     cta={{ label: 'Check Availability', href: '#book' }}
     height="large"
@@ -96,12 +101,12 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
 
         <!-- Gallery -->
         <div class="grid grid-cols-2 gap-3 mb-10">
-          {gallery.map((img, i) => (
+          {gallery.map(({ img, alt }, i) => (
             <div class={`overflow-hidden rounded-2xl shadow-sm h-40 ${i % 2 === 1 ? 'mt-4' : ''}`}>
               <Image
                 src={img}
-                alt="Small group surf lesson in Tamarindo"
-                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                alt={alt}
+                class="w-full h-full block object-cover object-[center_20%] hover:scale-105 transition-transform duration-500"
                 widths={[200, 400]}
                 formats={['avif', 'webp']}
                 loading="lazy"
@@ -138,6 +143,7 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
     title="See What a Small-Group Surf Session Looks Like in Tamarindo"
     subtitle="Watch what a semi-private lesson looks like — personalized coaching for 2-3 people on Tamarindo Beach."
     bgImage={videoBg}
+    bgImageAlt="2-person surf lesson Tamarindo with personalized instructor attention"
     cta={{ label: 'Check Availability', href: '#book' }}
   />
 
