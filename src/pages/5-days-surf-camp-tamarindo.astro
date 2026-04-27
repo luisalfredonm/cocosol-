@@ -11,14 +11,21 @@ import CampBookingWizard from '../components/booking/CampBookingWizard'
 import { seoData } from '../lib/seo'
 
 import heroImg    from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import gallery1   from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
-import gallery2   from '../assets/images/surf-school-tamarindo-students.webp'
-import gallery3   from '../assets/images/surf-school-tamarindo-private-class.webp'
-import gallery4   from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
-import gallery5   from '../assets/images/student-from-our-surf-school-in-Tamarindo.webp'
-import gallery6   from '../assets/images/tamarindo-surf-lessons-instructor-teaching-beginner.webp'
+import gallery1   from '../assets/images/5-days-surf-camp-tamarindo-lesson.webp'
+import gallery2   from '../assets/images/5-day-surf-camp-costa-rica-student.webp'
+import gallery3   from '../assets/images/costa-rica-5-day-surf-vacation-camp.webp'
+import gallery4   from '../assets/images/5-days-surf-camp-tamarindo-surf-trip.webp'
+import gallery5   from '../assets/images/5-day-surf-camp-costa-rica-tamarindo.webp'
+import gallery6   from '../assets/images/5-day-surf-camp-tamarindo-instructor.webp'
 
-const galleryImgs = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6]
+const galleryImgs = [
+  { img: gallery1, alt: '5 days surf camp Tamarindo morning lesson with instructor' },
+  { img: gallery2, alt: '5-day surf camp Costa Rica beginner riding wave in Tamarindo' },
+  { img: gallery3, alt: 'Costa Rica 5-day surf vacation camp on Tamarindo Beach' },
+  { img: gallery4, alt: '5 days surf camp Tamarindo including a guided surf trip' },
+  { img: gallery5, alt: '5-day surf camp Costa Rica Tamarindo for beginner travelers' },
+  { img: gallery6, alt: '5-day surf camp Tamarindo certified instructor in water coaching' },
+]
 const seo = seoData.surfCamp5Days
 const faqs = [
   { question: 'What is the difference between the 5-day and 7-day camp?', answer: 'The 5-day camp has 4 lessons vs 6 in the 7-day version. Both include a surf trip, video analysis, and the same quality of instruction. Choose based on how much time you have.' },
@@ -54,10 +61,10 @@ const faqs = [
         </div>
 
         <div class="grid grid-cols-3 gap-3 mb-10">
-          {galleryImgs.map((img, i) => (
+          {galleryImgs.map(({ img, alt }) => (
             <Image
               src={img}
-              alt="Campers surfing at Tamarindo Beach Costa Rica"
+              alt={alt}
               class="rounded-xl w-full h-32 object-cover"
               widths={[280, 560]}
               formats={['avif', 'webp']}
