@@ -1,11 +1,34 @@
 ---
+import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import { seoData } from '../lib/seo'
+
+import campGallery1 from '../assets/images/surf-camp-tamarindo-guided-surf-trip.webp'
+import campGallery2 from '../assets/images/tamarindo-surf-camp-video-analysis.webp'
+import campGallery3 from '../assets/images/best-surf-camp-tamarindo-costa-rica.webp'
+import campGallery4 from '../assets/images/tamarindo-surf-retreat-ocean-view.webp'
+import campGallery5 from '../assets/images/surf-camp-tamarindo-instructor-coaching.webp'
+import campGallery6 from '../assets/images/surf-camp-costa-rica-tamarindo-students.webp'
+import campGallery7 from '../assets/images/tamarindo-surf-camp-morning-lesson.webp'
+import campGallery8 from '../assets/images/surf-vacation-tamarindo-camp-group.webp'
+import campGallery9 from '../assets/images/surf-camp-costa-rica-tamarindo-sunset.webp'
+
 const seo = seoData.surfCamp
+
+const campGallery = [
+  { img: campGallery1, alt: 'Tamarindo surf camp guided surf trip to nearby secret beach' },
+  { img: campGallery2, alt: 'Tamarindo surf camp video analysis session between lessons' },
+  { img: campGallery3, alt: 'Best surf camp in Tamarindo Costa Rica for beginners and intermediates' },
+  { img: campGallery4, alt: 'Tamarindo surf retreat with ocean view and daily lessons included' },
+  { img: campGallery5, alt: 'Surf camp in Tamarindo — certified instructor coaching technique' },
+  { img: campGallery6, alt: 'Surf camp Costa Rica Tamarindo students after daily session' },
+  { img: campGallery7, alt: 'Tamarindo surf camp morning lesson on the beach at sunrise' },
+  { img: campGallery8, alt: 'Surf vacation Tamarindo camp group ready for morning session' },
+]
 
 const faqs = [
   { question: 'Do I need surf experience to join the camp?', answer: 'No experience needed. Both camps are designed for complete beginners. Our certified instructors build your skills day by day from zero. By the end of the week, most campers are surfing green waves confidently.' },
@@ -98,11 +121,15 @@ const whyUs = [
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-    <img
-      src="/images/surf-camp-hero.jpg"
-      alt="Tamarindo surf camp Costa Rica"
+    <Image
+      src={campGallery9}
+      alt="Surf camp Costa Rica Tamarindo with a beautiful sunset"
       class="absolute inset-0 w-full h-full object-cover object-center"
-      width="1920" height="1080"
+      widths={[800, 1200, 1920]}
+      formats={['avif', 'webp']}
+      loading="eager"
+      decoding="async"
+      sizes="100vw"
     />
     <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/80"/>
 
@@ -269,15 +296,18 @@ const whyUs = [
         <h2 class="text-3xl font-extrabold text-gray-900">Life at Camp</h2>
         <p class="text-gray-500 mt-2">Real moments from real campers in Tamarindo.</p>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {[1,2,3,4,5,6].map((n, i) => (
-          <div class={`overflow-hidden rounded-2xl ${i === 1 ? 'md:row-span-2' : ''}`}>
-            <img
-              src={`/images/camp-gallery-${n}.jpg`}
-              alt="Surf instructor and students at Tamarindo Beach"
-              class={`w-full object-cover hover:scale-105 transition-transform duration-500 ${i === 1 ? 'h-full min-h-[320px]' : 'h-48 md:h-56'}`}
-              width="600" height="400"
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {campGallery.map(({ img, alt }) => (
+          <div class="overflow-hidden rounded-2xl h-48 md:h-56">
+            <Image
+              src={img}
+              alt={alt}
+              class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500"
+              widths={[400, 800]}
+              formats={['avif', 'webp']}
               loading="lazy"
+              decoding="async"
+              sizes="(min-width: 768px) 25vw, 50vw"
             />
           </div>
         ))}

@@ -11,14 +11,21 @@ import CampBookingWizard from '../components/booking/CampBookingWizard'
 import { seoData } from '../lib/seo'
 
 import heroImg    from '../assets/images/student-from-our-surf-school-in-Tamarindo.webp'
-import gallery1   from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
-import gallery2   from '../assets/images/surf-school-tamarindo-students.webp'
-import gallery3   from '../assets/images/surf-school-tamarindo-private-class.webp'
-import gallery4   from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
-import gallery5   from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import gallery6   from '../assets/images/tamarindo-surf-lessons-instructor-teaching-beginner.webp'
+import gallery1   from '../assets/images/7-days-surf-camp-tamarindo-morning.webp'
+import gallery2   from '../assets/images/7-day-surf-camp-costa-rica-lesson.webp'
+import gallery3   from '../assets/images/week-surf-camp-tamarindo-students-beach.webp'
+import gallery4   from '../assets/images/surf-camp-one-week-tamarindo-green-wave.webp'
+import gallery5   from '../assets/images/tamarindo-7-days-surf-vacation-camp.webp'
+import gallery6   from '../assets/images/week-surf-camp-costa-rica-tamarindo.webp'
 
-const galleryImgs = [gallery1, gallery2, gallery3, gallery4, gallery5, gallery6]
+const galleryImgs = [
+  { img: gallery1, alt: '7 days surf camp Tamarindo morning session with instructor' },
+  { img: gallery2, alt: '7-day surf camp Costa Rica certified instructor teaching beginner' },
+  { img: gallery3, alt: 'Week surf camp Tamarindo students on the beach with boards' },
+  { img: gallery4, alt: 'Surf camp one week Tamarindo — student catching first green wave' },
+  { img: gallery5, alt: 'Tamarindo 7 days surf vacation camp with accommodation and lessons' },
+  { img: gallery6, alt: 'Week surf camp Costa Rica in Tamarindo with pura vida spirit' },
+]
 const seo = seoData.surfCamp7Days
 const faqs = [
   { question: 'What should I bring to the 7-day surf camp?', answer: 'Sunblock, a towel, and lots of energy! We provide all professional surfing gear, rash guard, and board.' },
@@ -75,10 +82,10 @@ const included = [
 
         <!-- Gallery -->
         <div class="grid grid-cols-3 gap-3 mb-10">
-          {galleryImgs.map((img) => (
+          {galleryImgs.map(({ img, alt }) => (
             <Image
               src={img}
-              alt="Campers surfing at Tamarindo Beach Costa Rica"
+              alt={alt}
               class="rounded-xl w-full h-32 object-cover"
               widths={[280, 560]}
               formats={['avif', 'webp']}
