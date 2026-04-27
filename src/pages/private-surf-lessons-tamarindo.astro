@@ -11,12 +11,12 @@ import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 
-import heroImg   from '../assets/images/surf-school-tamarindo-private-class.webp'
-import gallery1  from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
-import gallery2  from '../assets/images/surf-school-tamarindo-students.webp'
-import gallery3  from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import gallery4  from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
-import videoBg   from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
+import heroImg   from '../assets/images/private-surf-lessons-tamarindo-one-on-one.webp'
+import gallery1  from '../assets/images/tamarindo-private-surf-lesson-instructor.webp'
+import gallery2  from '../assets/images/one-on-one-surf-lessons-tamarindo-coaching.webp'
+import gallery3  from '../assets/images/private-surf-classes-tamarindo-technique.webp'
+import gallery4  from '../assets/images/personalized-surf-lessons-tamarindo-video.webp'
+import videoBg   from '../assets/images/tamarindo-private-surf-coaching-beginner.webp'
 
 const seo = seoData.privateLessons
 
@@ -42,10 +42,10 @@ const faqs = [
 ]
 
 const gallery = [
-  { img: gallery1, alt: 'Private surf lesson on Tamarindo beach — instructor with student' },
-  { img: gallery2, alt: 'Private surf coaching Tamarindo — students learning to surf' },
-  { img: gallery3, alt: 'Beginner private surf lesson Tamarindo Costa Rica' },
-  { img: gallery4, alt: 'One-on-one surf instructor guiding student on a wave in Tamarindo' },
+  { img: gallery1, alt: 'Tamarindo private surf lesson with certified instructor in water' },
+  { img: gallery2, alt: 'One-on-one surf lessons Tamarindo focused coaching session' },
+  { img: gallery3, alt: 'Private surf classes Tamarindo — board technique correction' },
+  { img: gallery4, alt: 'Personalized surf lessons Tamarindo with video feedback analysis' },
 ]
 ---
 
@@ -56,7 +56,7 @@ const gallery = [
   <Hero
     title="Private Surf Lessons Tamarindo — A Personalized Surfing Experience in Costa Rica"
     image={heroImg}
-    imageAlt="Private surf lesson Tamarindo — one-on-one coaching on the beach"
+    imageAlt="Private surf lessons Tamarindo one-on-one coaching on beach"
     breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}
     cta={{ label: 'Check Availability', href: '#book' }}
     height="large"
@@ -144,7 +144,7 @@ const gallery = [
     title="See What a One-on-One Surf Session Looks Like in Tamarindo"
     subtitle="Watch what a private lesson looks like — personalized coaching, one-on-one attention, and real progress on the waves of Tamarindo Beach."
     bgImage={videoBg}
-    bgImageAlt="Private surf instructor guiding student on a wave in Tamarindo"
+    bgImageAlt="Tamarindo private surf coaching for complete beginners"
     cta={{ label: 'Check Availability', href: '#book' }}
   />
 
@@ -156,11 +156,11 @@ const gallery = [
         <!-- Images -->
         <div class="grid grid-cols-2 gap-3">
           {gallery.map(({ img, alt }, i) => (
-            <div class={`overflow-hidden rounded-2xl shadow-md ${i % 2 === 1 ? 'mt-6' : ''}`}>
+            <div class={`overflow-hidden rounded-2xl shadow-md h-44 ${i % 2 === 1 ? 'mt-6' : ''}`}>
               <Image
                 src={img}
                 alt={alt}
-                class="w-full h-44 block object-cover object-[center_20%] hover:scale-105 transition-transform duration-500"
+                class="w-full h-full block object-cover object-[center_20%] hover:scale-105 transition-transform duration-500"
                 widths={[200, 400]}
                 formats={['avif', 'webp']}
                 loading="lazy"
