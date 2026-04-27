@@ -156,11 +156,11 @@ const gallery = [
         <!-- Images -->
         <div class="grid grid-cols-2 gap-3">
           {gallery.map(({ img, alt }, i) => (
-            <div class={`overflow-hidden rounded-2xl shadow-md h-44 ${i % 2 === 1 ? 'mt-6' : ''}`}>
+            <div class={`overflow-hidden rounded-2xl shadow-md h-56 ${i % 2 === 1 ? 'mt-6' : ''}`}>
               <Image
                 src={img}
                 alt={alt}
-                class="w-full h-full block object-cover object-[center_20%] hover:scale-105 transition-transform duration-500"
+                class="w-full h-full block object-cover object-center hover:scale-105 transition-transform duration-500"
                 widths={[200, 400]}
                 formats={['avif', 'webp']}
                 loading="lazy"

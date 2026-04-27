@@ -24,7 +24,7 @@ const videoHref = videoId ? `https://www.youtube.com/watch?v=${videoId}` : 'http
       <Image
         src={bgImage as ImageMetadata}
         alt={bgImageAlt}
-        class="w-full h-full object-cover object-[center_25%]"
+        class="w-full h-full object-cover object-center"
         widths={[640, 1280, 1920]}
         formats={['avif', 'webp']}
         loading="lazy"
@@ -35,7 +35,7 @@ const videoHref = videoId ? `https://www.youtube.com/watch?v=${videoId}` : 'http
       <img
         src={bgImage as string}
         alt={bgImageAlt}
-        class="w-full h-full object-cover object-[center_25%]"
+        class="w-full h-full object-cover object-center"
         width="1920" height="700"
         loading="lazy" decoding="async"
       />
