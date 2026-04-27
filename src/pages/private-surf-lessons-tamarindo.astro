@@ -41,7 +41,12 @@ const faqs = [
   { question: 'Do I need to bring my own surfboard?', answer: 'No — a surfboard is included with every lesson. We provide the right board for your level and size.' },
 ]
 
-const gallery = [gallery1, gallery2, gallery3, gallery4]
+const gallery = [
+  { img: gallery1, alt: 'Private surf lesson on Tamarindo beach — instructor with student' },
+  { img: gallery2, alt: 'Private surf coaching Tamarindo — students learning to surf' },
+  { img: gallery3, alt: 'Beginner private surf lesson Tamarindo Costa Rica' },
+  { img: gallery4, alt: 'One-on-one surf instructor guiding student on a wave in Tamarindo' },
+]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
@@ -51,7 +56,7 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
   <Hero
     title="Private Surf Lessons Tamarindo — A Personalized Surfing Experience in Costa Rica"
     image={heroImg}
-    imageAlt="Private surf lessons Tamarindo one on one"
+    imageAlt="Private surf lesson Tamarindo — one-on-one coaching on the beach"
     breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}
     cta={{ label: 'Check Availability', href: '#book' }}
     height="large"
@@ -139,6 +144,7 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
     title="See What a One-on-One Surf Session Looks Like in Tamarindo"
     subtitle="Watch what a private lesson looks like — personalized coaching, one-on-one attention, and real progress on the waves of Tamarindo Beach."
     bgImage={videoBg}
+    bgImageAlt="Private surf instructor guiding student on a wave in Tamarindo"
     cta={{ label: 'Check Availability', href: '#book' }}
   />
 
@@ -149,12 +155,12 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
 
         <!-- Images -->
         <div class="grid grid-cols-2 gap-3">
-          {gallery.map((img, i) => (
+          {gallery.map(({ img, alt }, i) => (
             <div class={`overflow-hidden rounded-2xl shadow-md ${i % 2 === 1 ? 'mt-6' : ''}`}>
               <Image
                 src={img}
-                alt="Private surf lessons Tamarindo gallery"
-                class="w-full h-44 object-cover hover:scale-105 transition-transform duration-500"
+                alt={alt}
+                class="w-full h-44 block object-cover object-[center_20%] hover:scale-105 transition-transform duration-500"
                 widths={[200, 400]}
                 formats={['avif', 'webp']}
                 loading="lazy"
