@@ -11,9 +11,9 @@ import BookingWizard from '../components/booking/BookingWizard'
 import { seoData } from '../lib/seo'
 
 import heroImg  from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import gallery1 from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
-import gallery2 from '../assets/images/surf-school-tamarindo-students.webp'
-import gallery3 from '../assets/images/surf-school-tamarindo-private-class.webp'
+import gallery1 from '../assets/images/3-days-surf-package-tamarindo-first-lesson.webp'
+import gallery2 from '../assets/images/short-surf-package-costa-rica-3-lessons.webp'
+import gallery3 from '../assets/images/3-days-surf-package-tamarindo-instructor.webp'
 
 const seo = seoData.package3Days
 
@@ -31,7 +31,11 @@ const whyUs = [
   { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', title: 'Professional Coach', desc: 'Personalized feedback and coaching tailored to your specific skill level.' },
 ]
 
-const gallery = [gallery1, gallery2, gallery3]
+const gallery = [
+  { img: gallery1, alt: '3 days surf package Tamarindo — first lesson on the beach' },
+  { img: gallery2, alt: 'Short surf package Costa Rica — 3 lessons in Tamarindo waves' },
+  { img: gallery3, alt: '3 days surf package Tamarindo with certified instructor coaching' },
+]
 
 const faqs = [
   { question: 'What should I bring?',                        answer: "Sunblock, a towel, and lots of energy! We provide all the professional surfing gear you'll need." },
@@ -105,12 +109,12 @@ const faqs = [
 
         <!-- Gallery strip -->
         <div class="grid grid-cols-3 gap-3 mb-10">
-          {gallery.map((img, i) => (
+          {gallery.map(({ img, alt }, i) => (
             <div class="overflow-hidden rounded-2xl shadow-sm">
               <Image
                 src={img}
-                alt="Beginner surf lesson at Tamarindo Beach"
-                class="w-full h-36 object-cover hover:scale-105 transition-transform duration-500"
+                alt={alt}
+                class="w-full h-36 block object-cover object-[center_20%] hover:scale-105 transition-transform duration-500"
                 widths={[200, 400]}
                 formats={['avif', 'webp']}
                 loading="lazy"
