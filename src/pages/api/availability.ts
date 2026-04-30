@@ -50,8 +50,11 @@ export const GET: APIRoute = async ({ url }) => {
       .map(b => b.start_time.slice(0, 5))
   )
 
+  const { data: bSettings } = await supabase.from('booking_settings').select('min_advance_hours').eq('id', 1).single()
+  const minAdvanceHours = bSettings?.min_advance_hours ?? 48
+
   const minDate = new Date()
-  minDate.setHours(minDate.getHours() + 48)
+  minDate.setHours(minDate.getHours() + minAdvanceHours)
 
   const slots = activeTimes.map(time => {
     const slotDateTime = new Date(`${date}T${time}:00`)

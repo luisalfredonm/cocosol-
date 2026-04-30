@@ -25,6 +25,7 @@ interface CartSummaryEmailData {
   customerName: string
   customerEmail: string
   items: CartSummaryItem[]
+  mode?: 'paid' | 'on-site'
 }
 
 function formatDate(dateStr: string): string {
@@ -187,6 +188,7 @@ export async function sendAdminNotification(data: BookingEmailData): Promise<voi
 
 export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<void> {
   const total = data.items.reduce((sum, item) => sum + item.totalAmount, 0)
+  const isOnSite = data.mode === 'on-site'
   const rows = data.items.map(item => `
     <tr>
       <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;">${getClassTypeName(item.classTypeId)}</td>
@@ -197,13 +199,41 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
     </tr>
   `).join('')
 
+  const totalLine = isOnSite
+    ? `<p style="margin:0;font-size:16px;font-weight:700;color:#92400E;">Amount due on arrival: ${formatCurrency(total)}</p>`
+    : `<p style="margin:0;font-size:16px;font-weight:700;color:#0f766e;">Total paid: ${formatCurrency(total)}</p>`
+
+  const totalBg = isOnSite
+    ? 'background:#fffbeb;border:1px solid #fcd34d;'
+    : 'background:#f0fdfa;border:1px solid #99f6e4;'
+
+  const onsiteNote = isOnSite ? `
+    <div style="margin-top:14px;padding:12px 14px;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;">
+      <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#92400E;">Payment on arrival</p>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#78350F;">
+        Please bring cash or card. Your instructor will collect payment at the beach before your session starts.
+        Arrive 15 minutes early at the Pura Vida Surf School tent on Tamarindo Beach.
+      </p>
+    </div>
+  ` : `
+    <div style="margin-top:18px;border-left:4px solid #14b8a6;background:#f0fdfa;padding:12px 14px;border-radius:10px;">
+      <p style="margin:0;font-size:13px;line-height:1.7;color:#0f4f4b;">Please arrive 15 minutes early and bring sunscreen, towel, and hydration.</p>
+    </div>
+  `
+
   const html = emailShell({
-    preheader: `Booking summary for ${data.items.length} item${data.items.length === 1 ? '' : 's'}.`,
-    title: 'Booking Summary',
-    subtitle: `Checkout #${data.checkoutId.slice(0, 8).toUpperCase()} has been successfully confirmed.`,
+    preheader: isOnSite
+      ? `Reservation confirmed — pay ${formatCurrency(total)} on arrival.`
+      : `Booking summary for ${data.items.length} item${data.items.length === 1 ? '' : 's'}.`,
+    title: isOnSite ? 'Reservation Received!' : 'Booking Confirmed',
+    subtitle: isOnSite
+      ? 'Your spot is reserved. Payment is collected at the beach on the day of your session.'
+      : `Checkout #${data.checkoutId.slice(0, 8).toUpperCase()} has been successfully confirmed.`,
     body: `
       <p style="margin:0 0 14px;font-size:15px;line-height:1.7;">Hi ${data.customerName},</p>
-      <p style="margin:0 0 18px;font-size:15px;line-height:1.7;">Here is your complete summary:</p>
+      <p style="margin:0 0 18px;font-size:15px;line-height:1.7;">
+        ${isOnSite ? 'Your reservation is confirmed. Here is your summary:' : 'Thanks for your payment. Here is your complete summary:'}
+      </p>
       <table role="presentation" style="width:100%;border-collapse:collapse;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
         <thead>
           <tr style="background:#f8fafc;">
@@ -216,15 +246,18 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
         </thead>
         <tbody>${rows}</tbody>
       </table>
-      <div style="margin-top:16px;padding:12px 14px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:10px;">
-        <p style="margin:0;font-size:16px;font-weight:700;color:#0f766e;">Total paid: ${formatCurrency(total)}</p>
+      <div style="margin-top:16px;padding:12px 14px;${totalBg}border-radius:10px;">
+        ${totalLine}
       </div>
+      ${onsiteNote}
     `,
   })
 
   await sendEmail({
     to: data.customerEmail,
-    subject: `Booking Summary - ${data.items.length} item${data.items.length === 1 ? '' : 's'}`,
+    subject: isOnSite
+      ? `Reservation Confirmed — Pay on Arrival · ${data.items.length} session${data.items.length === 1 ? '' : 's'}`
+      : `Booking Confirmed — ${data.items.length} session${data.items.length === 1 ? '' : 's'}`,
     html,
   })
 }
@@ -232,6 +265,7 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
 export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Promise<void> {
   const adminEmail = import.meta.env.ADMIN_EMAIL
   if (!adminEmail) return
+  const isOnSite = data.mode === 'on-site'
   const total = data.items.reduce((sum, item) => sum + item.totalAmount, 0)
   const itemRows = data.items.map((item, index) => `
     <tr>
@@ -241,18 +275,25 @@ export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Pro
   `).join('')
 
   const html = emailShell({
-    preheader: `New checkout confirmed: ${data.items.length} item${data.items.length === 1 ? '' : 's'}.`,
-    title: 'Checkout Confirmed',
-    subtitle: 'A multi-item checkout has been completed and paid successfully.',
+    preheader: isOnSite
+      ? `New on-site reservation from ${data.customerName} — collect ${formatCurrency(total)} at the beach.`
+      : `New checkout confirmed: ${data.items.length} item${data.items.length === 1 ? '' : 's'}.`,
+    title: isOnSite ? 'New On-Site Reservation' : 'Checkout Confirmed',
+    subtitle: isOnSite
+      ? `Payment to be collected on arrival — ${formatCurrency(total)}`
+      : 'A multi-item checkout has been completed and paid successfully.',
     body: `
+      ${isOnSite ? `<div style="margin-bottom:16px;padding:10px 14px;background:#fffbeb;border:1px solid #fcd34d;border-radius:10px;font-size:13px;color:#92400E;font-weight:600;">
+        💵 On-site payment — collect ${formatCurrency(total)} from the customer at the beach
+      </div>` : ''}
       <div style="border:1px solid #dbe8ed;border-radius:14px;padding:16px 18px;background:#f9fcfd;">
         <table role="presentation" style="width:100%;border-collapse:collapse;">
           ${detailRows([
             { label: 'Checkout ID', value: data.checkoutId },
             { label: 'Customer', value: data.customerName },
             { label: 'Email', value: data.customerEmail },
-            { label: 'Items', value: String(data.items.length) },
-            { label: 'Total', value: formatCurrency(total) },
+            { label: 'Sessions', value: String(data.items.length) },
+            { label: isOnSite ? 'Amount to Collect' : 'Total Paid', value: formatCurrency(total) },
           ])}
           ${itemRows}
         </table>
@@ -262,7 +303,9 @@ export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Pro
 
   await sendEmail({
     to: adminEmail,
-    subject: `Checkout Summary: ${data.items.length} item${data.items.length === 1 ? '' : 's'} - ${formatCurrency(total)}`,
+    subject: isOnSite
+      ? `On-Site Reservation: ${data.customerName} — ${formatCurrency(total)} to collect`
+      : `Checkout Paid: ${data.items.length} session${data.items.length === 1 ? '' : 's'} — ${formatCurrency(total)}`,
     html,
   })
 }

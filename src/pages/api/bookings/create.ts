@@ -5,6 +5,7 @@ import Stripe from 'stripe'
 import { supabase } from '../../../lib/supabase'
 import { getClassTypes, calculateTotal } from '../../../lib/classTypes'
 import { getMinParticipants, getMaxParticipants } from '../../../lib/classTypeHelpers'
+import { createPayPalOrder } from '../../../lib/paypalService'
 import {
   sendAdminCartSummaryEmail,
   sendAdminNotification,
@@ -108,7 +109,204 @@ export const POST: APIRoute = async ({ request }) => {
   const stripeKey = import.meta.env.STRIPE_SECRET_KEY
   const checkoutId = crypto.randomUUID()
 
-  // TEST MODE
+  // Fetch payment config to determine payment provider
+  let paymentProvider = 'on-site'
+  let paypalClientId = ''
+  let paypalSecret = ''
+  let paypalSandbox = true
+  try {
+    const { data: config, error: configError } = await supabase
+      .from('payment_config')
+      .select('*')
+      .eq('is_active', true)
+
+    if (configError) console.error('[BookingCreate] Config error:', configError)
+
+    if (config && Array.isArray(config) && config.length > 0) {
+      const activeConfig = config[0]
+      paymentProvider = String(activeConfig?.provider || 'on-site').toLowerCase().trim()
+      paypalClientId = String(activeConfig?.paypal_client_id || '').trim()
+      paypalSecret = String(activeConfig?.paypal_secret || '').trim()
+      paypalSandbox = activeConfig?.paypal_sandbox !== false
+      console.log('[BookingCreate] Provider:', paymentProvider, '| Sandbox:', paypalSandbox)
+    }
+  } catch (err) {
+    console.error('[BookingCreate] Error fetching payment config:', err)
+  }
+
+  // Handle on-site payment (no payment processing needed)
+  if (paymentProvider === 'on-site') {
+    console.log('[BookingCreate] Processing on-site payment')
+    const { data: bookings, error: dbError } = await supabase
+      .from('bookings')
+      .insert(
+        normalizedItems.map(item => ({
+          class_type_id: item.classTypeId,
+          checkout_id: checkoutId,
+          booking_date: item.date,
+          start_time: item.timeSlot,
+          participants: item.participants,
+          total_amount: item.totalAmount,
+          customer_name: contact.name.trim(),
+          customer_email: contact.email.trim().toLowerCase(),
+          customer_phone: contact.phone?.trim() ?? '',
+          customer_country: contact.country?.trim() ?? '',
+          notes: contact.notes?.trim() ?? '',
+          status: 'pending',
+          payment_method: null,
+          stripe_payment_intent_id: null,
+        }))
+      )
+      .select('id')
+
+    if (dbError || !bookings || bookings.length === 0) {
+      console.error('[BookingCreate] Failed to save bookings:', dbError)
+      return json({ error: 'Failed to save bookings' }, 500)
+    }
+
+    const bookingIds = bookings.map(b => b.id)
+
+    // Send reservation emails (on-site mode)
+    const sendSummary = envFlag('EMAIL_SUMMARY_ENABLED', true)
+    const sendAdminSummary = envFlag('EMAIL_ADMIN_SUMMARY_ENABLED', true)
+    const nowIso = new Date().toISOString()
+    const summaryItems = normalizedItems.map((item, index) => ({
+      bookingId: bookings[index]?.id ?? '',
+      classTypeId: item.classTypeId,
+      bookingDate: item.date,
+      startTime: item.timeSlot,
+      participants: item.participants,
+      totalAmount: item.totalAmount,
+    }))
+
+    if (sendSummary) {
+      try {
+        await sendCartSummaryEmail({
+          checkoutId,
+          customerName: contact.name.trim(),
+          customerEmail: contact.email.trim().toLowerCase(),
+          items: summaryItems,
+          mode: 'on-site',
+        })
+        await supabase.from('bookings').update({ checkout_summary_sent_at: nowIso }).eq('checkout_id', checkoutId)
+      } catch (error) {
+        console.error('[BookingCreate] Failed to send on-site reservation email to customer', { checkoutId, error })
+      }
+    }
+
+    if (sendAdminSummary) {
+      try {
+        await sendAdminCartSummaryEmail({
+          checkoutId,
+          customerName: contact.name.trim(),
+          customerEmail: contact.email.trim().toLowerCase(),
+          items: summaryItems,
+          mode: 'on-site',
+        })
+        await supabase.from('bookings').update({ checkout_admin_summary_sent_at: nowIso }).eq('checkout_id', checkoutId)
+      } catch (error) {
+        console.error('[BookingCreate] Failed to send on-site reservation email to admin', { checkoutId, error })
+      }
+    }
+
+    return json({
+      bookingId: bookingIds[0],
+      bookingIds,
+      checkoutId,
+      clientSecret: null,
+      totalAmount,
+      provider: 'on-site',
+    })
+  }
+
+  // Handle PayPal payment (without credentials - show config error in UI)
+  if (paymentProvider === 'paypal' && (!paypalClientId || !paypalSecret)) {
+    const { data: bookings, error: dbError } = await supabase
+      .from('bookings')
+      .insert(
+        normalizedItems.map(item => ({
+          class_type_id: item.classTypeId,
+          checkout_id: checkoutId,
+          booking_date: item.date,
+          start_time: item.timeSlot,
+          participants: item.participants,
+          total_amount: item.totalAmount,
+          customer_name: contact.name.trim(),
+          customer_email: contact.email.trim().toLowerCase(),
+          customer_phone: contact.phone?.trim() ?? '',
+          customer_country: contact.country?.trim() ?? '',
+          notes: contact.notes?.trim() ?? '',
+          status: 'pending',
+          payment_method: 'paypal',
+          stripe_payment_intent_id: null,
+        }))
+      )
+      .select('id')
+
+    if (dbError || !bookings || bookings.length === 0) return json({ error: 'Failed to save bookings' }, 500)
+
+    const bookingIds = bookings.map(b => b.id)
+    return json({
+      bookingId: bookingIds[0],
+      bookingIds,
+      checkoutId,
+      clientSecret: null,
+      paypalOrderId: null,
+      totalAmount,
+      provider: 'paypal',
+    })
+  }
+
+  // Handle PayPal payment (with credentials)
+  if (paymentProvider === 'paypal' && paypalClientId && paypalSecret) {
+    let paypalOrderId = ''
+    try {
+      paypalOrderId = await createPayPalOrder(paypalClientId, paypalSecret, totalAmount, 'USD', paypalSandbox)
+    } catch (err: any) {
+      return json({ error: `PayPal order creation failed: ${err.message}` }, 500)
+    }
+
+    const { data: bookings, error: dbError } = await supabase
+      .from('bookings')
+      .insert(
+        normalizedItems.map(item => ({
+          class_type_id: item.classTypeId,
+          checkout_id: checkoutId,
+          booking_date: item.date,
+          start_time: item.timeSlot,
+          participants: item.participants,
+          total_amount: item.totalAmount,
+          customer_name: contact.name.trim(),
+          customer_email: contact.email.trim().toLowerCase(),
+          customer_phone: contact.phone?.trim() ?? '',
+          customer_country: contact.country?.trim() ?? '',
+          notes: contact.notes?.trim() ?? '',
+          status: 'pending',
+          payment_method: 'paypal',
+          stripe_payment_intent_id: paypalOrderId,
+        }))
+      )
+      .select('id')
+
+    if (dbError || !bookings || bookings.length === 0) {
+      return json({ error: 'Failed to save bookings' }, 500)
+    }
+
+    const bookingIds = bookings.map(b => b.id)
+    return json({
+      bookingId: bookingIds[0],
+      bookingIds,
+      checkoutId,
+      clientSecret: null,
+      paypalOrderId,
+      paypalSandbox,
+      paypalClientId,
+      totalAmount,
+      provider: 'paypal',
+    })
+  }
+
+  // TEST MODE (no Stripe key)
   if (!stripeKey) {
     const { data: bookings, error: dbError } = await supabase
       .from('bookings')
@@ -212,6 +410,7 @@ export const POST: APIRoute = async ({ request }) => {
       checkoutId,
       clientSecret: null,
       totalAmount,
+      provider: 'on-site',
     })
   }
 
@@ -268,6 +467,7 @@ export const POST: APIRoute = async ({ request }) => {
     checkoutId,
     clientSecret: paymentIntent.client_secret,
     totalAmount,
+    provider: 'stripe',
   })
 }
 

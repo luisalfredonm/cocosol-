@@ -1,0 +1,236 @@
+---
+export const prerender = false
+
+interface Props {
+  authToken: string
+}
+
+const { authToken } = Astro.props
+
+let config: any = { provider: 'on-site', paypal_client_id: '', paypal_secret: '', paypal_sandbox: true, credomatic_api_key: '', credomatic_secret: '' }
+let error = ''
+
+// Fetch current config
+try {
+  const url = new URL('/api/admin/payment-config', Astro.url)
+  const res = await fetch(url.toString(), {
+    headers: { 'Authorization': `Bearer ${authToken}` },
+  })
+  if (res.ok) {
+    config = await res.json()
+  } else {
+    error = `Failed to load payment config (${res.status})`
+  }
+} catch (e) {
+  error = 'Failed to load payment config: ' + (e instanceof Error ? e.message : 'Unknown error')
+}
+---
+
+<div class="adm-card" style="margin-bottom: 24px;">
+  <div class="adm-card-p">
+    <div style="font-size:15px;font-weight:700;color:#0F172A;margin-bottom:20px">Payment Configuration</div>
+
+    {error && (
+      <div style="background:#FEE2E2;border:1px solid #FECDD3;color:#DC2626;padding:10px 14px;border-radius:10px;margin-bottom:16px;font-size:13px">
+        {error}
+      </div>
+    )}
+
+    <form id="payment-config-form">
+      <!-- Provider Selection -->
+      <div style="margin-bottom:20px">
+        <div class="adm-label">Active Payment Provider</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          {['on-site', 'paypal', 'credomatic'].map(provider => (
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 10px;border-radius:10px;border:1.5px solid transparent;transition:border-color 0.15s" class="provider-label" data-provider={provider}>
+              <input
+                type="radio"
+                name="provider"
+                value={provider}
+                checked={config.provider === provider}
+                style="accent-color:#00BCD4;cursor:pointer"
+                class="pvss-provider-radio"
+              />
+              <span style="font-size:13px;font-weight:500;color:#475569">
+                {provider === 'on-site' ? '💳 On-Site Payment (Manual)' :
+                 provider === 'paypal' ? '🅿️ PayPal' :
+                 '💰 Credomatic'}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- PayPal Config -->
+      <div id="paypal-config" style={`display:${config.provider === 'paypal' ? 'block' : 'none'}`}>
+        <div style="background:#EFF6FF;border-left:4px solid #3B82F6;padding:12px 14px;margin-bottom:16px;border-radius:6px">
+          <div style="font-size:12px;color:#1E40AF;font-weight:500">PayPal will be enabled when you save this configuration.</div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="adm-label">PayPal Client ID</label>
+          <input
+            type="text"
+            name="paypal_client_id"
+            value={config.paypal_client_id || ''}
+            class="adm-input"
+            placeholder="AEDyxxx..."
+            style="font-family:monospace;font-size:12px"
+          />
+          <div style="font-size:11px;color:#64748B;margin-top:4px">From PayPal Developer Dashboard</div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="adm-label">PayPal Secret</label>
+          <input
+            type="password"
+            name="paypal_secret"
+            value={config.paypal_secret || ''}
+            class="adm-input"
+            placeholder="••••••••"
+          />
+          <div style="font-size:11px;color:#64748B;margin-top:4px">Keep this secret</div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+            <input
+              type="checkbox"
+              name="paypal_sandbox"
+              id="paypal_sandbox"
+              checked={config.paypal_sandbox !== false}
+              style="accent-color:#00BCD4;width:16px;height:16px;cursor:pointer"
+            />
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#0F172A">Sandbox Mode (Test)</div>
+              <div style="font-size:11px;color:#64748B;margin-top:2px">Use PayPal sandbox for testing — disable for real payments</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Credomatic Config -->
+      <div id="credomatic-config" style={`display:${config.provider === 'credomatic' ? 'block' : 'none'}`}>
+        <div style="background:#FEF9C3;border-left:4px solid #EAB308;padding:12px 14px;margin-bottom:16px;border-radius:6px">
+          <div style="font-size:12px;color:#713F12;font-weight:500">Credomatic credentials coming soon. Configure when ready.</div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="adm-label">Credomatic API Key</label>
+          <input
+            type="text"
+            name="credomatic_api_key"
+            value={config.credomatic_api_key || ''}
+            class="adm-input"
+            placeholder="api_key_xxxx"
+            disabled
+            style="opacity:0.5;cursor:not-allowed"
+          />
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="adm-label">Credomatic Secret</label>
+          <input
+            type="password"
+            name="credomatic_secret"
+            value={config.credomatic_secret || ''}
+            class="adm-input"
+            placeholder="••••••••"
+            disabled
+            style="opacity:0.5;cursor:not-allowed"
+          />
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <button
+        type="button"
+        id="payment-config-save-btn"
+        class="adm-btn adm-btn-teal"
+        style="margin-top:16px;width:100%"
+      >
+        Save Payment Configuration
+      </button>
+
+      <div id="payment-config-message" style="margin-top:12px;font-size:13px;font-weight:500;text-align:center"></div>
+    </form>
+  </div>
+</div>
+
+<script is:inline define:vars={{ authToken }}>
+(function() {
+  function toggleProvider(provider) {
+    document.querySelectorAll('.provider-label').forEach(function(label) {
+      var isSelected = label.dataset.provider === provider
+      label.style.borderColor = isSelected ? '#00BCD4' : 'transparent'
+      label.style.backgroundColor = isSelected ? '#E0F7FA' : 'transparent'
+    })
+    document.getElementById('paypal-config').style.display = provider === 'paypal' ? 'block' : 'none'
+    document.getElementById('credomatic-config').style.display = provider === 'credomatic' ? 'block' : 'none'
+  }
+
+  function init() {
+    var form = document.getElementById('payment-config-form')
+    if (!form) return
+
+    // Init styling
+    var activeProvider = form.provider.value
+    toggleProvider(activeProvider)
+
+    // Radio change listeners
+    document.querySelectorAll('.pvss-provider-radio').forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        toggleProvider(this.value)
+      })
+    })
+
+    // Save button
+    var saveBtn = document.getElementById('payment-config-save-btn')
+    if (saveBtn) {
+      saveBtn.addEventListener('click', async function() {
+        var formData = new FormData(form)
+        var payload = {
+          provider: formData.get('provider'),
+          paypal_client_id: formData.get('paypal_client_id') || null,
+          paypal_secret: formData.get('paypal_secret') || null,
+          paypal_sandbox: formData.get('paypal_sandbox') === 'on',
+          credomatic_api_key: formData.get('credomatic_api_key') || null,
+          credomatic_secret: formData.get('credomatic_secret') || null,
+        }
+
+        var messageEl = document.getElementById('payment-config-message')
+
+        try {
+          var res = await fetch('/api/admin/payment-config', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + authToken,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          })
+
+          if (res.ok) {
+            messageEl.textContent = '✓ Payment configuration saved successfully!'
+            messageEl.style.color = '#059669'
+            setTimeout(function() { messageEl.textContent = '' }, 4000)
+          } else {
+            var error = await res.json()
+            messageEl.textContent = '✗ Error: ' + (error.error || 'Failed to save')
+            messageEl.style.color = '#DC2626'
+          }
+        } catch (e) {
+          messageEl.textContent = '✗ Network error: ' + e.message
+          messageEl.style.color = '#DC2626'
+        }
+      })
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init)
+  } else {
+    init()
+  }
+})()
+</script>

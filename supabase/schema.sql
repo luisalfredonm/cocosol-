@@ -135,6 +135,37 @@ INSERT INTO class_types (
   ('camp-7-semi',   '7-Day Semi-Private Package','camp',    620.37, 1, 10, 10, 90, 'The ultimate week-long surf camp.',                                      ARRAY['6 x 90-min lessons','Accommodation (6 nights)','Breakfast daily','2 surf trips','Surfboard & gear','Airport transfer','Photos & video','Yoga session'], NULL, 10)
 ON CONFLICT (id) DO NOTHING;
 
+-- Payment Configuration (supports multiple providers)
+CREATE TABLE IF NOT EXISTS payment_config (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  provider VARCHAR(20) NOT NULL CHECK (provider IN ('on-site', 'paypal', 'credomatic')) DEFAULT 'on-site',
+
+  -- PayPal keys
+  paypal_client_id VARCHAR(255),
+  paypal_secret VARCHAR(255),
+  paypal_enabled BOOLEAN DEFAULT false,
+
+  -- Credomatic keys (future)
+  credomatic_api_key VARCHAR(255),
+  credomatic_secret VARCHAR(255),
+  credomatic_enabled BOOLEAN DEFAULT false,
+
+  -- Config metadata
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+  CONSTRAINT one_active_config CHECK (is_active = true)
+);
+
+-- Only allow one active config
+CREATE UNIQUE INDEX IF NOT EXISTS idx_payment_config_active ON payment_config(is_active) WHERE is_active = true;
+
+-- Seed default config
+INSERT INTO payment_config (provider, is_active)
+VALUES ('on-site', true)
+ON CONFLICT DO NOTHING;
+
 -- Row Level Security: API routes use service_role key so RLS is bypassed
 -- Enable if you want additional protection
 -- ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;

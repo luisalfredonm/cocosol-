@@ -1,0 +1,181 @@
+---
+export const prerender = false
+
+interface Props {
+  authToken: string
+}
+
+const { authToken } = Astro.props
+
+let minAdvanceHours = 48
+let error = ''
+
+try {
+  const url = new URL('/api/admin/booking-settings', Astro.url)
+  const res = await fetch(url.toString(), {
+    headers: { 'Authorization': `Bearer ${authToken}` },
+  })
+  if (res.ok) {
+    const data = await res.json()
+    minAdvanceHours = data.min_advance_hours ?? 48
+  } else {
+    error = `Failed to load settings (${res.status})`
+  }
+} catch (e) {
+  error = 'Failed to load settings: ' + (e instanceof Error ? e.message : 'Unknown error')
+}
+
+const presets = [
+  { label: 'Sin límite', hours: 0, desc: 'Los clientes pueden reservar hasta el mismo momento', color: '#6366F1' },
+  { label: '4 horas', hours: 4, desc: 'Ideal para temporada baja o días poco ocupados', color: '#22C55E' },
+  { label: '12 horas', hours: 12, desc: 'Flexibilidad moderada para planificación', color: '#00BCD4' },
+  { label: '24 horas', hours: 24, desc: 'Un día de anticipación mínima', color: '#F97316' },
+  { label: '48 horas', hours: 48, desc: 'Temporada alta — 2 días para organizar instructores', color: '#EF4444' },
+  { label: '72 horas', hours: 72, desc: 'Temporada muy ocupada — 3 días de anticipación', color: '#7C3AED' },
+]
+---
+
+<div class="adm-card" style="margin-bottom: 24px;">
+  <div class="adm-card-p">
+    <div style="font-size:15px;font-weight:700;color:#0F172A;margin-bottom:6px">Booking Advance Notice</div>
+    <div style="font-size:13px;color:#64748B;margin-bottom:20px">
+      Controla con cuántas horas de anticipación mínima los clientes pueden hacer una reservación.
+      Súbelo en temporada alta para planificar mejor; bájalo en temporada baja para captar más reservas.
+    </div>
+
+    {error && (
+      <div style="background:#FEE2E2;border:1px solid #FECDD3;color:#DC2626;padding:10px 14px;border-radius:10px;margin-bottom:16px;font-size:13px">
+        {error}
+      </div>
+    )}
+
+    <!-- Indicador actual -->
+    <div id="current-display" style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:14px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px">
+      <div style="width:48px;height:48px;border-radius:12px;background:#DCFCE7;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg style="width:24px;height:24px;color:#15803D" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:#15803D;margin-bottom:3px">Configuración actual</div>
+        <div id="current-label" style="font-size:20px;font-weight:800;color:#14532D">
+          {minAdvanceHours === 0 ? 'Sin límite' : `${minAdvanceHours} horas`}
+        </div>
+      </div>
+    </div>
+
+    <!-- Presets rápidos -->
+    <div style="margin-bottom:20px">
+      <div class="adm-label" style="margin-bottom:10px">Selección rápida</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px" id="presets-grid">
+        {presets.map(p => (
+          <button
+            type="button"
+            class="preset-btn"
+            data-hours={p.hours}
+            data-color={p.color}
+            style={`border:2px solid ${minAdvanceHours === p.hours ? p.color : '#E2E8F0'};background:${minAdvanceHours === p.hours ? p.color + '15' : 'white'};border-radius:12px;padding:12px 10px;cursor:pointer;text-align:left;transition:all 0.15s;font-family:inherit`}
+          >
+            <div style={`font-size:14px;font-weight:800;color:${minAdvanceHours === p.hours ? p.color : '#0F172A'};margin-bottom:3px`}>{p.label}</div>
+            <div style="font-size:11px;color:#64748B;line-height:1.35">{p.desc}</div>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Input personalizado -->
+    <div style="margin-bottom:20px">
+      <label class="adm-label">O escribe un valor personalizado (horas)</label>
+      <div style="display:flex;gap:10px;align-items:center">
+        <input
+          type="number"
+          id="custom-hours-input"
+          min="0"
+          max="720"
+          value={minAdvanceHours}
+          class="adm-input"
+          style="max-width:160px"
+          placeholder="48"
+        />
+        <span style="font-size:13px;color:#64748B">horas (máx 720 = 30 días)</span>
+      </div>
+    </div>
+
+    <button type="button" id="booking-settings-save" class="adm-btn adm-btn-teal" style="width:100%">
+      Guardar configuración
+    </button>
+    <div id="booking-settings-msg" style="margin-top:10px;font-size:13px;font-weight:500;text-align:center"></div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ authToken }}>
+(function () {
+  var inputEl = document.getElementById('custom-hours-input')
+  var currentLabel = document.getElementById('current-label')
+  var saveBtn = document.getElementById('booking-settings-save')
+  var msgEl = document.getElementById('booking-settings-msg')
+
+  function updatePresetHighlight(hours) {
+    document.querySelectorAll('.preset-btn').forEach(function (btn) {
+      var bh = parseInt(btn.dataset.hours)
+      var color = btn.dataset.color
+      if (bh === hours) {
+        btn.style.borderColor = color
+        btn.style.background = color + '18'
+        btn.querySelector('div').style.color = color
+      } else {
+        btn.style.borderColor = '#E2E8F0'
+        btn.style.background = 'white'
+        btn.querySelector('div').style.color = '#0F172A'
+      }
+    })
+  }
+
+  document.querySelectorAll('.preset-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var hours = parseInt(this.dataset.hours)
+      inputEl.value = hours
+      updatePresetHighlight(hours)
+    })
+  })
+
+  inputEl.addEventListener('input', function () {
+    var val = parseInt(this.value)
+    if (!isNaN(val)) updatePresetHighlight(val)
+  })
+
+  if (saveBtn) {
+    saveBtn.addEventListener('click', async function () {
+      var hours = parseInt(inputEl.value)
+      if (isNaN(hours) || hours < 0 || hours > 720) {
+        msgEl.textContent = '✗ Valor inválido (0–720 horas)'
+        msgEl.style.color = '#DC2626'
+        return
+      }
+
+      try {
+        var res = await fetch('/api/admin/booking-settings', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + authToken, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ min_advance_hours: hours }),
+        })
+
+        if (res.ok) {
+          currentLabel.textContent = hours === 0 ? 'Sin límite' : hours + ' horas'
+          updatePresetHighlight(hours)
+          msgEl.textContent = '✓ Configuración guardada correctamente'
+          msgEl.style.color = '#059669'
+          setTimeout(function () { msgEl.textContent = '' }, 4000)
+        } else {
+          var err = await res.json()
+          msgEl.textContent = '✗ ' + (err.error || 'Error al guardar')
+          msgEl.style.color = '#DC2626'
+        }
+      } catch (e) {
+        msgEl.textContent = '✗ Error de red: ' + e.message
+        msgEl.style.color = '#DC2626'
+      }
+    })
+  }
+})()
+</script>

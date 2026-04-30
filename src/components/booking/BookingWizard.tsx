@@ -41,6 +41,10 @@ export interface WizardState {
   totalAmount: number
   isLoading: boolean
   error: string | null
+  paymentProvider: 'on-site' | 'paypal' | 'credomatic' | null
+  paypalOrderId: string | null
+  paypalSandbox: boolean
+  paypalClientId: string
 }
 
 export type Action =
@@ -55,7 +59,7 @@ export type Action =
   | { type: 'ADD_ANOTHER_CLASS' }
   | { type: 'GO_TO_CONTACT' }
   | { type: 'SET_CONTACT'; contact: ContactInfo }
-  | { type: 'SET_BOOKINGS'; bookingIds: string[]; clientSecret: string; totalAmount: number }
+  | { type: 'SET_BOOKINGS'; bookingIds: string[]; clientSecret: string; totalAmount: number; provider: string; paypalOrderId?: string; paypalSandbox?: boolean; paypalClientId?: string }
   | { type: 'SET_CONFIRMED' }
   | { type: 'SET_LOADING'; value: boolean }
   | { type: 'SET_ERROR'; msg: string | null }
@@ -138,8 +142,19 @@ function reducer(state: WizardState, action: Action): WizardState {
     case 'GO_TO_CONTACT':
       return { ...state, step: 6, error: null }
     case 'SET_CONTACT': return { ...state, contact: action.contact, error: null }
-    case 'SET_BOOKINGS': return { ...state, step: 7, bookingIds: action.bookingIds, clientSecret: action.clientSecret, totalAmount: action.totalAmount, isLoading: false }
-    case 'SET_CONFIRMED': return { ...state, step: 8, clientSecret: null, isLoading: false, error: null }
+    case 'SET_BOOKINGS': return {
+      ...state,
+      step: 7,
+      bookingIds: action.bookingIds,
+      clientSecret: action.clientSecret,
+      totalAmount: action.totalAmount,
+      paymentProvider: (action.provider as any) || null,
+      paypalOrderId: action.paypalOrderId || null,
+      paypalSandbox: action.paypalSandbox !== false,
+      paypalClientId: action.paypalClientId || '',
+      isLoading: false
+    }
+    case 'SET_CONFIRMED': return { ...state, step: 8, clientSecret: null, paypalOrderId: null, isLoading: false, error: null }
     case 'SET_LOADING': return { ...state, isLoading: action.value, error: null }
     case 'SET_ERROR': return { ...state, error: action.msg, isLoading: false }
     case 'PREV_STEP': return { ...state, step: Math.max(1, state.step - 1) as Step, error: null }
@@ -183,6 +198,10 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
     clientSecret: null,
     totalAmount: 0,
     isLoading: false, error: null,
+    paymentProvider: null,
+    paypalOrderId: null,
+    paypalSandbox: true,
+    paypalClientId: '',
   })
 
   const visibleClassTypes = filterIds ? classTypes.filter(ct => filterIds.includes(ct.id)) : classTypes
@@ -236,14 +255,29 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
 
       if (bookingIds.length === 0) throw new Error('No booking IDs returned')
 
-      if (!data.clientSecret) {
-        dispatch({ type: 'SET_BOOKINGS', bookingIds, clientSecret: '', totalAmount: data.totalAmount })
-        dispatch({ type: 'SET_CONFIRMED' })
+      // Get payment provider from server response
+      const provider = data.provider || 'on-site'
+
+      // Handle different payment providers
+      if (provider === 'on-site') {
+        // On-site: show Step 7 with payment info so customer knows to pay on arrival
+        dispatch({ type: 'SET_BOOKINGS', bookingIds, clientSecret: '', totalAmount: data.totalAmount, provider })
       } else {
-        dispatch({ type: 'SET_BOOKINGS', bookingIds, clientSecret: data.clientSecret, totalAmount: data.totalAmount })
+        // PayPal or other providers: go to payment step
+        dispatch({
+          type: 'SET_BOOKINGS',
+          bookingIds,
+          clientSecret: data.clientSecret || '',
+          totalAmount: data.totalAmount,
+          provider,
+          paypalOrderId: data.paypalOrderId,
+          paypalSandbox: data.paypalSandbox !== false,
+          paypalClientId: data.paypalClientId || '',
+        })
       }
     } catch (err: any) {
       dispatch({ type: 'SET_ERROR', msg: err.message })
+      dispatch({ type: 'SET_LOADING', value: false })
     }
   }
 
@@ -358,12 +392,16 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
         {state.step === 6 && (
           <StepContact contact={state.contact} isLoading={state.isLoading} onSubmit={handleContactSubmit} onBack={() => dispatch({ type: 'PREV_STEP' })} />
         )}
-        {state.step === 7 && state.clientSecret && state.bookingIds.length > 0 && (
+        {state.step === 7 && state.bookingIds.length > 0 && (
           <StepPayment
             clientSecret={state.clientSecret}
             bookingIds={state.bookingIds}
             totalAmount={state.totalAmount || cartTotal}
             items={cartDisplayItems}
+            provider={state.paymentProvider || 'on-site'}
+            paypalOrderId={state.paypalOrderId}
+            paypalSandbox={state.paypalSandbox}
+            paypalClientId={state.paypalClientId}
             onSuccess={() => dispatch({ type: 'SET_CONFIRMED' })}
             onError={msg => dispatch({ type: 'SET_ERROR', msg })}
             onBack={() => dispatch({ type: 'PREV_STEP' })}
@@ -375,6 +413,7 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
             totalAmount={state.totalAmount || cartTotal}
             items={cartDisplayItems}
             contact={state.contact}
+            provider={state.paymentProvider || 'stripe'}
           />
         )}
       </div>

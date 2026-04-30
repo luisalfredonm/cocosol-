@@ -3,6 +3,8 @@ export const prerender = false
 
 import { supabase } from '../lib/supabase'
 import { formatCurrency, formatTime } from '../lib/classTypes'
+import PaymentConfig from '../components/admin/PaymentConfig.astro'
+import BookingSettings from '../components/admin/BookingSettings.astro'
 import '../styles/global.css'
 
 const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD ?? 'admin'
@@ -361,7 +363,12 @@ const TABS_CAMP = [
   { id: 'camp-settings', label: 'Camp Settings',     icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
 ]
 
-const TABS = [...TABS_LESSONS, ...TABS_CAMP]
+const TABS_SETTINGS = [
+  { id: 'payment-settings', label: 'Payment Settings', icon: 'M3 10h18M7 15h1m4 0h1m4 0h1M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z' },
+  { id: 'booking-settings', label: 'Booking Settings', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
+]
+
+const TABS = [...TABS_LESSONS, ...TABS_CAMP, ...TABS_SETTINGS]
 
 const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.id === 'bookings'))
 ---
@@ -645,6 +652,19 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
               {t.id === 'camp-bookings' && campStats.pending > 0 && (
                 <span class="adm-nav-badge">{campStats.pending}</span>
               )}
+            </a>
+          )
+        })}
+
+        <div class="adm-nav-label" style="margin-top:18px">Settings</div>
+        {TABS_SETTINGS.map(t => {
+          const isActive = activeTab === t.id
+          return (
+            <a href={`/admin?tab=${t.id}`} class={`adm-nav-link ${isActive ? 'adm-active' : ''}`}>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d={t.icon} />
+              </svg>
+              <span>{t.label}</span>
             </a>
           )
         })}
@@ -932,7 +952,11 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                                   <span style="font-weight:800;color:#0097A7;font-size:14px">{formatCurrency(Number(b.total_amount))}</span>
                                 </td>
                                 <td>
-                                  <span class={`adm-pill adm-pill-${b.status}`}>{b.status}</span>
+                                  {b.status === 'pending' && !b.payment_method ? (
+                                    <span class="adm-pill" style="background:#FEF3C7;color:#92400E;border:1px solid #FCD34D">⚠ Awaiting Payment</span>
+                                  ) : (
+                                    <span class={`adm-pill adm-pill-${b.status}`}>{b.status}</span>
+                                  )}
                                 </td>
                                 <td>
                                   <div style="display:flex;align-items:center;gap:6px">
@@ -944,7 +968,9 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                                       <input type="hidden" name="action" value="update" />
                                       <input type="hidden" name="id" value={b.id} />
                                       {b.status !== 'confirmed' && (
-                                        <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-confirm">✓ Confirm</button>
+                                        <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-confirm">
+                                          {b.status === 'pending' && !b.payment_method ? '💵 Mark as Paid' : '✓ Confirm'}
+                                        </button>
                                       )}
                                       {b.status !== 'cancelled' && (
                                         <button type="submit" name="status" value="cancelled" class="adm-btn adm-btn-cancel">✗ Cancel</button>
@@ -1005,7 +1031,11 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                                         <span style="font-weight:800;color:#0097A7;font-size:14px">{formatCurrency(Number(b.total_amount))}</span>
                                       </td>
                                       <td>
-                                        <span class={`adm-pill adm-pill-${b.status}`}>{b.status}</span>
+                                        {b.status === 'pending' && !b.payment_method ? (
+                                          <span class="adm-pill" style="background:#FEF3C7;color:#92400E;border:1px solid #FCD34D">⚠ Awaiting Payment</span>
+                                        ) : (
+                                          <span class={`adm-pill adm-pill-${b.status}`}>{b.status}</span>
+                                        )}
                                       </td>
                                       <td>
                                         <div style="display:flex;align-items:center;gap:6px">
@@ -1017,7 +1047,9 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                                             <input type="hidden" name="action" value="update" />
                                             <input type="hidden" name="id" value={b.id} />
                                             {b.status !== 'confirmed' && (
-                                              <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-confirm">✓ Confirm</button>
+                                              <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-confirm">
+                                                {b.status === 'pending' && !b.payment_method ? '💵 Mark as Paid' : '✓ Confirm'}
+                                              </button>
                                             )}
                                             {b.status !== 'cancelled' && (
                                               <button type="submit" name="status" value="cancelled" class="adm-btn adm-btn-cancel">✗ Cancel</button>
@@ -1059,7 +1091,11 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                     <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.13em;color:#94A3B8;margin-bottom:6px">Booking Detail</div>
                     <div style="display:flex;align-items:center;gap:10px">
                       <span style="font-family:ui-monospace,monospace;font-size:18px;font-weight:800;color:#0F172A;letter-spacing:-0.01em">#{b.id.slice(-8).toUpperCase()}</span>
-                      <span class={`adm-pill adm-pill-${b.status}`}>{b.status}</span>
+                      {b.status === 'pending' && !b.payment_method ? (
+                        <span class="adm-pill" style="background:#FEF3C7;color:#92400E;border:1px solid #FCD34D">⚠ Awaiting Payment</span>
+                      ) : (
+                        <span class={`adm-pill adm-pill-${b.status}`}>{b.status}</span>
+                      )}
                     </div>
                   </div>
                   <button type="button" class="adm-dialog-close" onclick="this.closest('dialog').close()">
@@ -1123,12 +1159,17 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                 {/* Acciones */}
                 {(b.status !== 'confirmed' || b.status !== 'cancelled') && (
                   <div class="adm-dialog-actions">
+                    {b.status === 'pending' && !b.payment_method && (
+                      <div style="background:#FFFBEB;border:1px solid #FCD34D;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12.5px;color:#92400E;font-weight:500">
+                        💵 On-site payment — customer pays in person at the beach
+                      </div>
+                    )}
                     <form method="POST" style="display:contents">
                       <input type="hidden" name="action" value="update" />
                       <input type="hidden" name="id" value={b.id} />
                       {b.status !== 'confirmed' && (
                         <button type="submit" name="status" value="confirmed" class="adm-btn adm-btn-teal" style="flex:1;justify-content:center">
-                          ✓ Confirm Booking
+                          {b.status === 'pending' && !b.payment_method ? '💵 Mark as Paid' : '✓ Confirm Booking'}
                         </button>
                       )}
                       {b.status !== 'cancelled' && (
@@ -1774,6 +1815,14 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
               </form>
             </div>
           </div>
+        )}
+
+        {activeTab === 'payment-settings' && (
+          <PaymentConfig authToken={ADMIN_PASSWORD} />
+        )}
+
+        {activeTab === 'booking-settings' && (
+          <BookingSettings authToken={ADMIN_PASSWORD} />
         )}
 
       </main>

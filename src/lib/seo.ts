@@ -107,7 +107,7 @@ export const seoData: Record<string, PageSEO> = {
   aboutUs: {
     slug: '/best-surf-school-in-tamarindo',
     keyfocus: 'best surf school in Tamarindo',
-    title: 'Best Surf School in Tamarindo | About Us',
+    title: 'Best Surf School in Tamarindo | Pura Vida Surf School',
     description: 'Learn why we are the best surf school in Tamarindo. Certified instructors, local experience, and a pura vida approach to teaching. Meet our team today!',
     synonyms: ['top surf school in tamarindo', 'best surf lessons tamarindo', 'leading surf school in tamarindo', 'best surfing instructors tamarindo', 'pura vida surf school tamarindo'],
     related: ['surf lessons tamarindo costa rica', 'surf instructors tamarindo', 'tamarindo surf camp', 'surf school costa rica'],
@@ -115,7 +115,7 @@ export const seoData: Record<string, PageSEO> = {
   contact: {
     slug: '/surf-school-near-me-tamarindo',
     keyfocus: 'surf school near me Tamarindo',
-    title: 'Surf School Near Me Tamarindo | Contact Us',
+    title: 'Surf School Near Me Tamarindo | Tamarindo Costa Rica',
     description: 'Looking for a surf school near you in Tamarindo? Contact us to book surf lessons, surf camps, and packages. Quick replies on WhatsApp.',
     synonyms: ['surf school near me costa rica', 'tamarindo surf school near me', 'surf lessons near me tamarindo', 'nearest surf school tamarindo'],
     related: ['tamarindo surf lessons', 'surf school tamarindo costa rica', 'private surf lessons tamarindo', 'book surf lessons tamarindo'],
@@ -131,7 +131,7 @@ export const seoData: Record<string, PageSEO> = {
   blog: {
     slug: '/blog',
     keyfocus: 'surf school tamarindo blog',
-    title: 'Surf Blog — Tips, Guides & News | Pura Vida Surf School Tamarindo',
+    title: 'Surf Blog — Tips, Guides & News | Pura Vida Surf School',
     description: 'Read our surf blog for beginner tips, Tamarindo travel guides, surfing techniques, and updates from Pura Vida Surf School in Costa Rica.',
     synonyms: ['surf tips tamarindo', 'tamarindo surf guide', 'learn to surf blog costa rica'],
     related: ['surf school tamarindo', 'surf lessons tamarindo', 'tamarindo travel guide'],
