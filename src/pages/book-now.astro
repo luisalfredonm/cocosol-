@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import BookingWizard from '../components/booking/BookingWizard'
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
 
 const seo = seoData.bookNow
@@ -14,6 +15,7 @@ const validTypes = ['private','semi-private','group','pkg-3-private','pkg-3-semi
 const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
 ---
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Book Surf Lessons',href:'/book-now'}]} />
   <Hero
     title="Book Surf Lessons & Packages in Tamarindo"
     subtitle="Secure your spot online in minutes. Instant confirmation, flexible cancellation."

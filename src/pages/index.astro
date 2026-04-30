@@ -1,7 +1,8 @@
 ---
-import { Image, getImage } from 'astro:assets'
+import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
+import HeroPreload from '../components/ui/HeroPreload.astro'
 import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
 import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
@@ -24,12 +25,6 @@ import videoBg from '../assets/images/student-from-our-surf-school-in-Tamarindo.
 
 const seo = seoData.home
 
-const [heroW640, heroW1280, heroW1920] = await Promise.all([
-  getImage({ src: heroImg, format: 'avif', width: 640 }),
-  getImage({ src: heroImg, format: 'avif', width: 1280 }),
-  getImage({ src: heroImg, format: 'avif', width: 1920 }),
-])
-const heroPreloadSrcSet = `${heroW640.src} 640w, ${heroW1280.src} 1280w, ${heroW1920.src} 1920w`
 
 const gallery = [
   { img: gallery1, alt: 'Surf school Tamarindo — certified instructor on the beach' },
@@ -52,7 +47,7 @@ const camps = [
 const stats = [
   { value: '500+', label: 'Surfers Trained' },
   { value: '25+', label: 'Countries Represented' },
-  { value: '4.9★', label: 'Average Rating' },
+  { value: '5★', label: 'Average Rating' },
   { value: '100%', label: 'ISA Certified' },
 ]
 
@@ -66,7 +61,7 @@ const faqs = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
-  <link slot="head" rel="preload" as="image" imagesrcset={heroPreloadSrcSet} imagesizes="100vw" fetchpriority="high"/>
+  <HeroPreload slot="head" src={heroImg} />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
@@ -304,6 +299,65 @@ const faqs = [
           <FAQ items={faqs}/>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LATEST BLOG POSTS ────────────────────────────────────────────────────── -->
+  <section class="py-16 bg-white border-t border-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+        <div>
+          <span class="section-label mb-2 block">From the Blog</span>
+          <h2 class="text-3xl font-extrabold text-gray-900">Surf Tips & Tamarindo Guides</h2>
+        </div>
+        <a href="/blog" class="shrink-0 inline-flex items-center gap-2 text-[#00BCD4] font-semibold text-sm hover:gap-3 transition-all">
+          All Articles
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        {[
+          {
+            href: '/blog/what-to-expect-first-surf-lesson-tamarindo',
+            category: 'Beginners',
+            categoryColor: 'bg-green-100 text-green-700',
+            title: 'What to Expect on Your First Surf Lesson in Tamarindo',
+            excerpt: "Nervous about your first surf lesson? Here's exactly what happens from arrival to catching your first wave.",
+            date: 'April 18, 2025',
+            image: '/images/surf-school-tamarindo-beginner-lesson.webp',
+          },
+          {
+            href: '/blog/best-time-to-surf-tamarindo',
+            category: 'Tamarindo Guide',
+            categoryColor: 'bg-amber-100 text-amber-700',
+            title: 'Best Time to Surf in Tamarindo, Costa Rica',
+            excerpt: 'Month-by-month breakdown of swell, wind, and crowd conditions from our local instructors.',
+            date: 'April 10, 2025',
+            image: '/images/surf-school-tamarindo-surf-instructor-student.webp',
+          },
+        ].map(post => (
+          <a href={post.href} class="group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/30 hover:shadow-xl transition-all duration-300">
+            <div class="overflow-hidden h-48">
+              <img
+                src={post.image}
+                alt={post.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                width="600"
+                height="192"
+                loading="lazy"
+              />
+            </div>
+            <div class="flex flex-col flex-1 p-6">
+              <span class={`inline-block self-start text-xs font-bold px-3 py-1 rounded-full mb-3 ${post.categoryColor}`}>{post.category}</span>
+              <h3 class="text-base font-extrabold text-gray-900 mb-2 leading-snug group-hover:text-[#00BCD4] transition-colors flex-1">{post.title}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
+              <p class="text-xs text-gray-400 mt-auto">{post.date}</p>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>

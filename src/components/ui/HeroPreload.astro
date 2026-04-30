@@ -1,0 +1,17 @@
+---
+import { getImage } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  src: ImageMetadata
+}
+const { src } = Astro.props
+
+const [w640, w1280, w1920] = await Promise.all([
+  getImage({ src, format: 'webp', width: 640 }),
+  getImage({ src, format: 'webp', width: 1280 }),
+  getImage({ src, format: 'webp', width: 1920 }),
+])
+const srcset = `${w640.src} 640w, ${w1280.src} 1280w, ${w1920.src} 1920w`
+---
+<link rel="preload" as="image" type="image/webp" imagesrcset={srcset} imagesizes="100vw" fetchpriority="high" />

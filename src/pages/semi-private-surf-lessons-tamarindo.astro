@@ -1,7 +1,8 @@
 ---
-import { Image, getImage } from 'astro:assets'
+import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
+import HeroPreload from '../components/ui/HeroPreload.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
 import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
@@ -9,6 +10,8 @@ import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
+import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
 import heroImg  from '../assets/images/semi-private-surf-tamarindo-wave-riding.webp'
@@ -20,12 +23,6 @@ import videoBg  from '../assets/images/semi-private-surf-tamarindo-2-person.webp
 
 const seo = seoData.semiPrivateLessons
 
-const [heroW640, heroW1280, heroW1920] = await Promise.all([
-  getImage({ src: heroImg, format: 'avif', width: 640 }),
-  getImage({ src: heroImg, format: 'avif', width: 1280 }),
-  getImage({ src: heroImg, format: 'avif', width: 1920 }),
-])
-const heroPreloadSrcSet = `${heroW640.src} 640w, ${heroW1280.src} 1280w, ${heroW1920.src} 1920w`
 
 const faqs = [
   { question: 'What does a semi-private surf lesson include?', answer: 'Semi-private lessons include a certified instructor, surfboard, foam guard, safety briefing, and 90 minutes of instruction for 2-3 people.' },
@@ -49,7 +46,9 @@ const gallery = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
-  <link slot="head" rel="preload" as="image" imagesrcset={heroPreloadSrcSet} imagesizes="100vw" fetchpriority="high" />
+  <HeroPreload slot="head" src={heroImg} />
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'},{name:'Semi-Private Surf Lessons',href:'/semi-private-surf-lessons-tamarindo'}]} />
+  <ProductSchema slot="head" name="Semi-Private Surf Lesson Tamarindo" description="Semi-private surf lesson for 2–3 people in Tamarindo, Costa Rica. Great for couples, friends, and siblings at an affordable price." price="50" url="/semi-private-surf-lessons-tamarindo" image="/images/semi-private-surf-tamarindo-wave-riding.webp" />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
@@ -78,7 +77,7 @@ const gallery = [
 
         <!-- Comparison note -->
         <div class="bg-[#00BCD4]/5 border border-[#00BCD4]/20 rounded-2xl px-6 py-4 mb-8">
-          <p class="text-gray-700 text-sm leading-relaxed"><strong>Semi-private vs. group lessons:</strong> Group lessons fit up to 6 students and are the most affordable entry point. Semi-private keeps it to 2-3 people maximum — your instructor spends far more time with each surfer, giving corrections after every wave. If you are traveling with a partner or a small group of friends and want faster results without paying for a private session, semi-private is the smartest choice.</p>
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>Semi-private vs. group lessons:</strong> Group lessons fit up to 4 students and are the most affordable entry point. Semi-private keeps it to 2-3 people maximum — your instructor spends far more time with each surfer, giving corrections after every wave. If you are traveling with a partner or a small group of friends and want faster results without paying for a private session, semi-private is the smartest choice.</p>
         </div>
 
         <!-- What to Expect -->
@@ -136,7 +135,7 @@ const gallery = [
       <!-- Right col: Sidebar -->
       <div>
         <Sidebar
-          price="$50"
+          price="$60"
           priceLabel="/ Per Person"
           includes={['90-minute surf lesson', 'Professional certified instructor', 'Surfboard included', 'Foam guard', 'Safety briefing', 'Photos on request']}
           ctaLabel="Check Availability"

@@ -1,0 +1,22 @@
+---
+interface BreadcrumbItem {
+  name: string
+  href: string
+}
+interface Props {
+  items: BreadcrumbItem[]
+}
+const { items } = Astro.props
+const site = 'https://puravidasurfschool.com'
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    item: item.href.startsWith('http') ? item.href : `${site}${item.href}`,
+  })),
+}
+---
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

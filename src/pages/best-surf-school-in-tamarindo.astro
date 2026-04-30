@@ -2,9 +2,11 @@
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
+import HeroPreload from '../components/ui/HeroPreload.astro'
 import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
 
 import heroImg    from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
@@ -40,6 +42,8 @@ const gallery = [gallery1, gallery2, gallery3, gallery4]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <HeroPreload slot="head" src={heroImg} />
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Best Surf School in Tamarindo',href:'/best-surf-school-in-tamarindo'}]} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero

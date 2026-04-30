@@ -2,11 +2,13 @@
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
+import HeroPreload from '../components/ui/HeroPreload.astro'
 import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
 
 import heroImg      from '../assets/images/tamarindo-surf-lessons-instructor-teaching-beginner.webp'
@@ -31,6 +33,7 @@ const lessons = [
   { title: 'Private Surf Lessons',      href: '/private-surf-lessons-tamarindo',      price: '$90', badge: '1-on-1 coaching',   desc: 'One-on-one personalized coaching for faster progress and full instructor focus.', img: privateImg },
   { title: 'Semi-Private Surf Lessons', href: '/semi-private-surf-lessons-tamarindo', price: '$50', badge: 'Up to 3 students',  desc: 'Learn together with 2-3 people. Great for couples and small groups of friends.',  img: semiImg },
   { title: 'Group Surf Lessons',        href: '/group-surf-lessons-tamarindo',        price: '$50', badge: 'Up to 6 students',  desc: 'The most affordable option. Small groups, big fun. Perfect for solo travelers.',   img: groupImg },
+  { title: 'Family Surf Lessons',       href: '/family-surf-lessons-tamarindo',       price: '$50', badge: 'Kids & adults',     desc: 'Fun and safe family surf lessons. Certified instructors for kids from age 6 and adults.', img: groupImg },
 ]
 
 const packages = [
@@ -50,6 +53,8 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <HeroPreload slot="head" src={heroImg} />
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'}]} />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->

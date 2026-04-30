@@ -1,71 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
 
 const seo = seoData.blog
 
-const categories = ['All', 'Beginners', 'Tips & Technique', 'Tamarindo Guide', 'Surf Travel']
+const categories = ['All', 'Beginners', 'Tamarindo Guide']
 
 const posts = [
   {
-    slug: '#',
+    slug: '/blog/what-to-expect-first-surf-lesson-tamarindo',
     category: 'Beginners',
     title: 'What to Expect on Your First Surf Lesson in Tamarindo',
     excerpt: 'Nervous about your first surf lesson? Here\'s exactly what happens from the moment you arrive at the beach to catching your first wave — no experience needed.',
     date: 'April 18, 2025',
     readTime: '5 min read',
-    image: '/images/surf-school-tamarindo-beginner-lesson.jpg',
+    image: '/images/surf-school-tamarindo-beginner-lesson.webp',
     featured: true,
   },
   {
-    slug: '#',
+    slug: '/blog/best-time-to-surf-tamarindo',
     category: 'Tamarindo Guide',
     title: 'Best Time to Surf in Tamarindo, Costa Rica',
     excerpt: 'Tamarindo offers surfable waves year-round, but knowing when to visit can make the difference between good and great conditions. Here\'s our local breakdown by month.',
     date: 'April 10, 2025',
     readTime: '6 min read',
-    image: '/images/tamarindo-beach-surf.jpg',
-    featured: false,
-  },
-  {
-    slug: '#',
-    category: 'Tips & Technique',
-    title: 'How to Choose the Right Surf Lesson for Your Level',
-    excerpt: 'Private, semi-private, or group? 3-day package or 7-day camp? This guide breaks down every option so you can pick the surf lesson that fits your goals and budget.',
-    date: 'March 28, 2025',
-    readTime: '7 min read',
-    image: '/images/surf-school-tamarindo-private-class.jpg',
-    featured: false,
-  },
-  {
-    slug: '#',
-    category: 'Surf Travel',
-    title: '5 Reasons Why Tamarindo Is the Best Place to Learn to Surf',
-    excerpt: 'From forgiving beach breaks to warm water and a vibrant surf community, Tamarindo has everything a beginner surfer needs. Discover what makes this town so special.',
-    date: 'March 15, 2025',
-    readTime: '5 min read',
-    image: '/images/tamarindo-surf-lessons-instructor-teaching-beginner.jpg',
-    featured: false,
-  },
-  {
-    slug: '#',
-    category: 'Tips & Technique',
-    title: 'Surf Etiquette: Rules Every Beginner Must Know Before Paddling Out',
-    excerpt: 'The ocean has unwritten rules. Learning surf etiquette before your first session makes you safer, more respected in the water, and more confident on the board.',
-    date: 'March 3, 2025',
-    readTime: '6 min read',
-    image: '/images/surf-school-tamarindo-students.jpg',
-    featured: false,
-  },
-  {
-    slug: '#',
-    category: 'Tamarindo Guide',
-    title: 'A Complete Travel Guide to Tamarindo, Costa Rica',
-    excerpt: 'Planning your trip to Tamarindo? From the best beaches and restaurants to surf spots and activities, here\'s everything you need to plan the perfect pura vida vacation.',
-    date: 'February 20, 2025',
-    readTime: '9 min read',
-    image: '/images/student-from-our-surf-school-in-Tamarindo.jpg',
+    image: '/images/surf-school-tamarindo-surf-instructor-student.webp',
     featured: false,
   },
 ]
@@ -82,10 +43,11 @@ const categoryColors: Record<string, string> = {
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Blog',href:'/blog'}]} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-20" style="background-image: url('/images/surf-school-tamarindo-surf-instructor-student.jpg'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 opacity-20" style="background-image: url('/images/surf-school-tamarindo-surf-instructor-student.webp'); background-size: cover; background-position: center;"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900/95"></div>
     <div class="relative z-10 container mx-auto px-4 text-center">
       <span class="inline-block bg-[#00BCD4]/20 text-[#4DD0E1] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase border border-[#00BCD4]/30">

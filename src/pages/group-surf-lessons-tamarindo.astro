@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
+import HeroPreload from '../components/ui/HeroPreload.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
 import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
@@ -10,6 +11,8 @@ import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
 import BookingWizard from '../components/booking/BookingWizard'
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
+import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
 import heroImg  from '../assets/images/group-surf-lessons-tamarindo-students-beach.webp'
@@ -43,6 +46,9 @@ const gallery = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <HeroPreload slot="head" src={heroImg} />
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'},{name:'Group Surf Lessons',href:'/group-surf-lessons-tamarindo'}]} />
+  <ProductSchema slot="head" name="Group Surf Lesson Tamarindo" description="Group surf lesson in Tamarindo, Costa Rica. Fun, social, and affordable surf classes for beginners led by certified instructors." price="50" url="/group-surf-lessons-tamarindo" image="/images/group-surf-lessons-tamarindo-students-beach.webp" />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->

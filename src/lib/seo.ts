@@ -136,6 +136,30 @@ export const seoData: Record<string, PageSEO> = {
     synonyms: ['surf tips tamarindo', 'tamarindo surf guide', 'learn to surf blog costa rica'],
     related: ['surf school tamarindo', 'surf lessons tamarindo', 'tamarindo travel guide'],
   },
+  bestTimeSurf: {
+    slug: '/blog/best-time-to-surf-tamarindo',
+    keyfocus: 'best time to surf tamarindo',
+    title: 'Best Time to Surf in Tamarindo, Costa Rica | Month-by-Month Guide',
+    description: 'Discover the best time to surf in Tamarindo, Costa Rica. Month-by-month breakdown of swell, wind, and crowd conditions from local instructors.',
+    synonyms: ['tamarindo surf season', 'when to surf tamarindo', 'tamarindo waves by month', 'surf season costa rica'],
+    related: ['surf lessons tamarindo', 'surf camp tamarindo', 'tamarindo travel guide'],
+  },
+  firstSurfLesson: {
+    slug: '/blog/what-to-expect-first-surf-lesson-tamarindo',
+    keyfocus: 'first surf lesson tamarindo',
+    title: 'What to Expect on Your First Surf Lesson in Tamarindo',
+    description: "Nervous about your first surf lesson in Tamarindo? Here's exactly what happens from the moment you arrive to catching your first wave. No experience needed.",
+    synonyms: ['beginner surf lesson tamarindo', 'first time surfing tamarindo', 'learn to surf tamarindo beginners'],
+    related: ['private surf lessons tamarindo', 'group surf lessons tamarindo', 'surf school tamarindo'],
+  },
+  familySurfLessons: {
+    slug: '/family-surf-lessons-tamarindo',
+    keyfocus: 'family surf lessons tamarindo',
+    title: 'Family Surf Lessons Tamarindo | Surf with Your Kids in Costa Rica',
+    description: 'Fun and safe family surf lessons in Tamarindo for kids and adults. Certified instructors, patient teaching, and unforgettable waves. Book your family session!',
+    synonyms: ['surf lessons for families tamarindo', 'kids surf lessons tamarindo', 'family surfing tamarindo', 'surf lessons with kids costa rica'],
+    related: ['group surf lessons tamarindo', 'beginner surf lessons tamarindo', 'surf camp tamarindo'],
+  },
 }
 
 export const ROUTES = {

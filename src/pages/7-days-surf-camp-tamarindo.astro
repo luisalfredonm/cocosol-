@@ -2,12 +2,15 @@
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
+import HeroPreload from '../components/ui/HeroPreload.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import CampBookingWizard from '../components/booking/CampBookingWizard'
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
+import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
 import heroImg    from '../assets/images/student-from-our-surf-school-in-Tamarindo.webp'
@@ -45,6 +48,9 @@ const included = [
 ]
 ---
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <HeroPreload slot="head" src={heroImg} />
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Camp',href:'/surf-camp-tamarindo'},{name:'7 Days Surf Camp Tamarindo',href:'/7-days-surf-camp-tamarindo'}]} />
+  <ProductSchema slot="head" name="7-Day Surf Camp Tamarindo" description="7-day surf camp in Tamarindo, Costa Rica. Full week all-inclusive surf vacation with daily private or semi-private lessons, accommodation, and activities." price="1399" url="/7-days-surf-camp-tamarindo" image="/images/student-from-our-surf-school-in-Tamarindo.webp" />
   <FAQSchema slot="head" items={faqs} />
   <Hero title="7 Days Surf Camp Tamarindo — Your One-Week Surf Experience In Paradise" subtitle="The ultimate all-inclusive surf camp in Tamarindo. 6 lessons, surf trips, video analysis, and pura vida vibes." image={heroImg} imageAlt="7 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '#book' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
 
