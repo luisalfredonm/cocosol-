@@ -1,7 +1,6 @@
 export const prerender = false
 
 import type { APIRoute } from 'astro'
-import Stripe from 'stripe'
 import { supabase } from '../../../lib/supabase'
 
 export const POST: APIRoute = async ({ request }) => {
@@ -74,8 +73,6 @@ export const POST: APIRoute = async ({ request }) => {
     ? Math.round(fullAmount * depositPct) / 100
     : fullAmount
 
-  const stripeKey = import.meta.env.STRIPE_SECRET_KEY
-
   const guestsJson = [
     { name: guest1.name.trim(), email: guest1.email.trim().toLowerCase(), phone: guest1.phone.trim() },
     ...extraGuests.slice(0, persons - 1).map(g => ({
@@ -100,55 +97,20 @@ export const POST: APIRoute = async ({ request }) => {
     notes: notes?.trim() ?? null,
   }
 
-  // TEST MODE (no Stripe key)
-  if (!stripeKey) {
-    const { data: booking, error: dbError } = await supabase
-      .from('camp_bookings')
-      .insert({ ...bookingPayload, status: 'confirmed' })
-      .select('id')
-      .single()
-
-    if (dbError) console.error('[camp/book] DB insert error (test mode):', dbError)
-    if (dbError || !booking) return json({ error: `Failed to save booking: ${dbError?.message ?? 'unknown'}` }, 500)
-
-    return json({ bookingId: booking.id, clientSecret: null, chargedAmount, fullAmount, paymentMode })
-  }
-
-  // PRODUCTION MODE — create Stripe PaymentIntent
-  const stripe = new Stripe(stripeKey)
-  let paymentIntent: Stripe.PaymentIntent
-  try {
-    paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(chargedAmount * 100),
-      currency: 'usd',
-      automatic_payment_methods: { enabled: true },
-      metadata: {
-        booking_type: 'camp',
-        session_id: sessionId,
-        room_id: roomId,
-        guest_email: guest1.email,
-        guest_name: guest1.name,
-      },
-    })
-  } catch (err: any) {
-    return json({ error: `Stripe error: ${err.message}` }, 500)
-  }
-
   const { data: booking, error: dbError } = await supabase
     .from('camp_bookings')
-    .insert({ ...bookingPayload, external_payment_id: paymentIntent.id, status: 'pending' })
+    .insert({ ...bookingPayload, status: 'confirmed' })
     .select('id')
     .single()
 
   if (dbError || !booking) {
-    console.error('[camp/book] DB insert error (production):', dbError)
-    await stripe.paymentIntents.cancel(paymentIntent.id).catch(() => {})
-    return json({ error: 'Failed to save booking' }, 500)
+    console.error('[camp/book] DB insert error:', dbError)
+    return json({ error: `Failed to save booking: ${dbError?.message ?? 'unknown'}` }, 500)
   }
 
   return json({
     bookingId: booking.id,
-    clientSecret: paymentIntent.client_secret,
+    clientSecret: null,
     chargedAmount,
     fullAmount,
     paymentMode,

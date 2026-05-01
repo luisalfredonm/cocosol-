@@ -65,22 +65,6 @@ function fmtDate(dateStr: string) {
 const NIGHTS: Record<'5day' | '7day', number> = { '5day': 4, '7day': 6 }
 const LABEL: Record<'5day' | '7day', string> = { '5day': '5-Day Camp', '7day': '7-Day Camp' }
 
-// ── Stripe loader ─────────────────────────────────────────────────────────────
-
-declare global { interface Window { Stripe?: (k: string) => any } }
-
-async function loadStripe(key: string): Promise<any | null> {
-  if (typeof window === 'undefined') return null
-  if (typeof window.Stripe === 'function') return window.Stripe(key)
-  return new Promise((resolve, reject) => {
-    const s = document.createElement('script')
-    s.src = 'https://js.stripe.com/v3/'
-    s.onload = () => resolve(window.Stripe ? window.Stripe(key) : null)
-    s.onerror = () => reject(new Error('Failed to load Stripe.js'))
-    document.head.appendChild(s)
-  })
-}
-
 // ── Step indicator ────────────────────────────────────────────────────────────
 
 function StepBar({ step }: { step: number }) {
@@ -520,14 +504,8 @@ function StepPayment({ state: s, onBack, onSuccess, onError, onUpdate }: {
   onError: (msg: string) => void
   onUpdate: (patch: Partial<WizardState>) => void
 }) {
-  const paymentRef = useRef<HTMLDivElement>(null)
-  const elementsRef = useRef<any>(null)
-  const [stripeReady, setStripeReady] = useState(false)
-  const [loadError, setLoadError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [initiated, setInitiated] = useState(false)
-
-  const pubKey = (import.meta as any).env?.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
 
   // Create booking on mount
   useEffect(() => {
@@ -558,51 +536,14 @@ function StepPayment({ state: s, onBack, onSuccess, onError, onUpdate }: {
           paymentMode: data.paymentMode,
           isLoading: false,
         })
-
-        // Test mode (no clientSecret) → auto-confirm
-        if (!data.clientSecret) { onSuccess(); return }
       })
       .catch(() => onError('Could not connect. Please try again.'))
   }, [])
 
-  // Mount Stripe element once we have clientSecret
-  useEffect(() => {
-    if (!s.clientSecret || !paymentRef.current || stripeReady) return
-    if (!pubKey) { setStripeReady(true); return }
-
-    loadStripe(pubKey)
-      .then(stripe => {
-        if (!stripe || !paymentRef.current) return
-        const elements = stripe.elements({
-          clientSecret: s.clientSecret!,
-          appearance: { theme: 'stripe', variables: { colorPrimary: '#00BCD4', borderRadius: '12px' } },
-        })
-        const el = elements.create('payment')
-        el.mount(paymentRef.current)
-        elementsRef.current = elements
-        ;(window as any).__pvssStripeCamp = stripe
-        setStripeReady(true)
-      })
-      .catch(err => setLoadError(err.message))
-  }, [s.clientSecret])
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!elementsRef.current) return
     setSubmitting(true)
-
-    const { error: submitErr } = await elementsRef.current.submit()
-    if (submitErr) { onError(submitErr.message); setSubmitting(false); return }
-
-    const stripe = (window as any).__pvssStripeCamp
-    const { error } = await stripe.confirmPayment({
-      elements: elementsRef.current,
-      confirmParams: { return_url: `${window.location.origin}/surf-camp-tamarindo?booking=${s.bookingId}&confirmed=1` },
-      redirect: 'if_required',
-    })
-
-    if (error) { onError(error.message); setSubmitting(false) }
-    else { onSuccess() }
+    onSuccess()
   }
 
   const sess = s.selectedSession!
@@ -614,8 +555,8 @@ function StepPayment({ state: s, onBack, onSuccess, onError, onUpdate }: {
       <button onClick={onBack} className="text-sm text-gray-500 hover:text-teal-600 mb-4 flex items-center gap-1">
         ← Back
       </button>
-      <h2 className="text-2xl font-bold text-gray-900 mb-1">Secure payment</h2>
-      <p className="text-gray-500 mb-6">Complete your surf camp reservation.</p>
+      <h2 className="text-2xl font-bold text-gray-900 mb-1">Review and confirm</h2>
+      <p className="text-gray-500 mb-6">We'll save your surf camp reservation immediately.</p>
 
       {/* Order summary */}
       <div className="bg-gray-50 rounded-2xl p-5 mb-6 text-sm">
@@ -647,23 +588,14 @@ function StepPayment({ state: s, onBack, onSuccess, onError, onUpdate }: {
       {s.isLoading ? (
         <div className="flex items-center justify-center py-10">
           <div className="w-6 h-6 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
-          <span className="ml-3 text-gray-500 text-sm">Preparing payment…</span>
-        </div>
-      ) : loadError ? (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 text-sm text-red-700">
-          {loadError}. Please refresh or contact us on WhatsApp.
+          <span className="ml-3 text-gray-500 text-sm">Preparing your booking…</span>
         </div>
       ) : s.error ? (
         <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 text-sm text-red-700">{s.error}</div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <div className="mb-6">
-            {!stripeReady && (
-              <div className="flex items-center justify-center py-8">
-                <div className="w-6 h-6 border-4 border-teal-500 border-t-transparent rounded-full animate-spin" />
-              </div>
-            )}
-            <div ref={paymentRef} className={stripeReady ? '' : 'hidden'} />
+          <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+            Your camp booking will be confirmed now. Payment collection can be coordinated separately with the school.
           </div>
           <div className="flex gap-3 justify-between">
             <button type="button" onClick={onBack} disabled={submitting} className="btn-outline px-6 py-2.5 text-sm">
@@ -671,11 +603,11 @@ function StepPayment({ state: s, onBack, onSuccess, onError, onUpdate }: {
             </button>
             <button
               type="submit"
-              disabled={submitting || !stripeReady}
+              disabled={submitting}
               className="btn-primary px-8 py-2.5 text-sm disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2"
             >
               {submitting && <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
-              {submitting ? 'Processing…' : `Pay ${fmt(s.paymentMode === 'deposit' && s.chargedAmount > 0 ? s.chargedAmount : total)}`}
+              {submitting ? 'Confirming…' : 'Confirm Booking'}
             </button>
           </div>
         </form>
