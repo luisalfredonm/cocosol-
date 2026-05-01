@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS bookings (
   customer_country VARCHAR(100),
   notes TEXT,
   status VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending','confirmed','cancelled')),
-  payment_method VARCHAR(20) CHECK (payment_method IN ('stripe','paypal','cash')),
-  stripe_payment_intent_id VARCHAR(255),
+  payment_method VARCHAR(20) CHECK (payment_method IN ('on-site','paypal','credomatic')),
+  external_payment_id VARCHAR(255),
   checkout_summary_sent_at TIMESTAMPTZ,
   checkout_admin_summary_sent_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -169,3 +169,30 @@ ON CONFLICT DO NOTHING;
 -- Row Level Security: API routes use service_role key so RLS is bypassed
 -- Enable if you want additional protection
 -- ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+
+-- ============================================================================
+-- MIGRATION: Remove Stripe, rename stripe_payment_intent_id to external_payment_id
+-- Run this migration in Supabase to update existing data
+-- ============================================================================
+
+-- Step 1: Rename column on bookings table (only if it exists and hasn't been renamed already)
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='bookings' AND column_name='stripe_payment_intent_id') THEN
+    ALTER TABLE bookings RENAME COLUMN stripe_payment_intent_id TO external_payment_id;
+  END IF;
+END $$;
+
+-- Step 2: Rename column on camp_bookings table (only if it exists)
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='camp_bookings' AND column_name='stripe_payment_intent_id') THEN
+    ALTER TABLE camp_bookings RENAME COLUMN stripe_payment_intent_id TO external_payment_id;
+  END IF;
+END $$;
+
+-- Step 3: Update payment_method values from 'stripe' to 'on-site' (if any exist)
+UPDATE bookings SET payment_method = 'on-site' WHERE payment_method = 'stripe';
+UPDATE camp_bookings SET payment_method = 'on-site' WHERE payment_method = 'stripe' OR payment_method = 'cash';
+
+-- Migration complete!

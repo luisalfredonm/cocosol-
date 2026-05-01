@@ -15,10 +15,10 @@ interface Props {
   totalAmount: number
   items: CheckoutItem[]
   contact: ContactInfo
-  provider?: 'on-site' | 'paypal' | 'credomatic' | 'stripe'
+  provider?: 'on-site' | 'paypal' | 'credomatic'
 }
 
-export default function StepConfirmation({ bookingIds, totalAmount, items, contact, provider = 'stripe' }: Props) {
+export default function StepConfirmation({ bookingIds, totalAmount, items, contact, provider = 'on-site' }: Props) {
   const firstRef = bookingIds[0]?.slice(-8).toUpperCase() ?? ''
   const isOnSite = provider === 'on-site'
 

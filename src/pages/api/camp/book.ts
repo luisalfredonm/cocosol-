@@ -136,7 +136,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const { data: booking, error: dbError } = await supabase
     .from('camp_bookings')
-    .insert({ ...bookingPayload, stripe_payment_intent_id: paymentIntent.id, status: 'pending' })
+    .insert({ ...bookingPayload, external_payment_id: paymentIntent.id, status: 'pending' })
     .select('id')
     .single()
 

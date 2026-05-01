@@ -1,16 +1,13 @@
 export const prerender = false
 
 import type { APIRoute } from 'astro'
-import Stripe from 'stripe'
 import { supabase } from '../../../lib/supabase'
 import { getClassTypes, calculateTotal } from '../../../lib/classTypes'
 import { getMinParticipants, getMaxParticipants } from '../../../lib/classTypeHelpers'
 import { createPayPalOrder } from '../../../lib/paypalService'
 import {
   sendAdminCartSummaryEmail,
-  sendAdminNotification,
   sendCartSummaryEmail,
-  sendConfirmationEmail,
 } from '../../../lib/emailService'
 
 interface RawBookingItem {
@@ -26,6 +23,22 @@ interface NormalizedBookingItem {
   timeSlot: string
   participants: number
   totalAmount: number
+}
+
+interface BookingInsertRow {
+  class_type_id: string
+  checkout_id: string
+  booking_date: string
+  start_time: string
+  participants: number
+  total_amount: number
+  customer_name: string
+  customer_email: string
+  customer_phone: string
+  customer_country: string
+  notes: string
+  status: 'pending' | 'confirmed' | 'cancelled'
+  payment_method: string
 }
 
 function envFlag(name: string, fallback: boolean): boolean {
@@ -106,8 +119,22 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const totalAmount = normalizedItems.reduce((sum, item) => sum + item.totalAmount, 0)
-  const stripeKey = import.meta.env.STRIPE_SECRET_KEY
   const checkoutId = crypto.randomUUID()
+  const baseBookingRows: BookingInsertRow[] = normalizedItems.map(item => ({
+    class_type_id: item.classTypeId,
+    checkout_id: checkoutId,
+    booking_date: item.date,
+    start_time: item.timeSlot,
+    participants: item.participants,
+    total_amount: item.totalAmount,
+    customer_name: contact.name.trim(),
+    customer_email: contact.email.trim().toLowerCase(),
+    customer_phone: contact.phone?.trim() ?? '',
+    customer_country: contact.country?.trim() ?? '',
+    notes: contact.notes?.trim() ?? '',
+    status: 'pending',
+    payment_method: 'on-site',
+  }))
 
   // Fetch payment config to determine payment provider
   let paymentProvider = 'on-site'
@@ -137,27 +164,14 @@ export const POST: APIRoute = async ({ request }) => {
   // Handle on-site payment (no payment processing needed)
   if (paymentProvider === 'on-site') {
     console.log('[BookingCreate] Processing on-site payment')
-    const { data: bookings, error: dbError } = await supabase
-      .from('bookings')
-      .insert(
-        normalizedItems.map(item => ({
-          class_type_id: item.classTypeId,
-          checkout_id: checkoutId,
-          booking_date: item.date,
-          start_time: item.timeSlot,
-          participants: item.participants,
-          total_amount: item.totalAmount,
-          customer_name: contact.name.trim(),
-          customer_email: contact.email.trim().toLowerCase(),
-          customer_phone: contact.phone?.trim() ?? '',
-          customer_country: contact.country?.trim() ?? '',
-          notes: contact.notes?.trim() ?? '',
-          status: 'pending',
-          payment_method: null,
-          stripe_payment_intent_id: null,
-        }))
-      )
-      .select('id')
+    const { data: bookings, error: dbError } = await insertBookings(
+      baseBookingRows.map(row => ({
+        ...row,
+        status: 'confirmed',
+        payment_method: 'on-site',
+      })),
+      null
+    )
 
     if (dbError || !bookings || bookings.length === 0) {
       console.error('[BookingCreate] Failed to save bookings:', dbError)
@@ -221,27 +235,14 @@ export const POST: APIRoute = async ({ request }) => {
 
   // Handle PayPal payment (without credentials - show config error in UI)
   if (paymentProvider === 'paypal' && (!paypalClientId || !paypalSecret)) {
-    const { data: bookings, error: dbError } = await supabase
-      .from('bookings')
-      .insert(
-        normalizedItems.map(item => ({
-          class_type_id: item.classTypeId,
-          checkout_id: checkoutId,
-          booking_date: item.date,
-          start_time: item.timeSlot,
-          participants: item.participants,
-          total_amount: item.totalAmount,
-          customer_name: contact.name.trim(),
-          customer_email: contact.email.trim().toLowerCase(),
-          customer_phone: contact.phone?.trim() ?? '',
-          customer_country: contact.country?.trim() ?? '',
-          notes: contact.notes?.trim() ?? '',
-          status: 'pending',
-          payment_method: 'paypal',
-          stripe_payment_intent_id: null,
-        }))
-      )
-      .select('id')
+    const { data: bookings, error: dbError } = await insertBookings(
+      baseBookingRows.map(row => ({
+        ...row,
+        status: 'pending',
+        payment_method: 'paypal',
+      })),
+      null
+    )
 
     if (dbError || !bookings || bookings.length === 0) return json({ error: 'Failed to save bookings' }, 500)
 
@@ -257,6 +258,30 @@ export const POST: APIRoute = async ({ request }) => {
     })
   }
 
+  // Handle Credomatic payment (placeholder - awaiting API)
+  if (paymentProvider === 'credomatic') {
+    const { data: bookings, error: dbError } = await insertBookings(
+      baseBookingRows.map(row => ({
+        ...row,
+        status: 'pending',
+        payment_method: 'credomatic',
+      })),
+      null
+    )
+
+    if (dbError || !bookings || bookings.length === 0) return json({ error: 'Failed to save bookings' }, 500)
+
+    const bookingIds = bookings.map(b => b.id)
+    return json({
+      bookingId: bookingIds[0],
+      bookingIds,
+      checkoutId,
+      clientSecret: null,
+      totalAmount,
+      provider: 'credomatic',
+    })
+  }
+
   // Handle PayPal payment (with credentials)
   if (paymentProvider === 'paypal' && paypalClientId && paypalSecret) {
     let paypalOrderId = ''
@@ -266,27 +291,14 @@ export const POST: APIRoute = async ({ request }) => {
       return json({ error: `PayPal order creation failed: ${err.message}` }, 500)
     }
 
-    const { data: bookings, error: dbError } = await supabase
-      .from('bookings')
-      .insert(
-        normalizedItems.map(item => ({
-          class_type_id: item.classTypeId,
-          checkout_id: checkoutId,
-          booking_date: item.date,
-          start_time: item.timeSlot,
-          participants: item.participants,
-          total_amount: item.totalAmount,
-          customer_name: contact.name.trim(),
-          customer_email: contact.email.trim().toLowerCase(),
-          customer_phone: contact.phone?.trim() ?? '',
-          customer_country: contact.country?.trim() ?? '',
-          notes: contact.notes?.trim() ?? '',
-          status: 'pending',
-          payment_method: 'paypal',
-          stripe_payment_intent_id: paypalOrderId,
-        }))
-      )
-      .select('id')
+    const { data: bookings, error: dbError } = await insertBookings(
+      baseBookingRows.map(row => ({
+        ...row,
+        status: 'pending',
+        payment_method: 'paypal',
+      })),
+      paypalOrderId
+    )
 
     if (dbError || !bookings || bookings.length === 0) {
       return json({ error: 'Failed to save bookings' }, 500)
@@ -306,169 +318,10 @@ export const POST: APIRoute = async ({ request }) => {
     })
   }
 
-  // TEST MODE (no Stripe key)
-  if (!stripeKey) {
-    const { data: bookings, error: dbError } = await supabase
-      .from('bookings')
-      .insert(
-        normalizedItems.map(item => ({
-          class_type_id: item.classTypeId,
-          checkout_id: checkoutId,
-          booking_date: item.date,
-          start_time: item.timeSlot,
-          participants: item.participants,
-          total_amount: item.totalAmount,
-          customer_name: contact.name.trim(),
-          customer_email: contact.email.trim().toLowerCase(),
-          customer_phone: contact.phone?.trim() ?? '',
-          customer_country: contact.country?.trim() ?? '',
-          notes: contact.notes?.trim() ?? '',
-          status: 'confirmed',
-          payment_method: null,
-          stripe_payment_intent_id: null,
-        }))
-      )
-      .select('id')
-
-    if (dbError || !bookings || bookings.length === 0) return json({ error: 'Failed to save bookings' }, 500)
-
-    const sendSummary = envFlag('EMAIL_SUMMARY_ENABLED', true)
-    const sendAdminSummary = envFlag('EMAIL_ADMIN_SUMMARY_ENABLED', true)
-    const sendIndividual = envFlag('EMAIL_INDIVIDUAL_ENABLED', false)
-    const nowIso = new Date().toISOString()
-
-    const summaryItems = normalizedItems.map((item, index) => ({
-      bookingId: bookings[index]?.id ?? '',
-      classTypeId: item.classTypeId,
-      bookingDate: item.date,
-      startTime: item.timeSlot,
-      participants: item.participants,
-      totalAmount: item.totalAmount,
-    }))
-
-    if (sendSummary) {
-      try {
-        await sendCartSummaryEmail({
-          checkoutId,
-          customerName: contact.name.trim(),
-          customerEmail: contact.email.trim().toLowerCase(),
-          items: summaryItems,
-        })
-        await supabase.from('bookings').update({ checkout_summary_sent_at: nowIso }).eq('checkout_id', checkoutId)
-      } catch (error) {
-        console.error('Failed to send customer checkout summary email (test mode)', { checkoutId, error })
-      }
-    }
-
-    if (sendAdminSummary) {
-      try {
-        await sendAdminCartSummaryEmail({
-          checkoutId,
-          customerName: contact.name.trim(),
-          customerEmail: contact.email.trim().toLowerCase(),
-          items: summaryItems,
-        })
-        await supabase.from('bookings').update({ checkout_admin_summary_sent_at: nowIso }).eq('checkout_id', checkoutId)
-      } catch (error) {
-        console.error('Failed to send admin checkout summary email (test mode)', { checkoutId, error })
-      }
-    }
-
-    if (sendIndividual) {
-      try {
-        await Promise.all([
-          ...summaryItems.map(item => sendConfirmationEmail({
-            bookingId: item.bookingId,
-            customerName: contact.name.trim(),
-            customerEmail: contact.email.trim().toLowerCase(),
-            classTypeId: item.classTypeId,
-            bookingDate: item.bookingDate,
-            startTime: item.startTime,
-            participants: item.participants,
-            totalAmount: item.totalAmount,
-          })),
-          ...summaryItems.map(item => sendAdminNotification({
-            bookingId: item.bookingId,
-            customerName: contact.name.trim(),
-            customerEmail: contact.email.trim().toLowerCase(),
-            classTypeId: item.classTypeId,
-            bookingDate: item.bookingDate,
-            startTime: item.startTime,
-            participants: item.participants,
-            totalAmount: item.totalAmount,
-          })),
-        ])
-      } catch (error) {
-        console.error('Failed to send individual booking emails (test mode)', { checkoutId, error })
-      }
-    }
-
-    const bookingIds = bookings.map(b => b.id)
-    return json({
-      bookingId: bookingIds[0],
-      bookingIds,
-      checkoutId,
-      clientSecret: null,
-      totalAmount,
-      provider: 'on-site',
-    })
-  }
-
-  // PRODUCTION MODE
-  const stripe = new Stripe(stripeKey)
-  let paymentIntent: Stripe.PaymentIntent
-  try {
-    paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(totalAmount * 100),
-      currency: 'usd',
-      automatic_payment_methods: { enabled: true },
-      metadata: {
-        bookingItems: String(normalizedItems.length),
-        checkoutId,
-        customerEmail: contact.email,
-        customerName: contact.name,
-      },
-    })
-  } catch (err: any) {
-    return json({ error: `Stripe error: ${err.message}` }, 500)
-  }
-
-  const { data: bookings, error: dbError } = await supabase
-    .from('bookings')
-    .insert(
-      normalizedItems.map(item => ({
-        class_type_id: item.classTypeId,
-        checkout_id: checkoutId,
-        booking_date: item.date,
-        start_time: item.timeSlot,
-        participants: item.participants,
-        total_amount: item.totalAmount,
-        customer_name: contact.name.trim(),
-        customer_email: contact.email.trim().toLowerCase(),
-        customer_phone: contact.phone?.trim() ?? '',
-        customer_country: contact.country?.trim() ?? '',
-        notes: contact.notes?.trim() ?? '',
-        status: 'pending',
-        payment_method: 'stripe',
-        stripe_payment_intent_id: paymentIntent.id,
-      }))
-    )
-    .select('id')
-
-  if (dbError || !bookings || bookings.length === 0) {
-    await stripe.paymentIntents.cancel(paymentIntent.id).catch(() => {})
-    return json({ error: 'Failed to save bookings' }, 500)
-  }
-
-  const bookingIds = bookings.map(b => b.id)
+  // Default: fallback to on-site if no provider is recognized
   return json({
-    bookingId: bookingIds[0],
-    bookingIds,
-    checkoutId,
-    clientSecret: paymentIntent.client_secret,
-    totalAmount,
-    provider: 'stripe',
-  })
+    error: 'Invalid or unconfigured payment provider',
+  }, 400)
 }
 
 function getRawItems(body: any): RawBookingItem[] {
@@ -479,6 +332,16 @@ function getRawItems(body: any): RawBookingItem[] {
     timeSlot: body?.timeSlot,
     participants: body?.participants,
   }]
+}
+
+async function insertBookings(rows: BookingInsertRow[], externalPaymentId: string | null) {
+  return supabase
+    .from('bookings')
+    .insert(rows.map(row => ({
+      ...row,
+      external_payment_id: externalPaymentId,
+    })))
+    .select('id')
 }
 
 function json(data: object, status = 200) {

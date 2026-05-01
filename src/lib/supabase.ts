@@ -24,7 +24,7 @@ export interface DbBooking {
   notes: string
   status: 'pending' | 'confirmed' | 'cancelled'
   payment_method: string | null
-  stripe_payment_intent_id: string | null
+  external_payment_id: string | null
   checkout_summary_sent_at: string | null
   checkout_admin_summary_sent_at: string | null
   created_at: string

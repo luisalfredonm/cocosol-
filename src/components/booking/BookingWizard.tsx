@@ -413,7 +413,7 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
             totalAmount={state.totalAmount || cartTotal}
             items={cartDisplayItems}
             contact={state.contact}
-            provider={state.paymentProvider || 'stripe'}
+            provider={state.paymentProvider || 'on-site'}
           />
         )}
       </div>
