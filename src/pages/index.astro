@@ -104,11 +104,12 @@ const faqs = [
                 src={img}
                 alt={alt}
                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                widths={[200, 400, 800]}
+                widths={[160, 240, 320, 480]}
                 formats={['avif', 'webp']}
+                quality={72}
                 loading="lazy"
                 decoding="async"
-                sizes="(min-width: 768px) 25vw, 50vw"
+                sizes="(min-width: 768px) 184px, calc(50vw - 1rem)"
               />
             </div>
           ))}
@@ -123,7 +124,7 @@ const faqs = [
             Surf School In Tamarindo — Learn to Surf at Costa Rica's #1 Surf Town
           </h2>
           <p class="text-gray-600 leading-relaxed mb-5">
-            Pura Vida Surf School is the school Tamarindo visitors trust most. Located steps from the beach in one of <a href="https://www.visitcostarica.com/en/costa-rica/where-to-go/beaches/tamarindo" target="_blank" rel="noopener noreferrer" class="text-teal-600 underline hover:text-teal-800">Costa Rica's top surf destinations</a>, we combine certified instruction, warm water, and small groups to help you improve technique, build confidence, and fall in love with the ocean — whether it's your very first wave or you're pushing to the next level.
+            Pura Vida Surf School is the school Tamarindo visitors trust most. Located steps from the beach in one of <a href="https://www.visitcostarica.com/en/costa-rica/where-to-go/beaches/tamarindo" target="_blank" rel="noopener noreferrer" class="text-[var(--teal-text-strong)] underline hover:text-teal-900">Costa Rica's top surf destinations</a>, we combine certified instruction, warm water, and small groups to help you improve technique, build confidence, and fall in love with the ocean — whether it's your very first wave or you're pushing to the next level.
           </p>
           <ul class="space-y-3 mb-8">
             {['Certified surf instructors', 'Small groups and personalized coaching', 'Surfboards and equipment included'].map(i => (
@@ -152,14 +153,14 @@ const faqs = [
   </section>
 
   <!-- ── SERVICES BANNER ───────────────────────────────────────────────────── -->
-  <section class="py-20 bg-[#00BCD4] defer-section">
+  <section class="py-20 bg-[#0B7285] defer-section">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
-        <span class="inline-block bg-white/15 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">
+        <span class="inline-block bg-white text-[#0B7285] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase border border-white/80">
           Best Surf School in Tamarindo
         </span>
         <h2 class="text-4xl font-extrabold text-white">Surf School in Tamarindo for Every Level</h2>
-        <p class="text-white/80 max-w-2xl mx-auto mt-5 text-lg leading-relaxed">
+        <p class="text-white/90 max-w-2xl mx-auto mt-5 text-lg leading-relaxed">
           Whether you're brand new to surfing or have some experience, we offer tailored surf lessons to help you grow confidently and comfortably. Our lesson structure focuses on safety, technique, ocean awareness, and having fun in the water. Our Tamarindo Surf School programs are designed for all levels, from beginners to advanced surfers.
         </p>
       </div>
@@ -349,16 +350,17 @@ const faqs = [
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 widths={[320, 480, 640]}
                 formats={['avif', 'webp']}
+                quality={72}
                 loading="lazy"
                 decoding="async"
-                sizes="(min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 768px) 320px, calc(100vw - 2rem)"
               />
             </div>
             <div class="flex flex-col flex-1 p-6">
               <span class={`inline-block self-start text-xs font-bold px-3 py-1 rounded-full mb-3 ${post.categoryColor}`}>{post.category}</span>
               <h3 class="text-base font-extrabold text-gray-900 mb-2 leading-snug group-hover:text-[var(--teal-text)] transition-colors flex-1">{post.title}</h3>
               <p class="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
-              <p class="text-xs text-gray-400 mt-auto">{post.date}</p>
+              <p class="text-xs text-gray-600 mt-auto">{post.date}</p>
             </div>
           </a>
         ))}

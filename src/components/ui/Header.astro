@@ -51,12 +51,15 @@ const navLinks = [
         <Image
           src={logoImg}
           alt="Pura Vida Surf School Tamarindo"
-          class="w-auto h-20 object-contain"
-          width={145}
-          height={136}
-          loading="lazy"
-          decoding="async"
+          class="w-auto h-16 md:h-20 object-contain"
+          width={120}
+          height={113}
+          widths={[90, 120, 160]}
+          sizes="(max-width: 767px) 80px, 120px"
+          loading="eager"
+          decoding="sync"
           formats={['avif', 'webp']}
+          quality={70}
         />
       </a>
 
