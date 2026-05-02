@@ -16,7 +16,7 @@ const isLocalBg = typeof bgImage !== 'string'
 const videoHref = videoId ? `https://www.youtube.com/watch?v=${videoId}` : 'https://www.youtube.com/@puravidasurfschool'
 ---
 
-<section class="relative overflow-hidden" style="height:637px">
+<section class="relative overflow-hidden defer-section" style="min-height:560px">
 
   <!-- Background image -->
   <div class="absolute inset-0">
@@ -77,12 +77,12 @@ const videoHref = videoId ? `https://www.youtube.com/watch?v=${videoId}` : 'http
           class="relative flex items-center justify-center group">
 
           <!-- Pulse rings -->
-          <span class="absolute w-36 h-36 rounded-full border border-white/15 animate-ping" style="animation-duration:2.5s"></span>
+          <span class="absolute hidden md:block w-36 h-36 rounded-full border border-white/15 animate-ping" style="animation-duration:2.5s"></span>
           <span class="absolute w-28 h-28 rounded-full border border-white/20"></span>
 
           <!-- Button -->
           <span class="relative w-20 h-20 rounded-full flex items-center justify-center
-            bg-white/15 backdrop-blur-sm border-2 border-white/60
+            bg-white/15 md:backdrop-blur-sm border-2 border-white/60
             group-hover:bg-[#00BCD4] group-hover:border-[#00BCD4]
             transition-all duration-300 shadow-xl shadow-black/30">
             <svg class="w-8 h-8 text-white ml-1 group-hover:scale-110 transition-transform duration-200" fill="currentColor" viewBox="0 0 24 24">

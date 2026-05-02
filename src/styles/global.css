@@ -18,6 +18,8 @@
   :root {
     --teal-primary: #00BCD4;
     --teal-dark: #0097A7;
+    --teal-text: #0f766e;
+    --teal-text-strong: #115e59;
     --navy: #0A1628;
   }
 
@@ -58,7 +60,8 @@
     @apply max-w-6xl mx-auto px-4;
   }
   .section-label {
-    @apply text-teal-500 font-semibold uppercase tracking-widest text-sm;
+    color: var(--teal-text);
+    @apply font-semibold uppercase tracking-widest text-sm;
   }
   .check-item {
     @apply flex items-start gap-2 text-gray-700;
@@ -72,4 +75,20 @@
   .shadow-brand-lg {
     box-shadow: 0 8px 30px rgba(0, 188, 212, 0.28);
   }
+
+  .defer-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-flat {
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
