@@ -11,7 +11,7 @@ export default defineConfig({
     tailwind({ applyBaseStyles: false }),
     sitemap({ filter: (page) => !page.includes('/admin') }),
   ],
-  output: 'hybrid',
+  output: 'static',
   adapter: vercel(),
   compressHTML: true,
   build: { inlineStylesheets: 'auto' },
