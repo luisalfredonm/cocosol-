@@ -5,6 +5,7 @@ import FAQ from '../components/ui/FAQ.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
+import heroImg from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
 
 const seo = seoData.bookNow
 
@@ -19,7 +20,7 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
   <Hero
     title="Book Surf Lessons & Packages in Tamarindo"
     subtitle="Secure your spot online in minutes. Instant confirmation, flexible cancellation."
-    image="/images/book-now-hero.jpg"
+    image={heroImg}
     imageAlt="Book surf lessons Tamarindo Costa Rica"
     height="medium"
   />
