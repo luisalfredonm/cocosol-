@@ -11,13 +11,16 @@ export default defineConfig({
     tailwind({ applyBaseStyles: false }),
     sitemap({ filter: (page) => !page.includes('/admin') }),
   ],
-  output: 'static',
+  output: 'server',
   adapter: vercel(),
   compressHTML: true,
   build: { inlineStylesheets: 'auto' },
   prefetch: {
     prefetchAll: false,
     defaultStrategy: 'hover',
+  },
+  security: {
+    checkOrigin: false,
   },
   // 301 redirects from old WordPress URLs to the current Astro routes.
   redirects: {
