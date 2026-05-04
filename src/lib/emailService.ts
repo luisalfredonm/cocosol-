@@ -35,6 +35,16 @@ function formatDate(dateStr: string): string {
 }
 
 function getClassTypeName(classTypeId: string): string {
+  const currentClassTypeNames: Record<string, string> = {
+    'pkg-3-private': '3-Day Private Package',
+    'pkg-3-semi': '3-Day Semi-Private Package',
+    'pkg-5-private': '5-Day Private Package',
+    'pkg-5-semi': '5-Day Semi-Private Package',
+    'camp-7-private': '7-Day Private Package',
+    'camp-7-semi': '7-Day Semi-Private Package',
+  }
+  if (currentClassTypeNames[classTypeId]) return currentClassTypeNames[classTypeId]
+
   const classType = (CLASS_TYPES as Record<string, { name: string } | undefined>)[classTypeId]
   return classType?.name ?? classTypeId
 }
