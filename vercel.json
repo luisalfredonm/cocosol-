@@ -40,6 +40,9 @@
       ]
     }
   ],
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin" }
+  ],
   "redirects": [
     { "source": "/about", "destination": "/best-surf-school-in-tamarindo", "permanent": true },
     { "source": "/about-us", "destination": "/best-surf-school-in-tamarindo", "permanent": true },
