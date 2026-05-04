@@ -1,4 +1,4 @@
-import { defineConfig, sharpImageService } from 'astro/config'
+import { defineConfig, passthroughImageService } from 'astro/config'
 import react from '@astrojs/react'
 import tailwind from '@astrojs/tailwind'
 import sitemap from '@astrojs/sitemap'
@@ -23,7 +23,7 @@ export default defineConfig({
     checkOrigin: false,
   },
   image: {
-    service: sharpImageService(),
+    service: passthroughImageService(),
   },
   // 301 redirects from old WordPress URLs to the current Astro routes.
   redirects: {
