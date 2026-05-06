@@ -128,7 +128,7 @@ Key tables:
 - **tour_slots** — Date-specific overrides for availability (e.g., "closed on X date")
 - **weekly_slots** — Repeating schedule by weekday (e.g., "Mondays always 8am, 10am")
 - **availability_blocks** — Soft blocks that hide slots
-- **payment_config** — Configuration table that drives which payment provider is active (on-site, PayPal, Credomatic) and stores credentials (PayPal client_id/secret, Stripe keys, etc.)
+- **payment_config** — Configuration table that drives which payment provider is active (on-site, PayPal, Credomatic) and stores credentials for the active payment gateway.
 
 TypeScript types are in `src/lib/supabase.ts` — these are auto-generated from the DB and should be kept in sync.
 
@@ -136,7 +136,7 @@ TypeScript types are in `src/lib/supabase.ts` — these are auto-generated from 
 
 ## Payment Methods (Costa Rica-Specific)
 
-⚠️ **April 2026 Status:** Stripe was removed; PayPal, on-site, and Credomatic are active.
+⚠️ **April 2026 Status:** The system now uses PayPal, on-site, and Credomatic only.
 
 - **On-site:** Customer pays at location; booking auto-confirms immediately (for testing/demos)
 - **PayPal:** Uses PayPal REST API; webhook confirms booking when payment captured

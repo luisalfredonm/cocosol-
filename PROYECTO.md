@@ -17,7 +17,7 @@ Sitio web completo para **Pura Vida Surf School**, una escuela de surf ubicada e
 | Estilos | Tailwind CSS | 3.4 | Utility-first, sin CSS custom salvo admin |
 | Lenguaje | TypeScript | 5.9 | Todo el código tipado |
 | Base de datos | Supabase (PostgreSQL) | 2.x | Bookings, disponibilidad, tipos de clase |
-| Pagos | Stripe | 17.x | Cobro con tarjeta + webhooks |
+| Pagos | PayPal / On-site / Credomatic | — | Cobro con pago online + webhooks |
 | Emails | Resend | API REST | Confirmaciones y notificaciones admin |
 | Hosting | Vercel | — | Deploy, CDN, headers de seguridad |
 | Fuente | Inter Variable | — | Tipografía principal |
@@ -32,13 +32,13 @@ Cliente (browser)
     │               │
     │               └── POST /api/bookings/create
     │                       ├── Valida datos
-    │                       ├── Crea PaymentIntent en Stripe
-    │                       ├── Guarda booking en Supabase (status: pending)
-    │                       └── Devuelve clientSecret al browser
+    │                       ├── Crea booking en Supabase (status: pending)
+    │                       ├── Inicia pago con el proveedor activo
+    │                       └── Devuelve información de pago al browser
     │
-    └── Stripe (browser SDK completa el pago)
+    └── Proveedor de pago (PayPal / On-site / Credomatic)
             │
-            └── Webhook → /api/stripe/webhook
+            └── Webhook o confirmación de pago
                     ├── Confirma booking en Supabase (status: confirmed)
                     └── Envía emails via Resend
 ```
@@ -157,14 +157,14 @@ Ubicado en `src/components/booking/`. Es un wizard multi-paso construido en **Re
 4. StepParticipants → Número de personas
 5. StepContact      → Nombre, email, teléfono, país, notas
 6. StepCart         → Resumen del pedido (puede agregar más servicios)
-7. StepPayment      → Pago con Stripe Elements (tarjeta)
+7. StepPayment      → Pago con el proveedor activo (tarjeta / PayPal / on-site)
 8. StepConfirmation → Confirmación final
 ```
 
 **Características clave:**
 - Un cliente puede reservar **múltiples servicios en un solo checkout** (multi-item cart)
 - La disponibilidad se consulta en tiempo real via `GET /api/availability`
-- En modo test (sin `STRIPE_SECRET_KEY`), los bookings se confirman directamente sin pago
+- En modo test, los bookings se confirman directamente sin pago cuando no hay proveedor de pago activo
 - Los camps tienen su propio wizard: `CampBookingWizard.tsx`
 
 ---
@@ -175,10 +175,10 @@ Todos los endpoints están en `src/pages/api/` y tienen `prerender = false` (se 
 
 | Endpoint | Método | Descripción |
 |---|---|---|
-| `/api/bookings/create` | POST | Crea bookings, genera PaymentIntent en Stripe |
+| `/api/bookings/create` | POST | Crea bookings y envía la orden al proveedor de pago activo |
 | `/api/availability` | GET | Devuelve slots disponibles para una fecha y servicio |
 | `/api/class-types` | GET | Lista los tipos de clase activos desde Supabase |
-| `/api/stripe/webhook` | POST | Recibe eventos de Stripe, confirma/cancela bookings |
+| `/api/payments/webhook` | POST | Recibe eventos de pago, confirma/cancela bookings |
 | `/api/camp/book` | POST | Crea reservas de surf camp |
 | `/api/camp/sessions` | GET | Lista sesiones de camp disponibles |
 | `/api/admin/bookings` | GET | Datos para el panel admin |
@@ -212,7 +212,7 @@ Gestionado en `src/lib/emailService.ts` usando la API de **Resend**.
 | Confirmation (individual) | Cliente | Por cada booking (opcional, flag `EMAIL_INDIVIDUAL_ENABLED`) |
 | Admin Notification | Admin | Por cada booking (opcional) |
 
-Los emails se envían tanto en el webhook de Stripe (producción) como directamente en el endpoint de creación (modo test). Tienen un sistema de flags de entorno para activar/desactivar cada tipo:
+Los emails se envían tanto desde el webhook de pago (producción) como directamente en el endpoint de creación (modo test). Tienen un sistema de flags de entorno para activar/desactivar cada tipo:
 
 ```
 EMAIL_SUMMARY_ENABLED=true        # Resumen de checkout al cliente
@@ -294,9 +294,8 @@ Archivo `.env` en la raíz del proyecto. Ver `.env.example` para la lista comple
 SUPABASE_URL=https://xxxx.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=eyJ...
 
-# Stripe
-STRIPE_SECRET_KEY=sk_live_...         # Si está vacío, activa modo test
-STRIPE_WEBHOOK_SECRET=whsec_...
+# Payment provider
+# No legacy payment gateway variables are required for this implementation.
 
 # Resend (emails)
 RESEND_API_KEY=re_...
@@ -351,14 +350,14 @@ El proyecto se despliega automáticamente en **Vercel** al hacer push a la rama 
 
 ## Modo Test vs Producción
 
-El sistema detecta automáticamente si está en modo test basándose en la presencia de `STRIPE_SECRET_KEY`:
+El sistema puede operar en modo test o con un proveedor de pago real según la configuración de pago activa:
 
 | Condición | Comportamiento |
 |---|---|
-| Sin `STRIPE_SECRET_KEY` | Bookings se confirman directamente, sin cobro real |
-| Con `STRIPE_SECRET_KEY` | Flujo completo con Stripe, el webhook confirma el booking |
+| Sin proveedor de pago activo | Bookings se confirman directamente, sin cobro real |
+| Con proveedor de pago activo | Flujo completo con el proveedor de pago, la confirmación actualiza el booking |
 
-Esto permite desarrollar y probar el flujo completo de reservas sin necesidad de una cuenta de Stripe configurada.
+Esto permite desarrollar y probar el flujo de reservas sin necesidad de una cuenta de pago real en producción.
 
 ---
 
