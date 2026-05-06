@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import NeedHelp from '../../components/sections/NeedHelp.astro'
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
+import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro'
+import FAQSchema from '../../components/seo/FAQSchema.astro'
+import { seoData } from '../../lib/seo'
+
+const seo = seoData.isTamarindoGoodForBeginners
+
+const reasons = [
+  {
+    icon: '🌊',
+    title: 'Perfect Beginner Waves',
+    body: 'Tamarindo\'s main break is a slow, crumbling beach break — exactly what you want when you\'re learning. Waves break gradually, giving you time to pop up, find your balance, and actually ride them. Compare this to a reef break or heavy shore break where one mistake sends you to the bottom.',
+  },
+  {
+    icon: '📐',
+    title: 'Consistent Conditions Year-Round',
+    body: 'Unlike other Costa Rican surf spots that depend heavily on specific swell windows, Tamarindo has surfable waves 365 days a year. Dry season (December–April) offers the cleanest and most consistent conditions for beginners. Rainy season brings larger swells — still surfable, just better for those with some experience.',
+  },
+  {
+    icon: '🎓',
+    title: 'Professional Surf School Infrastructure',
+    body: 'Tamarindo has one of the most developed surf school scenes in Central America. Certified instructors, proper safety protocols, water safety lifeguards, and well-organized lesson programs are the standard here — not the exception.',
+  },
+  {
+    icon: '🏥',
+    title: 'Safety First Environment',
+    body: 'The beach at Tamarindo has lifeguards on duty during peak hours. Instructors from established schools always accompany students in the water. Riptides exist but are well-known, well-marked, and manageable with proper guidance.',
+  },
+  {
+    icon: '🌅',
+    title: 'Ideal Morning Conditions',
+    body: 'Tamarindo\'s famous Papagayo winds blow offshore every morning during dry season — this grooms the wave faces and creates picture-perfect conditions from sunrise to around 10 AM. Your lessons are scheduled around these windows.',
+  },
+  {
+    icon: '🏨',
+    title: 'Everything a Traveler Needs',
+    body: 'Unlike remote surf spots that require camping or roughing it, Tamarindo has full tourist infrastructure — hotels, restaurants, surf shops, pharmacies, ATMs. You can focus entirely on learning without logistics stress.',
+  },
+]
+
+const faqs = [
+  { q: 'What is the wave like in Tamarindo?', a: 'Tamarindo has a slow, crumbling beach break that is ideal for beginners. Waves are generally 1–4 ft during dry season, consistent, and forgiving — they break gradually, giving you enough time to stand up and ride them.' },
+  { q: 'Do I need any experience to surf in Tamarindo?', a: 'No experience is required. Most of our students at Pura Vida Surf School catch their first wave during their very first lesson. You just need to be comfortable in the water and able to swim.' },
+  { q: 'Is Tamarindo safe for surfing?', a: 'Yes. Tamarindo has lifeguards on duty, certified surf instructors, and well-mapped riptides. It is one of the safest surf learning environments in Central America when you surf with a certified school.' },
+  { q: 'What age can you start surfing in Tamarindo?', a: 'We teach students as young as 5 years old. There is no upper age limit — we have taught students in their 70s. The key is matching the student with the right conditions and board for their level.' },
+  { q: 'How many lessons do I need to stand up on a surfboard?', a: 'Most complete beginners stand up within their first 1–2 lessons. Riding a wave with control and choosing your own waves independently typically takes 3–5 lessons. Progress varies by individual, but Tamarindo\'s conditions make the learning curve shorter than at most other spots.' },
+  { q: 'Is Tamarindo overcrowded?', a: 'During peak season (December–April) and weekends, the beach can get busy. However, surf instructors know exactly which spots and times to avoid crowds. Your lessons are always scheduled at the optimal window.' },
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'Is Tamarindo Good for Beginners',href:seo.slug}]} />
+  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2026-05-06" image="/images/surf-school-tamarindo-beginner-lesson.webp" />
+  <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a }))} />
+
+  <!-- HERO -->
+  <section class="bg-gray-900 py-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-tamarindo-beginner-lesson.webp'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
+    <div class="relative z-10 container mx-auto px-4">
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-3 mb-5">
+          <a href="/blog" class="text-[#4DD0E1] text-sm font-semibold hover:underline">← Blog</a>
+          <span class="text-white/30">·</span>
+          <span class="bg-teal-500/20 text-teal-300 text-xs font-bold px-3 py-1 rounded-full border border-teal-500/30">Beginners</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
+          Is Tamarindo Good for Beginner Surfers?
+        </h1>
+        <p class="text-white/70 text-lg leading-relaxed max-w-2xl">
+          The honest answer from instructors who have taught thousands of first-timers at this exact beach. Spoiler: yes — here's why.
+        </p>
+        <div class="flex items-center gap-4 mt-6 text-sm text-white/50">
+          <span>May 6, 2026</span>
+          <span>·</span>
+          <span>6 min read</span>
+          <span>·</span>
+          <span>By Pura Vida Surf School</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          Short answer: <strong>yes, Tamarindo is one of the best places in the world to learn to surf.</strong> But we're biased — we work here. So let's break down exactly why, based on wave quality, safety, infrastructure, and what you'll actually experience as a beginner.
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          At <a href="/best-surf-school-in-tamarindo" class="text-[#00BCD4] hover:underline">Pura Vida Surf School</a>, we've taught students from 5 to 72 years old, from complete non-swimmers (with pool prep) to athletes who wanted to add surfing to their skill set. The conditions at Tamarindo consistently allow people to catch their first wave within a single lesson — and that's not a marketing claim, it's just what happens when the wave is right for the student.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- REASONS -->
+  <section class="pb-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-10 text-center">6 Reasons Tamarindo is Perfect for Beginners</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          {reasons.map(r => (
+            <div class="bg-gray-50 border border-gray-100 rounded-3xl p-6 hover:shadow-md transition-shadow">
+              <span class="text-3xl">{r.icon}</span>
+              <h3 class="font-extrabold text-gray-900 mt-3 mb-2">{r.title}</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">{r.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HONEST CAVEATS -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-6">The Honest Caveats</h2>
+        <p class="text-gray-600 leading-relaxed mb-5">
+          Tamarindo is excellent for beginners — but we'll be straight with you about the limitations too:
+        </p>
+        <div class="space-y-4">
+          <div class="bg-white border border-gray-100 rounded-2xl p-5">
+            <h3 class="font-bold text-gray-900 mb-1 text-sm">Rainy season waves can be too big for beginners</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">July–November brings larger, more powerful swells. On big swell days, beginner lessons move to protected spots nearby. Your instructor always makes this call — never risk it alone.</p>
+          </div>
+          <div class="bg-white border border-gray-100 rounded-2xl p-5">
+            <h3 class="font-bold text-gray-900 mb-1 text-sm">Riptides exist and should not be ignored</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Tamarindo has known rip currents, especially near the river mouth. This is why you should only surf with certified instructors who know the beach intimately — especially in your first few sessions.</p>
+          </div>
+          <div class="bg-white border border-gray-100 rounded-2xl p-5">
+            <h3 class="font-bold text-gray-900 mb-1 text-sm">It gets crowded in peak season</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">December–April brings the most tourists. Lineups can get busy on Saturday mornings. Book lessons for weekdays, early morning, to get the best conditions and space.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 bg-[#00BCD4]/8 border border-[#00BCD4]/20 rounded-3xl p-6">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Book a Beginner Lesson</h3>
+          <p class="text-gray-600 mb-5 text-sm leading-relaxed">
+            Whether you choose <a href="/private-surf-lessons-tamarindo" class="text-[#00BCD4] hover:underline">private</a>, <a href="/group-surf-lessons-tamarindo" class="text-[#00BCD4] hover:underline">group</a>, or <a href="/family-surf-lessons-tamarindo" class="text-[#00BCD4] hover:underline">family lessons</a> — our instructors match conditions to your level. Every session is in the right spot at the right time.
+          </p>
+          <a href="/book-now" class="inline-block px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-xl hover:bg-[#00ACC1] transition-colors text-sm">
+            Book Your First Surf Lesson
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          {faqs.map(f => (
+            <div class="border border-gray-100 rounded-2xl p-5">
+              <h3 class="font-bold text-gray-900 mb-2 text-sm">{f.q}</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED -->
+  <section class="py-16 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl font-extrabold text-gray-900 mb-8">More from the Blog</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a href="/blog/what-to-expect-first-surf-lesson-tamarindo" class="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/40 hover:shadow-lg transition-all">
+            <div class="overflow-hidden h-44">
+              <img src="/images/surf-school-tamarindo-private-class.webp" alt="First surf lesson Tamarindo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="176"/>
+            </div>
+            <div class="p-5">
+              <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded-full">Beginners</span>
+              <h3 class="font-bold text-gray-900 mt-2 group-hover:text-[#00BCD4] transition-colors text-sm leading-snug">What to Expect on Your First Surf Lesson</h3>
+            </div>
+          </a>
+          <a href="/blog/best-time-to-surf-tamarindo" class="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/40 hover:shadow-lg transition-all">
+            <div class="overflow-hidden h-44">
+              <img src="/images/surf-school-tamarindo-surf-instructor-student.webp" alt="Best time to surf Tamarindo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="176"/>
+            </div>
+            <div class="p-5">
+              <span class="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded-full">Tamarindo Guide</span>
+              <h3 class="font-bold text-gray-900 mt-2 group-hover:text-[#00BCD4] transition-colors text-sm leading-snug">Best Time to Surf in Tamarindo, Costa Rica</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <NeedHelp />
+</BaseLayout>

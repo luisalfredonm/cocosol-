@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import NeedHelp from '../../components/sections/NeedHelp.astro'
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
+import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro'
+import FAQSchema from '../../components/seo/FAQSchema.astro'
+import { seoData } from '../../lib/seo'
+
+const seo = seoData.sanJoseToTamarindo
+
+const options = [
+  {
+    icon: '🚐',
+    name: 'Shared Shuttle',
+    time: '4–5 hours',
+    cost: '$45–$65 per person',
+    best: 'Solo travelers & couples',
+    pros: ['Door-to-door pickup', 'AC and comfortable seats', 'No driving stress', 'Fixed schedule'],
+    cons: ['Multiple stops along the way', 'Can\'t stop when you want'],
+    rating: 5,
+  },
+  {
+    icon: '🚗',
+    name: 'Rental Car',
+    time: '3.5–4 hours',
+    cost: '$40–$80/day + fuel (~$30)',
+    best: 'Families & groups',
+    pros: ['Full flexibility', 'Stop anywhere', 'Explore at your own pace', 'Great for multi-destination trips'],
+    cons: ['Driving on unfamiliar roads', 'Toll fees apply', 'Parking can be tricky'],
+    rating: 4,
+  },
+  {
+    icon: '🚌',
+    name: 'Public Bus',
+    time: '5–6 hours (with transfer)',
+    cost: '$8–$12 per person',
+    best: 'Budget travelers',
+    pros: ['Cheapest option', 'Local experience'],
+    cons: ['Requires transfer in Liberia', 'No A/C in some buses', 'Limited luggage space', 'Fixed departure times'],
+    rating: 3,
+  },
+  {
+    icon: '✈️',
+    name: 'Domestic Flight',
+    time: '45 minutes',
+    cost: '$80–$180 per person one-way',
+    best: 'Those short on time',
+    pros: ['Fastest by far', 'Scenic views'],
+    cons: ['Expensive', 'Limited luggage', 'Must book in advance', 'Small propeller planes'],
+    rating: 4,
+  },
+]
+
+const faqs = [
+  { q: 'How far is San José from Tamarindo?', a: 'Tamarindo is approximately 280 km (175 miles) from San José. By car or shuttle, the drive takes 3.5 to 5 hours depending on your route and traffic.' },
+  { q: 'Is it safe to drive from San José to Tamarindo?', a: 'Yes, the main route (Highway 1 to Liberia, then south to Tamarindo) is paved and well-signposted. The last stretch into Tamarindo uses a dirt road — perfectly manageable in a regular car, but a 4x4 gives extra comfort in rainy season.' },
+  { q: 'What is the best shuttle company from San José to Tamarindo?', a: 'Interbus and Monkey Ride are the most popular and reliable options. Both offer door-to-door pickup from San José hotels and drop-off in Tamarindo. Book at least 48 hours in advance.' },
+  { q: 'Can I take a bus from San José to Tamarindo?', a: 'Yes, but it requires a transfer. Take the Alfaro bus from San José to Santa Cruz, then a local bus to Tamarindo. Total journey is around 5–6 hours. Departs from the Coca-Cola terminal in San José.' },
+  { q: 'Are there direct flights from San José to Tamarindo?', a: 'Yes. SANSA Airlines operates daily flights between Juan Santamaría (SJO) and Tamarindo (TNO). The flight takes about 45 minutes. Liberia Airport (LIR) is also an option — about 1.5 hours by ground from Tamarindo.' },
+  { q: 'What time should I leave San José to arrive by afternoon?', a: 'Leave by 7–8 AM to comfortably arrive by early afternoon and have time to settle in before sunset. Avoid leaving after noon on weekends — traffic leaving San José can add 1–2 hours to your journey.' },
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'San José to Tamarindo',href:seo.slug}]} />
+  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2026-05-06" image="/images/surf-school-tamarindo-surf-instructor-student.webp" />
+  <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a }))} />
+
+  <!-- HERO -->
+  <section class="bg-gray-900 py-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20" style="background-image: url('/images/surf-school-tamarindo-surf-instructor-student.webp'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
+    <div class="relative z-10 container mx-auto px-4">
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-3 mb-5">
+          <a href="/blog" class="text-[#4DD0E1] text-sm font-semibold hover:underline">← Blog</a>
+          <span class="text-white/30">·</span>
+          <span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full border border-blue-500/30">Travel Guide</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
+          How to Get from San José to Tamarindo
+        </h1>
+        <p class="text-white/70 text-lg leading-relaxed max-w-2xl">
+          4 ways to reach Tamarindo from San José — shuttle, rental car, bus, and flight. Costs, times, and honest recommendations from people who make this trip every week.
+        </p>
+        <div class="flex items-center gap-4 mt-6 text-sm text-white/50">
+          <span>May 6, 2026</span>
+          <span>·</span>
+          <span>7 min read</span>
+          <span>·</span>
+          <span>By Pura Vida Surf School</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto prose prose-lg prose-gray">
+        <p class="lead text-xl text-gray-700 leading-relaxed mb-8">
+          Getting from San José to Tamarindo is one of the most common travel questions we get at <a href="/best-surf-school-in-tamarindo" class="text-[#00BCD4] hover:underline">Pura Vida Surf School</a>. You have four realistic options — each with different tradeoffs on cost, comfort, and flexibility. Here's exactly what we tell our students.
+        </p>
+
+        <h2 class="text-3xl font-extrabold text-gray-900 mt-12 mb-4">The Route at a Glance</h2>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          Tamarindo sits on the northwest coast of Costa Rica in Guanacaste province — about 280 km from San José. The main driving route takes Highway 1 north toward Liberia, then heads south along the coast. Most of the road is paved and in good condition. The last 10 km into Tamarindo is a dirt road — bumpy but manageable in any car.
+        </p>
+        <p class="text-gray-600 leading-relaxed">
+          <strong>Liberia Airport (LIR)</strong> is the closest international airport — just 1.5 hours from Tamarindo. If you're flying from the US, check flights into Liberia directly before defaulting to San José. It's often cheaper and saves you 3+ hours of ground travel.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- OPTIONS GRID -->
+  <section class="pb-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-10 text-center">Your 4 Options Compared</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          {options.map((opt) => (
+            <div class="bg-gray-50 border border-gray-100 rounded-3xl p-6 hover:shadow-md transition-shadow">
+              <div class="flex items-start justify-between mb-4">
+                <div>
+                  <span class="text-3xl">{opt.icon}</span>
+                  <h3 class="font-extrabold text-gray-900 text-lg mt-2">{opt.name}</h3>
+                  <p class="text-xs text-gray-500 mt-0.5">Best for: {opt.best}</p>
+                </div>
+                <div class="flex gap-0.5 mt-1">
+                  {Array.from({length: 5}).map((_, i) => (
+                    <svg class={`w-4 h-4 ${i < opt.rating ? 'text-[#00BCD4]' : 'text-gray-200'}`} fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  ))}
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="bg-white rounded-xl p-3 border border-gray-100">
+                  <p class="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-1">Travel Time</p>
+                  <p class="text-sm font-bold text-gray-900">{opt.time}</p>
+                </div>
+                <div class="bg-white rounded-xl p-3 border border-gray-100">
+                  <p class="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-1">Cost</p>
+                  <p class="text-sm font-bold text-gray-900">{opt.cost}</p>
+                </div>
+              </div>
+              <div class="space-y-2">
+                {opt.pros.map(p => (
+                  <div class="flex items-start gap-2 text-sm text-gray-600">
+                    <span class="text-green-500 font-bold mt-0.5">+</span>
+                    <span>{p}</span>
+                  </div>
+                ))}
+                {opt.cons.map(c => (
+                  <div class="flex items-start gap-2 text-sm text-gray-500">
+                    <span class="text-red-400 font-bold mt-0.5">−</span>
+                    <span>{c}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPS -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Our Recommendation</h2>
+        <div class="space-y-5">
+          <div class="bg-white border border-gray-100 rounded-2xl p-5">
+            <h3 class="font-bold text-gray-900 mb-2">Solo traveler or couple?</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Book a <strong>shared shuttle</strong>. Interbus and Monkey Ride pick you up at your hotel in San José and drop you right in Tamarindo for around $50. You don't have to navigate, find parking, or worry about the dirt road. Best value for the stress saved.</p>
+          </div>
+          <div class="bg-white border border-gray-100 rounded-2xl p-5">
+            <h3 class="font-bold text-gray-900 mb-2">Family or group of 3+?</h3>
+            <p class="text-gray-600 text-sm leading-relaxed"><strong>Rent a car</strong>. When you split the cost across 3–4 people, it becomes cheaper than shuttles and gives you the freedom to explore Playa Avellanas, Playa Negra, or stop at a local soda along the way. Use Google Maps — the GPS works well on all major routes.</p>
+          </div>
+          <div class="bg-white border border-gray-100 rounded-2xl p-5">
+            <h3 class="font-bold text-gray-900 mb-2">Short on time?</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Take the <strong>domestic flight</strong> with SANSA. It's 45 minutes vs 4+ hours on the ground. If you only have 5–7 days in Costa Rica, the time saved is worth the extra cost.</p>
+          </div>
+          <div class="bg-[#00BCD4]/8 border border-[#00BCD4]/20 rounded-2xl p-5">
+            <h3 class="font-bold text-gray-900 mb-2">Pro tip: fly into Liberia instead</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Daniel Oduber International Airport (LIR) in Liberia is only 1.5 hours from Tamarindo. Many US carriers fly direct to Liberia — check before booking a San José connection. A short shuttle from LIR costs around $30–$40 per person and saves you half a day.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 bg-white border border-gray-100 rounded-3xl p-6">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Once you arrive — book your surf lessons</h3>
+          <p class="text-gray-600 mb-5 text-sm leading-relaxed">
+            Tamarindo's waves wait for no one. Book your <a href="/tamarindo-surf-lessons" class="text-[#00BCD4] hover:underline">surf lessons</a> in advance so your first morning in the water is already sorted. We offer <a href="/private-surf-lessons-tamarindo" class="text-[#00BCD4] hover:underline">private</a>, <a href="/group-surf-lessons-tamarindo" class="text-[#00BCD4] hover:underline">group</a>, and <a href="/family-surf-lessons-tamarindo" class="text-[#00BCD4] hover:underline">family lessons</a> — all with certified instructors.
+          </p>
+          <a href="/book-now" class="inline-block px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-xl hover:bg-[#00ACC1] transition-colors text-sm">
+            Book a Surf Lesson
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          {faqs.map(f => (
+            <div class="border border-gray-100 rounded-2xl p-5">
+              <h3 class="font-bold text-gray-900 mb-2 text-sm">{f.q}</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED -->
+  <section class="py-16 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl font-extrabold text-gray-900 mb-8">More from the Blog</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a href="/blog/best-time-to-surf-tamarindo" class="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/40 hover:shadow-lg transition-all">
+            <div class="overflow-hidden h-44">
+              <img src="/images/surf-school-tamarindo-surf-instructor-student.webp" alt="Best time to surf Tamarindo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="176"/>
+            </div>
+            <div class="p-5">
+              <span class="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded-full">Tamarindo Guide</span>
+              <h3 class="font-bold text-gray-900 mt-2 group-hover:text-[#00BCD4] transition-colors text-sm leading-snug">Best Time to Surf in Tamarindo, Costa Rica</h3>
+            </div>
+          </a>
+          <a href="/blog/is-tamarindo-good-for-beginner-surfers" class="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/40 hover:shadow-lg transition-all">
+            <div class="overflow-hidden h-44">
+              <img src="/images/surf-school-tamarindo-beginner-lesson.webp" alt="Beginner surfing Tamarindo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width="600" height="176"/>
+            </div>
+            <div class="p-5">
+              <span class="text-xs font-bold text-teal-600 bg-teal-100 px-2 py-0.5 rounded-full">Beginners</span>
+              <h3 class="font-bold text-gray-900 mt-2 group-hover:text-[#00BCD4] transition-colors text-sm leading-snug">Is Tamarindo Good for Beginner Surfers?</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <NeedHelp />
+</BaseLayout>

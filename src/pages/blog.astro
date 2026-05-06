@@ -6,7 +6,7 @@ import { seoData } from '../lib/seo'
 
 const seo = seoData.blog
 
-const categories = ['All', 'Beginners', 'Tamarindo Guide']
+const categories = ['All', 'Beginners', 'Tamarindo Guide', 'Surf Travel', 'Family', 'Surf Camp']
 
 const posts = [
   {
@@ -29,6 +29,66 @@ const posts = [
     image: '/images/surf-school-tamarindo-surf-instructor-student.webp',
     featured: false,
   },
+  {
+    slug: '/blog/is-tamarindo-good-for-beginner-surfers',
+    category: 'Beginners',
+    title: 'Is Tamarindo Good for Beginner Surfers?',
+    excerpt: 'The honest answer from instructors who have taught thousands of first-timers at this beach. Waves, safety, conditions, and everything you need to know before you book.',
+    date: 'May 6, 2026',
+    readTime: '6 min read',
+    image: '/images/surf-school-tamarindo-beginner-lesson.webp',
+    featured: false,
+  },
+  {
+    slug: '/blog/how-to-get-from-san-jose-to-tamarindo',
+    category: 'Tamarindo Guide',
+    title: 'How to Get from San José to Tamarindo',
+    excerpt: '4 ways to reach Tamarindo from San José — shuttle, rental car, bus, and flight. Real costs, travel times, and honest recommendations from locals.',
+    date: 'May 6, 2026',
+    readTime: '7 min read',
+    image: '/images/surf-school-tamarindo-surf-instructor-student.webp',
+    featured: false,
+  },
+  {
+    slug: '/blog/tamarindo-vs-jaco-surf-beginners',
+    category: 'Tamarindo Guide',
+    title: 'Tamarindo vs Jacó for Beginner Surfers',
+    excerpt: 'Two of Costa Rica\'s most popular surf beaches. One is ideal for first-timers — the other is better once you already know what you\'re doing. Honest comparison.',
+    date: 'May 6, 2026',
+    readTime: '6 min read',
+    image: '/images/surf-school-tamarindo-students.webp',
+    featured: false,
+  },
+  {
+    slug: '/blog/surf-trip-costa-rica-packing-list',
+    category: 'Surf Travel',
+    title: 'Surf Trip Packing List: What to Bring to Costa Rica',
+    excerpt: 'Everything you actually need for a surf trip to Tamarindo — and the things you can safely leave at home. Practical advice from people who live and surf here year-round.',
+    date: 'May 6, 2026',
+    readTime: '8 min read',
+    image: '/images/surf-school-tamarindo-students.webp',
+    featured: false,
+  },
+  {
+    slug: '/blog/surfing-with-kids-tamarindo',
+    category: 'Family',
+    title: 'Surfing with Kids in Tamarindo',
+    excerpt: 'What parents need to know before booking surf lessons for their children in Costa Rica — age, safety, tips, and what a great lesson looks like for kids.',
+    date: 'May 6, 2026',
+    readTime: '7 min read',
+    image: '/images/surf-school-tamarindo-students.webp',
+    featured: false,
+  },
+  {
+    slug: '/blog/what-is-a-surf-camp',
+    category: 'Surf Camp',
+    title: 'What Is a Surf Camp? Everything You Need to Know',
+    excerpt: 'How surf camps work, what\'s included, who they\'re for, and why 7 consecutive days of surfing produces more progress than months of weekend lessons.',
+    date: 'May 6, 2026',
+    readTime: '8 min read',
+    image: '/images/surf-school-tamarindo-private-class.webp',
+    featured: false,
+  },
 ]
 
 const featured = posts.find(p => p.featured)
@@ -39,6 +99,8 @@ const categoryColors: Record<string, string> = {
   'Tips & Technique':'bg-blue-100 text-blue-700',
   'Tamarindo Guide': 'bg-amber-100 text-amber-700',
   'Surf Travel':     'bg-purple-100 text-purple-700',
+  'Family':          'bg-pink-100 text-pink-700',
+  'Surf Camp':       'bg-orange-100 text-orange-700',
 }
 ---
 
@@ -109,11 +171,12 @@ const categoryColors: Record<string, string> = {
   <section class="pb-20 bg-white">
     <div class="container mx-auto px-4">
 
-      <!-- Category filter (visual only) -->
-      <div class="flex flex-wrap gap-2 mb-10">
+      <!-- Category filter -->
+      <div id="filter-bar" class="flex flex-wrap gap-2 mb-10">
         {categories.map((cat, i) => (
           <button
-            class={`px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
+            data-filter={cat}
+            class={`filter-btn px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
               i === 0
                 ? 'bg-[#00BCD4] text-white border-[#00BCD4]'
                 : 'bg-white text-gray-600 border-gray-200 hover:border-[#00BCD4] hover:text-[#00BCD4]'
@@ -125,10 +188,11 @@ const categoryColors: Record<string, string> = {
       </div>
 
       <!-- Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div id="posts-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {rest.map(post => (
           <a href={post.slug}
-            class="group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/30 hover:shadow-xl transition-all duration-300">
+            data-category={post.category}
+            class="post-card group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/30 hover:shadow-xl transition-all duration-300">
             <!-- Image -->
             <div class="overflow-hidden" style="height: 220px;">
               <img
@@ -179,5 +243,28 @@ const categoryColors: Record<string, string> = {
   </section>
 
   <NeedHelp />
+
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn')
+    const cards = document.querySelectorAll<HTMLElement>('.post-card')
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter ?? 'All'
+
+        buttons.forEach(b => {
+          b.classList.remove('bg-[#00BCD4]', 'text-white', 'border-[#00BCD4]')
+          b.classList.add('bg-white', 'text-gray-600', 'border-gray-200')
+        })
+        btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-200')
+        btn.classList.add('bg-[#00BCD4]', 'text-white', 'border-[#00BCD4]')
+
+        cards.forEach(card => {
+          const match = filter === 'All' || card.dataset.category === filter
+          card.style.display = match ? '' : 'none'
+        })
+      })
+    })
+  </script>
 
 </BaseLayout>
