@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import NeedHelp from '../../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
+import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro'
 import { seoData } from '../../lib/seo'
 
 const seo = seoData.firstSurfLesson
@@ -57,6 +58,7 @@ const faqs = [
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'First Surf Lesson Tamarindo',href:seo.slug}]} />
+  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2025-04-18" image="/images/surf-school-tamarindo-beginner-lesson.webp" />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">

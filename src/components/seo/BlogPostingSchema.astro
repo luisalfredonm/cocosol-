@@ -1,0 +1,50 @@
+---
+export interface Props {
+  title: string
+  description: string
+  slug: string
+  datePublished: string
+  dateModified?: string
+  image: string
+}
+
+const { title, description, slug, datePublished, dateModified, image } = Astro.props
+const site = 'https://puravidasurfschool.com'
+const url = `${site}${slug}`
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  url,
+  datePublished,
+  dateModified: dateModified ?? datePublished,
+  inLanguage: 'en-US',
+  image: {
+    '@type': 'ImageObject',
+    url: `${site}${image}`,
+    width: 1200,
+    height: 630,
+  },
+  author: {
+    '@type': 'Organization',
+    name: 'Pura Vida Surf School',
+    url: site,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Pura Vida Surf School',
+    url: site,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${site}/favicon.svg`,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': url,
+  },
+}
+---
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

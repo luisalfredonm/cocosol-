@@ -24,6 +24,10 @@ export default defineConfig({
   },
   // ← eliminar el bloque image: { service: passthroughImageService() }
   redirects: {
+    "/sitemap.xml": {
+      destination: "/sitemap-index.xml",
+      status: 301,
+    },
     "/surf-lessons-tamarindo": {
       destination: "/tamarindo-surf-lessons",
       status: 301,

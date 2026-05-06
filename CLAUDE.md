@@ -2,6 +2,45 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# Pura Vida Surf School — Proyecto
+
+## Stack
+- **Frontend:** Astro (con islas React donde se necesite interactividad)
+- **Base de datos / Auth / Storage:** Supabase
+- **Pagos:** on site, paypal o credomatic costa rica 
+- **Styling:** Tailwind CSS
+- **Deploy:** Por definir (Vercel o VPS)
+
+## Tipo de proyecto
+Landing + plataforma de reservas para escuela de surf en Guanacaste.
+Orientado a turistas internacionales → SEO en inglés es prioridad.
+
+## Prioridades del proyecto
+1. SEO técnico sólido (Astro es ideal para esto)
+2. Conversión: cada página trabaja para generar reservas
+3. Performance: Core Web Vitals en verde
+4. Stripe checkout limpio y confiable
+
+## Convenciones
+- Páginas estáticas en Astro puro (sin JS innecesario)
+- Interactividad (formularios, checkout) → React islands con `client:load`
+- Supabase Row Level Security activado en todas las tablas
+- Contenido en inglés (mercado turístico internacional)
+
+## Skills activos en este proyecto
+- `frontend-design` → componentes UI, landing, páginas de clases/tours
+- `seo-audit` → auditorías técnicas, on-page SEO, meta tags, schema markup
+- `file-reading` → cuando se suban archivos al contexto
+
+## Skills bajo demanda (pedir explícitamente)
+- `ui-ux-pro-max` → si hay rediseño mayor o sistema de diseño nuevo
+
+## Notas SEO importantes
+- Cada página de clase/tour debe tener su propia URL semántica
+- Schema markup: LocalBusiness + SportsActivityLocation + Event
+- Blog en inglés para long-tail keywords de surf en Guanacaste
+- Google Business Profile conectado al sitio
+
 ---
 
 ## Project Overview
@@ -231,3 +270,4 @@ Vercel auto-deploys. Verify:
 - **[QUICK_START.md](../QUICK_START.md)** — Setup instructions
 - **[DOCUMENTACION_TECNICA.md](../DOCUMENTACION_TECNICA.md)** — Deep technical reference (90+ min read)
 - **[INDICE_MAESTRO.md](../INDICE_MAESTRO.md)** — Search index by topic
+
