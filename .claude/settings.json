@@ -3,7 +3,12 @@
     "allow": [
       "WebFetch(domain:puravidasurfschool.com)",
       "Bash(dir \"c:\\\\Users\\\\LuisN\\\\Desktop\\\\Project 2026\\\\pvss-full\\\\src\")",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "WebFetch(domain:witchsrocksurfcamp.com)",
+      "WebFetch(domain:www.tideschart.com)",
+      "WebFetch(domain:tides.net)",
+      "WebFetch(domain:www.tide-forecast.com)",
+      "WebFetch(domain:magicseaweed.com)"
     ]
   },
   "autoMemoryEnabled": true
