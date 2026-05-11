@@ -8,7 +8,18 @@
       "WebFetch(domain:www.tideschart.com)",
       "WebFetch(domain:tides.net)",
       "WebFetch(domain:www.tide-forecast.com)",
-      "WebFetch(domain:magicseaweed.com)"
+      "WebFetch(domain:magicseaweed.com)",
+      "Bash(curl -s -I \"https://www.surf-forecast.com/breaks/Tamarindo/tides/latest\")",
+      "Bash(curl -s \"https://www.windguru.cz/search.php?q=Tamarindo+Costa+Rica\" -A \"Mozilla/5.0\")",
+      "Bash(curl -s \"https://www.windguru.cz/widget.php\" -A \"Mozilla/5.0\")",
+      "Bash(curl -s -L \"https://www.windguru.cz/\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\" -H \"Accept: text/html\")",
+      "Bash(curl -s \"https://www.windguru.cz/int/wgsapi.php?q=Tamarindo\" -A \"Mozilla/5.0\")",
+      "WebSearch",
+      "Bash(curl -s \"https://old.windguru.cz/int/webfcst.php\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(curl -s \"https://www.windguru.cz/help.php?sec=distr\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(curl -s \"https://www.windguru.cz/4877\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(curl -s -I \"https://www.windguru.net/js/widget.js\" -A \"Mozilla/5.0\")",
+      "Bash(curl -s -I \"https://widget.windguru.cz/js/wg_widget.php?s=4877&m=3&uid=test&wj=knots&vt=forecasts&lng=en&p=WINDSPD,TIDE\" -A \"Mozilla/5.0\")"
     ]
   },
   "autoMemoryEnabled": true

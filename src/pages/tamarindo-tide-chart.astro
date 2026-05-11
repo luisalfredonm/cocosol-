@@ -168,19 +168,31 @@ const faqs = [
           </span>
         </div>
         <div class="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm">
-          <iframe
-            src="https://www.surf-forecast.com/breaks/Tamarindo/tides/latest"
-            title="Tamarindo Tide Chart — Live Tide Times"
-            width="100%"
-            height="500"
-            loading="lazy"
-            class="w-full border-0"
-            style="min-height:480px;"
-          ></iframe>
+          <div class="p-4 overflow-x-auto">
+            <script is:inline id="wg_fwdg_4877_3_pvss">
+              (function (window, document) {
+                var loader = function () {
+                  var arg = [
+                    "s=4877","m=3","uid=wg_fwdg_4877_3_pvss",
+                    "wj=knots","wv=2","tj=c","waj=m","tij=cm",
+                    "odh=0","doh=24","fhours=72","hrsm=2",
+                    "vt=forecasts","lng=en","idbs=1",
+                    "p=WINDSPD,GUST,SWELL1,PERPW,HTSGW,WAVEDIR,TIDE"
+                  ];
+                  var script = document.createElement("script");
+                  var tag = document.getElementsByTagName("script")[0];
+                  script.src = "//widget.windguru.cz/js/wg_widget.php?" + arg.join("&");
+                  tag.parentNode.insertBefore(script, tag);
+                };
+                if (document.readyState !== "loading") { loader(); }
+                else { document.addEventListener("DOMContentLoaded", loader); }
+              })(window, document);
+            </script>
+          </div>
           <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
-            <p class="text-xs text-gray-400">Tide predictions via surf-forecast.com. Times in local Costa Rica time (CST, UTC-6).</p>
-            <a href="https://www.surf-forecast.com/breaks/Tamarindo/tides/latest" target="_blank" rel="noopener" class="text-xs text-[#00BCD4] font-semibold hover:underline">
-              Open full tide chart →
+            <p class="text-xs text-gray-400">Wind, swell & tide forecast via Windguru. Times in local Costa Rica time (CST, UTC-6).</p>
+            <a href="https://www.windguru.cz/4877" target="_blank" rel="noopener" class="text-xs text-[#00BCD4] font-semibold hover:underline">
+              Open full forecast on Windguru →
             </a>
           </div>
         </div>

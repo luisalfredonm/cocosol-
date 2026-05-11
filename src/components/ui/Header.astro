@@ -30,7 +30,14 @@ const navLinks = [
     ],
   },
   { label: 'About Us', href: ROUTES.ABOUT },
-  { label: 'Blog', href: '/blog' },
+  {
+    label: 'Blog',
+    href: '/blog',
+    children: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'Tamarindo Tide Chart', href: '/tamarindo-tide-chart' },
+    ],
+  },
   { label: 'Contact', href: ROUTES.CONTACT },
 ]
 ---
