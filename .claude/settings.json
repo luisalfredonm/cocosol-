@@ -21,7 +21,10 @@
       "Bash(curl -s -I \"https://www.windguru.net/js/widget.js\" -A \"Mozilla/5.0\")",
       "Bash(curl -s -I \"https://widget.windguru.cz/js/wg_widget.php?s=4877&m=3&uid=test&wj=knots&vt=forecasts&lng=en&p=WINDSPD,TIDE\" -A \"Mozilla/5.0\")",
       "Bash(ls \"c:\\\\Users\\\\LuisN\\\\Desktop\\\\Project 2026\\\\pvss-full\\\\\" | grep -i vercel)",
-      "Read(//c/Users/LuisN/Desktop/Project 2026/**)"
+      "Read(//c/Users/LuisN/Desktop/Project 2026/**)",
+      "Bash(npx skills *)",
+      "Skill(seo-audit)",
+      "Skill(seo-audit:*)"
     ]
   },
   "autoMemoryEnabled": true

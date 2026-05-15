@@ -30,13 +30,6 @@ const jsonLd = {
       geo: { '@type': 'GeoCoordinates', latitude: 10.2994, longitude: -85.8415 },
       openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '07:00', closes: '17:00' }],
       sameAs: ['https://www.facebook.com/profile.php?id=61578013897729', 'https://www.instagram.com/pura_vidasurfschool', 'https://www.tiktok.com/@puravidasurfschool'],
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '5',
-        reviewCount: '128',
-        bestRating: '5',
-        worstRating: '1',
-      },
     },
     { '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: title, description, isPartOf: { '@id': `${site}/#website` }, inLanguage: 'en-US' },
     {

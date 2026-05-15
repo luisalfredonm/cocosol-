@@ -16,13 +16,6 @@ const jsonLd = {
   description,
   ...(image ? { image: image.startsWith('http') ? image : `${site}${image}` } : {}),
   brand: { '@type': 'Brand', name: 'Pura Vida Surf School' },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5',
-    reviewCount: '127',
-    bestRating: '5',
-    worstRating: '1',
-  },
   offers: {
     '@type': 'Offer',
     price,
@@ -33,4 +26,4 @@ const jsonLd = {
   },
 }
 ---
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

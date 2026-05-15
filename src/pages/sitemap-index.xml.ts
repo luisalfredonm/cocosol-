@@ -21,7 +21,7 @@ const pages: SitemapEntry[] = [
   { loc: "/surf-camp-tamarindo", changefreq: "monthly", priority: "0.9" },
   { loc: "/5-days-surf-camp-tamarindo", changefreq: "monthly", priority: "0.8" },
   { loc: "/7-days-surf-camp-tamarindo", changefreq: "monthly", priority: "0.8" },
-  { loc: "/surf-packages", changefreq: "monthly", priority: "0.8" },
+  { loc: "/surf-packages", changefreq: "monthly", priority: "0.7" },
   { loc: "/tamarindo-surf-packages", changefreq: "monthly", priority: "0.8" },
   { loc: "/3-days-pura-vida-surf-package", changefreq: "monthly", priority: "0.8" },
   { loc: "/5-days-pura-vida-surf-package", changefreq: "monthly", priority: "0.8" },
