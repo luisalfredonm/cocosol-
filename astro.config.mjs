@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config"; // ← quitar passthroughImageService
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
-import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 
 export default defineConfig({
@@ -9,7 +8,6 @@ export default defineConfig({
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
-    sitemap({ filter: (page) => !page.includes("/admin") }),
   ],
   output: "server",
   adapter: vercel({ imageService: true }), // ← imageService: true
