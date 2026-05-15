@@ -139,7 +139,7 @@ export const seoData: Record<string, PageSEO> = {
   bestTimeSurf: {
     slug: '/blog/best-time-to-surf-tamarindo',
     keyfocus: 'best time to surf tamarindo',
-    title: 'Best Time to Surf in Tamarindo, Costa Rica | Month-by-Month Guide',
+    title: 'Best Time to Surf in Tamarindo | Month-by-Month Guide',
     description: 'Discover the best time to surf in Tamarindo, Costa Rica. Month-by-month breakdown of swell, wind, and crowd conditions from local instructors.',
     synonyms: ['tamarindo surf season', 'when to surf tamarindo', 'tamarindo waves by month', 'surf season costa rica'],
     related: ['surf lessons tamarindo', 'surf camp tamarindo', 'tamarindo travel guide'],
@@ -179,7 +179,7 @@ export const seoData: Record<string, PageSEO> = {
   tamarindoVsJaco: {
     slug: '/blog/tamarindo-vs-jaco-surf-beginners',
     keyfocus: 'tamarindo vs jaco surf',
-    title: 'Tamarindo vs Jacó for Beginner Surfers | Which Beach to Choose?',
+    title: 'Tamarindo vs Jacó for Beginner Surfers | Which Is Better?',
     description: 'Tamarindo or Jacó? We compare both surf destinations for beginner surfers — waves, crowds, infrastructure, and vibe. Find out which is right for you.',
     synonyms: ['tamarindo vs jaco surfing', 'best beginner surf spot costa rica', 'jaco vs tamarindo beach', 'where to learn surf costa rica'],
     related: ['tamarindo surf lessons', 'private surf lessons tamarindo', 'surf school tamarindo'],
@@ -188,7 +188,7 @@ export const seoData: Record<string, PageSEO> = {
     slug: '/blog/surf-trip-costa-rica-packing-list',
     keyfocus: 'surf trip costa rica packing list',
     title: 'Surf Trip Packing List: What to Bring to Costa Rica',
-    description: 'Complete packing list for a surf trip to Costa Rica. Gear, clothing, documents, and everyday essentials — everything you need for Tamarindo packed into one guide.',
+    description: 'Complete packing list for a surf trip to Costa Rica. Gear, clothing, and documents — everything you need for Tamarindo in one guide.',
     synonyms: ['what to pack for surf trip costa rica', 'costa rica surf packing list', 'tamarindo packing list', 'surf vacation packing guide'],
     related: ['tamarindo surf lessons', 'surf camp tamarindo', 'surf packages tamarindo'],
   },

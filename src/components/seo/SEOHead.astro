@@ -6,8 +6,9 @@ export interface Props {
   keyfocus?: string
   image?: string
   noindex?: boolean
+  type?: string
 }
-const { title, description, slug, keyfocus, image = '/images/surf-school-tamarindo-students.webp', noindex = false } = Astro.props
+const { title, description, slug, keyfocus, image = '/images/surf-school-tamarindo-students.webp', noindex = false, type = 'website' } = Astro.props
 const site = 'https://puravidasurfschool.com'
 const canonical = slug === '/' ? site : `${site}${slug}`
 const ogImage = `${site}${image}`
@@ -53,7 +54,7 @@ const jsonLd = {
 <link rel="canonical" href={canonical} />
 {noindex && <meta name="robots" content="noindex,nofollow" />}
 {keyfocus && <meta name="keywords" content={keyfocus} />}
-<meta property="og:type" content="website" />
+<meta property="og:type" content={type} />
 <meta property="og:url" content={canonical} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />

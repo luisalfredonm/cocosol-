@@ -6,9 +6,10 @@ export interface Props {
   datePublished: string
   dateModified?: string
   image: string
+  authorName?: string
 }
 
-const { title, description, slug, datePublished, dateModified, image } = Astro.props
+const { title, description, slug, datePublished, dateModified, image, authorName } = Astro.props
 const site = 'https://puravidasurfschool.com'
 const url = `${site}${slug}`
 
@@ -27,11 +28,9 @@ const jsonLd = {
     width: 1200,
     height: 630,
   },
-  author: {
-    '@type': 'Organization',
-    name: 'Pura Vida Surf School',
-    url: site,
-  },
+  author: authorName
+    ? { '@type': 'Person', name: authorName, url: site }
+    : { '@type': 'Organization', name: 'Pura Vida Surf School', url: site },
   publisher: {
     '@type': 'Organization',
     name: 'Pura Vida Surf School',
