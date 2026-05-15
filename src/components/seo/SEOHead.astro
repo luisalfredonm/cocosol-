@@ -17,6 +17,7 @@ const jsonLd = {
   '@graph': [
     {
       '@type': ['LocalBusiness', 'SportsActivityLocation'],
+      sport: 'Surfing',
       '@id': `${site}/#business`,
       name: 'Pura Vida Surf School',
       description: 'Surf school in Tamarindo, Costa Rica offering private, semi-private and group surf lessons, surf camps and packages.',
@@ -46,7 +47,6 @@ const jsonLd = {
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 {noindex && <meta name="robots" content="noindex,nofollow" />}
-{keyfocus && <meta name="keywords" content={keyfocus} />}
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonical} />
 <meta property="og:title" content={title} />
