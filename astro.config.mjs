@@ -12,7 +12,7 @@ export default defineConfig({
   output: "server",
   adapter: vercel({ imageService: true }), // ← imageService: true
   compressHTML: true,
-  build: { inlineStylesheets: "auto" },
+  build: { inlineStylesheets: "always" },
   prefetch: {
     prefetchAll: false,
     defaultStrategy: "hover",
