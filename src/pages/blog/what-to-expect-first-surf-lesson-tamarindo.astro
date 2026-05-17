@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import NeedHelp from '../../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
@@ -12,13 +12,13 @@ const timeline = [
     step: '1',
     time: '30 min before',
     title: 'Arrival & Check-In',
-    body: 'Meet your instructor at our surf school on the beach. We\'ll check you in, fit you with the right surfboard and leash, and apply reef-safe sunscreen. No experience needed â€” just show up.',
+    body: 'Meet your instructor at our surf school on the beach. We\'ll check you in, fit you with the right surfboard and leash, and apply reef-safe sunscreen. No experience needed — just show up.',
   },
   {
     step: '2',
     time: 'First 20 min',
     title: 'Beach Lesson (Dry Land)',
-    body: 'Before touching the water, your instructor runs you through the fundamentals: how to read the ocean, the pop-up technique, foot placement, and where to look. This part is crucial â€” most people can stand up on their first wave after a good dry-land session.',
+    body: 'Before touching the water, your instructor runs you through the fundamentals: how to read the ocean, the pop-up technique, foot placement, and where to look. This part is crucial — most people can stand up on their first wave after a good dry-land session.',
   },
   {
     step: '3',
@@ -30,13 +30,13 @@ const timeline = [
     step: '4',
     time: 'The good part',
     title: 'Catching Your First Wave',
-    body: "Your instructor will push you into a gentle wave and tell you exactly when to pop up. Most of our students stand up on their first or second attempt. The feeling is indescribable â€” pure stoke.",
+    body: "Your instructor will push you into a gentle wave and tell you exactly when to pop up. Most of our students stand up on their first or second attempt. The feeling is indescribable — pure stoke.",
   },
   {
     step: '5',
     time: 'Rest of the session',
     title: 'Surf, Learn, Repeat',
-    body: "For the remaining 45â€“60 minutes, you'll keep catching waves while your instructor gives real-time tips on stance, balance, and wave selection. You'll catch 10â€“20 waves in a typical lesson.",
+    body: "For the remaining 45–60 minutes, you'll keep catching waves while your instructor gives real-time tips on stance, balance, and wave selection. You'll catch 10–20 waves in a typical lesson.",
   },
   {
     step: '6',
@@ -48,7 +48,7 @@ const timeline = [
 
 const faqs = [
   { q: "Do I need to know how to swim?", a: "Yes, basic swimming ability is required for safety. You don't need to be a strong swimmer, but you should be comfortable in the water." },
-  { q: "What should I wear?", a: "Wear a swimsuit or board shorts. We provide a rash guard to protect against sunburn. Avoid cotton clothes â€” they get heavy in the water." },
+  { q: "What should I wear?", a: "Wear a swimsuit or board shorts. We provide a rash guard to protect against sunburn. Avoid cotton clothes — they get heavy in the water." },
   { q: "Is it dangerous?", a: "Tamarindo's beach break is one of the safest learning environments in Central America. Our certified instructors prioritize safety and always match the conditions to your level." },
   { q: "What if I'm really nervous?", a: "Totally normal! Our instructors are patient, encouraging, and have taught hundreds of first-timers. The nerves disappear the moment you catch your first wave." },
   { q: "What's included in the lesson?", a: "Surfboard, leash, rash guard, reef-safe sunscreen, instructor, and all necessary equipment. Just show up." },
@@ -60,7 +60,7 @@ const faqs = [
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'First Surf Lesson Tamarindo',href:seo.slug}]} />
   <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2025-04-18" image="/images/surf-school-tamarindo-beginner-lesson.webp" authorName="Victor NuÃ±ez" />
 
-  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
     <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-tamarindo-beginner-lesson.webp'); background-size: cover; background-position: center;"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
@@ -68,32 +68,32 @@ const faqs = [
       <div class="max-w-3xl">
         <div class="flex items-center gap-3 mb-5">
           <a href="/blog" class="text-[#4DD0E1] text-sm font-semibold hover:underline">â† Blog</a>
-          <span class="text-white/30">Â·</span>
+          <span class="text-white/30">·</span>
           <span class="bg-green-500/20 text-green-300 text-xs font-bold px-3 py-1 rounded-full border border-green-500/30">Beginners</span>
         </div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
           What to Expect on Your First Surf Lesson in Tamarindo
         </h1>
         <p class="text-white/70 text-lg leading-relaxed max-w-2xl">
-          Nervous about your first surf lesson? Here's exactly what happens from the moment you arrive at the beach to catching your first wave â€” no experience needed.
+          Nervous about your first surf lesson? Here's exactly what happens from the moment you arrive at the beach to catching your first wave — no experience needed.
         </p>
         <div class="flex items-center gap-4 mt-6 text-sm text-white/50">
           <span>April 18, 2025</span>
-          <span>Â·</span>
+          <span>·</span>
           <span>5 min read</span>
-          <span>Â·</span>
+          <span>·</span>
           <span>By Victor NuÃ±ez</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- â”€â”€ INTRO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── INTRO ─────────────────────────────────────────────────────────────── -->
   <article class="py-16 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
         <p class="text-xl text-gray-700 leading-relaxed mb-6">
-          Every single one of our instructors at Pura Vida Surf School remembers their first wave. The nerves, the wobble, and then â€” pure joy. If you're about to take your first surf lesson in Tamarindo and you're wondering what happens, this guide is for you.
+          Every single one of our instructors at Pura Vida Surf School remembers their first wave. The nerves, the wobble, and then — pure joy. If you're about to take your first surf lesson in Tamarindo and you're wondering what happens, this guide is for you.
         </p>
         <p class="text-gray-600 leading-relaxed mb-4">
           The good news: <strong>you don't need any experience, a specific body type, or extraordinary athletic ability</strong>. If you can lie down on a board and stand up, you can surf. We've seen 6-year-olds and 70-year-olds catch their first wave with us.
@@ -105,7 +105,7 @@ const faqs = [
     </div>
   </article>
 
-  <!-- â”€â”€ TIMELINE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── TIMELINE ──────────────────────────────────────────────────────────── -->
   <section class="pb-16 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
@@ -131,7 +131,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- â”€â”€ WHAT TO BRING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── WHAT TO BRING ─────────────────────────────────────────────────────── -->
   <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
@@ -161,7 +161,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── FAQ ──────────────────────────────────────────────────────────────── -->
   <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
@@ -178,7 +178,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- â”€â”€ CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
   <section class="py-16 bg-[#00BCD4]">
     <div class="container mx-auto px-4 text-center">
       <h2 class="text-3xl font-extrabold text-white mb-4">Ready to Catch Your First Wave?</h2>
@@ -196,7 +196,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- â”€â”€ RELATED POSTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── RELATED POSTS ─────────────────────────────────────────────────────── -->
   <section class="py-16 bg-gray-50 border-t border-gray-100">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">

@@ -1,4 +1,4 @@
-﻿---
+---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
@@ -57,9 +57,9 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'}]} />
   <FAQSchema slot="head" items={faqs} />
 
-  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
-    title="Tamarindo Surf Lessons â€” Learn to Surf in Costa Rica"
+    title="Tamarindo Surf Lessons — Learn to Surf in Costa Rica"
     subtitle="Learn to surf in Tamarindo with certified instructors. Safe, fun, and perfect for beginners & families."
     image={heroImg}
     imageAlt="Tamarindo surf lessons Costa Rica"
@@ -68,7 +68,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     height="large"
   />
 
-  <!-- â”€â”€ STATS BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── STATS BAR ──────────────────────────────────────────────────────────── -->
   <section class="bg-white border-b border-gray-100 shadow-sm">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
@@ -82,7 +82,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- â”€â”€ WHY CHOOSE TAMARINDO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── WHY CHOOSE TAMARINDO ──────────────────────────────────────────────── -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="grid lg:grid-cols-3 gap-12 items-start">
@@ -163,7 +163,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- â”€â”€ VIDEO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── VIDEO SECTION ──────────────────────────────────────────────────────── -->
   <VideoSection
     title="Learn to surf in the most beautiful beaches in Tamarindo with certified instructors who truly care about your progress."
     bullets={['Use the pura vida lifestyle', 'Feel the vibes', 'Ride the wave']}
@@ -171,7 +171,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     cta={{ label: 'Choose Your Surf Lesson', href: '/book-now' }}
   />
 
-  <!-- â”€â”€ OUR SURF LESSONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── OUR SURF LESSONS ───────────────────────────────────────────────────── -->
   <section id="lessons" class="py-20 bg-white" style="scroll-margin-top: 96px;">
     <div class="container mx-auto px-4">
       <div class="text-center mb-14">
@@ -229,7 +229,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- â”€â”€ SURF PACKAGES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── SURF PACKAGES ──────────────────────────────────────────────────────── -->
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-14">
@@ -280,13 +280,13 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- â”€â”€ TESTIMONIALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
   <Testimonials items={[
     { name: 'William Bowman', role: 'Surfer',   text: 'Amazing experience! The instructor was patient, knowledgeable, and made me feel safe in the water the whole time. I caught my first wave on day one!' },
     { name: 'Stephanie Smith', role: 'Designer', text: 'Best decision of our Costa Rica trip. The small group made it personal and the instructor truly cared about our progress. Will definitely come back!' },
   ]} bg="gray"/>
 
-  <!-- â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="grid md:grid-cols-5 gap-12 items-start">
@@ -296,7 +296,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
           <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 shadow-sm sticky top-28">
             <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-3 py-1 rounded-full mb-5 tracking-wider uppercase">FAQ</span>
             <h2 class="text-3xl font-extrabold text-gray-900 mb-4 leading-snug">
-              Surf Lessons FAQ â€” Everything You Need to Know
+              Surf Lessons FAQ — Everything You Need to Know
             </h2>
             <p class="text-gray-500 text-sm leading-relaxed mb-7">
               These are the most common questions from students planning their first lesson. Can't find your answer? We reply fast on WhatsApp.
@@ -320,7 +320,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- â”€â”€ NEED HELP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── NEED HELP ──────────────────────────────────────────────────────────── -->
   <NeedHelp/>
 
 </BaseLayout>

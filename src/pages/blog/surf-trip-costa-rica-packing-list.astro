@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import NeedHelp from '../../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
@@ -11,28 +11,28 @@ const seo = seoData.packingList
 const categories = [
   {
     title: 'Surf Gear',
-    note: 'Provided by your school â€” no need to bring',
+    note: 'Provided by your school — no need to bring',
     emoji: 'ðŸ„',
     items: [
       { name: 'Surfboard', note: 'Included in all lessons at Pura Vida Surf School', provided: true },
       { name: 'Leash', note: 'Included', provided: true },
-      { name: 'Rash guard (short or long sleeve)', note: 'Included â€” but bring your own if you prefer a specific fit', provided: false },
-      { name: 'Reef-safe sunscreen SPF 50+', note: 'Critical â€” regular sunscreen destroys coral reefs and is banned on many beaches', provided: false },
+      { name: 'Rash guard (short or long sleeve)', note: 'Included — but bring your own if you prefer a specific fit', provided: false },
+      { name: 'Reef-safe sunscreen SPF 50+', note: 'Critical — regular sunscreen destroys coral reefs and is banned on many beaches', provided: false },
       { name: 'Board shorts / bikini', note: 'Quick-dry fabric. Avoid cotton in the water.', provided: false },
-      { name: 'Surf wax (if renting your own board)', note: 'Optional if you\'re taking lessons â€” boards are already waxed', provided: false },
+      { name: 'Surf wax (if renting your own board)', note: 'Optional if you\'re taking lessons — boards are already waxed', provided: false },
     ],
   },
   {
     title: 'Clothing',
-    note: 'Tamarindo is hot and casual â€” pack light',
+    note: 'Tamarindo is hot and casual — pack light',
     emoji: 'ðŸ‘•',
     items: [
-      { name: 'Light t-shirts and tanks', note: '4â€“5 for a week-long trip', provided: false },
-      { name: 'Shorts', note: '3â€“4 pairs. Quick-dry preferred.', provided: false },
+      { name: 'Light t-shirts and tanks', note: '4–5 for a week-long trip', provided: false },
+      { name: 'Shorts', note: '3–4 pairs. Quick-dry preferred.', provided: false },
       { name: 'Light long-sleeve layer', note: 'For evenings or overnight AC', provided: false },
       { name: 'Flip flops / sandals', note: 'You\'ll live in these', provided: false },
       { name: 'One pair of closed shoes', note: 'For hiking or excursions', provided: false },
-      { name: 'Light rain jacket', note: 'Essential in rainy season (Mayâ€“November)', provided: false },
+      { name: 'Light rain jacket', note: 'Essential in rainy season (May–November)', provided: false },
     ],
   },
   {
@@ -44,8 +44,8 @@ const categories = [
       { name: 'After-sun lotion or aloe vera', note: 'For the inevitable sunburn on day 1', provided: false },
       { name: 'Insect repellent (DEET-based)', note: 'Mosquitoes are present in rainy season', provided: false },
       { name: 'Basic first aid kit', note: 'Band-aids, antiseptic, ibuprofen', provided: false },
-      { name: 'Motion sickness tablets', note: 'If prone â€” the dirt road into Tamarindo can be bumpy', provided: false },
-      { name: 'Prescription medications', note: 'Bring extras â€” pharmacies exist but stock varies', provided: false },
+      { name: 'Motion sickness tablets', note: 'If prone — the dirt road into Tamarindo can be bumpy', provided: false },
+      { name: 'Prescription medications', note: 'Bring extras — pharmacies exist but stock varies', provided: false },
     ],
   },
   {
@@ -57,8 +57,8 @@ const categories = [
       { name: 'Travel insurance documents', note: 'Medical evac coverage is strongly recommended', provided: false },
       { name: 'Unlocked phone + local SIM or eSIM', note: 'Kolbi and Claro offer good coverage in Tamarindo', provided: false },
       { name: 'Waterproof phone case or dry bag', note: 'Essential for beach days and boat trips', provided: false },
-      { name: 'GoPro or action camera', note: 'Your instructor can film your waves â€” check if your school offers this', provided: false },
-      { name: 'Universal travel adapter', note: 'Costa Rica uses US-style plugs (Type A/B) â€” no adapter needed from the US', provided: false },
+      { name: 'GoPro or action camera', note: 'Your instructor can film your waves — check if your school offers this', provided: false },
+      { name: 'Universal travel adapter', note: 'Costa Rica uses US-style plugs (Type A/B) — no adapter needed from the US', provided: false },
       { name: 'Portable charger / power bank', note: 'Beach days drain your battery fast', provided: false },
     ],
   },
@@ -67,7 +67,7 @@ const categories = [
     note: 'Quality-of-life items you\'ll use every day',
     emoji: 'ðŸŒŠ',
     items: [
-      { name: 'Quick-dry towel (microfiber)', note: 'Packs small, dries fast â€” worth it', provided: false },
+      { name: 'Quick-dry towel (microfiber)', note: 'Packs small, dries fast — worth it', provided: false },
       { name: 'Reusable water bottle', note: 'Tap water is drinkable in Tamarindo but bring a bottle for the beach', provided: false },
       { name: 'Sunglasses (UV400)', note: 'Polarized lenses help on the water', provided: false },
       { name: 'Rashguard (extra)', note: 'One for surfing, one for casual beach wear', provided: false },
@@ -77,10 +77,10 @@ const categories = [
 ]
 
 const faqs = [
-  { q: 'Do I need to bring my own surfboard to Costa Rica?', a: 'No. All surf schools in Tamarindo, including Pura Vida Surf School, provide surfboards as part of the lesson. If you\'re an experienced surfer who wants your own board, airlines allow boards as checked luggage â€” expect fees of $50â€“$150 each way.' },
-  { q: 'What sunscreen should I use in Costa Rica?', a: 'Always use reef-safe sunscreen â€” oxybenzone and octinoxate are harmful to coral reefs and banned in some Costa Rican beaches. Choose mineral-based sunscreens with zinc oxide or titanium dioxide. SPF 50+ is recommended.' },
-  { q: 'Is tap water safe to drink in Tamarindo?', a: 'Generally yes â€” Tamarindo\'s tap water is treated and considered safe. However, some travelers with sensitive stomachs prefer bottled water for the first few days. Bottled water is cheap and widely available.' },
-  { q: 'What should I wear to a surf lesson?', a: 'Board shorts or a bikini â€” and that\'s it. Your school provides the rash guard and leash. Wear quick-dry synthetic fabrics, never cotton. Apply reef-safe sunscreen before you arrive.' },
+  { q: 'Do I need to bring my own surfboard to Costa Rica?', a: 'No. All surf schools in Tamarindo, including Pura Vida Surf School, provide surfboards as part of the lesson. If you\'re an experienced surfer who wants your own board, airlines allow boards as checked luggage — expect fees of $50–$150 each way.' },
+  { q: 'What sunscreen should I use in Costa Rica?', a: 'Always use reef-safe sunscreen — oxybenzone and octinoxate are harmful to coral reefs and banned in some Costa Rican beaches. Choose mineral-based sunscreens with zinc oxide or titanium dioxide. SPF 50+ is recommended.' },
+  { q: 'Is tap water safe to drink in Tamarindo?', a: 'Generally yes — Tamarindo\'s tap water is treated and considered safe. However, some travelers with sensitive stomachs prefer bottled water for the first few days. Bottled water is cheap and widely available.' },
+  { q: 'What should I wear to a surf lesson?', a: 'Board shorts or a bikini — and that\'s it. Your school provides the rash guard and leash. Wear quick-dry synthetic fabrics, never cotton. Apply reef-safe sunscreen before you arrive.' },
   { q: 'Do I need a visa for Costa Rica?', a: 'Citizens of the US, Canada, EU, UK, and most Western nations don\'t need a visa for stays up to 90 days. You need a valid passport (6+ months remaining) and proof of onward travel. Always verify entry requirements before your trip.' },
 ]
 ---
@@ -98,20 +98,20 @@ const faqs = [
       <div class="max-w-3xl">
         <div class="flex items-center gap-3 mb-5">
           <a href="/blog" class="text-[#4DD0E1] text-sm font-semibold hover:underline">â† Blog</a>
-          <span class="text-white/30">Â·</span>
+          <span class="text-white/30">·</span>
           <span class="bg-green-500/20 text-green-300 text-xs font-bold px-3 py-1 rounded-full border border-green-500/30">Packing Guide</span>
         </div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
           Surf Trip Packing List: What to Bring to Costa Rica
         </h1>
         <p class="text-white/70 text-lg leading-relaxed max-w-2xl">
-          Everything you actually need for a surf trip to Tamarindo â€” and the things you can leave at home. Practical advice from people who live and surf here year-round.
+          Everything you actually need for a surf trip to Tamarindo — and the things you can leave at home. Practical advice from people who live and surf here year-round.
         </p>
         <div class="flex items-center gap-4 mt-6 text-sm text-white/50">
           <span>May 6, 2026</span>
-          <span>Â·</span>
+          <span>·</span>
           <span>8 min read</span>
-          <span>Â·</span>
+          <span>·</span>
           <span>By Victor NuÃ±ez</span>
         </div>
       </div>
@@ -123,7 +123,7 @@ const faqs = [
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
         <p class="text-xl text-gray-700 leading-relaxed mb-6">
-          Packing for a surf trip is different from packing for a regular beach vacation. You need less than you think â€” but the right things matter. Get the sunscreen wrong and you'll be peeling by day two. Forget the reef-safe label and you'll damage the ecosystem you came to enjoy.
+          Packing for a surf trip is different from packing for a regular beach vacation. You need less than you think — but the right things matter. Get the sunscreen wrong and you'll be peeling by day two. Forget the reef-safe label and you'll damage the ecosystem you came to enjoy.
         </p>
         <p class="text-gray-600 leading-relaxed mb-4">
           This is the list we share with our students at <a href="/best-surf-school-in-tamarindo" class="text-[#00BCD4] hover:underline">Pura Vida Surf School</a> before they arrive in Tamarindo. It covers everything from surf gear (most of which we provide) to documents, tech, and the daily essentials.
@@ -172,12 +172,12 @@ const faqs = [
         <h2 class="text-3xl font-extrabold text-gray-900 mb-6">What to Leave at Home</h2>
         <div class="grid md:grid-cols-2 gap-4">
           {[
-            { item: 'Full wetsuit', reason: 'Water is 26â€“29Â°C year-round. A rash guard is all you need.' },
-            { item: 'Surfboard (if taking lessons)', reason: 'All equipment is provided. Adding a board to your flight costs $100â€“$300 extra.' },
+            { item: 'Full wetsuit', reason: 'Water is 26–29Â°C year-round. A rash guard is all you need.' },
+            { item: 'Surfboard (if taking lessons)', reason: 'All equipment is provided. Adding a board to your flight costs $100–$300 extra.' },
             { item: 'Non-reef-safe sunscreen', reason: 'Illegal on some beaches and harmful to the reef. Buy reef-safe locally if needed.' },
             { item: 'Expensive jewelry', reason: 'Sand, salt, and surf will ruin it. Leave it locked at home.' },
             { item: 'Hair dryer / styling tools', reason: 'Tamarindo is a beach town. Embrace the salt hair look.' },
-            { item: 'Heavy clothing', reason: 'Temperature is 28â€“35Â°C. One light layer for evenings is enough.' },
+            { item: 'Heavy clothing', reason: 'Temperature is 28–35Â°C. One light layer for evenings is enough.' },
           ].map(l => (
             <div class="bg-white border border-gray-100 rounded-xl p-4">
               <p class="font-semibold text-gray-900 text-sm flex items-center gap-2"><span class="text-red-400">âœ•</span> {l.item}</p>

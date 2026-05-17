@@ -1,4 +1,4 @@
-﻿---
+---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
@@ -46,16 +46,16 @@ const socials = [
   <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Contact Us',href:'/surf-school-near-me-tamarindo'}]} />
 
-  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
-    title="Surf School Near Me in Tamarindo â€” Contact Us"
+    title="Surf School Near Me in Tamarindo — Contact Us"
     image={heroImg}
     imageAlt="Surf school near me Tamarindo"
     breadcrumb={{ label: 'Contact' }}
     height="medium"
   />
 
-  <!-- â”€â”€ QUICK CONTACT STRIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── QUICK CONTACT STRIP ────────────────────────────────────────────────── -->
   <section class="bg-white border-b border-gray-100 shadow-sm">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
@@ -77,7 +77,7 @@ const socials = [
     </div>
   </section>
 
-  <!-- â”€â”€ MAIN: TEXT + FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── MAIN: TEXT + FORM ──────────────────────────────────────────────────── -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="grid md:grid-cols-2 gap-14 items-start">
@@ -91,10 +91,10 @@ const socials = [
 
           <div class="bg-gray-50 border border-gray-100 rounded-3xl p-6 mb-6">
             <h3 class="text-lg font-bold text-gray-900 mb-3">What to Expect After You Reach Out</h3>
-            <p class="text-gray-700 leading-relaxed text-sm mb-3">Our team is available seven days a week and typically responds within the hour. When you contact us, share your preferred dates, the number of people in your group, and which experience you are interested in â€” private lessons, group sessions, packages, or a full surf camp. We will confirm availability and send you a complete breakdown of pricing with no hidden fees before you commit to anything.</p>
-            <p class="text-gray-700 leading-relaxed text-sm mb-3">All lessons take place in the morning to make the most of the best wave conditions. Each session lasts approximately 90 minutes and includes all equipment, a safety briefing, and personalized coaching from a certified instructor. If you have special requests â€” a specific instructor, a particular location on the beach, or a session planned around a specific tide window â€” let us know and we will do our best to make it happen.</p>
-            <p class="text-gray-700 leading-relaxed text-sm mb-3">We are located directly on Tamarindo Beach and welcome all visitors regardless of where they are staying. Whether your accommodation is a hostel in the center of town, a hotel right on the water, or a villa a short drive away, our team will be at the beach at the agreed time. No long commutes, no logistics headaches â€” just arrive at the beach and we handle everything from there.</p>
-            <p class="text-gray-700 leading-relaxed text-sm">Peak season in Tamarindo runs from December through April, when bookings fill up quickly. Reserving your sessions in advance is strongly recommended during those months. Outside of peak season, we can usually accommodate same-day and next-day requests with no issue. For the fastest response, reach out via WhatsApp â€” our team replies within minutes during operating hours.</p>
+            <p class="text-gray-700 leading-relaxed text-sm mb-3">Our team is available seven days a week and typically responds within the hour. When you contact us, share your preferred dates, the number of people in your group, and which experience you are interested in — private lessons, group sessions, packages, or a full surf camp. We will confirm availability and send you a complete breakdown of pricing with no hidden fees before you commit to anything.</p>
+            <p class="text-gray-700 leading-relaxed text-sm mb-3">All lessons take place in the morning to make the most of the best wave conditions. Each session lasts approximately 90 minutes and includes all equipment, a safety briefing, and personalized coaching from a certified instructor. If you have special requests — a specific instructor, a particular location on the beach, or a session planned around a specific tide window — let us know and we will do our best to make it happen.</p>
+            <p class="text-gray-700 leading-relaxed text-sm mb-3">We are located directly on Tamarindo Beach and welcome all visitors regardless of where they are staying. Whether your accommodation is a hostel in the center of town, a hotel right on the water, or a villa a short drive away, our team will be at the beach at the agreed time. No long commutes, no logistics headaches — just arrive at the beach and we handle everything from there.</p>
+            <p class="text-gray-700 leading-relaxed text-sm">Peak season in Tamarindo runs from December through April, when bookings fill up quickly. Reserving your sessions in advance is strongly recommended during those months. Outside of peak season, we can usually accommodate same-day and next-day requests with no issue. For the fastest response, reach out via WhatsApp — our team replies within minutes during operating hours.</p>
           </div>
 
           <div class="space-y-2 mb-8">
@@ -190,7 +190,7 @@ const socials = [
     </div>
   </section>
 
-  <!-- â”€â”€ MAP + CONTACT INFO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── MAP + CONTACT INFO ─────────────────────────────────────────────────── -->
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">

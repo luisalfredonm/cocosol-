@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
@@ -77,7 +77,7 @@ const whatYouLearn = [
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Packages',href:'/tamarindo-surf-packages'}]} />
 
-  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <section class="relative flex items-center justify-center overflow-hidden" style="min-height: 70vh;">
     <img
 
@@ -102,7 +102,7 @@ const whatYouLearn = [
     <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
       <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold px-5 py-2.5 rounded-full mb-7 border border-white/20">
         <span class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></span>
-        Tamarindo Â· Costa Rica
+        Tamarindo · Costa Rica
       </span>
 
       <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight">
@@ -124,7 +124,7 @@ const whatYouLearn = [
     </div>
   </section>
 
-  <!-- â”€â”€ SEO CONTENT + SIDEBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── SEO CONTENT + SIDEBAR ─────────────────────────────────────────────── -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="grid lg:grid-cols-3 gap-12 items-start">
@@ -132,10 +132,10 @@ const whatYouLearn = [
         <!-- Left: SEO content -->
         <div class="lg:col-span-2">
           <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Pura Vida Surf Packages</span>
-          <h2 class="text-3xl font-extrabold text-gray-900 mb-5">Surf Packages in Tamarindo â€” Pura Vida Style</h2>
+          <h2 class="text-3xl font-extrabold text-gray-900 mb-5">Surf Packages in Tamarindo — Pura Vida Style</h2>
 
           <p class="text-gray-700 leading-relaxed mb-4">
-            If you are looking for flexible, professional, and results-driven <strong>surf packages in Tamarindo</strong>, our Pura Vida Surf Packages are designed exactly for you. These packages are ideal for travelers who want to focus purely on surfing, skill progression, and enjoying the ocean in Tamarindo, Costa Rica â€” without committing to accommodations or a full surf camp experience.
+            If you are looking for flexible, professional, and results-driven <strong>surf packages in Tamarindo</strong>, our Pura Vida Surf Packages are designed exactly for you. These packages are ideal for travelers who want to focus purely on surfing, skill progression, and enjoying the ocean in Tamarindo, Costa Rica — without committing to accommodations or a full surf camp experience.
           </p>
           <p class="text-gray-700 leading-relaxed mb-4">
             Our packages are available in 3-day, 5-day, and 7-day options, giving you the freedom to choose a program that fits your schedule and surf goals. Whether you are a complete beginner or an intermediate surfer looking to improve technique and confidence, our structured packages provide consistent feedback every day.
@@ -225,7 +225,7 @@ const whatYouLearn = [
     </div>
   </section>
 
-  <!-- â”€â”€ PACKAGE COMPARISON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── PACKAGE COMPARISON ─────────────────────────────────────────────────── -->
   <section id="packages" class="py-20 bg-gray-50" style="scroll-margin-top: 96px;">
     <div class="container mx-auto px-4">
 
@@ -270,7 +270,7 @@ const whatYouLearn = [
                 {p.title}
               </h3>
               <p class={`text-sm ${p.featured ? 'text-teal-100' : 'text-gray-400'}`}>
-                {p.lessons} Â· {p.trip}
+                {p.lessons} · {p.trip}
               </p>
             </div>
 
@@ -307,12 +307,12 @@ const whatYouLearn = [
       </div>
 
       <p class="text-center text-gray-400 text-sm mt-8">
-        Our Tamarindo surf lessons fill up fast â€” especially during peak season â€” so we recommend reserving your spot in advance.
+        Our Tamarindo surf lessons fill up fast — especially during peak season — so we recommend reserving your spot in advance.
       </p>
     </div>
   </section>
 
-  <!-- â”€â”€ TRUST STRIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── TRUST STRIP ────────────────────────────────────────────────────────── -->
   <section class="py-14 bg-white border-t border-gray-100">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -335,28 +335,28 @@ const whatYouLearn = [
     </div>
   </section>
 
-  <!-- â”€â”€ FINAL CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── FINAL CTA ──────────────────────────────────────────────────────────── -->
   <section class="py-20 bg-gradient-to-br from-slate-900 to-slate-800">
     <div class="container mx-auto px-4 text-center">
       <h2 class="text-4xl font-extrabold text-white mb-4">Ready to Start Surfing?</h2>
       <p class="text-slate-400 text-lg mb-10 max-w-xl mx-auto">
-        Pick your package, see everything included, and book your spot directly. No redirects, no confusion â€” just surfing.
+        Pick your package, see everything included, and book your spot directly. No redirects, no confusion — just surfing.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href="/3-days-pura-vida-surf-package"
           class="px-7 py-4 bg-white/10 text-white border border-white/20 font-bold rounded-2xl hover:bg-white/20 transition-all text-sm hover:-translate-y-0.5">
-          3-Day Package â€” $245
+          3-Day Package — $245
         </a>
         <a href="/5-days-pura-vida-surf-package"
           class="px-7 py-4 bg-teal-500 text-white font-bold rounded-2xl hover:bg-teal-400 transition-all text-sm shadow-xl shadow-teal-900/30 hover:-translate-y-0.5">
-          5-Day Package â€” $405 âœ¦
+          5-Day Package — $405 âœ¦
         </a>
         <a href="/7-days-pura-vida-surf-package"
           class="px-7 py-4 bg-white/10 text-white border border-white/20 font-bold rounded-2xl hover:bg-white/20 transition-all text-sm hover:-translate-y-0.5">
-          7-Day Package â€” $565
+          7-Day Package — $565
         </a>
       </div>
-      <p class="mt-6 text-slate-600 text-sm">Secure booking Â· Flexible rescheduling Â· Expert instructors</p>
+      <p class="mt-6 text-slate-600 text-sm">Secure booking · Flexible rescheduling · Expert instructors</p>
     </div>
   </section>
 

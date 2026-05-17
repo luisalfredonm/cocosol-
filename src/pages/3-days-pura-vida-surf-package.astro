@@ -1,4 +1,4 @@
-﻿---
+---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
@@ -35,8 +35,8 @@ const whyUs = [
 ]
 
 const gallery = [
-  { img: gallery1, alt: '3 days surf package Tamarindo â€” first lesson on the beach' },
-  { img: gallery2, alt: 'Short surf package Costa Rica â€” 3 lessons in Tamarindo waves' },
+  { img: gallery1, alt: '3 days surf package Tamarindo — first lesson on the beach' },
+  { img: gallery2, alt: 'Short surf package Costa Rica — 3 lessons in Tamarindo waves' },
   { img: gallery3, alt: '3 days surf package Tamarindo with certified instructor coaching' },
 ]
 
@@ -53,9 +53,9 @@ const faqs = [
   <ProductSchema slot="head" name="3-Day Surf Package Tamarindo" description="3-day surf lesson package in Tamarindo, Costa Rica. Three progressive surf sessions with certified instructors at Pura Vida Surf School." price="245" url="/3-days-pura-vida-surf-package" image="/images/surf-school-tamarindo-beginner-lesson.webp" />
   <FAQSchema slot="head" items={faqs} />
 
-  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
-    title="3 Days Surf Package In Tamarindo â€” Pura Vida Surf Experience"
+    title="3 Days Surf Package In Tamarindo — Pura Vida Surf Experience"
     subtitle="The perfect introduction to surfing in Costa Rica for first-time surfers and travelers with limited time."
     image={heroImg}
     imageAlt="3 days surf package Tamarindo"
@@ -64,7 +64,7 @@ const faqs = [
     height="large"
   />
 
-  <!-- â”€â”€ MAIN CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── MAIN CONTENT ───────────────────────────────────────────────────────── -->
   <section class="py-20 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
 
@@ -154,7 +154,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- â”€â”€ WHY CHOOSE US â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
@@ -177,22 +177,22 @@ const faqs = [
     </div>
   </section>
 
-  <!-- â”€â”€ BOOKING WIZARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── BOOKING WIZARD ─────────────────────────────────────────────────────── -->
   <section id="book" class="py-16 bg-white min-h-[800px]" style="scroll-margin-top: 96px;">
     <div class="container mx-auto px-4">
       <div class="text-center mb-10">
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
         <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 3-Day Package</h2>
-        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 3-Day Package is pre-selected â€” just pick your dates and complete the booking.</p>
+        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 3-Day Package is pre-selected — just pick your dates and complete the booking.</p>
       </div>
       <div class="max-w-4xl mx-auto">
         <BookingWizard filterIds={["pkg-3-private", "pkg-3-semi"]} client:idle />
       </div>
-      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments Â· Trusted Instructors Â· Flexible Rescheduling</p>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
     </div>
   </section>
 
-  <!-- â”€â”€ TESTIMONIALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
   <Testimonials items={[
     { name: 'John Doe',    role: 'Traveler',    text: 'The 3-day package was the perfect amount of time to get comfortable on the board. By day 3 I was catching green waves on my own. Incredible experience!' },
     { name: 'Maria Lopez', role: 'First-timer', text: 'Never surfed before and was nervous. The instructor was so patient and encouraging. I stood up on my first day! Worth every penny.' },
