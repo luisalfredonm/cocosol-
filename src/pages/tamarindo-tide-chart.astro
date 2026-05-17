@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
@@ -7,20 +7,20 @@ import { seoData } from '../lib/seo'
 
 const seo = seoData.tideChart
 
-// Monthly tide pattern data for Tamarindo (typical averages — semidiurnal mixed tides)
+// Monthly tide pattern data for Tamarindo (typical averages â€” semidiurnal mixed tides)
 const months = [
-  { name: 'January',   highAvg: '9.2 ft',  lowAvg: '0.4 ft', range: 'Large', surfRating: 5, note: 'Best dry season tides. Offshore winds every morning. Clean 2–4 ft waves on mid-incoming tide.' },
+  { name: 'January',   highAvg: '9.2 ft',  lowAvg: '0.4 ft', range: 'Large', surfRating: 5, note: 'Best dry season tides. Offshore winds every morning. Clean 2â€“4 ft waves on mid-incoming tide.' },
   { name: 'February',  highAvg: '9.5 ft',  lowAvg: '0.2 ft', range: 'Large', surfRating: 5, note: 'Peak season. Consistent NW swells, very clean conditions. Book lessons in advance.' },
   { name: 'March',     highAvg: '9.8 ft',  lowAvg: '0.1 ft', range: 'Large', surfRating: 5, note: 'Largest tidal range of the year. Mornings are glass. Excellent for beginners and intermediates.' },
   { name: 'April',     highAvg: '9.6 ft',  lowAvg: '0.3 ft', range: 'Large', surfRating: 4, note: 'Dry season tail end. Slight increase in SW swell. Afternoons can get choppy.' },
   { name: 'May',       highAvg: '8.9 ft',  lowAvg: '0.7 ft', range: 'Medium', surfRating: 4, note: 'Transition season. SW swells building. Fewer crowds, great value. Mid-tide best for beginners.' },
   { name: 'June',      highAvg: '8.4 ft',  lowAvg: '1.1 ft', range: 'Medium', surfRating: 3, note: 'Rainy season starts. Larger, more powerful waves arriving. Better for intermediate surfers.' },
-  { name: 'July',      highAvg: '8.0 ft',  lowAvg: '1.4 ft', range: 'Medium', surfRating: 3, note: 'Papagayo winds can create morning glassy conditions. Solid 3–5 ft swells.' },
+  { name: 'July',      highAvg: '8.0 ft',  lowAvg: '1.4 ft', range: 'Medium', surfRating: 3, note: 'Papagayo winds can create morning glassy conditions. Solid 3â€“5 ft swells.' },
   { name: 'August',    highAvg: '7.9 ft',  lowAvg: '1.6 ft', range: 'Medium', surfRating: 3, note: 'Strong SW swells. Mornings still excellent. Afternoons affected by onshore winds.' },
   { name: 'September', highAvg: '8.1 ft',  lowAvg: '1.3 ft', range: 'Medium', surfRating: 2, note: 'Least consistent month. Lowest prices. For experienced surfers who can read conditions.' },
   { name: 'October',   highAvg: '8.3 ft',  lowAvg: '1.0 ft', range: 'Medium', surfRating: 2, note: 'Inconsistent swells. Heavy rain periods. Great for budget travelers willing to wait for surf.' },
   { name: 'November',  highAvg: '8.7 ft',  lowAvg: '0.6 ft', range: 'Medium', surfRating: 3, note: 'Conditions improving. Early NW swells arriving. Transition back toward dry season.' },
-  { name: 'December',  highAvg: '9.0 ft',  lowAvg: '0.4 ft', range: 'Large', surfRating: 5, note: 'Dry season returns. Clean morning conditions. Busy holiday period — book lessons early.' },
+  { name: 'December',  highAvg: '9.0 ft',  lowAvg: '0.4 ft', range: 'Large', surfRating: 5, note: 'Dry season returns. Clean morning conditions. Busy holiday period â€” book lessons early.' },
 ]
 
 // How tides affect each surf spot
@@ -34,7 +34,7 @@ const spots = [
     level: 'All levels',
   },
   {
-    name: 'Pico Pequeño',
+    name: 'Pico PequeÃ±o',
     type: 'Beach Break',
     best: 'Mid Tide',
     avoid: 'High Tide (closes out)',
@@ -60,16 +60,16 @@ const spots = [
 ]
 
 const faqs = [
-  { q: 'What type of tides does Tamarindo have?', a: 'Tamarindo has mixed semidiurnal tides — typically two high tides and two low tides per day, with unequal heights between the two cycles. The tidal range averages 7–10 feet (2–3 meters) depending on the lunar cycle, with the largest ranges in March.' },
+  { q: 'What type of tides does Tamarindo have?', a: 'Tamarindo has mixed semidiurnal tides â€” typically two high tides and two low tides per day, with unequal heights between the two cycles. The tidal range averages 7â€“10 feet (2â€“3 meters) depending on the lunar cycle, with the largest ranges in March.' },
   { q: 'What tide is best for surfing in Tamarindo?', a: 'For beginners, an incoming mid-tide is ideal at Tamarindo\'s main beach break. This gives waves enough shape to ride while keeping the water deep enough to avoid the sand. The best window is typically 2 hours before high tide. For intermediate surfers, low to mid-tide on an outgoing cycle can produce hollower, more powerful waves.' },
-  { q: 'How often do tides change in Tamarindo?', a: 'There are approximately 4 tide changes per day — two high tides and two low tides roughly every 12.5 hours. Each tide takes about 6 hours to go from high to low (or low to high). The best surf window is typically a 2-hour block around the mid-tide point.' },
-  { q: 'Does tide affect surf lessons in Tamarindo?', a: 'Yes. Our instructors at Pura Vida Surf School plan every lesson around the optimal tide window. We never put students in the water at an unfavorable tide — if the main break is not ideal, we move to an alternative spot that works better for the conditions that day.' },
-  { q: 'What is the best time of day to surf in Tamarindo?', a: 'The best time to surf in Tamarindo is early morning — from sunrise until about 10:00 AM. This is when offshore winds groom the wave faces and the tide is typically in a favorable range. Afternoon sessions are possible but often affected by onshore winds that make conditions choppy.' },
-  { q: 'Where can I find the exact Tamarindo tide times for today?', a: 'For precise daily tide times, we recommend checking Windguru, Surf-Forecast.com, or Surfline — all of which show real-time tide predictions for Tamarindo. Our instructors also monitor conditions daily and always schedule lessons at the optimal tide window.' },
+  { q: 'How often do tides change in Tamarindo?', a: 'There are approximately 4 tide changes per day â€” two high tides and two low tides roughly every 12.5 hours. Each tide takes about 6 hours to go from high to low (or low to high). The best surf window is typically a 2-hour block around the mid-tide point.' },
+  { q: 'Does tide affect surf lessons in Tamarindo?', a: 'Yes. Our instructors at Pura Vida Surf School plan every lesson around the optimal tide window. We never put students in the water at an unfavorable tide â€” if the main break is not ideal, we move to an alternative spot that works better for the conditions that day.' },
+  { q: 'What is the best time of day to surf in Tamarindo?', a: 'The best time to surf in Tamarindo is early morning â€” from sunrise until about 10:00 AM. This is when offshore winds groom the wave faces and the tide is typically in a favorable range. Afternoon sessions are possible but often affected by onshore winds that make conditions choppy.' },
+  { q: 'Where can I find the exact Tamarindo tide times for today?', a: 'For precise daily tide times, we recommend checking Windguru, Surf-Forecast.com, or Surfline â€” all of which show real-time tide predictions for Tamarindo. Our instructors also monitor conditions daily and always schedule lessons at the optimal tide window.' },
 ]
 ---
 
-<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Tamarindo Tide Chart',href:seo.slug}]} />
   <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a }))} />
 
@@ -90,7 +90,7 @@ const faqs = [
         </p>
         <div class="flex flex-wrap gap-4 mt-8">
           <a href="#live-tides" class="px-5 py-2.5 bg-[#00BCD4] text-white font-bold rounded-xl text-sm hover:bg-[#00ACC1] transition-colors">
-            See Live Tides ↓
+            See Live Tides â†“
           </a>
           <a href="/book-now" class="px-5 py-2.5 bg-white/10 text-white font-semibold rounded-xl text-sm border border-white/20 hover:bg-white/20 transition-colors">
             Book a Surf Lesson
@@ -106,18 +106,18 @@ const faqs = [
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Understanding Tamarindo Tides</h2>
         <p class="text-gray-600 leading-relaxed mb-8 max-w-2xl">
-          Tamarindo has <strong>mixed semidiurnal tides</strong> — two high and two low tides per day with unequal heights. The tidal range averages 7–10 feet depending on the lunar cycle, with the largest swings occurring in March. Here's what that means for surfing.
+          Tamarindo has <strong>mixed semidiurnal tides</strong> â€” two high and two low tides per day with unequal heights. The tidal range averages 7â€“10 feet depending on the lunar cycle, with the largest swings occurring in March. Here's what that means for surfing.
         </p>
         <div class="grid md:grid-cols-3 gap-5 mb-10">
           <div class="bg-[#00BCD4]/8 border border-[#00BCD4]/20 rounded-2xl p-5 text-center">
-            <p class="text-3xl font-extrabold text-[#00BCD4] mb-1">2×</p>
+            <p class="text-3xl font-extrabold text-[#00BCD4] mb-1">2Ã—</p>
             <p class="font-bold text-gray-900 text-sm mb-1">High & Low Tides/Day</p>
-            <p class="text-gray-500 text-xs leading-relaxed">Roughly every 12.5 hours — plan your session around the best window</p>
+            <p class="text-gray-500 text-xs leading-relaxed">Roughly every 12.5 hours â€” plan your session around the best window</p>
           </div>
           <div class="bg-[#00BCD4]/8 border border-[#00BCD4]/20 rounded-2xl p-5 text-center">
-            <p class="text-3xl font-extrabold text-[#00BCD4] mb-1">7–10 ft</p>
+            <p class="text-3xl font-extrabold text-[#00BCD4] mb-1">7â€“10 ft</p>
             <p class="font-bold text-gray-900 text-sm mb-1">Average Tidal Range</p>
-            <p class="text-gray-500 text-xs leading-relaxed">Largest in March (spring tides), smallest in June–August</p>
+            <p class="text-gray-500 text-xs leading-relaxed">Largest in March (spring tides), smallest in Juneâ€“August</p>
           </div>
           <div class="bg-[#00BCD4]/8 border border-[#00BCD4]/20 rounded-2xl p-5 text-center">
             <p class="text-3xl font-extrabold text-[#00BCD4] mb-1">6 hrs</p>
@@ -130,22 +130,22 @@ const faqs = [
         <div class="grid md:grid-cols-2 gap-5">
           <div class="bg-green-50 border border-green-100 rounded-2xl p-6">
             <h3 class="font-extrabold text-green-800 mb-4 flex items-center gap-2">
-              <span class="text-green-500">✓</span> Best Tide for Beginners
+              <span class="text-green-500">âœ“</span> Best Tide for Beginners
             </h3>
             <ul class="space-y-2 text-sm text-green-800">
-              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">→</span> Mid-incoming tide (2 hrs before high)</li>
-              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">→</span> High tide (soft, slow waves — very forgiving)</li>
-              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">→</span> Neap tides (smaller range — gentler conditions)</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">â†’</span> Mid-incoming tide (2 hrs before high)</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">â†’</span> High tide (soft, slow waves â€” very forgiving)</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">â†’</span> Neap tides (smaller range â€” gentler conditions)</li>
             </ul>
           </div>
           <div class="bg-red-50 border border-red-100 rounded-2xl p-6">
             <h3 class="font-extrabold text-red-800 mb-4 flex items-center gap-2">
-              <span class="text-red-400">✕</span> Avoid for Beginners
+              <span class="text-red-400">âœ•</span> Avoid for Beginners
             </h3>
             <ul class="space-y-2 text-sm text-red-800">
-              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">→</span> Very low tide (exposed sand bars, close-out waves)</li>
-              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">→</span> Spring tide lows (extreme low — very shallow)</li>
-              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">→</span> Outgoing tide (can pull you toward the river mouth)</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">â†’</span> Very low tide (exposed sand bars, close-out waves)</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">â†’</span> Spring tide lows (extreme low â€” very shallow)</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">â†’</span> Outgoing tide (can pull you toward the river mouth)</li>
             </ul>
           </div>
         </div>
@@ -159,7 +159,7 @@ const faqs = [
       <div class="max-w-4xl mx-auto">
         <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
           <div>
-            <h2 class="text-3xl font-extrabold text-gray-900">Live Tide Times — Tamarindo</h2>
+            <h2 class="text-3xl font-extrabold text-gray-900">Live Tide Times â€” Tamarindo</h2>
             <p class="text-gray-500 text-sm mt-1">Real-time tide predictions updated daily</p>
           </div>
           <span class="inline-flex items-center gap-2 text-xs font-bold text-green-600 bg-green-100 px-3 py-1.5 rounded-full border border-green-200">
@@ -192,7 +192,7 @@ const faqs = [
           <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
             <p class="text-xs text-gray-400">Wind, swell & tide forecast via Windguru. Times in local Costa Rica time (CST, UTC-6).</p>
             <a href="https://www.windguru.cz/4877" target="_blank" rel="noopener" class="text-xs text-[#00BCD4] font-semibold hover:underline">
-              Open full forecast on Windguru →
+              Open full forecast on Windguru â†’
             </a>
           </div>
         </div>
@@ -204,7 +204,7 @@ const faqs = [
   <section class="py-14 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-5xl mx-auto">
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-3">Monthly Tide Patterns — Tamarindo 2026</h2>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-3">Monthly Tide Patterns â€” Tamarindo 2026</h2>
         <p class="text-gray-500 text-sm mb-8">Average high/low tide heights and typical surf conditions by month. For precise daily times, use the live chart above.</p>
         <div class="overflow-x-auto rounded-2xl border border-gray-100">
           <table class="w-full text-sm">
@@ -255,14 +255,14 @@ const faqs = [
               <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
                 <div>
                   <h3 class="font-extrabold text-gray-900">{spot.name}</h3>
-                  <p class="text-xs text-gray-400 mt-0.5">{spot.type} · {spot.level}</p>
+                  <p class="text-xs text-gray-400 mt-0.5">{spot.type} Â· {spot.level}</p>
                 </div>
                 <div class="flex flex-wrap gap-2">
                   <span class="inline-flex items-center gap-1 text-xs font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full">
-                    ✓ Best: {spot.best}
+                    âœ“ Best: {spot.best}
                   </span>
                   <span class="inline-flex items-center gap-1 text-xs font-bold text-red-600 bg-red-50 px-3 py-1 rounded-full">
-                    ✕ Avoid: {spot.avoid}
+                    âœ• Avoid: {spot.avoid}
                   </span>
                 </div>
               </div>
@@ -289,22 +289,22 @@ const faqs = [
             {
               step: '2',
               title: 'Identify the mid-tide window',
-              body: 'For beginners, the sweet spot is the 2 hours leading into high tide — the mid-incoming window. Water is rising, waves have shape, and depth is increasing. This is usually the safest and most enjoyable time to surf.',
+              body: 'For beginners, the sweet spot is the 2 hours leading into high tide â€” the mid-incoming window. Water is rising, waves have shape, and depth is increasing. This is usually the safest and most enjoyable time to surf.',
             },
             {
               step: '3',
               title: 'Check the tidal range',
-              body: 'The difference between high and low tide (the "range") tells you how powerful the tidal flow will be. A large range (8–10 ft) means stronger currents and more dramatic changes in wave character. A small range (4–6 ft, neap tides) means more mellow conditions.',
+              body: 'The difference between high and low tide (the "range") tells you how powerful the tidal flow will be. A large range (8â€“10 ft) means stronger currents and more dramatic changes in wave character. A small range (4â€“6 ft, neap tides) means more mellow conditions.',
             },
             {
               step: '4',
               title: 'Combine with swell and wind',
-              body: 'Tides are just one piece of the puzzle. The best sessions happen when a favorable tide, clean offshore winds, and consistent swell align. Our instructors monitor all three daily — it\'s why we schedule lessons in the early morning.',
+              body: 'Tides are just one piece of the puzzle. The best sessions happen when a favorable tide, clean offshore winds, and consistent swell align. Our instructors monitor all three daily â€” it\'s why we schedule lessons in the early morning.',
             },
             {
               step: '5',
               title: 'Check the moon phase',
-              body: 'Spring tides (largest range) happen at full and new moon. Neap tides (smallest range) happen at quarter moon. In March–April, spring tides in Tamarindo can reach 10+ feet — very powerful. In green season, neap tides produce gentler conditions ideal for learning.',
+              body: 'Spring tides (largest range) happen at full and new moon. Neap tides (smallest range) happen at quarter moon. In Marchâ€“April, spring tides in Tamarindo can reach 10+ feet â€” very powerful. In green season, neap tides produce gentler conditions ideal for learning.',
             },
           ].map(item => (
             <div class="flex gap-5">
@@ -322,7 +322,7 @@ const faqs = [
         <div class="mt-10 bg-[#00BCD4]/8 border border-[#00BCD4]/20 rounded-3xl p-6">
           <h3 class="text-xl font-bold text-gray-900 mb-2">Let Us Handle the Tide Planning</h3>
           <p class="text-gray-600 mb-5 text-sm leading-relaxed">
-            Our instructors at <a href="/best-surf-school-in-tamarindo" class="text-[#00BCD4] hover:underline">Pura Vida Surf School</a> monitor tides, swell, and wind every single morning. Every lesson is scheduled at the optimal window — you just show up and surf. No guessing required.
+            Our instructors at <a href="/best-surf-school-in-tamarindo" class="text-[#00BCD4] hover:underline">Pura Vida Surf School</a> monitor tides, swell, and wind every single morning. Every lesson is scheduled at the optimal window â€” you just show up and surf. No guessing required.
           </p>
           <div class="flex flex-wrap gap-3">
             <a href="/book-now" class="px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-xl hover:bg-[#00ACC1] transition-colors text-sm">
@@ -341,7 +341,7 @@ const faqs = [
   <section class="py-14 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Tamarindo Tides — FAQ</h2>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Tamarindo Tides â€” FAQ</h2>
         <div class="space-y-4">
           {faqs.map(f => (
             <div class="bg-white border border-gray-100 rounded-2xl p-5">

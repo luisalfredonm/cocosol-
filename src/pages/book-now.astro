@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import FAQ from '../components/ui/FAQ.astro'
@@ -10,12 +10,12 @@ import heroImg from '../assets/images/surf-school-tamarindo-surf-instructor-stud
 const seo = seoData.bookNow
 
 // Pre-select class type from URL param (e.g. /book-now?type=private)
-// Camps are handled by CampBookingWizard on /surf-camp-tamarindo — not here
+// Camps are handled by CampBookingWizard on /surf-camp-tamarindo â€” not here
 const typeParam = Astro.url.searchParams.get('type') as any
 const validTypes = ['private','semi-private','group','pkg-3-private','pkg-3-semi','pkg-5-private','pkg-5-semi','camp-7-private','camp-7-semi','camp-5-days']
 const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
 ---
-<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Book Surf Lessons',href:'/book-now'}]} />
   <Hero
     title="Book Surf Lessons & Packages in Tamarindo"
@@ -127,7 +127,7 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
       <div>
         <h3 class="font-bold text-gray-900 mb-4">Booking FAQ</h3>
         <FAQ items={[
-          { question: 'How early should I book my session?', answer: 'We recommend booking at least 48 hours in advance, especially during peak season (December–April) to ensure your preferred time slot and instructor.' },
+          { question: 'How early should I book my session?', answer: 'We recommend booking at least 48 hours in advance, especially during peak season (Decemberâ€“April) to ensure your preferred time slot and instructor.' },
           { question: 'What happens if the weather is bad?', answer: "If conditions are unsafe for surfing, we will contact you to reschedule at no extra charge. Costa Rica's tropical climate usually allows us to find a good window." },
           { question: 'Can I cancel or reschedule my booking?', answer: 'Yes! We have a flexible policy. You can reschedule up to 24 hours before your session. Cancellations within 24 hours may be subject to a small fee.' },
           { question: 'Is online payment secure?', answer: 'Absolutely. All online payments are processed securely and we never store your card details.' },

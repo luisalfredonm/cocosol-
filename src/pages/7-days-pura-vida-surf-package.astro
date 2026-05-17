@@ -1,4 +1,4 @@
----
+﻿---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
@@ -27,7 +27,7 @@ const itinerary = [
   { day: '4', title: 'Green Wave Riding',      desc: 'Build on your wave reading skills and start catching your first green waves. Instructor will coach your timing and board angle.' },
   { day: '5', title: 'Surf Trip',              desc: "Guided surf trip to a nearby beach. Experience different wave conditions and put everything you've learned to the test." },
   { day: '6', title: 'Advanced Technique',     desc: 'Focus on turns, trim, and wave selection. Solidify your technique with personalized instructor feedback on each wave.' },
-  { day: '7', title: 'Open Surf & Celebration',desc: 'Free surfing session — catch as many waves as you can. Final review with your instructor and celebrate your surf journey!' },
+  { day: '7', title: 'Open Surf & Celebration',desc: 'Free surfing session â€” catch as many waves as you can. Final review with your instructor and celebrate your surf journey!' },
 ]
 
 const idealFor = ['Surf progression-focused travelers', 'Longer stays in Tamarindo', 'Complete surf immersion experience']
@@ -39,7 +39,7 @@ const whyUs = [
 ]
 
 const gallery = [
-  { img: gallery1, alt: '7 days surf package Tamarindo — full week of lessons and progress' },
+  { img: gallery1, alt: '7 days surf package Tamarindo â€” full week of lessons and progress' },
   { img: gallery2, alt: 'Week surf package Tamarindo including guided surf trip to secret spot' },
   { img: gallery3, alt: '7-day surf immersion program Tamarindo with daily coaching sessions' },
 ]
@@ -53,15 +53,15 @@ const faqs = [
 ]
 ---
 
-<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Packages',href:'/tamarindo-surf-packages'},{name:'7 Days Pura Vida Surf Package',href:'/7-days-pura-vida-surf-package'}]} />
   <ProductSchema slot="head" name="7-Day Surf Package Tamarindo" description="7-day surf lesson package in Tamarindo, Costa Rica. A full week of personalized surf coaching for maximum progression." price="565" url="/7-days-pura-vida-surf-package" image="/images/7-days-surf-lessons-tamarindo-green-wave.webp" />
   <FAQSchema slot="head" items={faqs} />
 
-  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <Hero
-    title="7 Days Pura Vida Surf Package — The Complete Surf Experience in Tamarindo"
+    title="7 Days Pura Vida Surf Package â€” The Complete Surf Experience in Tamarindo"
     subtitle="Our most complete surf package. 6 lessons + 1 surf trip, designed for full surf immersion and real progression."
     image={heroImg}
     imageAlt="7 days surf lessons Tamarindo student riding confident green wave"
@@ -72,7 +72,7 @@ const faqs = [
     height="large"
   />
 
-  <!-- ── MAIN CONTENT ───────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ MAIN CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-20 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
 
@@ -80,9 +80,9 @@ const faqs = [
       <div class="lg:col-span-2">
 
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">7-Day Program</span>
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">7 Days Surf Package in Tamarindo – The Complete Surf Experience</h2>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">7 Days Surf Package in Tamarindo â€“ The Complete Surf Experience</h2>
         <p class="text-gray-700 leading-relaxed mb-4">Our <strong>7 Days Pura Vida Surf Package in Tamarindo</strong> is the ultimate surf experience for travelers who want full immersion in surfing and the Pura Vida lifestyle. This package includes multiple surf lessons, continuous coaching, and time to truly connect with the ocean while improving technique, confidence, and wave reading skills. Surf consistently throughout the week and experience noticeable progress in a supportive and professional environment.</p>
-        <p class="text-gray-700 leading-relaxed mb-8">Ideal for beginners and intermediate surfers, this package is perfect for travelers who want more than just lessons — it's a full surf journey in one of Costa Rica's best surf towns.</p>
+        <p class="text-gray-700 leading-relaxed mb-8">Ideal for beginners and intermediate surfers, this package is perfect for travelers who want more than just lessons â€” it's a full surf journey in one of Costa Rica's best surf towns.</p>
 
         <!-- Ideal For -->
         <div class="border-l-4 border-[#00BCD4] bg-[#00BCD4]/5 rounded-r-2xl pl-5 pr-6 py-4 mb-8">
@@ -156,7 +156,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ WHY CHOOSE US â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
@@ -179,25 +179,25 @@ const faqs = [
     </div>
   </section>
 
-  <!-- ── BOOKING WIZARD ─────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ BOOKING WIZARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section id="book" class="py-16 bg-white min-h-[800px]" style="scroll-margin-top: 96px;">
     <div class="container mx-auto px-4">
       <div class="text-center mb-10">
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
         <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 7-Day Package</h2>
-        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 7-Day Package is pre-selected — just pick your dates and complete the booking.</p>
+        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 7-Day Package is pre-selected â€” just pick your dates and complete the booking.</p>
       </div>
       <div class="max-w-4xl mx-auto">
         <BookingWizard filterIds={["camp-7-private", "camp-7-semi"]} client:idle />
       </div>
-      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments Â· Trusted Instructors Â· Flexible Rescheduling</p>
     </div>
   </section>
 
-  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ TESTIMONIALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <Testimonials items={[
     { name: 'Emily R.', role: 'Traveler from Canada', text: 'The 7-day package was life-changing. I arrived never having surfed before and left catching green waves on my own. The instructors were so patient and the surf trip on day 5 was the highlight of my entire trip to Costa Rica!' },
-    { name: 'David M.', role: 'Surfer from Germany',  text: "Best week of my life. Having 7 full days of coaching meant I could really focus and see real progress each day. By day 6 I was doing proper turns. Worth every penny — I'll be back for the surf camp next year." },
+    { name: 'David M.', role: 'Surfer from Germany',  text: "Best week of my life. Having 7 full days of coaching meant I could really focus and see real progress each day. By day 6 I was doing proper turns. Worth every penny â€” I'll be back for the surf camp next year." },
   ]}/>
 
   <NeedHelp/>

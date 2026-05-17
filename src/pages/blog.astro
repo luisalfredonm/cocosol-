@@ -1,4 +1,4 @@
----
+﻿---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
@@ -32,7 +32,7 @@ const posts: Post[] = [
     slug: '/blog/what-to-expect-first-surf-lesson-tamarindo',
     category: 'Beginners',
     title: 'What to Expect on Your First Surf Lesson in Tamarindo',
-    excerpt: 'Nervous about your first surf lesson? Here\'s exactly what happens from the moment you arrive at the beach to catching your first wave — no experience needed.',
+    excerpt: 'Nervous about your first surf lesson? Here\'s exactly what happens from the moment you arrive at the beach to catching your first wave â€” no experience needed.',
     date: 'April 18, 2025',
     readTime: '5 min read',
     image: imgBeginner,
@@ -64,19 +64,19 @@ const posts: Post[] = [
   {
     slug: '/blog/how-to-get-from-san-jose-to-tamarindo',
     category: 'Tamarindo Guide',
-    title: 'How to Get from San José to Tamarindo',
-    excerpt: '4 ways to reach Tamarindo from San José — shuttle, rental car, bus, and flight. Real costs, travel times, and honest recommendations from locals.',
+    title: 'How to Get from San JosÃ© to Tamarindo',
+    excerpt: '4 ways to reach Tamarindo from San JosÃ© â€” shuttle, rental car, bus, and flight. Real costs, travel times, and honest recommendations from locals.',
     date: 'May 6, 2026',
     readTime: '7 min read',
     image: imgInstructor,
-    imageAlt: 'Tamarindo beach surf school — destination guide for travelers from San José',
+    imageAlt: 'Tamarindo beach surf school â€” destination guide for travelers from San JosÃ©',
     featured: false,
   },
   {
     slug: '/blog/tamarindo-vs-jaco-surf-beginners',
     category: 'Tamarindo Guide',
-    title: 'Tamarindo vs Jacó for Beginner Surfers',
-    excerpt: 'Two of Costa Rica\'s most popular surf beaches. One is ideal for first-timers — the other is better once you already know what you\'re doing. Honest comparison.',
+    title: 'Tamarindo vs JacÃ³ for Beginner Surfers',
+    excerpt: 'Two of Costa Rica\'s most popular surf beaches. One is ideal for first-timers â€” the other is better once you already know what you\'re doing. Honest comparison.',
     date: 'May 6, 2026',
     readTime: '6 min read',
     image: imgStudents,
@@ -87,7 +87,7 @@ const posts: Post[] = [
     slug: '/blog/surf-trip-costa-rica-packing-list',
     category: 'Surf Travel',
     title: 'Surf Trip Packing List: What to Bring to Costa Rica',
-    excerpt: 'Everything you actually need for a surf trip to Tamarindo — and the things you can safely leave at home. Practical advice from people who live and surf here year-round.',
+    excerpt: 'Everything you actually need for a surf trip to Tamarindo â€” and the things you can safely leave at home. Practical advice from people who live and surf here year-round.',
     date: 'May 6, 2026',
     readTime: '8 min read',
     image: imgStudents,
@@ -98,7 +98,7 @@ const posts: Post[] = [
     slug: '/blog/surfing-with-kids-tamarindo',
     category: 'Family',
     title: 'Surfing with Kids in Tamarindo',
-    excerpt: 'What parents need to know before booking surf lessons for their children in Costa Rica — age, safety, tips, and what a great lesson looks like for kids.',
+    excerpt: 'What parents need to know before booking surf lessons for their children in Costa Rica â€” age, safety, tips, and what a great lesson looks like for kids.',
     date: 'May 6, 2026',
     readTime: '7 min read',
     image: imgStudents,
@@ -131,10 +131,10 @@ const categoryColors: Record<string, string> = {
 }
 ---
 
-<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Blog',href:'/blog'}]} />
 
-  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
     <div class="absolute inset-0 opacity-20" style="background-image: url('/images/surf-school-tamarindo-surf-instructor-student.webp'); background-size: cover; background-position: center;"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900/95"></div>
@@ -151,7 +151,7 @@ const categoryColors: Record<string, string> = {
     </div>
   </section>
 
-  <!-- ── FEATURED POST ─────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ FEATURED POST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   {featured && (
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4">
@@ -182,7 +182,7 @@ const categoryColors: Record<string, string> = {
             <p class="text-gray-600 leading-relaxed mb-6">{featured.excerpt}</p>
             <div class="flex items-center gap-4 text-sm text-gray-400">
               <span>{featured.date}</span>
-              <span>·</span>
+              <span>Â·</span>
               <span>{featured.readTime}</span>
             </div>
             <div class="mt-6 inline-flex items-center gap-2 text-[#00BCD4] font-semibold text-sm group-hover:gap-3 transition-all">
@@ -197,7 +197,7 @@ const categoryColors: Record<string, string> = {
     </section>
   )}
 
-  <!-- ── ALL POSTS ─────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ ALL POSTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="pb-20 bg-white">
     <div class="container mx-auto px-4">
 
@@ -257,7 +257,7 @@ const categoryColors: Record<string, string> = {
     </div>
   </section>
 
-  <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-16 bg-[#00BCD4]">
     <div class="container mx-auto px-4 text-center">
       <h2 class="text-3xl font-extrabold text-white mb-4">Ready to Catch Your First Wave?</h2>

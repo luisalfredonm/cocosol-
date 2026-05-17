@@ -1,4 +1,4 @@
----
+﻿---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
@@ -25,7 +25,7 @@ const galleryImgs = [
   { img: gallery1, alt: '7 days surf camp Tamarindo morning session with instructor' },
   { img: gallery2, alt: '7-day surf camp Costa Rica certified instructor teaching beginner' },
   { img: gallery3, alt: 'Week surf camp Tamarindo students on the beach with boards' },
-  { img: gallery4, alt: 'Surf camp one week Tamarindo — student catching first green wave' },
+  { img: gallery4, alt: 'Surf camp one week Tamarindo â€” student catching first green wave' },
   { img: gallery5, alt: 'Tamarindo 7 days surf vacation camp with accommodation and lessons' },
   { img: gallery6, alt: 'Week surf camp Costa Rica in Tamarindo with pura vida spirit' },
 ]
@@ -47,20 +47,20 @@ const included = [
   { label:'Pura Vida Experience', desc:'Local guides, cultural tips, and authentic Costa Rica moments.' },
 ]
 ---
-<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Camp',href:'/surf-camp-tamarindo'},{name:'7 Days Surf Camp Tamarindo',href:'/7-days-surf-camp-tamarindo'}]} />
   <ProductSchema slot="head" name="7-Day Surf Camp Tamarindo" description="7-day surf camp in Tamarindo, Costa Rica. Full week all-inclusive surf vacation with daily private or semi-private lessons, accommodation, and activities." price="1399" url="/7-days-surf-camp-tamarindo" image="/images/student-from-our-surf-school-in-Tamarindo.webp" />
   <FAQSchema slot="head" items={faqs} />
-  <Hero title="7 Days Surf Camp Tamarindo — Your One-Week Surf Experience In Paradise" subtitle="The ultimate all-inclusive surf camp in Tamarindo. 6 lessons, surf trips, video analysis, and pura vida vibes." image={heroImg} imageAlt="7 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '#book' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
+  <Hero title="7 Days Surf Camp Tamarindo â€” Your One-Week Surf Experience In Paradise" subtitle="The ultimate all-inclusive surf camp in Tamarindo. 6 lessons, surf trips, video analysis, and pura vida vibes." image={heroImg} imageAlt="7 days surf camp Tamarindo Costa Rica" cta={{ label: 'Book Your Surf Camp', href: '#book' }} breadcrumb={{ label: 'Surf Camp', href: '/surf-camp-tamarindo' }}/>
 
   <section class="py-16 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
       <div class="lg:col-span-2">
         <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose a Full Week of Surfing in Tamarindo?</h2>
-        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>7 days surf camp in Tamarindo</strong> places you in one of the most iconic surf towns in Costa Rica, known for its warm water, consistent waves, friendly locals, and stunning natural beauty. Seven days of consecutive coaching is the single most effective way to learn to surf — and this is the experience that delivers it.
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>7 days surf camp in Tamarindo</strong> places you in one of the most iconic surf towns in Costa Rica, known for its warm water, consistent waves, friendly locals, and stunning natural beauty. Seven days of consecutive coaching is the single most effective way to learn to surf â€” and this is the experience that delivers it.
 
-        <br/><br/>With a full week in the water, you have time to build real muscle memory, correct your technique session by session, and go from riding white water to catching genuine green waves. Most campers arrive as complete beginners and leave surfing independently. The structured daily format — morning lessons, video review, and guided surf trips — keeps you progressing every single day without feeling rushed. No previous experience is needed — the camp is built from scratch for first-timers and delivers genuine results across all seven sessions. The structure is designed to maximize every minute you spend in the water while keeping each session focused, fun, and safe.</p>
+        <br/><br/>With a full week in the water, you have time to build real muscle memory, correct your technique session by session, and go from riding white water to catching genuine green waves. Most campers arrive as complete beginners and leave surfing independently. The structured daily format â€” morning lessons, video review, and guided surf trips â€” keeps you progressing every single day without feeling rushed. No previous experience is needed â€” the camp is built from scratch for first-timers and delivers genuine results across all seven sessions. The structure is designed to maximize every minute you spend in the water while keeping each session focused, fun, and safe.</p>
 
         <div class="grid md:grid-cols-2 gap-6 mb-10">
           <div>
@@ -107,7 +107,7 @@ const included = [
           <h3 class="text-xl font-bold text-gray-900 mb-3">Your Premium Home in Tamarindo</h3>
           <p class="text-gray-600 text-sm mb-4">Our surf camp caters to travelers who appreciate the finer things. Just 200m from the beach, you can hear the waves from your room.</p>
           <div class="grid grid-cols-2 gap-3">
-            {[{icon:'🏊',label:'Pool'},{icon:'❄️',label:'Full A/C'},{icon:'📶',label:'WiFi'},{icon:'🤝',label:'Social'}].map(a=>(
+            {[{icon:'ðŸŠ',label:'Pool'},{icon:'â„ï¸',label:'Full A/C'},{icon:'ðŸ“¶',label:'WiFi'},{icon:'ðŸ¤',label:'Social'}].map(a=>(
               <div class="flex items-center gap-2 text-sm text-gray-700">
                 <span class="text-lg">{a.icon}</span>{a.label}
               </div>
@@ -129,12 +129,12 @@ const included = [
       <div class="text-center mb-10">
         <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
         <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 7-Day Surf Camp</h2>
-        <p class="text-gray-500 max-w-md mx-auto">Select your start date and room. Your 7-Day Surf Camp is pre-selected — just pick your dates and complete the booking.</p>
+        <p class="text-gray-500 max-w-md mx-auto">Select your start date and room. Your 7-Day Surf Camp is pre-selected â€” just pick your dates and complete the booking.</p>
       </div>
       <div class="max-w-4xl mx-auto">
         <CampBookingWizard preselectedCampType="7day" client:idle />
       </div>
-      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments Â· Trusted Instructors Â· Flexible Rescheduling</p>
     </div>
   </section>
 

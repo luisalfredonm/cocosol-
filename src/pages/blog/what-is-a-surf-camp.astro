@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import NeedHelp from '../../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
@@ -9,12 +9,12 @@ import { seoData } from '../../lib/seo'
 const seo = seoData.whatIsSurfCamp
 
 const included = [
-  { icon: '🌊', item: 'Daily surf lessons', detail: 'Usually 1–2 sessions per day with certified instructors. Morning sessions for best conditions.' },
-  { icon: '🛏️', item: 'Accommodation', detail: 'Shared or private rooms near the beach. Quality varies by camp — always check reviews.' },
-  { icon: '🍽️', item: 'Meals', detail: 'Breakfast and dinner included in most camps. Some include all meals. Check what\'s covered.' },
-  { icon: '🏄', item: 'Surfboard and equipment', detail: 'All boards, leashes, and rash guards provided. No gear needed.' },
-  { icon: '📸', item: 'Surf photography/video', detail: 'Many camps include photo and video of your sessions — invaluable for analyzing your technique.' },
-  { icon: '🎉', item: 'Community and social events', detail: 'Surf movie nights, beach bonfires, group dinners. The social component is a major draw.' },
+  { icon: 'ðŸŒŠ', item: 'Daily surf lessons', detail: 'Usually 1â€“2 sessions per day with certified instructors. Morning sessions for best conditions.' },
+  { icon: 'ðŸ›ï¸', item: 'Accommodation', detail: 'Shared or private rooms near the beach. Quality varies by camp â€” always check reviews.' },
+  { icon: 'ðŸ½ï¸', item: 'Meals', detail: 'Breakfast and dinner included in most camps. Some include all meals. Check what\'s covered.' },
+  { icon: 'ðŸ„', item: 'Surfboard and equipment', detail: 'All boards, leashes, and rash guards provided. No gear needed.' },
+  { icon: 'ðŸ“¸', item: 'Surf photography/video', detail: 'Many camps include photo and video of your sessions â€” invaluable for analyzing your technique.' },
+  { icon: 'ðŸŽ‰', item: 'Community and social events', detail: 'Surf movie nights, beach bonfires, group dinners. The social component is a major draw.' },
 ]
 
 const types = [
@@ -22,21 +22,21 @@ const types = [
     name: 'Beginner Surf Camp',
     who: 'Complete newcomers',
     focus: 'Learning to stand up, ocean safety, wave reading',
-    duration: '5–7 days',
+    duration: '5â€“7 days',
     example: 'Our 5-day and 7-day surf camps at Pura Vida Surf School',
   },
   {
     name: 'Intermediate Progression Camp',
     who: 'Surfers who can stand up and ride waves',
     focus: 'Turning, positioning, reading the lineup, wave selection',
-    duration: '5–10 days',
+    duration: '5â€“10 days',
     example: 'Usually includes video analysis and technique drills',
   },
   {
     name: 'Surf & Yoga Retreat',
     who: 'Surfers seeking balance and flexibility training',
     focus: 'Morning yoga, afternoon surf. Recovery and mindset.',
-    duration: '7–14 days',
+    duration: '7â€“14 days',
     example: 'Popular with women\'s groups and couples',
   },
   {
@@ -49,27 +49,27 @@ const types = [
 ]
 
 const vsLessons = [
-  { aspect: 'Duration', lesson: 'Single session (1.5–2 hrs)', camp: 'Multi-day immersion (5–14 days)' },
-  { aspect: 'Progress', lesson: 'Learn the basics in one session', camp: 'Real, lasting progression — skills stick' },
+  { aspect: 'Duration', lesson: 'Single session (1.5â€“2 hrs)', camp: 'Multi-day immersion (5â€“14 days)' },
+  { aspect: 'Progress', lesson: 'Learn the basics in one session', camp: 'Real, lasting progression â€” skills stick' },
   { aspect: 'Community', lesson: 'Solo or small group', camp: 'Full social experience with other surfers' },
-  { aspect: 'Flexibility', lesson: 'Book any day, any time', camp: 'Fixed schedule — commit to the program' },
-  { aspect: 'Cost', lesson: '$50–$150 per session', camp: '$500–$2,000+ for the full package' },
+  { aspect: 'Flexibility', lesson: 'Book any day, any time', camp: 'Fixed schedule â€” commit to the program' },
+  { aspect: 'Cost', lesson: '$50â€“$150 per session', camp: '$500â€“$2,000+ for the full package' },
   { aspect: 'Best for', lesson: 'First-timers or travelers with limited time', camp: 'Those who want to truly learn to surf' },
 ]
 
 const faqs = [
-  { q: 'What is a surf camp?', a: 'A surf camp is a structured multi-day program that combines daily surf lessons with accommodation, meals, and often extra activities. Instead of a single lesson, you immerse yourself in surfing for 5–14 days with a consistent instructor who tracks your progress daily.' },
-  { q: 'How much does a surf camp cost?', a: 'Surf camp prices range widely — from $500 to $3,000+ depending on duration, accommodation quality, and location. At Pura Vida Surf School, our 5-day surf camp starts at $850 and our 7-day camp at $1,200, both including accommodation, meals, and all lessons.' },
-  { q: 'Do I need experience to join a surf camp?', a: 'No. Most surf camps have programs designed for complete beginners. You\'ll progress much faster in a camp environment than with occasional solo lessons — typically reaching a point in 7 days that would take months of weekend lessons to achieve.' },
-  { q: 'How many hours of surfing per day in a surf camp?', a: 'Most camps offer 2 surf sessions per day — typically a 2-hour morning session (best conditions) and a shorter afternoon session. Total surf time is usually 3–4 hours per day, with coaching, video analysis, and recovery in between.' },
-  { q: 'What is the best country for a surf camp?', a: 'Costa Rica is consistently ranked among the top surf camp destinations in the world — warm water, consistent waves, beginner-friendly spots, great infrastructure, and incredible nature. Tamarindo specifically is ideal for beginner and intermediate camps.' },
-  { q: 'Is a surf camp worth it?', a: 'For most people, yes — especially if you\'ve tried a few single lessons without feeling real progress. The immersive format, daily feedback, and muscle memory built over 5–7 consecutive days produces dramatic improvement that single lessons cannot replicate.' },
+  { q: 'What is a surf camp?', a: 'A surf camp is a structured multi-day program that combines daily surf lessons with accommodation, meals, and often extra activities. Instead of a single lesson, you immerse yourself in surfing for 5â€“14 days with a consistent instructor who tracks your progress daily.' },
+  { q: 'How much does a surf camp cost?', a: 'Surf camp prices range widely â€” from $500 to $3,000+ depending on duration, accommodation quality, and location. At Pura Vida Surf School, our 5-day surf camp starts at $850 and our 7-day camp at $1,200, both including accommodation, meals, and all lessons.' },
+  { q: 'Do I need experience to join a surf camp?', a: 'No. Most surf camps have programs designed for complete beginners. You\'ll progress much faster in a camp environment than with occasional solo lessons â€” typically reaching a point in 7 days that would take months of weekend lessons to achieve.' },
+  { q: 'How many hours of surfing per day in a surf camp?', a: 'Most camps offer 2 surf sessions per day â€” typically a 2-hour morning session (best conditions) and a shorter afternoon session. Total surf time is usually 3â€“4 hours per day, with coaching, video analysis, and recovery in between.' },
+  { q: 'What is the best country for a surf camp?', a: 'Costa Rica is consistently ranked among the top surf camp destinations in the world â€” warm water, consistent waves, beginner-friendly spots, great infrastructure, and incredible nature. Tamarindo specifically is ideal for beginner and intermediate camps.' },
+  { q: 'Is a surf camp worth it?', a: 'For most people, yes â€” especially if you\'ve tried a few single lessons without feeling real progress. The immersive format, daily feedback, and muscle memory built over 5â€“7 consecutive days produces dramatic improvement that single lessons cannot replicate.' },
 ]
 ---
 
-<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} type="article">
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms} type="article">
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'What Is a Surf Camp',href:seo.slug}]} />
-  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2026-05-06" image="/images/surf-school-tamarindo-private-class.webp" authorName="Victor Nuñez" />
+  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2026-05-06" image="/images/surf-school-tamarindo-private-class.webp" authorName="Victor NuÃ±ez" />
   <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a }))} />
 
   <!-- HERO -->
@@ -79,8 +79,8 @@ const faqs = [
     <div class="relative z-10 container mx-auto px-4">
       <div class="max-w-3xl">
         <div class="flex items-center gap-3 mb-5">
-          <a href="/blog" class="text-[#4DD0E1] text-sm font-semibold hover:underline">← Blog</a>
-          <span class="text-white/30">·</span>
+          <a href="/blog" class="text-[#4DD0E1] text-sm font-semibold hover:underline">â† Blog</a>
+          <span class="text-white/30">Â·</span>
           <span class="bg-orange-500/20 text-orange-300 text-xs font-bold px-3 py-1 rounded-full border border-orange-500/30">Surf Camp Guide</span>
         </div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
@@ -91,10 +91,10 @@ const faqs = [
         </p>
         <div class="flex items-center gap-4 mt-6 text-sm text-white/50">
           <span>May 6, 2026</span>
-          <span>·</span>
+          <span>Â·</span>
           <span>8 min read</span>
-          <span>·</span>
-          <span>By Victor Nuñez</span>
+          <span>Â·</span>
+          <span>By Victor NuÃ±ez</span>
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@ const faqs = [
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
         <p class="text-xl text-gray-700 leading-relaxed mb-6">
-          A surf camp is exactly what it sounds like — a structured, multi-day program where you live, eat, and breathe surfing. Instead of booking a single lesson on vacation and leaving without real skills, a surf camp gives you consecutive days of instruction, coaching, and ocean time that builds muscle memory and genuine ability.
+          A surf camp is exactly what it sounds like â€” a structured, multi-day program where you live, eat, and breathe surfing. Instead of booking a single lesson on vacation and leaving without real skills, a surf camp gives you consecutive days of instruction, coaching, and ocean time that builds muscle memory and genuine ability.
         </p>
         <p class="text-gray-600 leading-relaxed mb-4">
           At <a href="/surf-camp-tamarindo" class="text-[#00BCD4] hover:underline">Pura Vida Surf School</a>, we run <a href="/5-days-surf-camp-tamarindo" class="text-[#00BCD4] hover:underline">5-day</a> and <a href="/7-days-surf-camp-tamarindo" class="text-[#00BCD4] hover:underline">7-day surf camps</a> in Tamarindo for beginners and intermediates. We've seen the transformation hundreds of times: someone arrives having never surfed, leaves catching waves independently and planning their next trip.

@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import NeedHelp from '../../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
@@ -9,17 +9,17 @@ const seo = seoData.bestTimeSurf
 
 const months = [
   {
-    name: 'December – April',
+    name: 'December â€“ April',
     label: 'Dry Season (High Season)',
     rating: 5,
-    swell: 'Consistent 2–4 ft NW swells',
-    wind: 'Offshore winds in the morning — ideal conditions',
+    swell: 'Consistent 2â€“4 ft NW swells',
+    wind: 'Offshore winds in the morning â€” ideal conditions',
     crowds: 'High (book in advance)',
     verdict: 'Best overall time. Ideal for beginners: clean waves, sunny skies, offshore wind every morning.',
     color: 'teal',
   },
   {
-    name: 'May – June',
+    name: 'May â€“ June',
     label: 'Transition / Early Rainy Season',
     rating: 4,
     swell: 'SW groundswells start building',
@@ -29,17 +29,17 @@ const months = [
     color: 'blue',
   },
   {
-    name: 'July – August',
+    name: 'July â€“ August',
     label: 'Rainy Season (Papagayo Winds)',
     rating: 3,
-    swell: 'Strong SW swells — solid 3–6 ft',
-    wind: 'Papagayo offshore winds possible — can be choppy',
+    swell: 'Strong SW swells â€” solid 3â€“6 ft',
+    wind: 'Papagayo offshore winds possible â€” can be choppy',
     crowds: 'Medium (school holidays)',
     verdict: 'Powerful waves, good for intermediates. Mornings can be excellent. Afternoon showers.',
     color: 'amber',
   },
   {
-    name: 'September – November',
+    name: 'September â€“ November',
     label: 'Rainy Season (Green Season)',
     rating: 3,
     swell: 'SW swells, inconsistent',
@@ -52,41 +52,41 @@ const months = [
 
 const tips = [
   {
-    icon: '🌅',
+    icon: 'ðŸŒ…',
     title: 'Surf in the Morning',
-    body: 'The best surf in Tamarindo is almost always in the early morning (6:00–10:00 AM). Offshore winds groom the waves and the crowd is minimal.',
+    body: 'The best surf in Tamarindo is almost always in the early morning (6:00â€“10:00 AM). Offshore winds groom the waves and the crowd is minimal.',
   },
   {
-    icon: '🌊',
+    icon: 'ðŸŒŠ',
     title: 'Check the Tide',
     body: 'Tamarindo works best on an incoming mid-tide. Low tide exposes rocks; high tide can make the shore break heavy. Our instructors always pick the right window.',
   },
   {
-    icon: '🛫',
+    icon: 'ðŸ›«',
     title: 'Book in Advance for Peak Season',
-    body: 'December through April fills up fast. If you plan to visit between Christmas and Easter, book your lessons at least 2–3 weeks ahead to secure your spot.',
+    body: 'December through April fills up fast. If you plan to visit between Christmas and Easter, book your lessons at least 2â€“3 weeks ahead to secure your spot.',
   },
   {
-    icon: '💸',
+    icon: 'ðŸ’¸',
     title: 'Green Season = Best Value',
-    body: 'September and October offer the lowest prices on accommodation and lessons. You trade consistency for savings — still plenty of good surf days.',
+    body: 'September and October offer the lowest prices on accommodation and lessons. You trade consistency for savings â€” still plenty of good surf days.',
   },
 ]
 ---
 
-<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} type="article">
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms} type="article">
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'Best Time to Surf Tamarindo',href:seo.slug}]} />
-  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2025-04-10" image="/images/surf-school-tamarindo-surf-instructor-student.webp" authorName="Victor Nuñez" />
+  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2025-04-10" image="/images/surf-school-tamarindo-surf-instructor-student.webp" authorName="Victor NuÃ±ez" />
 
-  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
     <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-tamarindo-surf-instructor-student.webp'); background-size: cover; background-position: center;"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
     <div class="relative z-10 container mx-auto px-4">
       <div class="max-w-3xl">
         <div class="flex items-center gap-3 mb-5">
-          <a href="/blog" class="text-[#4DD0E1] text-sm font-semibold hover:underline">← Blog</a>
-          <span class="text-white/30">·</span>
+          <a href="/blog" class="text-[#4DD0E1] text-sm font-semibold hover:underline">â† Blog</a>
+          <span class="text-white/30">Â·</span>
           <span class="bg-amber-500/20 text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/30">Tamarindo Guide</span>
         </div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
@@ -97,33 +97,33 @@ const tips = [
         </p>
         <div class="flex items-center gap-4 mt-6 text-sm text-white/50">
           <span>April 10, 2025</span>
-          <span>·</span>
+          <span>Â·</span>
           <span>6 min read</span>
-          <span>·</span>
-          <span>By Victor Nuñez</span>
+          <span>Â·</span>
+          <span>By Victor NuÃ±ez</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── ARTICLE BODY ──────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ ARTICLE BODY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <article class="py-16 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto prose prose-lg prose-gray">
 
         <p class="lead text-xl text-gray-700 leading-relaxed mb-8">
-          One of the most common questions we get at Pura Vida Surf School is: <strong>"When is the best time to surf in Tamarindo?"</strong> The short answer — there's never a bad time. But if you want to plan around the best waves, wind, and weather, here's everything you need to know from locals who surf here every single day.
+          One of the most common questions we get at Pura Vida Surf School is: <strong>"When is the best time to surf in Tamarindo?"</strong> The short answer â€” there's never a bad time. But if you want to plan around the best waves, wind, and weather, here's everything you need to know from locals who surf here every single day.
         </p>
 
         <h2 class="text-3xl font-extrabold text-gray-900 mt-12 mb-6">Tamarindo's Two Surf Seasons</h2>
         <p class="text-gray-600 leading-relaxed mb-4">
-          Costa Rica has two main seasons: <strong>dry season (December–April)</strong> and <strong>rainy season (May–November)</strong>. Both produce excellent surf, but for completely different reasons.
+          Costa Rica has two main seasons: <strong>dry season (Decemberâ€“April)</strong> and <strong>rainy season (Mayâ€“November)</strong>. Both produce excellent surf, but for completely different reasons.
         </p>
         <p class="text-gray-600 leading-relaxed mb-4">
-          During dry season, consistent NW groundswells create clean, manageable 2–4 ft waves — perfect for beginners. The famous offshore Papagayo winds groom the wave faces every morning, making conditions picture-perfect before 10 AM.
+          During dry season, consistent NW groundswells create clean, manageable 2â€“4 ft waves â€” perfect for beginners. The famous offshore Papagayo winds groom the wave faces every morning, making conditions picture-perfect before 10 AM.
         </p>
         <p class="text-gray-600 leading-relaxed">
-          Rainy season brings larger SW swells from distant storms in the South Pacific. Waves can reach 6 ft+ and are more powerful — better for intermediate surfers. The plus side: far fewer tourists and unbeatable prices on accommodation.
+          Rainy season brings larger SW swells from distant storms in the South Pacific. Waves can reach 6 ft+ and are more powerful â€” better for intermediate surfers. The plus side: far fewer tourists and unbeatable prices on accommodation.
         </p>
 
         <h2 class="text-3xl font-extrabold text-gray-900 mt-12 mb-6">Month-by-Month Surf Guide</h2>
@@ -132,7 +132,7 @@ const tips = [
     </div>
   </article>
 
-  <!-- ── MONTH GRID ────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ MONTH GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="pb-12 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
@@ -153,15 +153,15 @@ const tips = [
             </div>
             <ul class="space-y-2 mb-4">
               <li class="flex items-start gap-2 text-sm text-gray-600">
-                <span class="text-blue-500 mt-0.5">〰</span>
+                <span class="text-blue-500 mt-0.5">ã€°</span>
                 <span><strong>Swell:</strong> {m.swell}</span>
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-600">
-                <span class="text-teal-500 mt-0.5">💨</span>
+                <span class="text-teal-500 mt-0.5">ðŸ’¨</span>
                 <span><strong>Wind:</strong> {m.wind}</span>
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-600">
-                <span class="text-orange-400 mt-0.5">👥</span>
+                <span class="text-orange-400 mt-0.5">ðŸ‘¥</span>
                 <span><strong>Crowds:</strong> {m.crowds}</span>
               </li>
             </ul>
@@ -174,7 +174,7 @@ const tips = [
     </div>
   </section>
 
-  <!-- ── TIPS ──────────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ TIPS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
@@ -192,30 +192,30 @@ const tips = [
     </div>
   </section>
 
-  <!-- ── CONTINUED ARTICLE ─────────────────────────────────────────────────── -->
+  <!-- â”€â”€ CONTINUED ARTICLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <article class="py-12 bg-white">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto prose prose-gray">
         <h2 class="text-3xl font-extrabold text-gray-900 mb-6">What Level Do I Need to Surf Tamarindo?</h2>
         <p class="text-gray-600 leading-relaxed mb-4">
-          Tamarindo's main beach is a slow-breaking beach break — one of the most forgiving in Central America. If you're a complete beginner, <strong>any time of year is suitable</strong>, as long as you book lessons with a certified instructor who knows how to read the conditions and pick the right spot for your level.
+          Tamarindo's main beach is a slow-breaking beach break â€” one of the most forgiving in Central America. If you're a complete beginner, <strong>any time of year is suitable</strong>, as long as you book lessons with a certified instructor who knows how to read the conditions and pick the right spot for your level.
         </p>
         <p class="text-gray-600 leading-relaxed mb-4">
-          At Pura Vida Surf School, our instructors monitor surf conditions daily. We never put beginners in waves that are too big. If the main break is overhead and powerful, we take you to an alternative spot — there are several around Tamarindo that are protected and gentle year-round.
+          At Pura Vida Surf School, our instructors monitor surf conditions daily. We never put beginners in waves that are too big. If the main break is overhead and powerful, we take you to an alternative spot â€” there are several around Tamarindo that are protected and gentle year-round.
         </p>
 
         <h2 class="text-3xl font-extrabold text-gray-900 mt-12 mb-6">Our Verdict: When to Come</h2>
         <ul class="space-y-3 text-gray-600 leading-relaxed">
-          <li><strong>Beginners:</strong> December – April. Clean conditions every morning. Gentle 2–3 ft waves that are easy to read and catch.</li>
-          <li><strong>Intermediates:</strong> May – August. Larger, more powerful swells to challenge your technique. Still surfable every day.</li>
-          <li><strong>Budget travelers:</strong> September – November. Lowest prices, empty beaches, green jungle. Surf is inconsistent but reward is real.</li>
-          <li><strong>Families:</strong> December – March. Warm water, clean waves, calm mornings — the perfect scenario for kids and adults alike.</li>
+          <li><strong>Beginners:</strong> December â€“ April. Clean conditions every morning. Gentle 2â€“3 ft waves that are easy to read and catch.</li>
+          <li><strong>Intermediates:</strong> May â€“ August. Larger, more powerful swells to challenge your technique. Still surfable every day.</li>
+          <li><strong>Budget travelers:</strong> September â€“ November. Lowest prices, empty beaches, green jungle. Surf is inconsistent but reward is real.</li>
+          <li><strong>Families:</strong> December â€“ March. Warm water, clean waves, calm mornings â€” the perfect scenario for kids and adults alike.</li>
         </ul>
 
         <div class="mt-12 bg-[#00BCD4]/8 border border-[#00BCD4]/20 rounded-3xl p-6 md:p-8">
           <h3 class="text-xl font-bold text-gray-900 mb-2">Ready to Plan Your Surf Trip?</h3>
           <p class="text-gray-600 mb-5 text-sm leading-relaxed">
-            Tell us when you're coming and your experience level — we'll help you pick the right lesson, time slot, and conditions for an unforgettable session.
+            Tell us when you're coming and your experience level â€” we'll help you pick the right lesson, time slot, and conditions for an unforgettable session.
           </p>
           <div class="flex flex-wrap gap-3">
             <a href="/book-now" class="px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-xl hover:bg-[#00ACC1] transition-colors text-sm">
@@ -230,7 +230,7 @@ const tips = [
     </div>
   </article>
 
-  <!-- ── RELATED POSTS ─────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ RELATED POSTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-16 bg-gray-50 border-t border-gray-100">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">

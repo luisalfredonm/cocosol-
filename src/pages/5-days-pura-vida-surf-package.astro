@@ -1,4 +1,4 @@
----
+﻿---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
@@ -35,7 +35,7 @@ const whyUs = [
 ]
 
 const gallery = [
-  { img: gallery1, alt: '5 days surf lessons Tamarindo — student catching green wave' },
+  { img: gallery1, alt: '5 days surf lessons Tamarindo â€” student catching green wave' },
   { img: gallery2, alt: '5-day surf lessons Tamarindo board session with instructor feedback' },
   { img: gallery3, alt: 'Surf packages Tamarindo 5 days for beginner to intermediate surfer' },
 ]
@@ -48,24 +48,24 @@ const faqs = [
 ]
 ---
 
-<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Packages',href:'/tamarindo-surf-packages'},{name:'5 Days Pura Vida Surf Package',href:'/5-days-pura-vida-surf-package'}]} />
   <ProductSchema slot="head" name="5-Day Surf Package Tamarindo" description="5-day surf lesson package in Tamarindo, Costa Rica. Five progressive surf sessions for rapid improvement with certified instructors." price="405" url="/5-days-pura-vida-surf-package" image="/images/5-days-surf-package-tamarindo-progress.webp" />
   <FAQSchema slot="head" items={faqs} />
 
-  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <Hero
-    title="5 Days Pura Vida Surf Package — Most Popular Tamarindo Surf Experience"
+    title="5 Days Pura Vida Surf Package â€” Most Popular Tamarindo Surf Experience"
     subtitle="Our most popular surf package. 4 lessons + 1 surf trip, designed for real progression."
     image={heroImg}
-    imageAlt="5 days surf package Tamarindo — visible progress from day 1 to 5"
+    imageAlt="5 days surf package Tamarindo â€” visible progress from day 1 to 5"
     breadcrumb={{ label: 'Surf Packages', href: '/tamarindo-surf-packages' }}
     cta={{ label: 'Book This Package', href: '#book' }}
     height="large"
   />
 
-  <!-- ── MAIN CONTENT ───────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ MAIN CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-20 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
 
@@ -74,16 +74,16 @@ const faqs = [
 
         <div class="flex items-center gap-3 mb-5">
           <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full tracking-wider uppercase">5-Day Program</span>
-          <span class="inline-block bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold px-4 py-1.5 rounded-full tracking-wider uppercase">⭐ Most Popular</span>
+          <span class="inline-block bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold px-4 py-1.5 rounded-full tracking-wider uppercase">â­ Most Popular</span>
         </div>
         <h2 class="text-3xl font-extrabold text-gray-900 mb-4">What's Included in Your 5-Day Program</h2>
         <p class="text-gray-700 leading-relaxed mb-4">Our <strong>5 Days Pura Vida Surf Package</strong> is the most popular option for travelers who want real surfing progression in Tamarindo. With 4 surf lessons plus a guided surf trip, this package gives you the perfect balance of structured coaching and adventure. By day 5, most students are confidently catching green waves on their own.</p>
-        <p class="text-gray-700 leading-relaxed mb-8">This 5-day program is designed for beginners who want more than just a taste of surfing — it's for people who want to actually learn. Our certified instructors adapt every lesson to your level, ensuring steady progress in a supportive and fun environment.</p>
+        <p class="text-gray-700 leading-relaxed mb-8">This 5-day program is designed for beginners who want more than just a taste of surfing â€” it's for people who want to actually learn. Our certified instructors adapt every lesson to your level, ensuring steady progress in a supportive and fun environment.</p>
 
         <!-- What your 5 days look like -->
         <div class="bg-gray-50 border border-gray-100 rounded-3xl p-6 mb-8">
           <h3 class="text-lg font-bold text-gray-900 mb-3">What Your 5 Days Will Feel Like</h3>
-          <p class="text-gray-700 leading-relaxed text-sm">Each morning your instructor evaluates tides and conditions, then chooses the best session plan for the day. The first two sessions focus on fundamentals — you will be standing up and riding waves in the white water before the end of day two. Days three and four move you into green wave territory. The surf trip on day four changes the setting entirely: a new beach, different waves, and a real feel for what it means to be a surfer. Day five ties everything together with a review session and free surfing time in the water.</p>
+          <p class="text-gray-700 leading-relaxed text-sm">Each morning your instructor evaluates tides and conditions, then chooses the best session plan for the day. The first two sessions focus on fundamentals â€” you will be standing up and riding waves in the white water before the end of day two. Days three and four move you into green wave territory. The surf trip on day four changes the setting entirely: a new beach, different waves, and a real feel for what it means to be a surfer. Day five ties everything together with a review session and free surfing time in the water.</p>
         </div>
 
         <!-- Itinerary -->
@@ -132,7 +132,7 @@ const faqs = [
           priceLabel="/ 5 Days per person"
           sidebarTitle="Our most popular surf package in Tamarindo."
           includes={['4 Surf Lessons', '1 Surf Trip', '90 minutes surf lesson', 'Professional, certified instructor', 'Surfboard included', 'Rash guard', 'Safety briefing', 'Photos on request']}
-          ctaLabel="Book This Package — Most Popular"
+          ctaLabel="Book This Package â€” Most Popular"
           ctaColor="dark"
           ctaHref="#book"
         />
@@ -141,7 +141,7 @@ const faqs = [
     </div>
   </section>
 
-  <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ WHY CHOOSE US â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
@@ -164,22 +164,22 @@ const faqs = [
     </div>
   </section>
 
-  <!-- ── BOOKING WIZARD ─────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ BOOKING WIZARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section id="book" class="py-16 bg-white min-h-[800px]" style="scroll-margin-top: 96px;">
     <div class="container mx-auto px-4">
       <div class="text-center mb-10">
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
         <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 5-Day Package</h2>
-        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 5-Day Package is pre-selected — just pick your dates and complete the booking.</p>
+        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 5-Day Package is pre-selected â€” just pick your dates and complete the booking.</p>
       </div>
       <div class="max-w-4xl mx-auto">
         <BookingWizard filterIds={["pkg-5-private", "pkg-5-semi"]} client:idle />
       </div>
-      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments · Trusted Instructors · Flexible Rescheduling</p>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure Payments Â· Trusted Instructors Â· Flexible Rescheduling</p>
     </div>
   </section>
 
-  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ TESTIMONIALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <Testimonials items={[
     { name: 'Sarah K.',  role: 'Traveler from USA', text: 'The 5-day package was incredible. I went from never surfing to catching green waves by day 4. The surf trip on day 4 was the highlight of my entire Costa Rica trip!' },
     { name: 'Marco B.', role: 'Surfer',             text: 'Best investment of my vacation. The instructor was patient, knowledgeable, and pushed me just the right amount. Came back the following year for the 7-day camp!' },

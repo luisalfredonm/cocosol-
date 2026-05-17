@@ -1,4 +1,4 @@
----
+﻿---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
@@ -45,21 +45,21 @@ const packages = [
 const stats = [
   { value: '500+',  label: 'Surfers Taught' },
   { value: '90min', label: 'Per Lesson' },
-  { value: '4.9★',  label: 'Average Rating' },
+  { value: '4.9â˜…',  label: 'Average Rating' },
   { value: '100%',  label: 'ISA Certified' },
 ]
 
 const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rules', 'Surf etiquette', 'How to handle the board']
 ---
 
-<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus}>
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'}]} />
   <FAQSchema slot="head" items={faqs} />
 
-  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <Hero
-    title="Tamarindo Surf Lessons — Learn to Surf in Costa Rica"
+    title="Tamarindo Surf Lessons â€” Learn to Surf in Costa Rica"
     subtitle="Learn to surf in Tamarindo with certified instructors. Safe, fun, and perfect for beginners & families."
     image={heroImg}
     imageAlt="Tamarindo surf lessons Costa Rica"
@@ -68,7 +68,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     height="large"
   />
 
-  <!-- ── STATS BAR ──────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ STATS BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="bg-white border-b border-gray-100 shadow-sm">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
@@ -82,7 +82,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- ── WHY CHOOSE TAMARINDO ──────────────────────────────────────────────── -->
+  <!-- â”€â”€ WHY CHOOSE TAMARINDO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="grid lg:grid-cols-3 gap-12 items-start">
@@ -143,14 +143,14 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
           <!-- Quick info card -->
           <div class="mt-4 bg-gray-50 border border-gray-100 rounded-2xl p-5">
             <div class="flex items-center gap-3 mb-2">
-              <span class="text-2xl">📍</span>
+              <span class="text-2xl">ðŸ“</span>
               <div>
                 <p class="font-semibold text-gray-900 text-sm">Tamarindo Beach</p>
                 <p class="text-gray-500 text-xs">Guanacaste, Costa Rica</p>
               </div>
             </div>
             <div class="flex items-center gap-3">
-              <span class="text-2xl">🕐</span>
+              <span class="text-2xl">ðŸ•</span>
               <div>
                 <p class="font-semibold text-gray-900 text-sm">90-minute sessions</p>
                 <p class="text-gray-500 text-xs">Morning & afternoon available</p>
@@ -163,7 +163,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- ── VIDEO SECTION ──────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ VIDEO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <VideoSection
     title="Learn to surf in the most beautiful beaches in Tamarindo with certified instructors who truly care about your progress."
     bullets={['Use the pura vida lifestyle', 'Feel the vibes', 'Ride the wave']}
@@ -171,7 +171,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     cta={{ label: 'Choose Your Surf Lesson', href: '/book-now' }}
   />
 
-  <!-- ── OUR SURF LESSONS ───────────────────────────────────────────────────── -->
+  <!-- â”€â”€ OUR SURF LESSONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section id="lessons" class="py-20 bg-white" style="scroll-margin-top: 96px;">
     <div class="container mx-auto px-4">
       <div class="text-center mb-14">
@@ -229,7 +229,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- ── SURF PACKAGES ──────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ SURF PACKAGES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-14">
@@ -243,7 +243,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
           <div class={`relative bg-white rounded-3xl overflow-hidden border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${p.popular ? 'border-[#00BCD4] ring-2 ring-[#00BCD4] shadow-lg shadow-[#00BCD4]/10' : 'border-gray-200 shadow-sm hover:shadow-gray-200'}`}>
             {p.popular && (
               <div class="bg-gradient-to-r from-[#00BCD4] to-[#0097A7] px-6 py-3 text-center">
-                <span class="text-white text-xs font-bold tracking-widest uppercase">⭐ Most Popular</span>
+                <span class="text-white text-xs font-bold tracking-widest uppercase">â­ Most Popular</span>
               </div>
             )}
             <div class="p-7 text-center">
@@ -256,7 +256,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
               <p class="text-gray-400 text-xs mb-7">per person</p>
               <a href={p.href}
                 class={`block w-full py-3.5 rounded-2xl text-sm font-bold transition-colors ${p.popular ? 'bg-[#00BCD4] text-white hover:bg-[#0097A7]' : 'bg-gray-100 text-gray-700 hover:bg-[#00BCD4]/10 hover:text-[#00BCD4]'}`}>
-                More Details →
+                More Details â†’
               </a>
             </div>
           </div>
@@ -266,10 +266,10 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
       <!-- Trust strip -->
       <div class="flex flex-wrap justify-center gap-8 mt-14 text-center">
         {[
-          { icon: '🏄', label: 'Certified Instructors' },
-          { icon: '🎯', label: 'All Levels Welcome' },
-          { icon: '🔄', label: 'Flexible Rescheduling' },
-          { icon: '📸', label: 'Photos Included' },
+          { icon: 'ðŸ„', label: 'Certified Instructors' },
+          { icon: 'ðŸŽ¯', label: 'All Levels Welcome' },
+          { icon: 'ðŸ”„', label: 'Flexible Rescheduling' },
+          { icon: 'ðŸ“¸', label: 'Photos Included' },
         ].map(t => (
           <div class="flex items-center gap-2 text-gray-500 text-sm font-medium">
             <span class="text-xl">{t.icon}</span>
@@ -280,13 +280,13 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ TESTIMONIALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <Testimonials items={[
     { name: 'William Bowman', role: 'Surfer',   text: 'Amazing experience! The instructor was patient, knowledgeable, and made me feel safe in the water the whole time. I caught my first wave on day one!' },
     { name: 'Stephanie Smith', role: 'Designer', text: 'Best decision of our Costa Rica trip. The small group made it personal and the instructor truly cared about our progress. Will definitely come back!' },
   ]} bg="gray"/>
 
-  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="grid md:grid-cols-5 gap-12 items-start">
@@ -296,7 +296,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
           <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 shadow-sm sticky top-28">
             <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-3 py-1 rounded-full mb-5 tracking-wider uppercase">FAQ</span>
             <h2 class="text-3xl font-extrabold text-gray-900 mb-4 leading-snug">
-              Surf Lessons FAQ — Everything You Need to Know
+              Surf Lessons FAQ â€” Everything You Need to Know
             </h2>
             <p class="text-gray-500 text-sm leading-relaxed mb-7">
               These are the most common questions from students planning their first lesson. Can't find your answer? We reply fast on WhatsApp.
@@ -320,7 +320,7 @@ const whyLearn = ['How to pop up', 'Wave timing', 'Basic paddling', 'Safety rule
     </div>
   </section>
 
-  <!-- ── NEED HELP ──────────────────────────────────────────────────────────── -->
+  <!-- â”€â”€ NEED HELP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
   <NeedHelp/>
 
 </BaseLayout>
