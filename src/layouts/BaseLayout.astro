@@ -3,6 +3,7 @@ import SEOHead from '../components/seo/SEOHead.astro'
 import Header from '../components/ui/Header.astro'
 import Footer from '../components/ui/Footer.astro'
 import '../styles/global.css'
+import interFontUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url'
 
 export interface Props {
   title: string
@@ -22,6 +23,7 @@ const props = Astro.props
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="theme-color" content="#00BCD4"/>
+  <link rel="preload" as="font" type="font/woff2" crossorigin href={interFontUrl}/>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
   <slot name="head"/>
   <SEOHead {...props}/>
