@@ -11,11 +11,12 @@ const { name, description, price, url, image, currency = 'USD' } = Astro.props
 const site = 'https://puravidasurfschool.com'
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Product',
+  '@type': 'Service',
   name,
   description,
   ...(image ? { image: image.startsWith('http') ? image : `${site}${image}` } : {}),
-  brand: { '@type': 'Brand', name: 'Pura Vida Surf School' },
+  provider: { '@type': 'LocalBusiness', name: 'Pura Vida Surf School', url: site },
+  areaServed: { '@type': 'Place', name: 'Tamarindo, Guanacaste, Costa Rica' },
   offers: {
     '@type': 'Offer',
     price,

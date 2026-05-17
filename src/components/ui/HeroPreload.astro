@@ -7,11 +7,16 @@ interface Props {
 }
 const { src } = Astro.props
 
-const [w640, w1280, w1920] = await Promise.all([
+const [a640, a1280, a1920, w640, w1280, w1920] = await Promise.all([
+  getImage({ src, format: 'avif', width: 640 }),
+  getImage({ src, format: 'avif', width: 1280 }),
+  getImage({ src, format: 'avif', width: 1920 }),
   getImage({ src, format: 'webp', width: 640 }),
   getImage({ src, format: 'webp', width: 1280 }),
   getImage({ src, format: 'webp', width: 1920 }),
 ])
-const srcset = `${w640.src} 640w, ${w1280.src} 1280w, ${w1920.src} 1920w`
+const avifSrcset = `${a640.src} 640w, ${a1280.src} 1280w, ${a1920.src} 1920w`
+const webpSrcset = `${w640.src} 640w, ${w1280.src} 1280w, ${w1920.src} 1920w`
 ---
-<link rel="preload" as="image" type="image/webp" imagesrcset={srcset} imagesizes="100vw" fetchpriority="high" />
+<link rel="preload" as="image" type="image/avif" imagesrcset={avifSrcset} imagesizes="100vw" fetchpriority="high" />
+<link rel="preload" as="image" type="image/webp" imagesrcset={webpSrcset} imagesizes="100vw" fetchpriority="high" />

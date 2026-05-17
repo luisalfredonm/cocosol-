@@ -1,14 +1,33 @@
 ---
+import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
+import type { ImageMetadata } from 'astro'
+
+import imgBeginner    from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
+import imgInstructor  from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
+import imgStudents    from '../assets/images/surf-school-tamarindo-students.webp'
+import imgPrivate     from '../assets/images/surf-school-tamarindo-private-class.webp'
 
 const seo = seoData.blog
 
 const categories = ['All', 'Beginners', 'Tamarindo Guide', 'Surf Travel', 'Family', 'Surf Camp']
 
-const posts = [
+interface Post {
+  slug: string
+  category: string
+  title: string
+  excerpt: string
+  date: string
+  readTime: string
+  image: ImageMetadata
+  imageAlt: string
+  featured: boolean
+}
+
+const posts: Post[] = [
   {
     slug: '/blog/what-to-expect-first-surf-lesson-tamarindo',
     category: 'Beginners',
@@ -16,7 +35,8 @@ const posts = [
     excerpt: 'Nervous about your first surf lesson? Here\'s exactly what happens from the moment you arrive at the beach to catching your first wave — no experience needed.',
     date: 'April 18, 2025',
     readTime: '5 min read',
-    image: '/images/surf-school-tamarindo-beginner-lesson.webp',
+    image: imgBeginner,
+    imageAlt: 'Beginner surf lesson on Tamarindo beach with certified instructor',
     featured: true,
   },
   {
@@ -26,7 +46,8 @@ const posts = [
     excerpt: 'Tamarindo offers surfable waves year-round, but knowing when to visit can make the difference between good and great conditions. Here\'s our local breakdown by month.',
     date: 'April 10, 2025',
     readTime: '6 min read',
-    image: '/images/surf-school-tamarindo-surf-instructor-student.webp',
+    image: imgInstructor,
+    imageAlt: 'Surf instructor guiding student on a wave in Tamarindo Costa Rica',
     featured: false,
   },
   {
@@ -36,7 +57,8 @@ const posts = [
     excerpt: 'The honest answer from instructors who have taught thousands of first-timers at this beach. Waves, safety, conditions, and everything you need to know before you book.',
     date: 'May 6, 2026',
     readTime: '6 min read',
-    image: '/images/surf-school-tamarindo-beginner-lesson.webp',
+    image: imgBeginner,
+    imageAlt: 'First-time surfer catching a wave during beginner lesson in Tamarindo',
     featured: false,
   },
   {
@@ -46,7 +68,8 @@ const posts = [
     excerpt: '4 ways to reach Tamarindo from San José — shuttle, rental car, bus, and flight. Real costs, travel times, and honest recommendations from locals.',
     date: 'May 6, 2026',
     readTime: '7 min read',
-    image: '/images/surf-school-tamarindo-surf-instructor-student.webp',
+    image: imgInstructor,
+    imageAlt: 'Tamarindo beach surf school — destination guide for travelers from San José',
     featured: false,
   },
   {
@@ -56,7 +79,8 @@ const posts = [
     excerpt: 'Two of Costa Rica\'s most popular surf beaches. One is ideal for first-timers — the other is better once you already know what you\'re doing. Honest comparison.',
     date: 'May 6, 2026',
     readTime: '6 min read',
-    image: '/images/surf-school-tamarindo-students.webp',
+    image: imgStudents,
+    imageAlt: 'Group of surf students on Tamarindo beach after their lesson',
     featured: false,
   },
   {
@@ -66,7 +90,8 @@ const posts = [
     excerpt: 'Everything you actually need for a surf trip to Tamarindo — and the things you can safely leave at home. Practical advice from people who live and surf here year-round.',
     date: 'May 6, 2026',
     readTime: '8 min read',
-    image: '/images/surf-school-tamarindo-students.webp',
+    image: imgStudents,
+    imageAlt: 'Surfers preparing for a session on Tamarindo beach Costa Rica',
     featured: false,
   },
   {
@@ -76,7 +101,8 @@ const posts = [
     excerpt: 'What parents need to know before booking surf lessons for their children in Costa Rica — age, safety, tips, and what a great lesson looks like for kids.',
     date: 'May 6, 2026',
     readTime: '7 min read',
-    image: '/images/surf-school-tamarindo-students.webp',
+    image: imgStudents,
+    imageAlt: 'Kids and families enjoying surf lessons on Tamarindo beach',
     featured: false,
   },
   {
@@ -86,7 +112,8 @@ const posts = [
     excerpt: 'How surf camps work, what\'s included, who they\'re for, and why 7 consecutive days of surfing produces more progress than months of weekend lessons.',
     date: 'May 6, 2026',
     readTime: '8 min read',
-    image: '/images/surf-school-tamarindo-private-class.webp',
+    image: imgPrivate,
+    imageAlt: 'Surf camp session in Tamarindo with instructor coaching students on the beach',
     featured: false,
   },
 ]
@@ -133,12 +160,15 @@ const categoryColors: Record<string, string> = {
           class="group grid md:grid-cols-2 gap-10 items-center bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/30 hover:shadow-xl transition-all duration-300">
           <!-- Image -->
           <div class="overflow-hidden" style="height: 360px;">
-            <img
+            <Image
               src={featured.image}
-              alt={featured.title}
+              alt={featured.imageAlt}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              width="700" height="360"
+              widths={[400, 700, 1000]}
+              formats={['avif', 'webp']}
+              sizes="(min-width: 768px) 50vw, 100vw"
               loading="eager"
+              decoding="async"
             />
           </div>
           <!-- Content -->
@@ -195,12 +225,15 @@ const categoryColors: Record<string, string> = {
             class="post-card group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/30 hover:shadow-xl transition-all duration-300">
             <!-- Image -->
             <div class="overflow-hidden" style="height: 220px;">
-              <img
+              <Image
                 src={post.image}
-                alt={post.title}
+                alt={post.imageAlt}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                width="600" height="220"
+                widths={[300, 600, 900]}
+                formats={['avif', 'webp']}
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <!-- Content -->
