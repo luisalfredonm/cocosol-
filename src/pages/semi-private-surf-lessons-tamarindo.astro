@@ -1,4 +1,4 @@
-﻿---
+---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
@@ -48,12 +48,12 @@ const gallery = [
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'},{name:'Semi-Private Surf Lessons',href:'/semi-private-surf-lessons-tamarindo'}]} />
-  <ProductSchema slot="head" name="Semi-Private Surf Lesson Tamarindo" description="Semi-private surf lesson for 2â€“3 people in Tamarindo, Costa Rica. Great for couples, friends, and siblings at an affordable price." price="50" url="/semi-private-surf-lessons-tamarindo" image="/images/semi-private-surf-tamarindo-wave-riding.webp" />
+  <ProductSchema slot="head" name="Semi-Private Surf Lesson Tamarindo" description="Semi-private surf lesson for 2–3 people in Tamarindo, Costa Rica. Great for couples, friends, and siblings at an affordable price." price="50" url="/semi-private-surf-lessons-tamarindo" image="/images/semi-private-surf-tamarindo-wave-riding.webp" />
   <FAQSchema slot="head" items={faqs} />
 
-  <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
-    title="Semi-Private Surf Lessons Tamarindo â€” Small Group Surfing Experience"
+    title="Semi-Private Surf Lessons Tamarindo — Small Group Surfing Experience"
     image={heroImg}
     imageAlt="Semi-private surf class Tamarindo couple riding wave together"
     objectPosition="center center"
@@ -62,7 +62,7 @@ const gallery = [
     height="large"
   />
 
-  <!-- â”€â”€ MAIN CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── MAIN CONTENT ───────────────────────────────────────────────────────── -->
   <section class="py-20 container mx-auto px-4">
     <div class="grid lg:grid-cols-3 gap-12">
 
@@ -70,20 +70,20 @@ const gallery = [
       <div class="lg:col-span-2">
 
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Up to 3 Students</span>
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Semi-Private Surf Lessons Tamarindo â€” Learn Together</h2>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Semi-Private Surf Lessons Tamarindo — Learn Together</h2>
         <p class="text-gray-700 leading-relaxed mb-4">Our <strong>semi-private surf lessons in Tamarindo</strong> are the perfect option for couples, friends, or small groups of 2-3 people who want to share the experience while still receiving personalized attention from a certified instructor. You get the social energy of learning with someone you know, plus the focused coaching that helps you progress faster.</p>
-        <p class="text-gray-700 leading-relaxed mb-4">These small-group sessions are a great value â€” you share the cost with your group while still benefiting from a professional, certified surf instructor who adapts the session to your levels and goals.</p>
+        <p class="text-gray-700 leading-relaxed mb-4">These small-group sessions are a great value — you share the cost with your group while still benefiting from a professional, certified surf instructor who adapts the session to your levels and goals.</p>
         <p class="text-gray-700 leading-relaxed mb-8">Whether you are a couple looking for a shared adventure, friends visiting Tamarindo for a week, or a family with kids, this format gives you real coaching without the higher cost of one-on-one instruction. Most students in our small-group sessions stand up on the board within the first 30 minutes on the water.</p>
 
         <!-- Comparison note -->
         <div class="bg-[#00BCD4]/5 border border-[#00BCD4]/20 rounded-2xl px-6 py-4 mb-8">
-          <p class="text-gray-700 text-sm leading-relaxed"><strong>Semi-private vs. group lessons:</strong> Group lessons fit up to 4 students and are the most affordable entry point. Semi-private keeps it to 2-3 people maximum â€” your instructor spends far more time with each surfer, giving corrections after every wave. If you are traveling with a partner or a small group of friends and want faster results without paying for a private session, semi-private is the smartest choice.</p>
+          <p class="text-gray-700 text-sm leading-relaxed"><strong>Semi-private vs. group lessons:</strong> Group lessons fit up to 4 students and are the most affordable entry point. Semi-private keeps it to 2-3 people maximum — your instructor spends far more time with each surfer, giving corrections after every wave. If you are traveling with a partner or a small group of friends and want faster results without paying for a private session, semi-private is the smartest choice.</p>
         </div>
 
         <!-- What to Expect -->
         <div class="bg-gray-50 border border-gray-100 rounded-3xl p-6 mb-8">
           <h3 class="text-lg font-bold text-gray-900 mb-3">What to Expect on the Day of Your Lesson</h3>
-          <p class="text-gray-700 leading-relaxed text-sm">Your instructor will meet you on Tamarindo Beach for a 15-minute land warm-up covering ocean safety, paddling technique, and how to pop up correctly on the board. After the briefing, you move into the water for the rest of your 90-minute session. Expect real, hands-on coaching with corrections after every wave â€” not just a quick demonstration and then watching from the shore. All skill levels are welcome, and the instructor will adjust the coaching pace for each person in your group so nobody feels left behind. You do not need any prior experience. Just bring reef-safe sunscreen, a positive attitude, and a willingness to get in the water.</p>
+          <p class="text-gray-700 leading-relaxed text-sm">Your instructor will meet you on Tamarindo Beach for a 15-minute land warm-up covering ocean safety, paddling technique, and how to pop up correctly on the board. After the briefing, you move into the water for the rest of your 90-minute session. Expect real, hands-on coaching with corrections after every wave — not just a quick demonstration and then watching from the shore. All skill levels are welcome, and the instructor will adjust the coaching pace for each person in your group so nobody feels left behind. You do not need any prior experience. Just bring reef-safe sunscreen, a positive attitude, and a willingness to get in the water.</p>
         </div>
 
         <!-- 3-col cards -->
@@ -146,40 +146,40 @@ const gallery = [
     </div>
   </section>
 
-  <!-- â”€â”€ VIDEO SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── VIDEO SECTION ──────────────────────────────────────────────────────── -->
   <VideoSection
     title="See What a Small-Group Surf Session Looks Like in Tamarindo"
-    subtitle="Watch what a semi-private lesson looks like â€” personalized coaching for 2-3 people on Tamarindo Beach."
+    subtitle="Watch what a semi-private lesson looks like — personalized coaching for 2-3 people on Tamarindo Beach."
     bgImage={videoBg}
     bgImageAlt="2-person surf lesson Tamarindo with personalized instructor attention"
     cta={{ label: 'Check Availability', href: '#book' }}
   />
 
-  <!-- â”€â”€ BOOKING WIZARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── BOOKING WIZARD ─────────────────────────────────────────────────────── -->
   <section id="book" class="py-16 bg-white min-h-[800px]" style="scroll-margin-top: 96px;">
     <div class="container mx-auto px-4">
       <div class="text-center mb-10">
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
         <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your Semi-Private Lesson</h2>
-        <p class="text-gray-500 max-w-md mx-auto">Select your date and time below. Your semi-private lesson is pre-selected â€” just pick when you want to surf.</p>
+        <p class="text-gray-500 max-w-md mx-auto">Select your date and time below. Your semi-private lesson is pre-selected — just pick when you want to surf.</p>
       </div>
       <div class="max-w-4xl mx-auto">
         <BookingWizard preselectedType="semi-private" client:idle />
       </div>
-      <p class="text-center mt-4 text-sm text-gray-400">Secure payments Â· Trusted instructors Â· Flexible rescheduling</p>
+      <p class="text-center mt-4 text-sm text-gray-400">Secure payments · Trusted instructors · Flexible rescheduling</p>
     </div>
   </section>
 
-  <!-- â”€â”€ TESTIMONIALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
   <Testimonials items={[
     { name: 'Carlos & Maria',      role: 'Couple travelers', text: 'We did semi-private lessons as a couple and it was perfect. The instructor gave us individual feedback while we had fun together. Definitely recommend!' },
     { name: 'The Johnson Family',  role: 'Family',           text: 'Booked semi-private for our family of 3 and it was the highlight of our Costa Rica trip. Patient instructor, great waves, unforgettable experience.' },
   ]}/>
 
-  <!-- â”€â”€ NEED HELP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── NEED HELP ──────────────────────────────────────────────────────────── -->
   <NeedHelp/>
 
-  <!-- â”€â”€ SEO INTERNAL LINKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ── SEO INTERNAL LINKS ─────────────────────────────────────────────────── -->
   <section class="py-10 bg-gray-50 border-t border-gray-100">
     <div class="container mx-auto px-4">
       <h2 class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-widest">Also Available at Pura Vida Surf School</h2>
