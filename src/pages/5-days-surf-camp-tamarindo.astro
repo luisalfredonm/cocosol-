@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
-import HeroPreload from '../components/ui/HeroPreload.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
@@ -37,7 +36,6 @@ const faqs = [
 ]
 ---
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Camp',href:'/surf-camp-tamarindo'},{name:'5 Days Surf Camp Tamarindo',href:'/5-days-surf-camp-tamarindo'}]} />
   <ProductSchema slot="head" name="5-Day Surf Camp Tamarindo" description="5-day surf camp in Tamarindo, Costa Rica. All-inclusive surf vacation with daily lessons, accommodation, and full pura vida experience." price="1049" url="/5-days-surf-camp-tamarindo" image="/images/surf-school-tamarindo-beginner-lesson.webp" />
   <FAQSchema slot="head" items={faqs} />

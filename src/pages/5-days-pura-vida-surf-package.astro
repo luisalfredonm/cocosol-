@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
-import HeroPreload from '../components/ui/HeroPreload.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
@@ -49,7 +48,6 @@ const faqs = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Packages',href:'/tamarindo-surf-packages'},{name:'5 Days Pura Vida Surf Package',href:'/5-days-pura-vida-surf-package'}]} />
   <ProductSchema slot="head" name="5-Day Surf Package Tamarindo" description="5-day surf lesson package in Tamarindo, Costa Rica. Five progressive surf sessions for rapid improvement with certified instructors." price="405" url="/5-days-pura-vida-surf-package" image="/images/5-days-surf-package-tamarindo-progress.webp" />
   <FAQSchema slot="head" items={faqs} />

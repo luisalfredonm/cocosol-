@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
-import HeroPreload from '../components/ui/HeroPreload.astro'
 import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
 import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
@@ -63,7 +62,6 @@ const faqs = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <HeroPreload slot="head" src={heroImg} />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->

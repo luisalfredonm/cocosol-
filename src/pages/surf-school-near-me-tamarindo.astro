@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
-import HeroPreload from '../components/ui/HeroPreload.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
@@ -43,7 +42,6 @@ const socials = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Contact Us',href:'/surf-school-near-me-tamarindo'}]} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->

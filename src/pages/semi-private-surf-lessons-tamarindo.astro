@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
-import HeroPreload from '../components/ui/HeroPreload.astro'
 import Sidebar from '../components/ui/Sidebar.astro'
 import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
@@ -46,7 +45,6 @@ const gallery = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <HeroPreload slot="head" src={heroImg} />
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'},{name:'Semi-Private Surf Lessons',href:'/semi-private-surf-lessons-tamarindo'}]} />
   <ProductSchema slot="head" name="Semi-Private Surf Lesson Tamarindo" description="Semi-private surf lesson for 2–3 people in Tamarindo, Costa Rica. Great for couples, friends, and siblings at an affordable price." price="50" url="/semi-private-surf-lessons-tamarindo" image="/images/semi-private-surf-tamarindo-wave-riding.webp" />
   <FAQSchema slot="head" items={faqs} />
