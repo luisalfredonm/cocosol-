@@ -24,7 +24,11 @@
       "Read(//c/Users/LuisN/Desktop/Project 2026/**)",
       "Bash(npx skills *)",
       "Skill(seo-audit)",
-      "Skill(seo-audit:*)"
+      "Skill(seo-audit:*)",
+      "Bash(node -e \"const p = require\\('./node_modules/@astrojs/vercel/package.json'\\); console.log\\(p.version\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   },
   "autoMemoryEnabled": true
