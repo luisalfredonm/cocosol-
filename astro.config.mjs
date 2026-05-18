@@ -15,7 +15,7 @@ export default defineConfig({
     imagesConfig: {
       // Incluye tamaños pequeños para logo (80-160px) y galería (200-400px)
       // sin esto, Vercel redondea hacia arriba a su próximo device size (640+)
-      sizes: [80, 96, 120, 160, 200, 400, 640, 828, 1080, 1280, 1920],
+      sizes: [80, 96, 120, 160, 200, 320, 400, 480, 640, 800, 828, 1080, 1280, 1920],
       formats: ['image/avif', 'image/webp'],
       minimumCacheTTL: 86400,
     },
