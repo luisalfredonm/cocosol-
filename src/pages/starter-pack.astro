@@ -25,7 +25,7 @@ const itinerary = [
   { day: '3', title: 'Ocean Awareness & Fun',       desc: 'Independent ride session under supervision to build lasting confidence. Start reading and catching real waves on your own.' },
 ]
 
-const idealFor = ['First-time surfers', 'Short stays in Tamarindo', 'Travelers who want a taste of surfing', 'Anyone curious about surf who has never tried it']
+const idealFor = ['First-time surfers', 'Short stays in Cocoa Beach', 'Travelers who want a taste of surfing', 'Anyone curious about surf who has never tried it']
 
 const whyUs = [
   { icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', title: 'Most Affordable',   desc: 'Competitive pricing without compromising on safety or the quality of your experience.' },
@@ -34,9 +34,9 @@ const whyUs = [
 ]
 
 const gallery = [
-  { img: gallery1, alt: '3 days surf package Tamarindo — first lesson on the beach' },
-  { img: gallery2, alt: 'Short surf package Costa Rica — 3 lessons in Tamarindo waves' },
-  { img: gallery3, alt: '3 days surf package Tamarindo with certified instructor coaching' },
+  { img: gallery1, alt: 'Starter Pack Cocoa Beach first lesson on the beach' },
+  { img: gallery2, alt: 'Starter surf package Cocoa Beach with 3 lessons' },
+  { img: gallery3, alt: 'Starter Pack Cocoa Beach with certified instructor coaching' },
 ]
 
 const faqs = [
@@ -47,16 +47,16 @@ const faqs = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Packages',href:'/tamarindo-surf-packages'},{name:'3 Days Pura Vida Surf Package',href:'/3-days-pura-vida-surf-package'}]} />
-  <ProductSchema slot="head" name="3-Day Surf Package Tamarindo" description="3-day surf lesson package in Tamarindo, Costa Rica. Three progressive surf sessions with certified instructors at Pura Vida Surf School." price="245" url="/3-days-pura-vida-surf-package" image="/images/surf-school-tamarindo-beginner-lesson.webp" />
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Packages',href:'/tamarindo-surf-packages'},{name:'Starter Pack',href:'/starter-pack'}]} />
+  <ProductSchema slot="head" name="Starter Pack Cocoa Beach" description="Starter surf package in Cocoa Beach, Florida. Three progressive surf sessions with certified instructors at Pura Vida Surf School." price="245" url="/starter-pack" image="/images/surf-school-tamarindo-beginner-lesson.webp" />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
-    title="3 Days Surf Package In Tamarindo — Pura Vida Surf Experience"
-    subtitle="The perfect introduction to surfing in Costa Rica for first-time surfers and travelers with limited time."
+    title="Starter Pack Cocoa Beach - 3 Surf Lessons"
+    subtitle="The perfect introduction to surfing in Cocoa Beach for first-time surfers and travelers with limited time."
     image={heroImg}
-    imageAlt="3 days surf package Tamarindo"
+    imageAlt="Starter Pack Cocoa Beach surf lesson"
     breadcrumb={{ label: 'Surf Packages', href: '/tamarindo-surf-packages' }}
     cta={{ label: 'Book This Package', href: '#book' }}
     height="large"
@@ -69,10 +69,10 @@ const faqs = [
       <!-- Left col -->
       <div class="lg:col-span-2">
 
-        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">3-Day Program</span>
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">What's Included in Your 3-Day Surf Program</h2>
-        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>3 Days Surf Package in Tamarindo</strong> is the perfect introduction to surfing in Costa Rica. Designed for beginners and travelers with limited time, this package combines professional surf lessons, quality equipment, and personalized coaching in a fun and relaxed environment. Learn the basics of paddling, balance, and wave riding while enjoying the warm waters of Tamarindo Beach.</p>
-        <p class="text-gray-700 leading-relaxed mb-4">This short program is ideal for first-time surfers looking to experience the Pura Vida lifestyle and catch their first waves safely and confidently.</p>
+        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Starter Pack</span>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">What's Included in Your Starter Pack</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>Starter Pack in Cocoa Beach</strong> is the perfect introduction to surfing in Florida. Designed for beginners and travelers with limited time, this package combines professional surf lessons, quality equipment, and personalized coaching in a fun and relaxed environment. Learn the basics of paddling, balance, and wave riding while enjoying Cocoa Beach.</p>
+        <p class="text-gray-700 leading-relaxed mb-4">This short program is ideal for first-time surfers looking to catch their first waves safely and confidently.</p>
 
         <!-- What your 3 days look like -->
         <div class="bg-gray-50 border border-gray-100 rounded-3xl p-6 mb-8">
@@ -98,7 +98,7 @@ const faqs = [
         </div>
 
         <!-- Itinerary -->
-        <h3 class="font-bold text-gray-900 mb-4 text-lg">Your 3-Day Itinerary</h3>
+        <h3 class="font-bold text-gray-900 mb-4 text-lg">Your Starter Pack Itinerary</h3>
         <div class="space-y-3 mb-10">
           {itinerary.map(d => (
             <div class="flex gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100 hover:border-[#00BCD4]/20 transition-colors">
@@ -140,9 +140,9 @@ const faqs = [
         <Sidebar
           price="$245"
           priceLabel="/ 3 Days per person"
-          sidebarTitle="Start your surfing journey today with our highly rated 3-day introductory course."
+          sidebarTitle="Start your surfing journey today with our highly rated Starter Pack."
           includes={['3 Surf lessons', '90 minutes surf lesson', 'Professional, certified instructor', 'Surfboard included', 'Rash guard', 'Safety briefing', 'Photos on request']}
-          ctaLabel="Book This Package"
+          ctaLabel="Book Starter Pack"
           ctaColor="dark"
           ctaHref="#book"
         />
@@ -179,8 +179,8 @@ const faqs = [
     <div class="container mx-auto px-4">
       <div class="text-center mb-10">
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
-        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your 3-Day Package</h2>
-        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your 3-Day Package is pre-selected — just pick your dates and complete the booking.</p>
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your Starter Pack</h2>
+        <p class="text-gray-500 max-w-md mx-auto">Select your start date below. Your Starter Pack is pre-selected - just pick your dates and complete the booking.</p>
       </div>
       <div class="max-w-4xl mx-auto">
         <BookingWizard filterIds={["pkg-3-private", "pkg-3-semi"]} client:idle />
@@ -191,7 +191,7 @@ const faqs = [
 
   <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
   <Testimonials items={[
-    { name: 'John Doe',    role: 'Traveler',    text: 'The 3-day package was the perfect amount of time to get comfortable on the board. By day 3 I was catching green waves on my own. Incredible experience!' },
+    { name: 'John Doe',    role: 'Traveler',    text: 'The Starter Pack was the perfect amount of time to get comfortable on the board. By day 3 I was catching green waves on my own. Incredible experience!' },
     { name: 'Maria Lopez', role: 'First-timer', text: 'Never surfed before and was nervous. The instructor was so patient and encouraging. I stood up on my first day! Worth every penny.' },
   ]}/>
 

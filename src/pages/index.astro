@@ -3,6 +3,7 @@ import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
+import LessonsGrid from '../components/sections/LessonsGrid.astro'
 import VideoSection from '../components/sections/VideoSection.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
@@ -35,9 +36,9 @@ const gallery = [
 ]
 
 const services = [
-  { href: '/private-surf-lessons-tamarindo', title: 'Private Surf Lessons', badge: '1-on-1 coaching', img: privateCard },
-  { href: '/semi-private-surf-lessons-tamarindo', title: 'Semi-Private Surf Lessons', badge: 'Up to 3 students', img: semiPrivateCard },
-  { href: '/group-surf-lessons-tamarindo', title: 'Group Surf Lessons', badge: 'Up to 4 students', img: groupCard },
+  { href: '/private-surf-lessons-cocoa-beach', title: 'Private Surf Lessons', badge: '1-on-1 coaching', img: privateCard },
+  { href: '/surf-coaching-cocoa-beach', title: 'Surf Coaching', badge: 'Up to 3 students', img: semiPrivateCard },
+  { href: '/group-surf-lessons-cocoa-beach', title: 'Group Surf Lessons', badge: 'Up to 4 students', img: groupCard },
 ]
 
 const camps = [
@@ -149,57 +150,8 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
     </div>
   </section>
 
-  <!-- ── SERVICES BANNER ───────────────────────────────────────────────────── -->
-  <section class="py-20 bg-[#0B7285] defer-section">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <span class="inline-block bg-white text-[#0B7285] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase border border-white/80">
-          Best Surf School in Tamarindo
-        </span>
-        <h2 class="text-4xl font-extrabold text-white">Surf School in Tamarindo for Every Level</h2>
-        <p class="text-white/90 max-w-2xl mx-auto mt-5 text-lg leading-relaxed">
-          Whether you're brand new to surfing or have some experience, we offer tailored surf lessons to help you grow confidently and comfortably. Our lesson structure focuses on safety, technique, ocean awareness, and having fun in the water. Our Tamarindo Surf School programs are designed for all levels, from beginners to advanced surfers.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-        {services.map(c => (
-          <a href={c.href}
-            class="group relative rounded-3xl overflow-hidden block shadow-md md:shadow-lg md:shadow-black/20 md:hover:shadow-2xl md:hover:shadow-black/30 transition-all duration-300 md:hover:-translate-y-1 mobile-flat"
-            style="height: 300px;">
-            <Image
-              src={c.img}
-              alt={c.title + ' Tamarindo'}
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              widths={[300, 600]}
-              loading="lazy"
-              decoding="async"
-              sizes="(min-width: 768px) 33vw, 100vw"
-            />
-            <!-- Gradient overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"/>
-
-            <!-- Badge top -->
-            <div class="absolute top-4 left-4">
-              <span class="bg-white/20 md:backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/30">
-                {c.badge}
-              </span>
-            </div>
-
-            <!-- Content bottom -->
-            <div class="absolute bottom-0 inset-x-0 p-6 flex items-end justify-between">
-              <h3 class="text-xl font-bold text-white leading-snug">{c.title}</h3>
-              <span class="w-9 h-9 bg-white/20 md:backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 group-hover:bg-white group-hover:text-[var(--teal-text)] transition-colors shrink-0">
-                <svg class="w-4 h-4 text-white group-hover:text-[var(--teal-text)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-                </svg>
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- ── LESSONS GRID ──────────────────────────────────────────────────────── -->
+  <LessonsGrid />
 
   <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
   <WhyChooseUs subtitle="Tamarindo is known as Costa Rica's surf capital for good reason. The long, sandy beach, forgiving waves, and year-round warm weather make it one of the best places in the world to learn how to surf. At Pura Vida Surf School, we elevate your experience beyond just a surf lesson. We focus on safety, technique, confidence, and pure enjoyment — the perfect combination to help you progress fast and have the time of your life. Many travelers choose our Surf School in Tamarindo because of our certified instructors and perfect waves." />
@@ -223,7 +175,7 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
             If you're planning a surf getaway, check our all-inclusive surf camps. Professional instruction, equipment, surf trips, and pura vida vibes included.
           </p>
         </div>
-        <a href="/surf-camp-tamarindo"
+        <a href="/surf-camp-cocoa-beach"
           class="shrink-0 px-5 py-2.5 border-2 border-gray-300 text-gray-700 font-semibold rounded-2xl hover:border-[var(--teal-text)] hover:text-[var(--teal-text)] transition-colors text-sm whitespace-nowrap">
           View All Camps →
         </a>
@@ -368,12 +320,12 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
       <h2 class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-widest">Our Surf Lessons & Packages in Tamarindo</h2>
       <div class="flex flex-wrap gap-2 md:gap-2 gap-y-3">
         {[
-          { label: 'Private Surf Lessons', href: '/private-surf-lessons-tamarindo' },
-          { label: 'Semi-Private Surf Lessons', href: '/semi-private-surf-lessons-tamarindo' },
-          { label: 'Group Surf Lessons', href: '/group-surf-lessons-tamarindo' },
+          { label: 'Private Surf Lessons', href: '/private-surf-lessons-cocoa-beach' },
+          { label: 'Surf Coaching', href: '/surf-coaching-cocoa-beach' },
+          { label: 'Group Surf Lessons', href: '/group-surf-lessons-cocoa-beach' },
           { label: 'Surf Packages Tamarindo', href: '/tamarindo-surf-packages' },
-          { label: '3 Days Surf Package', href: '/3-days-pura-vida-surf-package' },
-          { label: 'Surf Camp Tamarindo', href: '/surf-camp-tamarindo' },
+          { label: 'Starter Pack', href: '/starter-pack' },
+          { label: 'Surf Camp Cocoa Beach', href: '/surf-camp-cocoa-beach' },
           { label: '7 Days Surf Camp', href: '/7-days-surf-camp-tamarindo' },
         ].map(l => (
           <a href={l.href}

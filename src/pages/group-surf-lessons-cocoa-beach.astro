@@ -37,24 +37,24 @@ const cols = [
 ]
 
 const gallery = [
-  { img: gallery1, alt: 'Surf group lessons Tamarindo in warm clear Costa Rica water' },
-  { img: gallery2, alt: 'Group surf classes Tamarindo beginners learning pop-up technique' },
-  { img: gallery3, alt: 'Surf lessons for groups Tamarindo — morning session on beach' },
-  { img: gallery4, alt: 'Beginner group surf lessons Tamarindo catching first waves' },
+  { img: gallery1, alt: 'Surf group lessons Cocoa Beach in warm Florida water' },
+  { img: gallery2, alt: 'Group surf classes Cocoa Beach beginners learning pop-up technique' },
+  { img: gallery3, alt: 'Surf lessons for groups Cocoa Beach morning session on beach' },
+  { img: gallery4, alt: 'Beginner group surf lessons Cocoa Beach catching first waves' },
 ]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'},{name:'Group Surf Lessons',href:'/group-surf-lessons-tamarindo'}]} />
-  <ProductSchema slot="head" name="Group Surf Lesson Tamarindo" description="Group surf lesson in Tamarindo, Costa Rica. Fun, social, and affordable surf classes for beginners led by certified instructors." price="50" url="/group-surf-lessons-tamarindo" image="/images/group-surf-lessons-tamarindo-students-beach.webp" />
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'},{name:'Group Surf Lessons',href:'/group-surf-lessons-cocoa-beach'}]} />
+  <ProductSchema slot="head" name="Group Surf Lesson Cocoa Beach" description="Group surf lesson in Cocoa Beach, Florida. Fun, social, and affordable surf classes for beginners led by certified instructors." price="50" url="/group-surf-lessons-cocoa-beach" image="/images/group-surf-lessons-tamarindo-students-beach.webp" />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
-    title="Group Surf Lessons in Tamarindo | Learn to Surf Together"
+    title="Group Surf Lessons in Cocoa Beach | Learn to Surf Together"
     subtitle="Fun, affordable, and social. Our group surf lessons are perfect for friends, families, and solo travelers who want to share the stoke."
     image={heroImg}
-    imageAlt="Group surf lessons Tamarindo — students lining up with boards"
+    imageAlt="Group surf lessons Cocoa Beach - students lining up with boards"
     breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}
     cta={{ label: 'Check Availability', href: '#book' }}
     height="large"
@@ -68,8 +68,8 @@ const gallery = [
       <div class="lg:col-span-2">
 
         <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Up to 4 Students</span>
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Group Surf Lessons in Tamarindo — Learn to Surf Together</h2>
-        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>group surf lessons in Tamarindo</strong> are the most popular and affordable way to learn to surf. With small groups of 4 students per certified instructor, you'll receive quality coaching while enjoying the energy of learning alongside other surfers. Taught in small groups to guarantee personalized attention, fast learning, and maximum safety.</p>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Group Surf Lessons in Cocoa Beach - Learn to Surf Together</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>group surf lessons in Cocoa Beach</strong> are the most popular and affordable way to learn to surf. With small groups of 4 students per certified instructor, you'll receive quality coaching while enjoying the energy of learning alongside other surfers. Taught in small groups to guarantee personalized attention, fast learning, and maximum safety.</p>
         <p class="text-gray-700 leading-relaxed mb-8">Whether you're a solo traveler looking for new friends, a couple, a family, or a group of friends, this shared format creates a fun, supportive environment where everyone encourages each other and catches their first wave.</p>
 
         <!-- Why group lessons work -->
@@ -137,14 +137,14 @@ const gallery = [
   </section>
 
   <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
-  <WhyChooseUs bg="gray" title="Why Pura Vida Surf School Is Tamarindo's First Choice"/>
+  <WhyChooseUs bg="gray" title="Why Pura Vida Surf School Is Cocoa Beach's First Choice"/>
 
   <!-- ── VIDEO SECTION ──────────────────────────────────────────────────────── -->
   <VideoSection
-    title="Watch a Shared Surf Session at Tamarindo Beach"
+    title="Watch a Shared Surf Session at Cocoa Beach"
     subtitle="Our group lessons are fun, energetic, and led by certified instructors who make sure every person in the group catches waves."
     bgImage={videoBg}
-    bgImageAlt="Beginner surf lessons Tamarindo group session with instructor"
+    bgImageAlt="Beginner surf lessons Cocoa Beach group session with instructor"
     cta={{ label: 'Book Your Group Lesson', href: '#book' }}
   />
 
@@ -165,7 +165,7 @@ const gallery = [
 
   <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
   <Testimonials items={[
-    { name: 'Alex Martinez',       role: 'Solo Traveler', text: 'Came alone, left with new friends and the ability to surf! The group lesson was the best decision I made on my Costa Rica trip. Highly recommend.' },
+    { name: 'Alex Martinez',       role: 'Solo Traveler', text: 'Came alone, left with new friends and the ability to surf! The group lesson was the best decision I made on my Florida trip. Highly recommend.' },
     { name: 'The Thompson Family', role: 'Family of 4',   text: 'All four of us did the group lesson together — from 10-year-old to dad. The instructor made it work for everyone. We all stood up on the board!' },
   ]} title="What Students Say About Learning to Surf Together"/>
 
@@ -178,10 +178,10 @@ const gallery = [
       <h2 class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-widest">Also Available at Pura Vida Surf School</h2>
       <div class="flex flex-wrap gap-2">
         {[
-          { l: 'Private Surf Lessons Tamarindo',      h: '/private-surf-lessons-tamarindo' },
-          { l: 'Semi-Private Surf Lessons Tamarindo', h: '/semi-private-surf-lessons-tamarindo' },
+          { l: 'Private Surf Lessons Cocoa Beach',    h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Surf Coaching Cocoa Beach',           h: '/surf-coaching-cocoa-beach' },
           { l: 'Surf Packages Tamarindo',             h: '/tamarindo-surf-packages' },
-          { l: 'Surf Camp Tamarindo',                 h: '/surf-camp-tamarindo' },
+          { l: 'Surf Camp Cocoa Beach',               h: '/surf-camp-cocoa-beach' },
         ].map(x => (
           <a href={x.h} data-astro-prefetch="viewport"
             class="px-4 py-2 bg-white hover:bg-[#00BCD4]/8 border border-gray-200 hover:border-[#00BCD4]/40 hover:text-[#00BCD4] rounded-full text-sm text-gray-600 transition-colors font-medium">

@@ -10,7 +10,7 @@ import heroImg from '../assets/images/surf-school-tamarindo-surf-instructor-stud
 const seo = seoData.bookNow
 
 // Pre-select class type from URL param (e.g. /book-now?type=private)
-// Camps are handled by CampBookingWizard on /surf-camp-tamarindo — not here
+// Camps are handled by CampBookingWizard on /surf-camp-cocoa-beach — not here
 const typeParam = Astro.url.searchParams.get('type') as any
 const validTypes = ['private','semi-private','group','pkg-3-private','pkg-3-semi','pkg-5-private','pkg-5-semi','camp-7-private','camp-7-semi','camp-5-days']
 const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
@@ -89,8 +89,8 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
           <p class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-3 px-1">Surf Camps</p>
           <div class="flex flex-col gap-2">
             {[
-              { label: '5-Day Surf Camp', href: '/surf-camp-tamarindo#book-camp' },
-              { label: '7-Day Surf Camp', href: '/surf-camp-tamarindo#book-camp' },
+              { label: '5-Day Surf Camp', href: '/surf-camp-cocoa-beach#book-camp' },
+              { label: '7-Day Surf Camp', href: '/surf-camp-cocoa-beach#book-camp' },
             ].map(link => (
               <a href={link.href} class="text-sm border border-gray-200 hover:border-teal-400 hover:text-teal-600 px-4 py-2.5 rounded-xl transition-colors bg-white text-gray-700 font-medium">
                 {link.label}

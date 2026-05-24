@@ -21,21 +21,21 @@ import campGallery9 from '../assets/images/surf-camp-costa-rica-tamarindo-sunset
 const seo = seoData.surfCamp
 
 const campGallery = [
-  { img: campGallery1, alt: 'Tamarindo surf camp guided surf trip to nearby secret beach' },
-  { img: campGallery2, alt: 'Tamarindo surf camp video analysis session between lessons' },
-  { img: campGallery3, alt: 'Best surf camp in Tamarindo Costa Rica for beginners and intermediates' },
-  { img: campGallery4, alt: 'Tamarindo surf retreat with ocean view and daily lessons included' },
-  { img: campGallery5, alt: 'Surf camp in Tamarindo — certified instructor coaching technique' },
-  { img: campGallery6, alt: 'Surf camp Costa Rica Tamarindo students after daily session' },
-  { img: campGallery7, alt: 'Tamarindo surf camp morning lesson on the beach at sunrise' },
-  { img: campGallery8, alt: 'Surf vacation Tamarindo camp group ready for morning session' },
+  { img: campGallery1, alt: 'Cocoa Beach surf camp guided surf trip to a nearby break' },
+  { img: campGallery2, alt: 'Cocoa Beach surf camp video analysis session between lessons' },
+  { img: campGallery3, alt: 'Best surf camp in Cocoa Beach Florida for beginners and intermediates' },
+  { img: campGallery4, alt: 'Cocoa Beach surf retreat with daily lessons included' },
+  { img: campGallery5, alt: 'Surf camp in Cocoa Beach - certified instructor coaching technique' },
+  { img: campGallery6, alt: 'Surf camp Cocoa Beach students after daily session' },
+  { img: campGallery7, alt: 'Cocoa Beach surf camp morning lesson on the beach at sunrise' },
+  { img: campGallery8, alt: 'Surf vacation Cocoa Beach camp group ready for morning session' },
 ]
 
 const faqs = [
   { question: 'Do I need surf experience to join the camp?', answer: 'No experience needed. Both camps are designed for complete beginners. Our certified instructors build your skills day by day from zero. By the end of the week, most campers are surfing green waves confidently.' },
-  { question: 'Is accommodation included in the camp?', answer: 'Accommodation is available as an add-on. We work with partner hotels and hostels in Tamarindo at preferential rates. Contact us to find the best option for your budget and preferences.' },
+  { question: 'Is accommodation included in the camp?', answer: 'Accommodation is available as an add-on. We work with partner hotels and stays in Cocoa Beach at preferential rates. Contact us to find the best option for your budget and preferences.' },
   { question: "What's the difference between 5-day and 7-day?", answer: 'The 5-day camp has 4 lessons and 1 surf trip. The 7-day adds 2 extra lessons, a second surf trip, and a photo package. If you have the time, the 7-day delivers significantly more progression.' },
-  { question: 'What if the weather or waves are bad?', answer: "Costa Rica's tropical climate means rain doesn't always stop surfing. If conditions are unsafe, we reschedule at no extra cost. Safety always comes first." },
+  { question: 'What if the weather or waves are bad?', answer: "Florida weather changes quickly, and rain doesn't always stop surfing. If conditions are unsafe, we reschedule at no extra cost. Safety always comes first." },
   { question: 'Can I join a camp alone?', answer: "Absolutely — solo travelers are welcome and common. You'll meet fellow surfers from around the world and leave with new friends. The camp atmosphere makes it easy to connect." },
   { question: 'What should I bring to camp?', answer: 'Just sunblock, a towel, and energy. We provide surfboards, rash guard, and all equipment. Travel light — the ocean does the rest.' },
 ]
@@ -94,7 +94,7 @@ const inclusions = [
 const stats = [
   { value: '500+', label: 'Surfers Trained' },
   { value: '4.9â˜…', label: 'Average Rating' },
-  { value: '10+', label: 'Years in Tamarindo' },
+  { value: '10+', label: 'Years of Coaching' },
   { value: '100%', label: 'ISA Certified' },
 ]
 
@@ -118,14 +118,14 @@ const whyUs = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Camp Tamarindo',href:'/surf-camp-tamarindo'}]} />
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Camp Cocoa Beach',href:'/surf-camp-cocoa-beach'}]} />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
     <Image
       src={campGallery9}
-      alt="Surf camp Costa Rica Tamarindo with a beautiful sunset"
+      alt="Surf camp Cocoa Beach Florida with a beautiful sunset"
       class="absolute inset-0 w-full h-full object-cover object-center"
       widths={[800, 1200, 1920]}
       loading="eager"
@@ -139,23 +139,23 @@ const whyUs = [
       <ol class="flex items-center gap-2 text-white/60 text-sm">
         <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
         <li class="text-white/30">/</li>
-        <li class="text-white font-medium">Surf Camp Tamarindo</li>
+        <li class="text-white font-medium">Surf Camp Cocoa Beach</li>
       </ol>
     </nav>
 
     <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
       <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold px-5 py-2.5 rounded-full mb-8 border border-white/20">
         <span class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></span>
-        Tamarindo · Guanacaste · Costa Rica
+        Cocoa Beach · Florida
       </div>
 
       <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.05]">
-        Tamarindo Surf<br/>
+        Cocoa Beach Surf<br/>
         <span class="text-teal-400">Camp Life</span>
       </h1>
 
       <p class="text-xl md:text-2xl text-white/75 mb-10 max-w-2xl mx-auto leading-relaxed">
-        All-inclusive surf camps in Tamarindo. Daily lessons, certified coaches, video analysis, and the real pura vida experience.
+        Surf camps in Cocoa Beach. Daily lessons, certified coaches, video analysis, and Florida beach-town energy.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -202,7 +202,7 @@ const whyUs = [
         <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Choose Your Experience</span>
         <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Two Camps, One Goal: Surfing</h2>
         <p class="text-gray-500 max-w-xl mx-auto text-lg">
-          Whether you have 5 days or a full week, both camps deliver real surf progression, unforgettable memories, and the authentic pura vida lifestyle.
+          Whether you have 5 days or a full week, both camps deliver real surf progression, unforgettable memories, and the laid-back Cocoa Beach lifestyle.
         </p>
       </div>
 
@@ -295,7 +295,7 @@ const whyUs = [
     <div class="container mx-auto px-4">
       <div class="text-center mb-10">
         <h2 class="text-3xl font-extrabold text-gray-900">Life at Camp</h2>
-        <p class="text-gray-500 mt-2">Real moments from real campers in Tamarindo.</p>
+        <p class="text-gray-500 mt-2">Real moments from real campers in Cocoa Beach.</p>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         {campGallery.map(({ img, alt }) => (
@@ -322,10 +322,10 @@ const whyUs = [
         <div>
           <span class="inline-block bg-teal-500/20 text-teal-400 text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wider uppercase">The Location</span>
           <h2 class="text-4xl font-extrabold mb-6 leading-tight">
-            Tamarindo — <span class="text-teal-400">Costa Rica's Best</span> Surf Town
+            Cocoa Beach - <span class="text-teal-400">Florida's Classic</span> Surf Town
           </h2>
           <p class="text-slate-400 leading-relaxed mb-6">
-            Tamarindo is one of the most iconic surf destinations in Central America. Warm water year-round, consistent beach breaks perfect for learning, a vibrant town full of life, and sunsets that will stay with you forever.
+            Cocoa Beach is one of Florida's most iconic surf destinations. Warm water, approachable beach breaks, a laid-back surf culture, and a long shoreline make it a natural place to learn and progress.
           </p>
           <ul class="space-y-3">
             {[
@@ -366,7 +366,7 @@ const whyUs = [
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
         <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Why Pura Vida Surf School</span>
-        <h2 class="text-3xl font-extrabold text-gray-900">The Best Surf Camp in Tamarindo</h2>
+        <h2 class="text-3xl font-extrabold text-gray-900">The Best Surf Camp in Cocoa Beach</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
         {whyUs.map(w => (
@@ -387,7 +387,7 @@ const whyUs = [
   <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
   <Testimonials bg="gray" title="What Campers Say About Us" items={[
     { name: 'Jess Armijo', role: 'Digital Nomad', country: 'USA', text: 'The surf camp was an incredible experience. Waking up every morning to surf, improving every day, and the adventure activity was the perfect way to finish the week. Already planning my return trip!' },
-    { name: 'William Bowman', role: 'Surfer', country: 'UK', text: 'I came to Tamarindo not knowing how to surf and left riding green waves confidently. The instructors are amazing, the video analysis was a game-changer, and the camp atmosphere is really special.' },
+    { name: 'William Bowman', role: 'Surfer', country: 'UK', text: 'I came to Cocoa Beach not knowing how to surf and left riding green waves confidently. The instructors are amazing, the video analysis was a game-changer, and the camp atmosphere is really special.' },
     { name: 'Emma R.', role: 'Solo Traveler', country: 'Australia', text: 'Came alone and left with new friends, a new skill, and a new addiction to surfing. The 7-day camp is worth every penny. The photo package was an amazing bonus — incredible memories.' },
     { name: 'Jake S.', role: 'Remote Worker', country: 'Canada', text: 'One week, 6 lessons, and I went from complete beginner to surfing real waves. The structured progression plan and video analysis sessions were game-changing. Best week of my year without question.' },
   ]}/>
