@@ -28,7 +28,8 @@
       "Bash(node -e \"const p = require\\('./node_modules/@astrojs/vercel/package.json'\\); console.log\\(p.version\\)\")",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"surf school outdoor adventure pricing conversion landing\" --design-system -p \"CocoSol Surf School\" -f markdown)"
     ]
   },
   "autoMemoryEnabled": true

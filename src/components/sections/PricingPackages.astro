@@ -1,0 +1,528 @@
+---
+export interface Props {
+  bookHref?: string
+  campHref?: string
+}
+const { bookHref = '/book-now', campHref = '/surf-camp-cocoa-beach' } = Astro.props
+
+const packages = [
+  {
+    name: 'Starter Pack',
+    price: '$260',
+    sessions: '4 × 1-hour sessions',
+    sessionsHighlight: false,
+    features: [
+      { text: 'Same instructor throughout', highlight: false },
+      { text: 'Flexible scheduling', highlight: false },
+      { text: 'All premium gear included', highlight: false },
+    ],
+    description: 'Perfect for visitors who want to truly learn, not just try it once. Enough time to go from the sand to your first real waves.',
+    cta: 'Choose Starter',
+    featured: false,
+    ctaStyle: 'dark',
+  },
+  {
+    name: 'Progression Pack',
+    price: '$475',
+    sessions: '6 × 1-hour sessions',
+    sessionsHighlight: false,
+    features: [
+      { text: '1 professional photo session', highlight: false },
+      { text: 'Same instructor throughout', highlight: false },
+      { text: 'All premium gear included', highlight: false },
+    ],
+    description: 'The sweet spot — enough to take you from first wave to riding with confidence, plus photos to remember it. The one most students choose.',
+    cta: 'Choose Progression',
+    featured: true,
+    ctaStyle: 'coral',
+  },
+  {
+    name: 'Elite Pack',
+    price: '$1,280',
+    sessions: '16 × 1-hour sessions',
+    sessionsHighlight: true,
+    features: [
+      { text: '2 professional photo sessions', highlight: true },
+      { text: 'Flexible scheduling', highlight: true },
+      { text: 'All premium gear included', highlight: false },
+    ],
+    description: 'For those serious about progressing. The best value per session and the deepest transformation — surfing as a real skill, not a one-time experience.',
+    cta: 'Choose Elite',
+    featured: false,
+    ctaStyle: 'dark',
+  },
+]
+
+const campRates = [
+  { label: '1 child', sublabel: 'Individual', price: '$350' },
+  { label: '2 kids', sublabel: 'Group savings', price: '$650' },
+  { label: '3 kids', sublabel: 'Best family value', price: '$900' },
+]
+
+const campFeatures = [
+  'The same instructor every day, all week',
+  'Daily safety briefing & all gear included',
+  'Progressive curriculum: technique, balance, paddling, wave selection',
+  'Safety-trained staff & professional photos in most packages',
+]
+---
+
+<!-- ── PRICING PACKAGES ───────────────────────────────────────────────────── -->
+<section class="pp-section">
+  <div class="pp-wrap">
+
+    <!-- Header -->
+    <div class="pp-header">
+      <span class="pp-eyebrow">Prices &amp; Packages</span>
+      <h2 class="pp-title">Surf Lesson Prices &amp; Packages</h2>
+      <p class="pp-subtitle">
+        Surfing rewards consistency — the more often you paddle out, the faster it clicks.
+        Our packages keep you in the water with the same instructor every session and gear always included.
+      </p>
+    </div>
+
+    <!-- Cards -->
+    <div class="pp-grid">
+      {packages.map(pkg => (
+        <div class={`pp-card ${pkg.featured ? 'pp-card--featured' : ''}`}>
+
+          {pkg.featured && (
+            <div class="pp-popular-badge">
+              <span>★ Most Popular</span>
+            </div>
+          )}
+
+          <div class="pp-card-body">
+            <h3 class="pp-pkg-name">{pkg.name}</h3>
+
+            <div class="pp-price-row">
+              <span class="pp-price">{pkg.price}</span>
+            </div>
+
+            <span class={`pp-sessions ${pkg.sessionsHighlight ? 'pp-sessions--highlight' : ''}`}>
+              {pkg.sessions}
+            </span>
+
+            <ul class="pp-features">
+              {pkg.features.map(f => (
+                <li class={`pp-feature ${f.highlight ? 'pp-feature--highlight' : ''}`}>
+                  <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {f.text}
+                </li>
+              ))}
+            </ul>
+
+            <p class="pp-desc">{pkg.description}</p>
+          </div>
+
+          <div class="pp-card-footer">
+            <a
+              href={bookHref}
+              class={`pp-cta pp-cta--${pkg.ctaStyle}`}
+            >
+              {pkg.cta}
+            </a>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SURF CAMP FOR KIDS ────────────────────────────────────────────────── -->
+<section class="sc-section">
+  <div class="sc-wrap">
+
+    <!-- Left: info -->
+    <div class="sc-info">
+      <span class="sc-eyebrow">Seasonal · Ages 6–16</span>
+      <h2 class="sc-title">Cocoa Beach Surf Camp for Kids</h2>
+      <p class="sc-body">
+        A full week in the water does what a single lesson can't — genuine skills and
+        lasting confidence, with the same instructor all week and a 3:1 ratio that keeps
+        every child supported and safe.
+      </p>
+      <ul class="sc-features">
+        {campFeatures.map(f => (
+          <li>
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Right: rates card -->
+    <div class="sc-rates-card">
+      <span class="sc-rates-eyebrow">Camp Rates · Per Week</span>
+
+      <div class="sc-rates-list">
+        {campRates.map((r, i) => (
+          <div class={`sc-rate-row ${i < campRates.length - 1 ? 'sc-rate-row--border' : ''}`}>
+            <div class="sc-rate-label">
+              <span class="sc-rate-name">{r.label}</span>
+              <span class="sc-rate-sub">· {r.sublabel}</span>
+            </div>
+            <span class="sc-rate-price">{r.price}</span>
+          </div>
+        ))}
+      </div>
+
+      <a href={campHref} class="sc-cta">Reserve a Camp Spot</a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ══ SHARED VARIABLES ════════════════════════════════════ */
+  .pp-section, .sc-section {
+    --deep:   #0A3A40;
+    --teal:   #0E6E78;
+    --coral:  #FF6A4D;
+    --sun:    #F2A93B;
+    --gray:   #5A7270;
+    --cream:  #FFFDF8;
+    --sand:   #FCF8F0;
+    --line:   rgba(16,48,46,.10);
+    --maxw:   1180px;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+
+  /* ══ PRICING SECTION ══════════════════════════════════════ */
+  .pp-section {
+    padding: 88px 0 96px;
+    background: var(--sand);
+  }
+  .pp-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  /* Header */
+  .pp-header {
+    max-width: 680px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+  .pp-eyebrow {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+  .pp-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 18px;
+  }
+  .pp-subtitle {
+    font-size: 1.02rem;
+    color: var(--gray);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Grid */
+  .pp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* Card base */
+  .pp-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px -6px rgba(10,58,64,.10);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .pp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px -10px rgba(10,58,64,.18);
+  }
+
+  /* Featured card */
+  .pp-card--featured {
+    border-color: var(--coral);
+    border-width: 2px;
+    box-shadow: 0 8px 32px -8px rgba(255,106,77,.25);
+  }
+  .pp-card--featured:hover {
+    box-shadow: 0 20px 48px -10px rgba(255,106,77,.30);
+  }
+
+  /* Popular badge */
+  .pp-popular-badge {
+    background: var(--coral);
+    text-align: center;
+    padding: 8px 20px;
+  }
+  .pp-popular-badge span {
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: #fff;
+  }
+
+  /* Card body */
+  .pp-card-body {
+    padding: 28px 28px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pp-pkg-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 10px;
+  }
+
+  .pp-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
+
+  .pp-price {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--deep);
+    line-height: 1;
+  }
+
+  .pp-sessions {
+    display: inline-block;
+    font-size: .85rem;
+    color: var(--gray);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .pp-sessions--highlight {
+    background: rgba(14,110,120,.12);
+    color: var(--teal);
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 6px;
+  }
+
+  /* Features */
+  .pp-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .pp-feature {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: .9rem;
+    color: var(--gray);
+    font-weight: 500;
+  }
+  .pp-feature svg { flex-shrink: 0; color: var(--teal); }
+
+  .pp-feature--highlight {
+    background: rgba(14,110,120,.10);
+    color: var(--teal);
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 7px;
+    margin: 0 -10px;
+  }
+  .pp-feature--highlight svg { color: var(--teal); }
+
+  .pp-desc {
+    font-size: .9rem;
+    color: var(--gray);
+    line-height: 1.65;
+    margin: 0 0 28px;
+    flex: 1;
+  }
+
+  /* Card footer */
+  .pp-card-footer { padding: 0 28px 28px; }
+
+  .pp-cta {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-size: .92rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: .01em;
+    transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
+  }
+  .pp-cta:hover { transform: translateY(-2px); }
+
+  .pp-cta--dark {
+    background: var(--deep);
+    color: #fff;
+    box-shadow: 0 4px 16px -4px rgba(10,58,64,.35);
+  }
+  .pp-cta--dark:hover { background: #0b4a52; box-shadow: 0 8px 24px -6px rgba(10,58,64,.45); }
+
+  .pp-cta--coral {
+    background: var(--coral);
+    color: #fff;
+    box-shadow: 0 4px 16px -4px rgba(255,106,77,.40);
+  }
+  .pp-cta--coral:hover { background: #e85a3d; box-shadow: 0 8px 24px -6px rgba(255,106,77,.50); }
+
+  /* ══ SURF CAMP SECTION ════════════════════════════════════ */
+  .sc-section {
+    background: var(--deep);
+    padding: 80px 0 88px;
+  }
+  .sc-wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  /* Info side */
+  .sc-eyebrow {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    color: var(--coral);
+    margin-bottom: 14px;
+  }
+  .sc-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  .sc-body {
+    font-size: 1rem;
+    color: rgba(255,255,255,.78);
+    line-height: 1.72;
+    margin-bottom: 26px;
+  }
+  .sc-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+  .sc-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: .93rem;
+    color: rgba(255,255,255,.80);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .sc-features li svg { flex-shrink: 0; color: var(--coral); margin-top: 2px; }
+
+  /* Rates card */
+  .sc-rates-card {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 20px;
+    padding: 36px 32px 32px;
+    backdrop-filter: blur(4px);
+  }
+  .sc-rates-eyebrow {
+    display: block;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    color: rgba(255,255,255,.50);
+    margin-bottom: 24px;
+  }
+  .sc-rates-list { display: flex; flex-direction: column; }
+
+  .sc-rate-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+  .sc-rate-row--border { border-bottom: 1px solid rgba(255,255,255,.10); }
+
+  .sc-rate-label { display: flex; align-items: baseline; gap: 6px; }
+  .sc-rate-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .sc-rate-sub { font-size: .85rem; color: rgba(255,255,255,.50); }
+
+  .sc-rate-price {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFD79A;
+  }
+
+  .sc-cta {
+    display: block;
+    width: 100%;
+    margin-top: 28px;
+    padding: 15px 20px;
+    border-radius: 50px;
+    background: var(--coral);
+    color: #fff;
+    font-size: .92rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 20px -4px rgba(255,106,77,.50);
+    transition: background .2s ease, transform .15s ease, box-shadow .2s ease;
+  }
+  .sc-cta:hover {
+    background: #e85a3d;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px -4px rgba(255,106,77,.60);
+  }
+
+  /* ══ RESPONSIVE ═══════════════════════════════════════════ */
+  @media (max-width: 960px) {
+    .pp-grid { grid-template-columns: 1fr 1fr; }
+    .pp-grid > :last-child { grid-column: 1 / -1; max-width: 420px; margin: 0 auto; width: 100%; }
+    .sc-wrap { grid-template-columns: 1fr; gap: 48px; }
+  }
+  @media (max-width: 600px) {
+    .pp-section { padding: 60px 0 72px; }
+    .sc-section { padding: 60px 0 72px; }
+    .pp-grid { grid-template-columns: 1fr; }
+    .pp-grid > :last-child { grid-column: auto; max-width: 100%; }
+    .sc-rates-card { padding: 28px 24px; }
+  }
+</style>

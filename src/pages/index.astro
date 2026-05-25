@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
 import LessonsGrid from '../components/sections/LessonsGrid.astro'
-import VideoSection from '../components/sections/VideoSection.astro'
+import PricingPackages from '../components/sections/PricingPackages.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
@@ -19,9 +19,6 @@ import gallery4 from '../assets/images/surf-school-tamarindo-beginner-lesson.web
 import privateCard from '../assets/images/surf-school-costa-rica-tamarindo-beach.webp'
 import semiPrivateCard from '../assets/images/surf-school-tamarindo-students.webp'
 import groupCard from '../assets/images/surf-classes-tamarindo-group-session.webp'
-import camp7 from '../assets/images/student-from-our-surf-school-in-Tamarindo.webp'
-import camp5 from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import videoBg from '../assets/images/student-from-our-surf-school-in-Tamarindo.webp'
 import blogLessonImg from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
 import blogSeasonImg from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
 
@@ -41,10 +38,6 @@ const services = [
   { href: '/group-surf-lessons-cocoa-beach', title: 'Group Surf Lessons', badge: 'Up to 4 students', img: groupCard },
 ]
 
-const camps = [
-  { href: '/7-days-surf-camp-tamarindo', title: '7-Day Surf Camp', detail: '6 surf lessons + surf trip from $1,399', img: camp7 },
-  { href: '/5-days-surf-camp-tamarindo', title: '5-Day Surf Camp', detail: '4 surf lessons + surf trip from $1,049', img: camp5 },
-]
 
 const stats = [
   { value: '500+', label: 'Surfers Trained' },
@@ -156,60 +149,8 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
   <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
   <WhyChooseUs subtitle="Tamarindo is known as Costa Rica's surf capital for good reason. The long, sandy beach, forgiving waves, and year-round warm weather make it one of the best places in the world to learn how to surf. At Pura Vida Surf School, we elevate your experience beyond just a surf lesson. We focus on safety, technique, confidence, and pure enjoyment — the perfect combination to help you progress fast and have the time of your life. Many travelers choose our Surf School in Tamarindo because of our certified instructors and perfect waves." />
 
-  <!-- ── VIDEO ─────────────────────────────────────────────────────────────── -->
-  <VideoSection
-    title="Experience Surfing in Tamarindo"
-    subtitle="Our surf classes in Tamarindo turn complete beginners into confident wave riders — watch the transformation happen in real time."
-    bgImage={videoBg}
-    cta={{ label: 'Choose Your Surf Lesson', href: '/tamarindo-surf-lessons' }}
-  />
-
-  <!-- ── SURF CAMP ──────────────────────────────────────────────────────────── -->
-  <section class="py-20 bg-gray-50 defer-section">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
-        <div>
-          <span class="section-label mb-2 block">Our Surf Camp in Tamarindo</span>
-          <h2 class="text-3xl font-extrabold text-gray-900">Tamarindo Surf Camp</h2>
-          <p class="text-gray-500 mt-2 max-w-xl">
-            If you're planning a surf getaway, check our all-inclusive surf camps. Professional instruction, equipment, surf trips, and pura vida vibes included.
-          </p>
-        </div>
-        <a href="/surf-camp-cocoa-beach"
-          class="shrink-0 px-5 py-2.5 border-2 border-gray-300 text-gray-700 font-semibold rounded-2xl hover:border-[var(--teal-text)] hover:text-[var(--teal-text)] transition-colors text-sm whitespace-nowrap">
-          View All Camps →
-        </a>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6">
-        {camps.map(c => (
-          <a href={c.href}
-            class="group relative rounded-3xl overflow-hidden block shadow-sm md:shadow-md md:hover:shadow-xl transition-all duration-300 md:hover:-translate-y-0.5 mobile-flat"
-            style="height: 280px;">
-            <Image
-              src={c.img}
-              alt={c.title + ' Tamarindo'}
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              widths={[400, 800]}
-              loading="lazy"
-              decoding="async"
-              sizes="(min-width: 768px) 50vw, 100vw"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/20 to-transparent"/>
-            <div class="absolute bottom-0 inset-x-0 p-7 flex items-end justify-between">
-              <div>
-                <h3 class="text-2xl font-extrabold text-white mb-1">{c.title}</h3>
-                <p class="text-white/70 text-sm">{c.detail}</p>
-              </div>
-              <span class="shrink-0 px-4 py-2 bg-white/15 md:backdrop-blur-sm border border-white/25 text-white text-sm font-bold rounded-2xl group-hover:bg-[#00BCD4] group-hover:border-[#00BCD4] transition-colors whitespace-nowrap">
-                Book Now →
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- ── PRICING & SURF CAMP ───────────────────────────────────────────────── -->
+  <PricingPackages />
 
   <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
   <Testimonials bg="white" items={[
