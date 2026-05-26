@@ -75,7 +75,7 @@ const faqs = [
       <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
         {stats.map(s => (
           <div class="py-7 px-4 text-center">
-            <p class="text-3xl font-extrabold text-[var(--teal-text-strong)] mb-0.5">{s.value}</p>
+            <p class="text-3xl font-extrabold mb-0.5" style="color:var(--teal-text-strong)">{s.value}</p>
             <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">{s.label}</p>
           </div>
         ))}
@@ -120,8 +120,8 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
           <ul class="space-y-3 mb-8">
             {['Bilingual & local — clear instruction whether you are from across the country or across the Atlantic', 'Safety-first method — every lesson is built around keeping you confident and in control.', 'You bring yourself. We bring everything else.'].map(i => (
               <li class="flex items-center gap-3 text-gray-700">
-                <span class="w-5 h-5 rounded-full bg-[#00BCD4]/15 flex items-center justify-center shrink-0">
-                  <svg class="w-3 h-3 text-[var(--teal-text)]" fill="currentColor" viewBox="0 0 20 20">
+                <span class="w-5 h-5 rounded-full flex items-center justify-center shrink-0" style="background:var(--teal-tint)">
+                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" style="color:var(--teal-primary)">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                   </svg>
                 </span>
@@ -132,8 +132,8 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
 
           <div class="flex flex-wrap items-center gap-4">
             <a href="/tamarindo-surf-lessons" class="btn-primary">View Surf Lessons Options</a>
-            <div class="inline-flex items-center gap-3 bg-[#00BCD4]/8 border border-[#00BCD4]/20 rounded-2xl px-5 py-3">
-              <span class="text-3xl font-extrabold text-[var(--teal-text-strong)]">25+</span>
+            <div class="inline-flex items-center gap-3 rounded-2xl px-5 py-3" style="background:var(--teal-tint); border:1px solid var(--teal-border)">
+              <span class="text-3xl font-extrabold" style="color:var(--teal-primary)">25+</span>
               <span class="text-gray-600 text-sm leading-snug">Years teaching <br/>locally</span>
             </div>
           </div>
@@ -168,7 +168,7 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
         <!-- Left: header -->
         <div class="md:col-span-2">
           <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm lg:sticky lg:top-28">
-            <span class="inline-block bg-[#00BCD4]/10 text-[var(--teal-text)] text-xs font-bold px-3 py-1 rounded-full mb-5 tracking-wider uppercase">FAQ</span>
+            <span class="text-xs font-bold px-3 py-1 rounded-full mb-5 tracking-wider uppercase inline-block" style="background:var(--teal-tint); color:var(--teal-text)">FAQ</span>
             <h2 class="text-3xl font-extrabold text-gray-900 mb-4 leading-snug">
               Surf School FAQs — Everything You Need to Know
             </h2>
@@ -202,7 +202,7 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
           <span class="section-label mb-2 block">From the Blog</span>
           <h2 class="text-3xl font-extrabold text-gray-900">Surf Tips & Tamarindo Guides</h2>
         </div>
-        <a href="/blog" class="shrink-0 inline-flex items-center gap-2 text-[var(--teal-text)] font-semibold text-sm hover:gap-3 transition-all">
+        <a href="/blog" class="shrink-0 inline-flex items-center gap-2 font-semibold text-sm hover:gap-3 transition-all" style="color:var(--teal-text)">
           All Articles
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

@@ -12,14 +12,13 @@ const packages = [
     sessions: '4 × 1-hour sessions',
     sessionsHighlight: false,
     features: [
-      { text: 'Same instructor throughout', highlight: false },
-      { text: 'Flexible scheduling', highlight: false },
-      { text: 'All premium gear included', highlight: false },
+      { text: 'Same instructor throughout' },
+      { text: 'Flexible scheduling' },
+      { text: 'All premium gear included' },
     ],
     description: 'Perfect for visitors who want to truly learn, not just try it once. Enough time to go from the sand to your first real waves.',
     cta: 'Choose Starter',
     featured: false,
-    ctaStyle: 'dark',
   },
   {
     name: 'Progression Pack',
@@ -27,14 +26,13 @@ const packages = [
     sessions: '6 × 1-hour sessions',
     sessionsHighlight: false,
     features: [
-      { text: '1 professional photo session', highlight: false },
-      { text: 'Same instructor throughout', highlight: false },
-      { text: 'All premium gear included', highlight: false },
+      { text: '1 professional photo session' },
+      { text: 'Same instructor throughout' },
+      { text: 'All premium gear included' },
     ],
     description: 'The sweet spot — enough to take you from first wave to riding with confidence, plus photos to remember it. The one most students choose.',
     cta: 'Choose Progression',
     featured: true,
-    ctaStyle: 'coral',
   },
   {
     name: 'Elite Pack',
@@ -42,14 +40,13 @@ const packages = [
     sessions: '16 × 1-hour sessions',
     sessionsHighlight: true,
     features: [
-      { text: '2 professional photo sessions', highlight: true },
-      { text: 'Flexible scheduling', highlight: true },
-      { text: 'All premium gear included', highlight: false },
+      { text: '2 professional photo sessions', accent: true },
+      { text: 'Flexible scheduling', accent: true },
+      { text: 'All premium gear included' },
     ],
     description: 'For those serious about progressing. The best value per session and the deepest transformation — surfing as a real skill, not a one-time experience.',
     cta: 'Choose Elite',
     featured: false,
-    ctaStyle: 'dark',
   },
 ]
 
@@ -67,11 +64,10 @@ const campFeatures = [
 ]
 ---
 
-<!-- ── PRICING PACKAGES ───────────────────────────────────────────────────── -->
+<!-- ═══ PRICING SECTION ══════════════════════════════════════════════════════ -->
 <section class="pp-section">
   <div class="pp-wrap">
 
-    <!-- Header -->
     <div class="pp-header">
       <span class="pp-eyebrow">Prices &amp; Packages</span>
       <h2 class="pp-title">Surf Lesson Prices &amp; Packages</h2>
@@ -81,32 +77,37 @@ const campFeatures = [
       </p>
     </div>
 
-    <!-- Cards -->
     <div class="pp-grid">
       {packages.map(pkg => (
-        <div class={`pp-card ${pkg.featured ? 'pp-card--featured' : ''}`}>
+        <div class={`pp-card${pkg.featured ? ' pp-card--featured' : ''}`}>
 
           {pkg.featured && (
-            <div class="pp-popular-badge">
-              <span>★ Most Popular</span>
+            <div class="pp-badge" aria-label="Most popular package">
+              <svg width="10" height="10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+              Most Popular
             </div>
           )}
 
-          <div class="pp-card-body">
-            <h3 class="pp-pkg-name">{pkg.name}</h3>
+          <div class="pp-card-inner">
 
-            <div class="pp-price-row">
+            <!-- Package name -->
+            <p class="pp-pkg-name">{pkg.name}</p>
+
+            <!-- Price block -->
+            <div class="pp-price-block">
               <span class="pp-price">{pkg.price}</span>
+              <span class={`pp-sessions${pkg.sessionsHighlight ? ' pp-sessions--hl' : ''}`}>
+                {pkg.sessions}
+              </span>
             </div>
 
-            <span class={`pp-sessions ${pkg.sessionsHighlight ? 'pp-sessions--highlight' : ''}`}>
-              {pkg.sessions}
-            </span>
-
-            <ul class="pp-features">
+            <!-- Features -->
+            <ul class="pp-features" role="list">
               {pkg.features.map(f => (
-                <li class={`pp-feature ${f.highlight ? 'pp-feature--highlight' : ''}`}>
-                  <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <li class={`pp-feat${f.accent ? ' pp-feat--accent' : ''}`}>
+                  <svg class="pp-check" width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                     <path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                   {f.text}
@@ -114,18 +115,19 @@ const campFeatures = [
               ))}
             </ul>
 
+            <!-- Description -->
             <p class="pp-desc">{pkg.description}</p>
-          </div>
 
-          <div class="pp-card-footer">
+            <!-- CTA -->
             <a
               href={bookHref}
-              class={`pp-cta pp-cta--${pkg.ctaStyle}`}
+              class={`pp-cta${pkg.featured ? ' pp-cta--primary' : ' pp-cta--dark'}`}
+              aria-label={`${pkg.cta} — ${pkg.price}`}
             >
               {pkg.cta}
             </a>
-          </div>
 
+          </div>
         </div>
       ))}
     </div>
@@ -133,7 +135,7 @@ const campFeatures = [
   </div>
 </section>
 
-<!-- ── SURF CAMP FOR KIDS ────────────────────────────────────────────────── -->
+<!-- ═══ SURF CAMP SECTION ════════════════════════════════════════════════════ -->
 <section class="sc-section">
   <div class="sc-wrap">
 
@@ -146,7 +148,7 @@ const campFeatures = [
         lasting confidence, with the same instructor all week and a 3:1 ratio that keeps
         every child supported and safe.
       </p>
-      <ul class="sc-features">
+      <ul class="sc-features" role="list">
         {campFeatures.map(f => (
           <li>
             <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -159,13 +161,13 @@ const campFeatures = [
     </div>
 
     <!-- Right: rates card -->
-    <div class="sc-rates-card">
-      <span class="sc-rates-eyebrow">Camp Rates · Per Week</span>
+    <div class="sc-card" aria-label="Camp rates per week">
+      <p class="sc-card-eyebrow">Camp Rates · Per Week</p>
 
-      <div class="sc-rates-list">
+      <div class="sc-rates">
         {campRates.map((r, i) => (
-          <div class={`sc-rate-row ${i < campRates.length - 1 ? 'sc-rate-row--border' : ''}`}>
-            <div class="sc-rate-label">
+          <div class={`sc-rate${i < campRates.length - 1 ? ' sc-rate--border' : ''}`}>
+            <div class="sc-rate-info">
               <span class="sc-rate-name">{r.label}</span>
               <span class="sc-rate-sub">· {r.sublabel}</span>
             </div>
@@ -181,58 +183,60 @@ const campFeatures = [
 </section>
 
 <style>
-  /* ══ SHARED VARIABLES ════════════════════════════════════ */
+  /* ── Tokens ────────────────────────────────────────────── */
   .pp-section, .sc-section {
-    --deep:   #0A3A40;
-    --teal:   #0E6E78;
-    --coral:  #FF6A4D;
-    --sun:    #F2A93B;
-    --gray:   #5A7270;
-    --cream:  #FFFDF8;
-    --sand:   #FCF8F0;
-    --line:   rgba(16,48,46,.10);
-    --maxw:   1180px;
+    --deep:       #0A3A40;
+    --brand:      #00BCD4;
+    --brand-dark: #0097A7;
+    --brand-text: #00838F;
+    --coral:      #FF6A4D;
+    --gold:       #FFD079;
+    --sand:       #FCF8F0;
+    --cream:      #FFFDF8;
+    --muted:      #5A7270;
+    --line:       rgba(0,188,212,.12);
+    --line-w:     rgba(255,255,255,.12);
+    --maxw:       1180px;
     font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    color: var(--deep);
   }
 
-  /* ══ PRICING SECTION ══════════════════════════════════════ */
+  /* ════ PRICING ══════════════════════════════════════════ */
   .pp-section {
     padding: 88px 0 96px;
-    background: var(--sand);
+    background: #EFF9FB;
   }
   .pp-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
 
   /* Header */
-  .pp-header {
-    max-width: 680px;
-    margin: 0 auto 56px;
-    text-align: center;
-  }
+  .pp-header { max-width: 680px; margin: 0 auto 56px; text-align: center; }
+
   .pp-eyebrow {
     display: inline-block;
     font-size: .72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .2em;
-    color: var(--teal);
+    color: var(--brand);
     margin-bottom: 14px;
   }
   .pp-title {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
     font-weight: 600;
     line-height: 1.1;
     color: var(--deep);
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
   .pp-subtitle {
     font-size: 1.02rem;
-    color: var(--gray);
-    line-height: 1.7;
-    margin: 0;
+    color: var(--muted);
+    line-height: 1.72;
+    max-width: 580px;
+    margin: 0 auto;
   }
 
-  /* Grid */
+  /* Grid — center if 3 cols can't be equal */
   .pp-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -240,85 +244,86 @@ const campFeatures = [
     align-items: start;
   }
 
-  /* Card base */
+  /* ── Card ──────────────────────────────────────────────── */
   .pp-card {
     position: relative;
-    display: flex;
-    flex-direction: column;
+    border-radius: 20px;
     background: #fff;
     border: 1.5px solid var(--line);
-    border-radius: 20px;
+    box-shadow: 0 2px 16px -6px rgba(10,58,64,.10);
+    transition: transform .22s ease-out, box-shadow .22s ease-out;
     overflow: hidden;
-    box-shadow: 0 4px 20px -6px rgba(10,58,64,.10);
-    transition: transform .25s ease, box-shadow .25s ease;
   }
   .pp-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     box-shadow: 0 16px 40px -10px rgba(10,58,64,.18);
   }
 
-  /* Featured card */
+  /* Featured card gets coral border + stronger lift */
   .pp-card--featured {
     border-color: var(--coral);
     border-width: 2px;
-    box-shadow: 0 8px 32px -8px rgba(255,106,77,.25);
+    box-shadow: 0 4px 24px -6px rgba(255,106,77,.22);
   }
   .pp-card--featured:hover {
     box-shadow: 0 20px 48px -10px rgba(255,106,77,.30);
   }
 
-  /* Popular badge */
-  .pp-popular-badge {
+  /* Badge */
+  .pp-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     background: var(--coral);
-    text-align: center;
-    padding: 8px 20px;
-  }
-  .pp-popular-badge span {
-    font-size: .72rem;
+    color: #fff;
+    font-size: .7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .18em;
-    color: #fff;
+    padding: 9px 20px;
   }
 
-  /* Card body */
-  .pp-card-body {
-    padding: 28px 28px 0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
+  /* Inner padding */
+  .pp-card-inner { padding: 28px 28px 28px; }
+  .pp-card--featured .pp-card-inner { padding-top: 24px; }
 
+  /* Package name */
   .pp-pkg-name {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.35rem;
+    font-size: .88rem;
     font-weight: 600;
-    color: var(--deep);
-    margin-bottom: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: 16px;
   }
 
-  .pp-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
-
+  /* Price block */
+  .pp-price-block {
+    margin-bottom: 24px;
+  }
   .pp-price {
+    display: block;
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-size: clamp(2.6rem, 5vw, 3.2rem);
     font-weight: 700;
-    color: var(--deep);
     line-height: 1;
+    color: var(--deep);
+    /* tabular figures for consistent alignment */
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 6px;
   }
-
   .pp-sessions {
     display: inline-block;
     font-size: .85rem;
-    color: var(--gray);
+    color: var(--muted);
     font-weight: 500;
-    margin-bottom: 20px;
   }
-  .pp-sessions--highlight {
-    background: rgba(14,110,120,.12);
-    color: var(--teal);
+  .pp-sessions--hl {
+    background: rgba(0,188,212,.11);
+    color: var(--brand-text);
     font-weight: 700;
-    padding: 2px 10px;
+    padding: 3px 10px;
     border-radius: 6px;
   }
 
@@ -329,68 +334,80 @@ const campFeatures = [
     margin: 0 0 20px;
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 10px;
   }
-  .pp-feature {
+  .pp-feat {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 9px;
     font-size: .9rem;
-    color: var(--gray);
+    color: var(--muted);
     font-weight: 500;
+    line-height: 1.4;
   }
-  .pp-feature svg { flex-shrink: 0; color: var(--teal); }
+  .pp-check { flex-shrink: 0; color: var(--brand); margin-top: 1px; }
 
-  .pp-feature--highlight {
-    background: rgba(14,110,120,.10);
-    color: var(--teal);
+  /* Accent feature — highlighted like a selection */
+  .pp-feat--accent {
+    background: rgba(0,188,212,.09);
+    color: var(--brand-text);
     font-weight: 600;
-    padding: 5px 10px;
-    border-radius: 7px;
+    padding: 6px 10px;
+    border-radius: 8px;
     margin: 0 -10px;
   }
-  .pp-feature--highlight svg { color: var(--teal); }
+  .pp-feat--accent .pp-check { color: var(--brand); }
 
+  /* Description */
   .pp-desc {
-    font-size: .9rem;
-    color: var(--gray);
-    line-height: 1.65;
-    margin: 0 0 28px;
-    flex: 1;
+    font-size: .91rem;
+    color: var(--muted);
+    line-height: 1.68;
+    margin-bottom: 28px;
   }
 
-  /* Card footer */
-  .pp-card-footer { padding: 0 28px 28px; }
-
+  /* CTA — pill buttons, ≥48px height for touch target */
   .pp-cta {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    padding: 14px 20px;
+    min-height: 48px;
+    padding: 13px 20px;
     border-radius: 50px;
-    font-size: .92rem;
+    font-size: .93rem;
     font-weight: 700;
-    text-align: center;
     text-decoration: none;
     letter-spacing: .01em;
-    transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
+    transition: transform .15s ease-out, box-shadow .2s ease-out, background .18s ease;
+    cursor: pointer;
   }
   .pp-cta:hover { transform: translateY(-2px); }
+  .pp-cta:focus-visible {
+    outline: 3px solid var(--coral);
+    outline-offset: 3px;
+  }
 
   .pp-cta--dark {
-    background: var(--deep);
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
     color: #fff;
-    box-shadow: 0 4px 16px -4px rgba(10,58,64,.35);
+    box-shadow: 0 4px 16px rgba(0,188,212,.30);
   }
-  .pp-cta--dark:hover { background: #0b4a52; box-shadow: 0 8px 24px -6px rgba(10,58,64,.45); }
+  .pp-cta--dark:hover {
+    box-shadow: 0 8px 24px rgba(0,188,212,.44);
+  }
 
-  .pp-cta--coral {
+  .pp-cta--primary {
     background: var(--coral);
     color: #fff;
     box-shadow: 0 4px 16px -4px rgba(255,106,77,.40);
   }
-  .pp-cta--coral:hover { background: #e85a3d; box-shadow: 0 8px 24px -6px rgba(255,106,77,.50); }
+  .pp-cta--primary:hover {
+    background: #e8583c;
+    box-shadow: 0 8px 24px -6px rgba(255,106,77,.50);
+  }
 
-  /* ══ SURF CAMP SECTION ════════════════════════════════════ */
+  /* ════ SURF CAMP ════════════════════════════════════════ */
   .sc-section {
     background: var(--deep);
     padding: 80px 0 88px;
@@ -401,31 +418,31 @@ const campFeatures = [
     padding: 0 28px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 64px;
+    gap: 72px;
     align-items: center;
   }
 
   /* Info side */
   .sc-eyebrow {
     display: inline-block;
-    font-size: .72rem;
+    font-size: .7rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .2em;
+    letter-spacing: .22em;
     color: var(--coral);
     margin-bottom: 14px;
   }
   .sc-title {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.12;
     color: #fff;
     margin-bottom: 18px;
   }
   .sc-body {
     font-size: 1rem;
-    color: rgba(255,255,255,.78);
+    color: rgba(255,255,255,.72);
     line-height: 1.72;
     margin-bottom: 26px;
   }
@@ -435,94 +452,118 @@ const campFeatures = [
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 11px;
+    gap: 12px;
   }
   .sc-features li {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    font-size: .93rem;
-    color: rgba(255,255,255,.80);
+    font-size: .92rem;
+    color: rgba(255,255,255,.75);
     font-weight: 500;
     line-height: 1.5;
   }
   .sc-features li svg { flex-shrink: 0; color: var(--coral); margin-top: 2px; }
 
   /* Rates card */
-  .sc-rates-card {
+  .sc-card {
     background: rgba(255,255,255,.07);
-    border: 1px solid rgba(255,255,255,.12);
+    border: 1px solid var(--line-w);
     border-radius: 20px;
     padding: 36px 32px 32px;
-    backdrop-filter: blur(4px);
   }
-  .sc-rates-eyebrow {
-    display: block;
+
+  .sc-card-eyebrow {
     font-size: .68rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .22em;
-    color: rgba(255,255,255,.50);
+    color: rgba(255,255,255,.45);
     margin-bottom: 24px;
   }
-  .sc-rates-list { display: flex; flex-direction: column; }
 
-  .sc-rate-row {
+  .sc-rates { display: flex; flex-direction: column; }
+
+  .sc-rate {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 18px 0;
+    gap: 12px;
   }
-  .sc-rate-row--border { border-bottom: 1px solid rgba(255,255,255,.10); }
+  .sc-rate--border {
+    border-bottom: 1px solid rgba(255,255,255,.09);
+  }
 
-  .sc-rate-label { display: flex; align-items: baseline; gap: 6px; }
+  .sc-rate-info { display: flex; align-items: baseline; gap: 6px; }
   .sc-rate-name {
     font-family: 'Fraunces', Georgia, serif;
     font-size: 1.05rem;
     font-weight: 600;
     color: #fff;
   }
-  .sc-rate-sub { font-size: .85rem; color: rgba(255,255,255,.50); }
-
+  .sc-rate-sub {
+    font-size: .83rem;
+    color: rgba(255,255,255,.45);
+  }
   .sc-rate-price {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
-    color: #FFD79A;
+    color: var(--gold);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
   }
 
+  /* Camp CTA */
   .sc-cta {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    min-height: 52px;
     margin-top: 28px;
-    padding: 15px 20px;
+    padding: 14px 20px;
     border-radius: 50px;
     background: var(--coral);
     color: #fff;
-    font-size: .92rem;
+    font-size: .93rem;
     font-weight: 700;
-    text-align: center;
     text-decoration: none;
-    box-shadow: 0 4px 20px -4px rgba(255,106,77,.50);
-    transition: background .2s ease, transform .15s ease, box-shadow .2s ease;
+    box-shadow: 0 4px 20px -4px rgba(255,106,77,.45);
+    transition: transform .15s ease-out, box-shadow .2s ease-out, background .18s ease;
   }
   .sc-cta:hover {
-    background: #e85a3d;
+    background: #e8583c;
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px -4px rgba(255,106,77,.60);
+    box-shadow: 0 8px 28px -4px rgba(255,106,77,.55);
+  }
+  .sc-cta:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
   }
 
-  /* ══ RESPONSIVE ═══════════════════════════════════════════ */
+  /* ════ RESPONSIVE ════════════════════════════════════════ */
   @media (max-width: 960px) {
-    .pp-grid { grid-template-columns: 1fr 1fr; }
-    .pp-grid > :last-child { grid-column: 1 / -1; max-width: 420px; margin: 0 auto; width: 100%; }
+    .pp-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    /* Elite card spans full width on tablet */
+    .pp-grid > :last-child {
+      grid-column: 1 / -1;
+      max-width: 460px;
+      margin: 0 auto;
+      width: 100%;
+    }
     .sc-wrap { grid-template-columns: 1fr; gap: 48px; }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
     .pp-section { padding: 60px 0 72px; }
     .sc-section { padding: 60px 0 72px; }
     .pp-grid { grid-template-columns: 1fr; }
     .pp-grid > :last-child { grid-column: auto; max-width: 100%; }
-    .sc-rates-card { padding: 28px 24px; }
+    .pp-wrap, .sc-wrap { padding: 0 20px; }
+    .sc-card { padding: 28px 22px; }
+    .sc-rate-price { font-size: 1.4rem; }
   }
 </style>

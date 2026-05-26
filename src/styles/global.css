@@ -25,11 +25,13 @@
 
 @layer base {
   :root {
-    --teal-primary: #00BCD4;
-    --teal-dark: #0097A7;
-    --teal-text: #0f766e;
-    --teal-text-strong: #115e59;
-    --navy: #0A1628;
+    --teal-primary:      #00BCD4;  /* Brand accent — buttons, icons, decorative */
+    --teal-dark:         #0097A7;  /* Hover / darker accent */
+    --teal-text:         #00838F;  /* Text on white — 4.8:1 contrast ✓ AA */
+    --teal-text-strong:  #006064;  /* High-emphasis text — 6.5:1 contrast ✓ AAA */
+    --teal-tint:         rgba(0,188,212,.08);  /* Subtle background tint */
+    --teal-border:       rgba(0,188,212,.20);  /* Border / divider accent */
+    --navy:              #0A1628;
   }
 
   html { scroll-behavior: smooth; }
@@ -69,14 +71,15 @@
     @apply max-w-6xl mx-auto px-4;
   }
   .section-label {
-    color: var(--teal-text);
-    @apply font-semibold uppercase tracking-widest text-sm;
+    color: var(--teal-primary);
+    @apply font-bold uppercase tracking-widest text-xs;
   }
   .check-item {
     @apply flex items-start gap-2 text-gray-700;
   }
   .check-icon {
-    @apply w-5 h-5 text-teal-500 shrink-0 mt-0.5;
+    @apply w-5 h-5 shrink-0 mt-0.5;
+    color: var(--teal-primary);
   }
   .shadow-brand {
     box-shadow: 0 4px 20px rgba(0, 188, 212, 0.18);

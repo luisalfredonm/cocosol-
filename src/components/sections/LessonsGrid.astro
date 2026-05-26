@@ -123,13 +123,15 @@ const lessons = [
   /* ── Variables ─────────────────────────────────────────── */
   .lg-section {
     --deep:   #0A3A40;
-    --teal:   #0E6E78;
+    --brand:  #00BCD4;
+    --brand-dark: #0097A7;
+    --brand-text: #00838F;
     --coral:  #FF6A4D;
     --sun:    #F2A93B;
     --gray:   #5A7270;
     --cream:  #FFFDF8;
     --sand:   #FCF8F0;
-    --line:   rgba(16,48,46,.10);
+    --line:   rgba(0,188,212,.12);
     --maxw:   1180px;
 
     padding: 84px 0 96px;
@@ -215,7 +217,7 @@ const lessons = [
 
   /* Price panel */
   .lg-price-panel {
-    background: linear-gradient(160deg, var(--teal), var(--deep));
+    background: linear-gradient(160deg, var(--brand), var(--deep));
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -309,31 +311,35 @@ const lessons = [
     justify-content: center;
     gap: 8px;
     width: 100%;
+    min-height: 48px;
     padding: 13px 20px;
-    border-radius: 10px;
-    background: var(--teal);
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
     color: #fff;
     font-size: .9rem;
     font-weight: 700;
     text-decoration: none;
     letter-spacing: .01em;
-    transition: background .2s ease, gap .2s ease, transform .15s ease;
+    box-shadow: 0 4px 16px rgba(0,188,212,.30);
+    transition: box-shadow .2s ease, gap .2s ease, transform .15s ease-out;
   }
   .lg-cta-primary:hover {
-    background: var(--deep);
     gap: 12px;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,188,212,.42);
   }
+  .lg-cta-primary:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
   .lg-cta-primary svg { flex-shrink: 0; }
 
   .lg-cta-secondary {
     display: block;
     width: 100%;
+    min-height: 44px;
     padding: 11px 20px;
-    border-radius: 10px;
-    border: 1.5px solid var(--line);
+    border-radius: 50px;
+    border: 1.5px solid rgba(0,188,212,.25);
     background: transparent;
-    color: var(--gray);
+    color: var(--brand-text);
     font-size: .88rem;
     font-weight: 600;
     text-decoration: none;
@@ -341,10 +347,11 @@ const lessons = [
     transition: border-color .2s ease, color .2s ease, background .2s ease;
   }
   .lg-cta-secondary:hover {
-    border-color: var(--teal);
-    color: var(--teal);
-    background: rgba(14,110,120,.04);
+    border-color: var(--brand);
+    color: var(--brand-text);
+    background: rgba(0,188,212,.06);
   }
+  .lg-cta-secondary:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
 
   /* ── Responsive ────────────────────────────────────────── */
   @media (max-width: 960px) {
