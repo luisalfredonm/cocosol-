@@ -1,11 +1,15 @@
 ---
-import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
-import Sidebar from '../components/ui/Sidebar.astro'
-import VideoSection from '../components/sections/VideoSection.astro'
+import TrustBar from '../components/sections/TrustBar.astro'
+import LessonPricing from '../components/sections/LessonPricing.astro'
+import GearIncluded from '../components/sections/GearIncluded.astro'
+import CompareColumns from '../components/sections/CompareColumns.astro'
+import AudienceCards from '../components/sections/AudienceCards.astro'
+import HowItWorks from '../components/sections/HowItWorks.astro'
+import SplitContent from '../components/sections/SplitContent.astro'
+import FinalCTA from '../components/sections/FinalCTA.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
-import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
@@ -13,223 +17,422 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg   from '../assets/images/private-surf-lessons-tamarindo-one-on-one.webp'
-import gallery1  from '../assets/images/tamarindo-private-surf-lesson-instructor.webp'
-import gallery2  from '../assets/images/one-on-one-surf-lessons-tamarindo-coaching.webp'
-import gallery3  from '../assets/images/private-surf-classes-tamarindo-technique.webp'
-import gallery4  from '../assets/images/personalized-surf-lessons-tamarindo-video.webp'
-import videoBg   from '../assets/images/tamarindo-private-surf-coaching-beginner.webp'
+import heroImg       from '../assets/images/private-surf-lessons-tamarindo-one-on-one.webp'
+import instructorImg from '../assets/images/tamarindo-private-surf-lesson-instructor.webp'
+import coachingImg   from '../assets/images/one-on-one-surf-lessons-tamarindo-coaching.webp'
+import techniqueImg  from '../assets/images/private-surf-classes-tamarindo-technique.webp'
+import ctaBgImg      from '../assets/images/tamarindo-private-surf-coaching-beginner.webp'
 
 const seo = seoData.privateLessons
 
-const perfectFor = [
-  'Beginners who want one-on-one attention and a safe introduction to surfing',
-  'Intermediate surfers looking to improve technique and progress faster',
-  'Travelers who prefer a personalized experience instead of group lessons',
-  'Surfers who want guaranteed waves and full focus from an instructor',
-  'Families, couples, and anyone who wants a fully customized surf session',
+const trustItems = [
+  { value: '5★',      label: 'Google Rating' },
+  { value: '100%',    label: 'Satisfaction' },
+  { value: '90 min',  label: 'Per Session' },
+  { value: 'All Levels', label: 'Welcome' },
 ]
 
-const cols = [
-  { h: 'Who Can Take?',    items: ['Beginners', 'Kids', 'Intermediate Surfers', 'Families'] },
-  { h: "What's Included",  items: ['90-minute surf lesson', 'Professional certified instructor', 'Foam guard', 'Safety briefing', 'Surfboard included', 'Photos on request'] },
-  { h: 'What to Bring',    items: ['Swimwear', 'Sunscreen (reef-safe)', 'Towel', 'Water bottle'] },
+const priceRows = [
+  { name: 'Single Lesson',  note: '90 min · 1 instructor',      sessions: '1 session',  price: '$75',  popular: false },
+  { name: '3-Lesson Pack',  note: 'Save $15 — valid 30 days',   sessions: '3 sessions', price: '$210', popular: true  },
+  { name: '5-Lesson Pack',  note: 'Save $50 — best value',      sessions: '5 sessions', price: '$325', popular: false },
+]
+
+const gear = [
+  { label: 'Surfboard (foam or fiberglass)' },
+  { label: 'Foam guard & rash protection' },
+  { label: 'Certified surf instructor (1-on-1)' },
+  { label: 'Beach safety briefing' },
+  { label: 'Wave-reading coaching' },
+  { label: 'Photos available on request' },
+]
+
+const subblocks = [
+  {
+    image:    coachingImg,
+    imageAlt: 'One-on-one surf coaching session on Cocoa Beach',
+    title:    'Personalized Instruction',
+    body:     'Your instructor adapts every drill to your level — from your first pop-up to linking turns. No waiting, no group pace. Every correction is yours.',
+  },
+  {
+    image:    techniqueImg,
+    imageAlt: 'Surf technique correction during private lesson on Cocoa Beach',
+    title:    'Faster Progression',
+    body:     'Students in private lessons progress on average twice as fast as those in group settings. Every minute of the water time is dedicated exclusively to you.',
+  },
+]
+
+const compareLeft = {
+  title:   'Private Lesson',
+  price:   'From $75 / person',
+  badge:   'Best for Progress',
+  items: [
+    '100% instructor attention — only you',
+    'Lesson adapts to your real-time feedback',
+    'Flexible start times around your schedule',
+    'Fastest path to standing and turning',
+    'Works for all levels, even complete beginners',
+  ],
+}
+
+const compareRight = {
+  title:   'Group Lesson',
+  price:   'From $45 / person',
+  items: [
+    'Shared instructor across 4–8 students',
+    'Fixed curriculum and scheduled times',
+    'Great for the social, shared experience',
+    'Best if you want a casual intro to surfing',
+    'Beginner-focused curriculum',
+  ],
+}
+
+const audienceCards = [
+  {
+    num:       '01',
+    title:     'Complete Beginners',
+    body:      'Never been on a board? Private lessons are the safest, fastest way to stand up on your first day. Your instructor never takes their eyes off you.',
+    linkLabel: 'Book a beginner session',
+    linkHref:  '#book',
+  },
+  {
+    num:       '02',
+    title:     'Intermediate Surfers',
+    body:      'Stuck on the same move for months? One-on-one coaching targets exactly what\'s holding you back and gives you a clear plan to break through.',
+    linkLabel: 'Level up your surfing',
+    linkHref:  '#book',
+  },
+  {
+    num:       '03',
+    title:     'Families & Kids',
+    body:      'Traveling with kids? Private lessons let every member progress at their own pace under dedicated instructor supervision — safe and fun.',
+    linkLabel: 'Book a family session',
+    linkHref:  '#book',
+  },
+  {
+    num:       '04',
+    title:     'Couples & Friends',
+    body:      'Want to share the experience but still get personal attention? Book a session for two — progression together without the compromise of a group.',
+    linkLabel: 'Book for two',
+    linkHref:  '#book',
+  },
+]
+
+const steps = [
+  {
+    title: 'Choose your date',
+    body:  'Use our booking wizard to pick your preferred date and time. Morning slots fill fastest — book early to secure the best conditions.',
+  },
+  {
+    title: 'Beach safety briefing',
+    body:  'Your instructor starts on the sand. You\'ll learn ocean safety basics, wave reading, and practice your pop-up before entering the water.',
+  },
+  {
+    title: 'In the water',
+    body:  'Your instructor stays right beside you for the full water session, giving real-time corrections and choosing the right waves for your level.',
+  },
+  {
+    title: 'Post-session debrief',
+    body:  'At the end, your instructor reviews what you nailed and what to focus on next — leaving you with a clear roadmap for your next session.',
+  },
 ]
 
 const faqs = [
-  { question: 'What is included in a private surf lesson?', answer: 'Every private lesson includes a certified instructor, surfboard, foam guard, safety briefing on the beach, and 90 minutes of one-on-one instruction in the water. Photos are available on request.' },
-  { question: 'Are private surf lessons suitable for beginners?', answer: "Absolutely! Private lessons are perfect for beginners because you get 100% of the instructor's attention. You'll progress much faster than in a group setting." },
-  { question: 'How long does each private surf lesson last?', answer: 'Each session is 90 minutes, including a land safety briefing and time in the water.' },
-  { question: 'Do I need to bring my own surfboard?', answer: 'No — a surfboard is included with every lesson. We provide the right board for your level and size.' },
-]
-
-const gallery = [
-  { img: gallery1, alt: 'Cocoa Beach private surf lesson with certified instructor in water' },
-  { img: gallery2, alt: 'One-on-one surf lessons Cocoa Beach focused coaching session' },
-  { img: gallery3, alt: 'Private surf classes Cocoa Beach - board technique correction' },
-  { img: gallery4, alt: 'Personalized surf lessons Cocoa Beach with video feedback analysis' },
+  { question: 'What is included in a private surf lesson?', answer: 'Every private lesson includes a certified instructor, surfboard, foam guard, beach safety briefing, and 90 minutes of one-on-one instruction in the water. Photos are available on request.' },
+  { question: 'Are private surf lessons suitable for complete beginners?', answer: "Absolutely. Private lessons are the best option for beginners because you get 100% of the instructor's attention. You'll progress much faster than in a group setting, and your instructor can prioritize your safety at every step." },
+  { question: 'How long does each private surf lesson last?', answer: 'Each session is 90 minutes total, including a land safety briefing and active time in the water with your instructor.' },
+  { question: 'Do I need to bring my own surfboard or equipment?', answer: 'No — a surfboard and all necessary gear are included with every lesson. We provide the right board for your level and body size.' },
+  { question: 'What should I bring to my surf lesson?', answer: 'Wear or bring a swimsuit. We recommend reef-safe sunscreen, a towel, and a water bottle. Everything else is provided by us.' },
+  { question: 'Can I cancel or reschedule my lesson?', answer: 'Yes. We offer flexible rescheduling up to 24 hours before your session at no extra charge. Contact us via WhatsApp for any last-minute changes.' },
 ]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'},{name:'Private Surf Lessons',href:'/private-surf-lessons-cocoa-beach'}]} />
-  <ProductSchema slot="head" name="Private Surf Lesson Cocoa Beach" description="One-on-one private surf lesson in Cocoa Beach, Florida. Personalized coaching for all levels from certified instructors at Pura Vida Surf School." price="90" url="/private-surf-lessons-cocoa-beach" image="/images/private-surf-lessons-tamarindo-one-on-one.webp" />
+  <BreadcrumbSchema slot="head" items={[
+    { name: 'Home',          href: '/' },
+    { name: 'Surf Lessons',  href: '/cocoa-beach-surf-lessons' },
+    { name: 'Private Surf Lessons', href: '/private-surf-lessons-cocoa-beach' },
+  ]} />
+  <ProductSchema
+    slot="head"
+    name="Private Surf Lesson Cocoa Beach"
+    description="One-on-one private surf lesson in Cocoa Beach, Florida. Personalized coaching for all levels from certified instructors at Cocoa Sol Surf."
+    price="75"
+    url="/private-surf-lessons-cocoa-beach"
+    image="/images/private-surf-lessons-tamarindo-one-on-one.webp"
+  />
   <FAQSchema slot="head" items={faqs} />
 
-  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <!-- HERO -->
   <Hero
-    title="Private Surf Lessons Cocoa Beach - A Personalized Surfing Experience in Florida"
+    title="Private Surf Lessons Cocoa Beach — One-on-One Coaching for Every Level"
     image={heroImg}
-    imageAlt="Private surf lessons Cocoa Beach one-on-one coaching on beach"
-    breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}
+    imageAlt="Private surf lessons Cocoa Beach one-on-one coaching on the beach"
+    breadcrumb={{ label: 'Surf Lessons', href: '/cocoa-beach-surf-lessons' }}
     cta={{ label: 'Check Availability', href: '#book' }}
     height="large"
   />
 
-  <!-- ── MAIN CONTENT ───────────────────────────────────────────────────────── -->
-  <section class="py-20 container mx-auto px-4">
-    <div class="grid lg:grid-cols-3 gap-12">
+  <!-- TRUST BAR -->
+  <TrustBar items={trustItems} />
 
-      <!-- Left col -->
-      <div class="lg:col-span-2">
-
-        <!-- Intro text -->
-        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">1-on-1 Coaching</span>
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Private Surf Lessons Cocoa Beach - Personalized One-on-One Coaching</h2>
-        <p class="text-gray-700 leading-relaxed mb-4">Looking for the best one-on-one surf coaching in Florida? Our <strong>private surf lessons in Cocoa Beach</strong> are designed for complete adaptability and faster progression. Whether you're starting your first steps on a surfboard or looking to refine your technique, our experienced instructors are here to help you achieve your goals.</p>
-        <p class="text-gray-700 leading-relaxed mb-8">Every session provides customized feedback, safety guidance, and a step-by-step experience tailored to your level. Sessions are scheduled around the best tides and waves to maximize your time in the water.</p>
-
-        <p class="text-gray-700 leading-relaxed mb-8">Unlike group sessions, a private lesson means your instructor watches every move you make and adjusts the coaching in real time. From your pop-up technique to reading the waves, every minute of the 90-minute session is dedicated exclusively to you. Most students who choose one-on-one coaching progress twice as fast compared to shared lessons — and they feel more confident and safer in the water from day one.</p>
-
-        <!-- Perfect For -->
-        <div class="bg-gray-50 border border-gray-100 rounded-3xl p-6 mb-8">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Perfect For:</h3>
-          <ul class="space-y-3">
-            {perfectFor.map(i => (
-              <li class="flex items-start gap-3 text-gray-700">
-                <span class="w-5 h-5 rounded-full bg-[#00BCD4]/15 flex items-center justify-center shrink-0 mt-0.5">
-                  <svg class="w-3 h-3 text-[#00BCD4]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </span>
-                {i}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <!-- 3-col cards -->
-        <div class="grid md:grid-cols-3 gap-4 mb-8">
-          {cols.map(col => (
-            <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-              <h3 class="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">{col.h}</h3>
-              <ul class="space-y-2">
-                {col.items.map(i => (
-                  <li class="flex items-center gap-2.5 text-sm text-gray-600">
-                    <span class="w-4 h-4 rounded-full bg-[#00BCD4]/15 flex items-center justify-center shrink-0">
-                      <svg class="w-2.5 h-2.5 text-[#00BCD4]" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                    {i}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <!-- Best time info box -->
-        <div class="border-l-4 border-[#00BCD4] bg-[#00BCD4]/5 rounded-r-2xl pl-5 pr-6 py-4 mb-8">
-          <h3 class="font-bold text-gray-900 mb-1">Best Time for Your Surf Lesson in Cocoa Beach</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">The best time for learning is the morning, early afternoon, when the waves are smoother and the wind is lighter. We schedule lessons based on tide and wave conditions to guarantee the best experience.</p>
-        </div>
-
-        <!-- FAQ -->
-        <FAQ items={faqs} columns={1}/>
-      </div>
-
-      <!-- Right col: Sidebar -->
-      <div>
-        <Sidebar
-          price="$90"
-          priceLabel="/ 90 Minutes"
-          includes={['Surfboard included', 'Professional, certified instructor', 'Foam guard', 'Safety briefing', 'Photos available on request']}
-          ctaLabel="Check Availability"
-          ctaHref="#book"
-        />
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ── VIDEO SECTION ──────────────────────────────────────────────────────── -->
-  <VideoSection
-    title="See What a One-on-One Surf Session Looks Like in Cocoa Beach"
-    subtitle="Watch what a private lesson looks like - personalized coaching, one-on-one attention, and real progress on the waves of Cocoa Beach."
-    bgImage={videoBg}
-    bgImageAlt="Cocoa Beach private surf coaching for complete beginners"
-    cta={{ label: 'Check Availability', href: '#book' }}
+  <!-- PRICING -->
+  <LessonPricing
+    eyebrow="Pricing"
+    title="Simple, All-Inclusive Pricing"
+    lead1="One-on-one coaching from a certified instructor. Everything you need is included — board, gear, and full attention for 90 minutes."
+    lead2="Book a single session or save with a multi-lesson pack. All sessions are valid for 30 days from purchase."
+    rows={priceRows}
+    altLinks={[
+      { label: 'Group Lessons from $45', href: '/group-surf-lessons-cocoa-beach' },
+      { label: 'Surf Coaching from $95', href: '/surf-coaching-cocoa-beach' },
+    ]}
+    cardLabel="Private Lesson"
+    cardFrom="$75"
+    cardUnit="/ session · 1 person"
+    cardIncludes={[
+      'Certified instructor (1-on-1)',
+      '90-minute session',
+      'Surfboard & foam guard',
+      'Beach safety briefing',
+      'Photos available on request',
+    ]}
+    ctaLabel="Book Your Lesson"
+    ctaHref="#book"
   />
 
-  <!-- ── GALLERY ─────────────────────────────────────────────────────────────── -->
-  <section class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
+  <!-- GEAR INCLUDED -->
+  <GearIncluded
+    eyebrow="All-inclusive"
+    title="Everything You Need Is Included"
+    subtitle="No rental fees. No extra charges. Show up ready to surf — we handle the rest."
+    gear={gear}
+    subblocks={subblocks}
+  />
 
-        <!-- Images -->
-        <div class="grid grid-cols-2 gap-3">
-          {gallery.map(({ img, alt }, i) => (
-            <div class={`overflow-hidden rounded-2xl shadow-md h-56 ${i % 2 === 1 ? 'mt-6' : ''}`}>
-              <Image
-                src={img}
-                alt={alt}
-                class="w-full h-full block object-cover object-center hover:scale-105 transition-transform duration-500"
-                widths={[200, 400]}
-                loading="lazy"
-                decoding="async"
-                sizes="(min-width: 768px) 25vw, 50vw"
-              />
-            </div>
-          ))}
-        </div>
+  <!-- COMPARE COLUMNS -->
+  <CompareColumns
+    eyebrow="Make the right call"
+    title="Private Lesson vs. Group Lesson"
+    subtitle="Both are great ways to surf. The right choice depends on how fast you want to progress and the experience you're after."
+    left={compareLeft}
+    right={compareRight}
+    note="Not sure which is right for you?"
+    noteLink={{ label: 'Talk to us on WhatsApp', href: 'https://wa.me/13212180272' }}
+  />
 
-        <!-- Text -->
-        <div>
-          <span class="section-label mb-3 block">Our Gallery</span>
-          <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Surf Moments from Your Private Session in Cocoa Beach</h2>
-          <p class="text-gray-600 leading-relaxed text-sm">Explore our gallery and see the real moments captured during one-on-one sessions on Cocoa Beach. These images show the personalized instruction, safety techniques, and the joy that make every session so unique.</p>
-          <a href="#book" class="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-2xl hover:bg-[#0097A7] transition-colors text-sm shadow-lg shadow-[#00BCD4]/25">
-            Book Your Session â†’
-          </a>
-        </div>
+  <!-- AUDIENCE CARDS -->
+  <AudienceCards
+    eyebrow="Who it's for"
+    title="Who Are Private Lessons For?"
+    subtitle="Our instructors adapt to whoever shows up — complete first-timers to frustrated intermediates."
+    cards={audienceCards}
+  />
 
-      </div>
+  <!-- HOW IT WORKS -->
+  <HowItWorks
+    eyebrow="Step by step"
+    title="What to Expect in Your Session"
+    subtitle="No experience needed. Here's exactly how your private surf lesson unfolds from start to finish."
+    steps={steps}
+    footer="Most first-time surfers stand up on their board within the first session."
+  />
+
+  <!-- SPLIT CONTENT — instructor story -->
+  <SplitContent
+    eyebrow="Your instructor"
+    title="Experienced Instructors Who Surf These Waves Every Day"
+    body={[
+      'Every instructor at Cocoa Sol Surf is certified, CPR-trained, and has spent years teaching on the waves of Cocoa Beach. They know the breaks, the tides, and exactly how to read a student\'s technique from the first wave.',
+      'Your instructor doesn\'t just watch from the beach — they\'re in the water with you, positioning boards, timing waves, and delivering real-time corrections that make the difference between trying and actually surfing.',
+    ]}
+    image={instructorImg}
+    imageAlt="Certified surf instructor coaching a student during a private lesson in Cocoa Beach"
+    bg="white"
+    ctaLabel="Check Availability"
+    ctaHref="#book"
+  />
+
+  <!-- TESTIMONIALS -->
+  <Testimonials
+    title="What Our Students Say About Private Surf Lessons"
+    items={[
+      {
+        name: 'Stephanie Smith',
+        role: 'First-time surfer',
+        text: 'Best experience on our whole vacation! My instructor was awesome — kind and patient. He prepared us fully on land, so when we hit the ocean, everyone stood up. Highly recommend!',
+      },
+      {
+        name: 'Jess Armijo',
+        role: 'Intermediate surfer',
+        text: "I've spent years underwater as a diver but surfing was a completely different challenge. My instructor broke everything down perfectly — pop-up, reading the wave, weight distribution. By the end of the 90 minutes I was standing. Worth every penny.",
+      },
+    ]}
+  />
+
+  <!-- FAQ -->
+  <section class="psl-faq">
+    <div class="psl-faq-wrap">
+      <h2 class="psl-faq-title">Frequently Asked Questions</h2>
+      <FAQ items={faqs} columns={1} />
     </div>
   </section>
 
-  <!-- ── BOOKING WIZARD ─────────────────────────────────────────────────────── -->
-  <section id="book" class="py-16 bg-white min-h-[800px]" style="scroll-margin-top: 96px;">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-10">
-        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
-        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your Private Lesson</h2>
-        <p class="text-gray-500 max-w-md mx-auto">Select your date and time below. Your private lesson is pre-selected — just pick when you want to surf.</p>
+  <!-- BOOKING WIZARD -->
+  <section id="book" class="psl-book" style="scroll-margin-top: 96px;">
+    <div class="psl-book-wrap">
+      <div class="psl-book-head">
+        <span class="psl-book-eyebrow">Ready to Ride?</span>
+        <h2 class="psl-book-title">Book Your Private Lesson</h2>
+        <p class="psl-book-sub">Select your date and time below. Your private lesson is pre-selected — just pick when you want to surf.</p>
       </div>
-      <div class="max-w-4xl mx-auto">
+      <div class="psl-book-wizard">
         <BookingWizard preselectedType="private" client:idle />
       </div>
-      <p class="text-center mt-4 text-sm text-gray-400">Secure payments · Trusted instructors · Flexible rescheduling</p>
+      <p class="psl-book-note">Secure payments · Certified instructors · Flexible rescheduling</p>
     </div>
   </section>
 
-  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
-  <Testimonials items={[
-    { name: 'Stephanie Smith', role: 'Designer', text: 'Best experience on our whole vacation! Franky was AWESOME! He was kind and patient. Fully prepared us on land, so when we hit the ocean, everyone was successful.' },
-    { name: 'Jess Armijo',     role: 'Diver',    text: 'I\'ve spent years underwater but surfing was a completely different challenge. My instructor broke everything down perfectly — pop-up technique, reading the wave, weight distribution. By the end of the 90 minutes I was standing. Worth every penny.' },
-  ]} title="What Our Students Say About Private Surf Lessons"/>
+  <!-- FINAL CTA -->
+  <FinalCTA
+    bgImage={ctaBgImg}
+    bgImageAlt="Surfer catching a wave at Cocoa Beach Florida"
+    title="Your First Wave Is Closer Than You Think"
+    subtitle="Book a private lesson and stand up on a surfboard today. Spots fill fast — secure yours before they're gone."
+    primaryCta={{ label: 'Book Now', href: '#book' }}
+    secondaryCta={{ label: 'Ask a Question', href: 'https://wa.me/13212180272' }}
+    meta={[
+      { icon: '✓', text: 'Certified instructors' },
+      { icon: '✓', text: 'All equipment included' },
+      { icon: '✓', text: 'Flexible rescheduling' },
+    ]}
+  />
 
-  <!-- ── NEED HELP ──────────────────────────────────────────────────────────── -->
-  <NeedHelp/>
-
-  <!-- ── SEO INTERNAL LINKS ─────────────────────────────────────────────────── -->
-  <section class="py-10 bg-gray-50 border-t border-gray-100">
-    <div class="container mx-auto px-4">
-      <h2 class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-widest">Also Available at Pura Vida Surf School</h2>
-      <div class="flex flex-wrap gap-2">
+  <!-- SEO INTERNAL LINKS -->
+  <section class="psl-links">
+    <div class="psl-links-wrap">
+      <h2 class="psl-links-title">Also Available at Cocoa Sol Surf</h2>
+      <div class="psl-links-list">
         {[
-          { l: 'Surf Coaching', h: '/surf-coaching-cocoa-beach' },
-          { l: 'Group Surf Lessons',        h: '/group-surf-lessons-cocoa-beach' },
-          { l: 'Surf Packages',             h: '/tamarindo-surf-packages' },
-          { l: 'Surf Camp Cocoa Beach',     h: '/surf-camp-cocoa-beach' },
+          { l: 'Group Surf Lessons',   h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Surf Coaching',        h: '/surf-coaching-cocoa-beach' },
+          { l: 'Surf Packages',        h: '/surf-packages-cocoa-beach' },
+          { l: 'Surf Camp Cocoa Beach', h: '/surf-camp-cocoa-beach' },
         ].map(x => (
-          <a href={x.h} data-astro-prefetch="viewport"
-            class="px-4 py-2 bg-white hover:bg-[#00BCD4]/8 border border-gray-200 hover:border-[#00BCD4]/40 hover:text-[#00BCD4] rounded-full text-sm text-gray-600 transition-colors font-medium">
-            {x.l}
-          </a>
+          <a href={x.h} data-astro-prefetch="viewport" class="psl-link">{x.l}</a>
         ))}
       </div>
     </div>
   </section>
 
 </BaseLayout>
+
+<style>
+  /* ── FAQ ─────────────────────────────────────────────────────────────── */
+  .psl-faq {
+    background: #EFF9FB;
+    padding: 80px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .psl-faq-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .psl-faq-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #0A3A40;
+    margin-bottom: 36px;
+    line-height: 1.1;
+  }
+
+  /* ── Booking ─────────────────────────────────────────────────────────── */
+  .psl-book {
+    background: #fff;
+    padding: 80px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .psl-book-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .psl-book-head { text-align: center; margin-bottom: 36px; }
+  .psl-book-eyebrow {
+    display: inline-block;
+    background: rgba(0,188,212,.10);
+    color: #00838F;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .psl-book-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #0A3A40;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  .psl-book-sub {
+    font-size: 1rem;
+    color: #5A7270;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+  .psl-book-wizard { margin-bottom: 16px; }
+  .psl-book-note {
+    text-align: center;
+    font-size: .85rem;
+    color: #9ab;
+  }
+
+  /* ── SEO links ───────────────────────────────────────────────────────── */
+  .psl-links {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    padding: 40px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .psl-links-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .psl-links-title {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 16px;
+  }
+  .psl-links-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .psl-link {
+    padding: 8px 18px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    font-size: .88rem;
+    color: #5A7270;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .psl-link:hover {
+    border-color: rgba(0,188,212,.4);
+    color: #00838F;
+  }
+
+  @media (max-width: 600px) {
+    .psl-faq, .psl-book { padding: 60px 0; }
+    .psl-faq-wrap, .psl-book-wrap, .psl-links-wrap { padding: 0 20px; }
+  }
+</style>

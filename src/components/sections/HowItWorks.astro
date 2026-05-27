@@ -1,0 +1,145 @@
+---
+export interface Step { title: string; body: string }
+export interface Props {
+  eyebrow?:  string
+  title?:    string
+  subtitle?: string
+  steps:     Step[]
+  footer?:   string
+}
+const {
+  eyebrow  = 'Step by step',
+  title    = 'What to Expect',
+  subtitle = "No experience needed, no guesswork. Here's exactly how your session unfolds.",
+  steps,
+  footer,
+} = Astro.props
+---
+
+<section class="hw-section" id="expect">
+  <div class="hw-wrap">
+
+    <div class="hw-head">
+      <span class="hw-eyebrow">{eyebrow}</span>
+      <h2 class="hw-title">{title}</h2>
+      {subtitle && <p class="hw-subtitle">{subtitle}</p>}
+    </div>
+
+    <div class="hw-steps">
+      {steps.map((step, i) => (
+        <div class="hw-step">
+          <div class="hw-bar" aria-hidden="true"></div>
+          <span class="hw-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="hw-step-title">{step.title}</h3>
+          <p class="hw-step-body">{step.body}</p>
+        </div>
+      ))}
+    </div>
+
+    {footer && <p class="hw-footer">{footer}</p>}
+
+  </div>
+</section>
+
+<style>
+  .hw-section {
+    --deep:       #0A3A40;
+    --brand:      #00BCD4;
+    --brand-dark: #0097A7;
+    --brand-text: #00838F;
+    --gold:       #FFD079;
+    --muted:      #5A7270;
+    --maxw:       1180px;
+    padding: 84px 0 92px;
+    background: #FCF8F0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .hw-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  .hw-head { max-width: 680px; margin-bottom: 52px; }
+  .hw-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--brand-text);
+    margin-bottom: 14px;
+  }
+  .hw-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .hw-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 14px;
+  }
+  .hw-subtitle { font-size: 1.05rem; color: var(--muted); line-height: 1.7; }
+
+  .hw-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    counter-reset: step;
+  }
+
+  .hw-step { position: relative; padding-top: 18px; }
+
+  .hw-bar {
+    width: 42px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+    border-radius: 3px;
+    margin-bottom: 16px;
+  }
+
+  .hw-num {
+    display: block;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--brand);
+    opacity: .20;
+    line-height: .8;
+    margin-bottom: 10px;
+    user-select: none;
+  }
+
+  .hw-step-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.22rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .hw-step-body { font-size: .94rem; color: var(--muted); line-height: 1.68; }
+
+  .hw-footer {
+    margin-top: 40px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.08rem;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--deep);
+  }
+
+  @media (max-width: 900px) {
+    .hw-steps { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .hw-steps { grid-template-columns: 1fr; }
+    .hw-section { padding: 60px 0 72px; }
+    .hw-wrap { padding: 0 20px; }
+  }
+</style>

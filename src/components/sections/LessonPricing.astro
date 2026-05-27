@@ -1,0 +1,363 @@
+---
+export interface PriceRow {
+  name: string
+  note?: string
+  sessions: string
+  price: string
+  popular?: boolean
+}
+export interface AltLink { label: string; href: string }
+export interface Props {
+  eyebrow?:    string
+  title?:      string
+  lead1?:      string
+  lead2?:      string
+  rows:        PriceRow[]
+  altLinks?:   AltLink[]
+  cardLabel?:  string
+  cardFrom?:   string
+  cardUnit?:   string
+  cardIncludes: string[]
+  ctaLabel?:   string
+  ctaHref?:    string
+  whatsapp?:   string
+}
+const {
+  eyebrow    = 'Pricing',
+  title      = 'How Much Does It Cost?',
+  lead1,
+  lead2,
+  rows       = [],
+  altLinks   = [],
+  cardLabel  = 'From',
+  cardFrom   = '$75',
+  cardUnit   = 'per person · per hour',
+  cardIncludes,
+  ctaLabel   = 'Check Availability',
+  ctaHref    = '#book',
+  whatsapp,
+} = Astro.props
+---
+
+<section class="lp-section" id="pricing">
+  <div class="lp-wrap">
+    <div class="lp-layout">
+
+      <!-- Left: text + table -->
+      <div class="lp-left">
+        <span class="lp-eyebrow">{eyebrow}</span>
+        <h2 class="lp-title">{title}</h2>
+        {lead1 && <p class="lp-lead">{lead1}</p>}
+        {lead2 && <p class="lp-lead lp-lead--mb">{lead2}</p>}
+
+        <div class="lp-table-wrap">
+          <table class="lp-table">
+            <thead>
+              <tr>
+                <th>Option</th>
+                <th>Sessions</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(row => (
+                <tr class={row.popular ? 'lp-row-pop' : ''}>
+                  <td>
+                    {row.name}
+                    {row.popular && <span class="lp-tag">Most popular</span>}
+                    {row.note && <small class="lp-note">{row.note}</small>}
+                  </td>
+                  <td class="lp-sessions">{row.sessions}</td>
+                  <td class="lp-price">{row.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {altLinks.length > 0 && (
+          <p class="lp-alt">
+            {altLinks.map((l, i) => (
+              <>
+                {i === 0 ? 'Prefer to learn differently? See our ' : ' or '}
+                <a href={l.href}>{l.label}</a>
+              </>
+            ))}
+            .
+          </p>
+        )}
+      </div>
+
+      <!-- Right: price card -->
+      <div class="lp-card-wrap">
+        <div class="lp-card" id="book">
+          <div class="lp-card-glow" aria-hidden="true"></div>
+          <p class="lp-card-label">{cardLabel}</p>
+          <p class="lp-card-price">{cardFrom}</p>
+          <p class="lp-card-unit">{cardUnit}</p>
+
+          <ul class="lp-includes">
+            {cardIncludes.map(item => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M4 10l4 4 8-8" stroke="#FFD079" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <a href={ctaHref} class="lp-cta">{ctaLabel}</a>
+
+          {whatsapp && (
+            <p class="lp-help">
+              Need help choosing?{' '}
+              <a href={`https://wa.me/${whatsapp.replace(/\D/g,'')}`}>WhatsApp us →</a>
+            </p>
+          )}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .lp-section {
+    --deep:       #0A3A40;
+    --brand:      #00BCD4;
+    --brand-dark: #0097A7;
+    --brand-text: #00838F;
+    --coral:      #FF6A4D;
+    --gold:       #FFD079;
+    --sand:       #FCF8F0;
+    --muted:      #5A7270;
+    --line:       rgba(10,58,64,.10);
+    --maxw:       1180px;
+    padding: 88px 0 96px;
+    background: #fff;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .lp-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  .lp-layout {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 52px;
+    align-items: start;
+  }
+
+  /* Eyebrow */
+  .lp-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--brand-text);
+    margin-bottom: 14px;
+  }
+  .lp-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .lp-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 18px;
+  }
+
+  .lp-lead {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.72;
+    margin-bottom: 10px;
+  }
+  .lp-lead--mb { margin-bottom: 24px; }
+  .lp-lead strong { color: var(--deep); }
+
+  /* Table */
+  .lp-table-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px -8px rgba(10,58,64,.14);
+    margin-bottom: 20px;
+  }
+  .lp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .96rem;
+    background: #fff;
+  }
+  .lp-table th {
+    background: var(--deep);
+    color: #fff;
+    font-size: .74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 14px 18px;
+    text-align: left;
+  }
+  .lp-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+    color: var(--deep);
+  }
+  .lp-table tr:last-child td { border-bottom: none; }
+  .lp-row-pop td { background: rgba(0,188,212,.06); }
+
+  .lp-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: #3a2400;
+    font-size: .65rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-left: 8px;
+    letter-spacing: .04em;
+    vertical-align: middle;
+  }
+  .lp-note {
+    display: block;
+    font-size: .82rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .lp-sessions { color: var(--muted); white-space: nowrap; }
+  .lp-price {
+    font-weight: 800;
+    color: var(--deep);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lp-alt {
+    font-size: .96rem;
+    color: var(--muted);
+  }
+  .lp-alt a {
+    color: var(--brand-text);
+    font-weight: 700;
+    border-bottom: 2px solid var(--gold);
+    text-decoration: none;
+  }
+  .lp-alt a:hover { color: var(--deep); }
+
+  /* Price card */
+  .lp-card-wrap { position: sticky; top: 96px; }
+
+  .lp-card {
+    position: relative;
+    background: linear-gradient(165deg, var(--brand-dark), var(--deep));
+    color: #fff;
+    border-radius: 24px;
+    padding: 34px 30px;
+    box-shadow: 0 18px 50px -16px rgba(0,150,164,.45);
+    overflow: hidden;
+  }
+  .lp-card-glow {
+    position: absolute;
+    top: -60px;
+    right: -50px;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,208,121,.55), transparent 68%);
+    pointer-events: none;
+  }
+
+  .lp-card-label {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    opacity: .80;
+    margin-bottom: 4px;
+  }
+  .lp-card-price {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 3.2rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--gold);
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .lp-card-unit {
+    font-size: .88rem;
+    opacity: .82;
+    margin-bottom: 24px;
+  }
+
+  .lp-includes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 26px;
+  }
+  .lp-includes li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 0;
+    font-size: .95rem;
+    border-bottom: 1px solid rgba(255,255,255,.11);
+    line-height: 1.45;
+  }
+  .lp-includes li:last-child { border-bottom: none; }
+  .lp-includes svg { flex-shrink: 0; margin-top: 2px; }
+
+  .lp-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 50px;
+    padding: 14px 20px;
+    border-radius: 50px;
+    background: var(--gold);
+    color: #3a2400;
+    font-size: .93rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 8px 24px -6px rgba(255,208,121,.50);
+    transition: transform .15s ease-out, box-shadow .2s ease, background .18s;
+  }
+  .lp-cta:hover {
+    background: #f5c84a;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -6px rgba(255,208,121,.60);
+  }
+  .lp-cta:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+  .lp-help {
+    text-align: center;
+    font-size: .84rem;
+    opacity: .80;
+    margin-top: 14px;
+  }
+  .lp-help a { color: var(--gold); font-weight: 700; text-decoration: none; }
+  .lp-help a:hover { text-decoration: underline; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .lp-layout { grid-template-columns: 1fr; gap: 36px; }
+    .lp-card-wrap { position: static; }
+  }
+  @media (max-width: 600px) {
+    .lp-section { padding: 60px 0 72px; }
+    .lp-wrap { padding: 0 20px; }
+  }
+</style>

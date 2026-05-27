@@ -27,7 +27,6 @@ const pages: SitemapEntry[] = [
   { loc: "/elite-pack", changefreq: "monthly", priority: "0.8" },
   { loc: "/best-surf-school-in-tamarindo", changefreq: "monthly", priority: "0.8" },
   { loc: "/surf-school-near-me-tamarindo", changefreq: "monthly", priority: "0.8" },
-  { loc: "/tamarindo-tide-chart", changefreq: "daily", priority: "0.7" },
   { loc: "/book-now", changefreq: "monthly", priority: "0.7" },
   { loc: "/blog", changefreq: "weekly", priority: "0.8", lastmod: TODAY },
   { loc: "/blog/best-time-to-surf-tamarindo", changefreq: "monthly", priority: "0.7" },

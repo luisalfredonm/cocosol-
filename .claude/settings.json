@@ -40,7 +40,8 @@
       "PowerShell(npx skills info ui-ux-pro-max 2>&1)",
       "PowerShell(head -20)",
       "PowerShell(npx skills --help 2>&1)",
-      "PowerShell(npx skills list --json 2>&1)"
+      "PowerShell(npx skills list --json 2>&1)",
+      "Bash(Test-Path \"c:\\\\Users\\\\LuisN\\\\Desktop\\\\Project 2026\\\\cocosol\\\\src\\\\pages\\\\group-surf-lessons-cocoa-beach.astro\")"
     ]
   },
   "autoMemoryEnabled": true

@@ -35,7 +35,6 @@ const navLinks = [
     href: '/blog',
     children: [
       { label: 'Blog', href: '/blog' },
-      { label: 'Tamarindo Tide Chart', href: '/tamarindo-tide-chart' },
     ],
   },
   { label: 'Contact', href: ROUTES.CONTACT },
@@ -72,12 +71,12 @@ const navLinks = [
       <nav class="hidden lg:flex items-center gap-1" aria-label="Main navigation">
         {navLinks.map(link => (
           <div class="relative group">
-            <a
-              href={link.href}
-              class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-semibold text-[16px] leading-5 tracking-wide transition-colors duration-150 px-3 py-7"
-            >
-              {link.label}
-              {link.children && (
+            {link.children ? (
+              <button
+                type="button"
+                class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-semibold text-[16px] leading-5 tracking-wide transition-colors duration-150 px-3 py-7 bg-transparent border-0 cursor-default select-none"
+              >
+                {link.label}
                 <svg
                   class="w-3.5 h-3.5 mt-px opacity-60 group-hover:opacity-100 transition-transform duration-200 group-hover:rotate-180"
                   fill="none"
@@ -86,8 +85,15 @@ const navLinks = [
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
                 </svg>
-              )}
-            </a>
+              </button>
+            ) : (
+              <a
+                href={link.href}
+                class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-semibold text-[16px] leading-5 tracking-wide transition-colors duration-150 px-3 py-7"
+              >
+                {link.label}
+              </a>
+            )}
 
             <!-- Dropdown -->
             {link.children && (
@@ -146,12 +152,18 @@ const navLinks = [
     <div class="pt-2 space-y-0.5">
       {navLinks.map(link => (
         <div>
-          <a
-            href={link.href}
-            class="block py-3 px-2 font-semibold text-[15px] text-gray-800 border-b border-gray-100 hover:text-teal-600 transition-colors"
-          >
-            {link.label}
-          </a>
+          {link.children ? (
+            <span class="block py-3 px-2 font-semibold text-[15px] text-gray-400 border-b border-gray-100 uppercase tracking-wider text-[11px]">
+              {link.label}
+            </span>
+          ) : (
+            <a
+              href={link.href}
+              class="block py-3 px-2 font-semibold text-[15px] text-gray-800 border-b border-gray-100 hover:text-teal-600 transition-colors"
+            >
+              {link.label}
+            </a>
+          )}
           {link.children && (
             <div class="pl-4 py-1 space-y-0.5">
               {link.children.map(child => (

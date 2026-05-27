@@ -180,15 +180,6 @@ export const seoData: Record<string, PageSEO> = {
     synonyms: ['surf lessons for families tamarindo', 'kids surf lessons tamarindo', 'family surfing tamarindo', 'surf lessons with kids costa rica'],
     related: ['group surf lessons tamarindo', 'beginner surf lessons tamarindo', 'surf camp tamarindo'],
   },
-  tideChart: {
-    slug: '/tamarindo-tide-chart',
-    keyfocus: 'tamarindo tide chart',
-    title: 'Tamarindo Tide Chart 2026 | Surf Tide Times Costa Rica',
-    description: 'Tamarindo tide chart for surfers. Check tide times, learn which tides produce the best waves, and plan your surf session with our local guide.',
-    image: '/images/surf-school-tamarindo-surf-instructor-student.webp',
-    synonyms: ['tamarindo tides', 'tamarindo tide times', 'costa rica tide chart', 'tamarindo surf tides', 'tide chart tamarindo beach'],
-    related: ['tamarindo surf lessons', 'best time to surf tamarindo', 'surf school tamarindo'],
-  },
   sanJoseToTamarindo: {
     slug: '/blog/how-to-get-from-san-jose-to-tamarindo',
     keyfocus: 'how to get from san jose to tamarindo',

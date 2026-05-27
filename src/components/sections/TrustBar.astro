@@ -1,0 +1,61 @@
+---
+export interface Props {
+  items: { value: string; label: string }[]
+}
+const { items } = Astro.props
+---
+
+<div class="tb-wrap">
+  <div class="tb-grid">
+    {items.map(item => (
+      <div class="tb-cell">
+        <span class="tb-value">{item.value}</span>
+        <span class="tb-label">{item.label}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .tb-wrap {
+    --deep:  #0A3A40;
+    --gold:  #FFD079;
+    background: var(--deep);
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .tb-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,.10);
+  }
+  .tb-cell {
+    background: var(--deep);
+    padding: 28px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .tb-value {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .tb-label {
+    font-size: .78rem;
+    color: rgba(255,255,255,.70);
+    font-weight: 500;
+    letter-spacing: .03em;
+  }
+  @media (max-width: 640px) {
+    .tb-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

@@ -1,0 +1,176 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+export interface GearItem  { label: string }
+export interface Subblock  { image: ImageMetadata; imageAlt: string; title: string; body: string }
+export interface Props {
+  eyebrow?:  string
+  title?:    string
+  subtitle?: string
+  gear:      GearItem[]
+  subblocks: Subblock[]
+}
+const {
+  eyebrow  = 'All-inclusive',
+  title    = "What's Included in Every Lesson",
+  subtitle = "Nothing to rent, buy, or figure out beforehand. You show up ready to have fun — we handle everything else.",
+  gear,
+  subblocks,
+} = Astro.props
+---
+
+<section class="gi-section">
+  <div class="gi-wrap">
+
+    <div class="gi-head">
+      <span class="gi-eyebrow">{eyebrow}</span>
+      <h2 class="gi-title">{title}</h2>
+      <p class="gi-subtitle">{subtitle}</p>
+    </div>
+
+    <div class="gi-gear">
+      {gear.map(item => (
+        <div class="gi-item">
+          <svg class="gi-check" width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {item.label}
+        </div>
+      ))}
+    </div>
+
+    <div class="gi-subblocks">
+      {subblocks.map(block => (
+        <div class="gi-subblock">
+          <div class="gi-img-wrap">
+            <Image
+              src={block.image}
+              alt={block.imageAlt}
+              class="gi-img"
+              widths={[480, 760, 960]}
+              sizes="(min-width: 900px) 45vw, 100vw"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="gi-pad">
+            <h3 class="gi-sub-title">{block.title}</h3>
+            <p class="gi-sub-body">{block.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .gi-section {
+    --deep:       #0A3A40;
+    --brand:      #00BCD4;
+    --brand-dark: #0097A7;
+    --brand-text: #00838F;
+    --gold:       #FFD079;
+    --muted:      #5A7270;
+    --line:       rgba(0,188,212,.12);
+    --maxw:       1180px;
+    padding: 84px 0 92px;
+    background: #EFF9FB;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .gi-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  .gi-head { max-width: 680px; margin-bottom: 44px; }
+  .gi-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--brand-text);
+    margin-bottom: 14px;
+  }
+  .gi-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .gi-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 14px;
+  }
+  .gi-subtitle { font-size: 1.05rem; color: var(--muted); line-height: 1.7; }
+
+  /* Gear grid */
+  .gi-gear {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 52px;
+  }
+  .gi-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    padding: 16px 18px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: .95rem;
+    color: var(--deep);
+    box-shadow: 0 4px 16px -6px rgba(0,188,212,.12);
+    border: 1px solid rgba(0,188,212,.10);
+  }
+  .gi-check { color: var(--brand); flex-shrink: 0; }
+
+  /* Subblocks */
+  .gi-subblocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .gi-subblock {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px -8px rgba(0,188,212,.14);
+  }
+  .gi-img-wrap { height: 220px; overflow: hidden; }
+  .gi-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+  .gi-subblock:hover .gi-img { transform: scale(1.04); }
+  .gi-pad { padding: 26px 28px; }
+  .gi-sub-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.38rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .gi-sub-body { color: var(--muted); font-size: .97rem; line-height: 1.68; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .gi-gear { grid-template-columns: repeat(2, 1fr); }
+    .gi-subblocks { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .gi-section { padding: 60px 0 72px; }
+    .gi-wrap { padding: 0 20px; }
+    .gi-gear { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,227 @@
+---
+export interface Column {
+  title:    string
+  price:    string
+  badge?:   string
+  items:    string[]
+  featured?: boolean
+}
+export interface Props {
+  eyebrow?:  string
+  title?:    string
+  subtitle?: string
+  left:      Column
+  right:     Column
+  note?:     string
+  noteLink?: { label: string; href: string }
+}
+const {
+  eyebrow  = 'Make the right call',
+  title    = 'Which Lesson Type Is Right for You?',
+  subtitle = 'Both work. The right choice comes down to how fast you want to progress and how you like to learn.',
+  left,
+  right,
+  note,
+  noteLink,
+} = Astro.props
+---
+
+<section class="cc-section" id="compare">
+  <div class="cc-wrap">
+
+    <div class="cc-head">
+      <span class="cc-eyebrow">{eyebrow}</span>
+      <h2 class="cc-title">{title}</h2>
+      <p class="cc-subtitle">{subtitle}</p>
+    </div>
+
+    <div class="cc-grid">
+
+      <!-- Featured column (private) -->
+      <div class="cc-col cc-col--featured">
+        {left.badge && <span class="cc-badge">{left.badge}</span>}
+        <h3 class="cc-col-title">{left.title}</h3>
+        <p class="cc-price cc-price--light">{left.price}</p>
+        <ul class="cc-list">
+          {left.items.map(item => (
+            <li>
+              <span class="cc-check cc-check--gold" aria-hidden="true">✓</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Secondary column (group) -->
+      <div class="cc-col cc-col--plain">
+        <h3 class="cc-col-title cc-col-title--dark">{right.title}</h3>
+        <p class="cc-price cc-price--dark">{right.price}</p>
+        <ul class="cc-list cc-list--dark">
+          {right.items.map(item => (
+            <li>
+              <span class="cc-check cc-check--brand" aria-hidden="true">✓</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </div>
+
+    {(note || noteLink) && (
+      <p class="cc-note">
+        {note}
+        {noteLink && (
+          <> See our <a href={noteLink.href}>{noteLink.label}</a>.</>
+        )}
+      </p>
+    )}
+
+  </div>
+</section>
+
+<style>
+  .cc-section {
+    --deep:       #0A3A40;
+    --brand:      #00BCD4;
+    --brand-dark: #0097A7;
+    --brand-text: #00838F;
+    --gold:       #FFD079;
+    --muted:      #5A7270;
+    --line:       rgba(10,58,64,.10);
+    --maxw:       1180px;
+    padding: 84px 0 92px;
+    background: #fff;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .cc-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  .cc-head { max-width: 700px; margin-bottom: 44px; }
+  .cc-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--brand-text);
+    margin-bottom: 14px;
+  }
+  .cc-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .cc-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 14px;
+  }
+  .cc-subtitle { font-size: 1.05rem; color: var(--muted); line-height: 1.7; }
+
+  /* Grid */
+  .cc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* Columns */
+  .cc-col {
+    border-radius: 20px;
+    padding: 36px 32px;
+    position: relative;
+  }
+  .cc-col--featured {
+    background: linear-gradient(165deg, var(--brand-dark), var(--deep));
+    color: #fff;
+    box-shadow: 0 12px 40px -12px rgba(0,150,164,.40);
+  }
+  .cc-col--plain {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    box-shadow: 0 4px 20px -8px rgba(10,58,64,.10);
+  }
+
+  .cc-badge {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: var(--gold);
+    color: #3a2400;
+    font-size: .68rem;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 999px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  .cc-col-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+    line-height: 1.15;
+  }
+  .cc-col-title--dark { color: var(--deep); }
+
+  .cc-price {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .cc-price--light { color: var(--gold); }
+  .cc-price--dark  { color: var(--brand-text); }
+
+  .cc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .cc-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 10px 0;
+    font-size: .97rem;
+    line-height: 1.45;
+    border-bottom: 1px solid rgba(255,255,255,.13);
+  }
+  .cc-list--dark li { border-bottom-color: var(--line); color: var(--deep); }
+  .cc-list li:last-child { border-bottom: none; }
+
+  .cc-check { font-weight: 800; flex-shrink: 0; line-height: 1.45; }
+  .cc-check--gold  { color: var(--gold); }
+  .cc-check--brand { color: var(--brand-text); }
+
+  .cc-note {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 1.02rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .cc-note a {
+    color: var(--brand-text);
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    border-bottom: 2px solid var(--gold);
+  }
+  .cc-note a:hover { color: var(--deep); }
+
+  @media (max-width: 768px) {
+    .cc-grid { grid-template-columns: 1fr; }
+    .cc-section { padding: 60px 0 72px; }
+    .cc-wrap { padding: 0 20px; }
+  }
+</style>

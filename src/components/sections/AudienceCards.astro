@@ -1,0 +1,146 @@
+---
+export interface AudienceCard {
+  num:       string
+  title:     string
+  body:      string
+  linkLabel?: string
+  linkHref?:  string
+}
+export interface Props {
+  eyebrow?:  string
+  title?:    string
+  subtitle?: string
+  cards:     AudienceCard[]
+}
+const {
+  eyebrow  = 'Who it\'s for',
+  title    = 'Who Are These Lessons For?',
+  subtitle = 'Our lessons adapt to the person in the water.',
+  cards,
+} = Astro.props
+---
+
+<section class="ac-section">
+  <div class="ac-wrap">
+
+    <div class="ac-head">
+      <span class="ac-eyebrow">{eyebrow}</span>
+      <h2 class="ac-title">{title}</h2>
+      <p class="ac-subtitle">{subtitle}</p>
+    </div>
+
+    <div class="ac-grid">
+      {cards.map(card => (
+        <div class="ac-card">
+          <span class="ac-num">{card.num}</span>
+          <h3 class="ac-card-title">{card.title}</h3>
+          <p class="ac-card-body">{card.body}</p>
+          {card.linkLabel && card.linkHref && (
+            <a href={card.linkHref} class="ac-link">{card.linkLabel} →</a>
+          )}
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .ac-section {
+    --deep:  #0A3A40;
+    --brand: #00BCD4;
+    --gold:  #FFD079;
+    --maxw:  1180px;
+    padding: 84px 0 92px;
+    background: var(--deep);
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .ac-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  .ac-head { max-width: 640px; margin-bottom: 44px; }
+  .ac-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .ac-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .ac-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .ac-subtitle { font-size: 1.05rem; color: rgba(255,255,255,.72); line-height: 1.7; }
+
+  .ac-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .ac-card {
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.11);
+    border-radius: 18px;
+    padding: 30px 28px;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .ac-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,.09);
+  }
+
+  .ac-num {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .ac-card-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .ac-card-body {
+    font-size: .96rem;
+    color: rgba(255,255,255,.78);
+    line-height: 1.68;
+    margin-bottom: 0;
+  }
+  .ac-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,217,121,.40);
+    transition: border-color .2s;
+  }
+  .ac-link:hover { border-color: var(--gold); }
+
+  @media (max-width: 640px) {
+    .ac-grid { grid-template-columns: 1fr; }
+    .ac-section { padding: 60px 0 72px; }
+    .ac-wrap { padding: 0 20px; }
+  }
+</style>
