@@ -1,4 +1,12 @@
-import { formatCurrency, calculateTotal, getMinParticipants, getMaxParticipants } from '../../../lib/classTypeHelpers'
+import {
+  formatCurrency,
+  calculateTotal,
+  getMinParticipants,
+  getMaxParticipants,
+  getPricePerPerson,
+  formatPricingTiers,
+  getPricingTiers,
+} from '../../../lib/classTypeHelpers'
 import type { DbClassType } from '../../../lib/classTypeHelpers'
 
 interface Props {
@@ -13,6 +21,8 @@ export default function StepParticipants({ classType, participants, onChange, on
   const total = calculateTotal(classType, participants)
   const minParticipants = getMinParticipants(classType)
   const maxParticipants = getMaxParticipants(classType)
+  const pricePerPerson = getPricePerPerson(classType, participants)
+  const hasTiers = getPricingTiers(classType).length > 0
 
   return (
     <div>
@@ -26,7 +36,7 @@ export default function StepParticipants({ classType, participants, onChange, on
           onClick={() => participants > minParticipants && onChange(participants - 1)}
           disabled={participants <= minParticipants}
           className="w-12 h-12 rounded-full border-2 border-gray-200 hover:border-teal-400 flex items-center justify-center text-2xl font-bold text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-        >−</button>
+        >-</button>
         <span className="text-5xl font-extrabold text-gray-900 w-16 text-center">{participants}</span>
         <button
           onClick={() => participants < maxParticipants && onChange(participants + 1)}
@@ -39,8 +49,13 @@ export default function StepParticipants({ classType, participants, onChange, on
         <p className="text-sm text-teal-700 mb-1">Total price</p>
         <p className="text-4xl font-extrabold text-teal-700">{formatCurrency(total)}</p>
         <p className="text-sm text-teal-600 mt-1">
-          {formatCurrency(classType.price_per_person)} × {participants} {participants === 1 ? 'person' : 'people'}
+          {formatCurrency(pricePerPerson)} x {participants} {participants === 1 ? 'person' : 'people'}
         </p>
+        {hasTiers && (
+          <p className="text-xs text-teal-700 mt-3 font-semibold">
+            Pricing: {formatPricingTiers(classType)}
+          </p>
+        )}
       </div>
 
       <div className="bg-gray-50 rounded-xl p-4 mb-8">
@@ -58,13 +73,13 @@ export default function StepParticipants({ classType, participants, onChange, on
       </div>
 
       <div className="flex gap-3 justify-between">
-        <button onClick={onBack} className="btn-outline px-6 py-2.5 text-sm">← Back</button>
+        <button onClick={onBack} className="btn-outline px-6 py-2.5 text-sm">Back</button>
         <button
           onClick={onContinue}
           disabled={participants < minParticipants || participants > maxParticipants}
           className="btn-primary px-8 py-2.5 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Continue →
+          Continue
         </button>
       </div>
     </div>

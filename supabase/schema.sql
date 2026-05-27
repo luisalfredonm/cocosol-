@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS class_types (
   name VARCHAR(255) NOT NULL,
   category VARCHAR(20) NOT NULL CHECK (category IN ('lesson','package','camp')),
   price_per_person DECIMAL(10,2) NOT NULL,
+  price_tiers JSONB,
   min_participants_per_booking INTEGER NOT NULL DEFAULT 1 CHECK (min_participants_per_booking >= 1),
   max_participants_per_booking INTEGER NOT NULL DEFAULT 1 CHECK (max_participants_per_booking >= min_participants_per_booking),
   max_capacity INTEGER NOT NULL CHECK (max_capacity >= 1),
@@ -100,6 +101,7 @@ CREATE TABLE IF NOT EXISTS class_types (
 
 ALTER TABLE class_types ADD COLUMN IF NOT EXISTS min_participants_per_booking INTEGER NOT NULL DEFAULT 1;
 ALTER TABLE class_types ADD COLUMN IF NOT EXISTS max_participants_per_booking INTEGER NOT NULL DEFAULT 1;
+ALTER TABLE class_types ADD COLUMN IF NOT EXISTS price_tiers JSONB;
 
 DROP TRIGGER IF EXISTS update_class_types_updated_at ON class_types;
 CREATE TRIGGER update_class_types_updated_at
@@ -134,6 +136,50 @@ INSERT INTO class_types (
   ('camp-7-private','7-Day Private Package',     'camp',    694.95, 1,  4,  1, 90, 'The ultimate week-long private surf experience.',                        ARRAY['6 x 90-min lessons','Accommodation (6 nights)','Breakfast daily','2 surf trips','Surfboard & gear','Airport transfer','Photos & video','Yoga session'], 'Ultimate Experience', 9),
   ('camp-7-semi',   '7-Day Semi-Private Package','camp',    620.37, 1, 10, 10, 90, 'The ultimate week-long surf camp.',                                      ARRAY['6 x 90-min lessons','Accommodation (6 nights)','Breakfast daily','2 surf trips','Surfboard & gear','Airport transfer','Photos & video','Yoga session'], NULL, 10)
 ON CONFLICT (id) DO NOTHING;
+
+-- Florida booking cleanup: surf camp is not managed in the admin booking flow.
+UPDATE class_types SET active = false WHERE category = 'camp';
+
+-- Florida 1-hour lesson pricing:
+-- 1 person = $75/person, 2 people = $70/person, 3+ people = $65/person.
+UPDATE class_types SET
+  name = '1 Hour Surf Lesson',
+  category = 'lesson',
+  price_per_person = 75.00,
+  price_tiers = '[
+    {"min_participants":1,"max_participants":1,"price_per_person":75},
+    {"min_participants":2,"max_participants":2,"price_per_person":70},
+    {"min_participants":3,"max_participants":null,"price_per_person":65}
+  ]'::jsonb,
+  min_participants_per_booking = 1,
+  max_participants_per_booking = 12,
+  max_capacity = 12,
+  duration_minutes = 60,
+  description = 'One-hour surf lesson with private pricing for 1-2 guests and group pricing for 3+ guests.',
+  sort_order = 1,
+  active = true
+WHERE id = 'private';
+
+INSERT INTO class_types (
+  id, name, category, price_per_person, price_tiers, min_participants_per_booking,
+  max_participants_per_booking, max_capacity, duration_minutes, description,
+  included, badge, sort_order, active
+) VALUES (
+  'private-2h',
+  '2 Hour Surf Lesson',
+  'lesson',
+  0.00,
+  NULL,
+  1,
+  12,
+  12,
+  120,
+  'Two-hour surf lesson. Add the exact Florida tiered pricing in Admin before making it visible.',
+  ARRAY['Surfboard','Leash','Rash guard','Certified instructor'],
+  NULL,
+  2,
+  false
+) ON CONFLICT (id) DO NOTHING;
 
 -- Payment Configuration (supports multiple providers)
 CREATE TABLE IF NOT EXISTS payment_config (

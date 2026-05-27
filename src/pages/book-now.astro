@@ -11,7 +11,7 @@ const seo = seoData.bookNow
 
 // Pre-select class type from URL param (e.g. /book-now?type=private)
 const typeParam = Astro.url.searchParams.get('type') as any
-const validTypes = ['private','semi-private','group','pkg-3-private','pkg-3-semi','pkg-5-private','pkg-5-semi','camp-7-private','camp-7-semi']
+const validTypes = ['private','private-2h','semi-private','group','pkg-3-private','pkg-3-semi','pkg-5-private','pkg-5-semi']
 const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
 ---
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
@@ -53,7 +53,7 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
           <p class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-3 px-1">Surf Lessons</p>
           <div class="flex flex-col gap-2">
             {[
-              { label: 'Private Lesson', href: '/book-now?type=private' },
+              { label: '1 Hour Surf Lesson', href: '/book-now?type=private' },
               { label: 'Semi-Private Lesson', href: '/book-now?type=semi-private' },
               { label: 'Group Lesson', href: '/book-now?type=group' },
             ].map(link => (
@@ -73,8 +73,6 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
               { label: '3-Day Semi-Private Package', href: '/book-now?type=pkg-3-semi' },
               { label: '5-Day Private Package', href: '/book-now?type=pkg-5-private' },
               { label: '5-Day Semi-Private Package', href: '/book-now?type=pkg-5-semi' },
-              { label: '7-Day Private Package', href: '/book-now?type=camp-7-private' },
-              { label: '7-Day Semi-Private Package', href: '/book-now?type=camp-7-semi' },
             ].map(link => (
               <a href={link.href} class="text-sm border border-gray-200 hover:border-teal-400 hover:text-teal-600 px-4 py-2.5 rounded-xl transition-colors bg-white text-gray-700 font-medium">
                 {link.label}

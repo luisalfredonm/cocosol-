@@ -1,4 +1,4 @@
-import { formatCurrency } from '../../../lib/classTypeHelpers'
+import { formatCurrency, formatPricingTiers, getPricingTiers } from '../../../lib/classTypeHelpers'
 import type { DbClassType } from '../../../lib/classTypeHelpers'
 
 interface Props {
@@ -29,7 +29,12 @@ export default function StepClassType({ classTypes, onSelect }: Props) {
         <div key={cat} className="mb-8">
           <h3 className="text-xs font-bold uppercase tracking-widest text-teal-600 mb-3">{label}</h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {types.map(type => (
+            {types.map(type => {
+              const hasTiers = getPricingTiers(type).length > 0
+              const startingPrice = hasTiers
+                ? Math.min(...getPricingTiers(type).map(tier => tier.price_per_person))
+                : type.price_per_person
+              return (
               <button
                 key={type.id}
                 onClick={() => onSelect(type.id)}
@@ -44,9 +49,14 @@ export default function StepClassType({ classTypes, onSelect }: Props) {
                   {type.name}
                 </p>
                 <p className="text-2xl font-extrabold text-teal-600 mb-2">
-                  {formatCurrency(type.price_per_person)}
+                  {hasTiers ? `From ${formatCurrency(startingPrice)}` : formatCurrency(startingPrice)}
                   <span className="text-sm font-normal text-gray-500">/person</span>
                 </p>
+                {hasTiers && (
+                  <p className="text-xs font-semibold text-teal-700 bg-teal-50 border border-teal-100 rounded-lg px-2 py-1 mb-3">
+                    {formatPricingTiers(type)}
+                  </p>
+                )}
                 <p className="text-sm text-gray-500 mb-3 leading-snug">{type.description}</p>
                 <ul className="space-y-1">
                   {(type.included ?? []).slice(0, 3).map(item => (
@@ -59,7 +69,8 @@ export default function StepClassType({ classTypes, onSelect }: Props) {
                   ))}
                 </ul>
               </button>
-            ))}
+              )
+            })}
           </div>
         </div>
       ))}

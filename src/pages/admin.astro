@@ -2,7 +2,7 @@
 export const prerender = false
 
 import { supabase } from '../lib/supabase'
-import { formatCurrency, formatTime } from '../lib/classTypes'
+import { formatCurrency, formatTime, formatPricingTiers } from '../lib/classTypes'
 import PaymentConfig from '../components/admin/PaymentConfig.astro'
 import BookingSettings from '../components/admin/BookingSettings.astro'
 import '../styles/global.css'
@@ -12,6 +12,41 @@ const authCookie = Astro.cookies.get('pvss_admin')
 const isAuthenticated = authCookie?.value === ADMIN_PASSWORD
 
 const DOW_LABELS = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const DISABLED_CAMP_TABS = ['camp-bookings', 'camp-rooms', 'camp-sessions', 'camp-settings']
+const FLORIDA_PRICE_TIERS_EXAMPLE = `[
+  { "min_participants": 1, "max_participants": 1, "price_per_person": 75 },
+  { "min_participants": 2, "max_participants": 2, "price_per_person": 70 },
+  { "min_participants": 3, "max_participants": null, "price_per_person": 65 }
+]`
+
+function parsePriceTiers(raw: FormDataEntryValue | null) {
+  const text = String(raw ?? '').trim()
+  if (!text) return null
+
+  try {
+    const parsed = JSON.parse(text)
+    if (!Array.isArray(parsed)) return null
+
+    return parsed
+      .map((tier: any) => ({
+        min_participants: Math.max(1, Number(tier.min_participants) || 1),
+        max_participants:
+          tier.max_participants === null || tier.max_participants === undefined || tier.max_participants === ''
+            ? null
+            : Math.max(1, Number(tier.max_participants) || 1),
+        price_per_person: Math.max(0, Number(tier.price_per_person) || 0),
+        label: tier.label ? String(tier.label) : null,
+      }))
+      .filter((tier: any) => tier.price_per_person > 0)
+  } catch {
+    return null
+  }
+}
+
+function stringifyPriceTiers(tiers: any) {
+  if (!Array.isArray(tiers) || tiers.length === 0) return ''
+  return JSON.stringify(tiers, null, 2)
+}
 
 // ── POST handlers ──────────────────────────────────────────────────────────
 if (Astro.request.method === 'POST') {
@@ -117,6 +152,39 @@ if (Astro.request.method === 'POST') {
       return Astro.redirect('/admin?tab=bookings')
     }
 
+    if (action === 'create_class_type') {
+      const id = String(form.get('id') ?? '').trim()
+      if (!id) return Astro.redirect('/admin?tab=class-types')
+
+      const minParticipants = parseInt(form.get('min_participants_per_booking') as string)
+      const maxParticipants = parseInt(form.get('max_participants_per_booking') as string)
+      const normalizedMin = Number.isNaN(minParticipants) ? 1 : Math.max(1, minParticipants)
+      const normalizedMaxRaw = Number.isNaN(maxParticipants) ? normalizedMin : Math.max(1, maxParticipants)
+      const normalizedMax = Math.max(normalizedMin, normalizedMaxRaw)
+      const included = String(form.get('included') ?? '')
+        .split(',')
+        .map(item => item.trim())
+        .filter(Boolean)
+
+      await supabase.from('class_types').insert({
+        id,
+        name: form.get('name'),
+        category: form.get('category') || 'lesson',
+        price_per_person: parseFloat(form.get('price_per_person') as string),
+        price_tiers: parsePriceTiers(form.get('price_tiers')),
+        min_participants_per_booking: normalizedMin,
+        max_participants_per_booking: normalizedMax,
+        max_capacity: parseInt(form.get('max_capacity') as string),
+        duration_minutes: parseInt(form.get('duration_minutes') as string),
+        description: form.get('description'),
+        included: included.length > 0 ? included : ['Surfboard', 'Leash', 'Rash guard', 'Certified instructor'],
+        badge: (form.get('badge') as string) || null,
+        active: form.get('active') === 'true',
+        sort_order: parseInt(form.get('sort_order') as string) || 0,
+      })
+      return Astro.redirect('/admin?tab=class-types')
+    }
+
     if (action === 'update_class_type') {
       const id = form.get('id') as string
       const minParticipants = parseInt(form.get('min_participants_per_booking') as string)
@@ -127,6 +195,7 @@ if (Astro.request.method === 'POST') {
       await supabase.from('class_types').update({
         name: form.get('name'),
         price_per_person: parseFloat(form.get('price_per_person') as string),
+        price_tiers: parsePriceTiers(form.get('price_tiers')),
         min_participants_per_booking: normalizedMin,
         max_participants_per_booking: normalizedMax,
         max_capacity: parseInt(form.get('max_capacity') as string),
@@ -213,6 +282,10 @@ const activeTab = Astro.url.searchParams.get('tab') ?? 'bookings'
 const statusFilter = Astro.url.searchParams.get('status') ?? ''
 const dateFilter = Astro.url.searchParams.get('date') ?? ''
 
+if (isAuthenticated && DISABLED_CAMP_TABS.includes(activeTab)) {
+  return Astro.redirect('/admin?tab=class-types')
+}
+
 if (isAuthenticated) {
   const [
     { data: allBookings },
@@ -238,29 +311,6 @@ if (isAuthenticated) {
   weeklySlots = wsData ?? []
   capacities = capData ?? []
   dateSlots = dsData ?? []
-
-  const [
-    { data: crData },
-    { data: csData },
-    { data: cbData },
-    { data: csetData },
-  ] = await Promise.all([
-    supabase.from('camp_rooms').select('*').order('sort_order'),
-    supabase.from('camp_sessions').select('*, camp_session_rooms(room_id)').order('start_date'),
-    supabase.from('camp_bookings').select('*, camp_sessions(camp_type,start_date,end_date), camp_rooms(name)').order('created_at', { ascending: false }).limit(200),
-    supabase.from('camp_settings').select('*').eq('id', 1).single(),
-  ])
-  campRooms = crData ?? []
-  campSessions = csData ?? []
-  campBookings = cbData ?? []
-  if (csetData) campSettings = csetData
-
-  for (const b of (cbData ?? [])) {
-    campStats.total++
-    if (b.status === 'confirmed') { campStats.confirmed++; campStats.revenue += Number(b.charged_amount_usd ?? b.full_amount_usd ?? 0) }
-    if (b.status === 'pending')   campStats.pending++
-    if (b.status === 'cancelled') campStats.cancelled++
-  }
 
   for (const b of statsData ?? []) {
     stats.total++
@@ -368,7 +418,7 @@ const TABS_SETTINGS = [
   { id: 'booking-settings', label: 'Booking Settings', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
 ]
 
-const TABS = [...TABS_LESSONS, ...TABS_CAMP, ...TABS_SETTINGS]
+const TABS = [...TABS_LESSONS, ...TABS_SETTINGS]
 
 const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.id === 'bookings'))
 ---
@@ -635,22 +685,6 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
               <span>{t.label}</span>
               {t.id === 'bookings' && stats.pending > 0 && (
                 <span class="adm-nav-badge">{stats.pending}</span>
-              )}
-            </a>
-          )
-        })}
-
-        <div class="adm-nav-label" style="margin-top:18px">Surf Camp</div>
-        {TABS_CAMP.map(t => {
-          const isActive = activeTab === t.id
-          return (
-            <a href={`/admin?tab=${t.id}`} class={`adm-nav-link ${isActive ? 'adm-active' : ''}`}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d={t.icon} />
-              </svg>
-              <span>{t.label}</span>
-              {t.id === 'camp-bookings' && campStats.pending > 0 && (
-                <span class="adm-nav-badge">{campStats.pending}</span>
               )}
             </a>
           )
@@ -1192,6 +1226,90 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
         {activeTab === 'class-types' && (
           <div class="adm-tab" style="display:flex;flex-direction:column;gap:10px">
             <p style="font-size:13px;color:#94A3B8;margin:0 0 6px">Changes take effect immediately in the booking wizard.</p>
+            <details class="adm-card adm-accordion">
+              <summary class="adm-service-summary">
+                <div style="display:flex;align-items:center;gap:14px">
+                  <div style="width:10px;height:10px;border-radius:50%;flex-shrink:0;background:#0097A7"></div>
+                  <div>
+                    <div style="font-weight:700;color:#0F172A;font-size:14px">Add service</div>
+                    <div style="font-size:12px;color:#94A3B8;margin-top:2px">Create Florida lesson options like 1-hour and 2-hour surf lessons.</div>
+                  </div>
+                </div>
+                <svg class="adm-chevron" style="width:18px;height:18px;color:#CBD5E1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="adm-service-body">
+                <form method="POST">
+                  <input type="hidden" name="action" value="create_class_type" />
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px">
+                    <div>
+                      <label class="adm-label">Service ID</label>
+                      <input type="text" name="id" required class="adm-input" placeholder="private-2h" />
+                    </div>
+                    <div style="grid-column:span 2">
+                      <label class="adm-label">Name</label>
+                      <input type="text" name="name" required class="adm-input" placeholder="2 Hour Surf Lesson" />
+                    </div>
+                    <div>
+                      <label class="adm-label">Category</label>
+                      <select name="category" class="adm-input">
+                        <option value="lesson">Lesson</option>
+                        <option value="package">Package</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="adm-label">Base Price / Person</label>
+                      <input type="number" name="price_per_person" value="75" step="0.01" min="0" required class="adm-input" />
+                    </div>
+                    <div>
+                      <label class="adm-label">Duration (minutes)</label>
+                      <input type="number" name="duration_minutes" value="60" min="30" required class="adm-input" />
+                    </div>
+                    <div>
+                      <label class="adm-label">Min Guests</label>
+                      <input type="number" name="min_participants_per_booking" value="1" min="1" max="100" required class="adm-input" />
+                    </div>
+                    <div>
+                      <label class="adm-label">Max Guests</label>
+                      <input type="number" name="max_participants_per_booking" value="12" min="1" max="100" required class="adm-input" />
+                    </div>
+                    <div>
+                      <label class="adm-label">Max Capacity</label>
+                      <input type="number" name="max_capacity" value="12" min="1" max="100" required class="adm-input" />
+                    </div>
+                    <div>
+                      <label class="adm-label">Sort Order</label>
+                      <input type="number" name="sort_order" value="10" min="0" class="adm-input" />
+                    </div>
+                    <div>
+                      <label class="adm-label">Active</label>
+                      <select name="active" class="adm-input">
+                        <option value="true">Yes - visible in booking</option>
+                        <option value="false">No - hidden</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="adm-label">Badge (optional)</label>
+                      <input type="text" name="badge" class="adm-input" placeholder="Most Popular" />
+                    </div>
+                    <div style="grid-column:span 3">
+                      <label class="adm-label">Description</label>
+                      <textarea name="description" rows={2} class="adm-input">Surf lesson with pricing that adjusts by group size.</textarea>
+                    </div>
+                    <div style="grid-column:span 3">
+                      <label class="adm-label">Included (comma-separated)</label>
+                      <input type="text" name="included" class="adm-input" value="Surfboard, Leash, Rash guard, Certified instructor" />
+                    </div>
+                    <div style="grid-column:span 3">
+                      <label class="adm-label">Tiered Pricing JSON</label>
+                      <textarea name="price_tiers" rows={5} class="adm-input">{FLORIDA_PRICE_TIERS_EXAMPLE}</textarea>
+                    </div>
+                  </div>
+                  <button type="submit" class="adm-btn adm-btn-teal">Create Service</button>
+                </form>
+              </div>
+            </details>
             {classTypes.map(ct => (
               <details class="adm-card adm-accordion">
                 <summary class="adm-service-summary">
@@ -1200,7 +1318,7 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                     <div>
                       <div style="font-weight:700;color:#0F172A;font-size:14px">{ct.name}</div>
                       <div style="font-size:12px;color:#94A3B8;margin-top:2px">
-                        {ct.category} ·&nbsp;<strong style="color:#0097A7">{formatCurrency(ct.price_per_person)}</strong>/person
+                        {ct.category} ·&nbsp;<strong style="color:#0097A7">{formatPricingTiers(ct)}</strong>
                         · {ct.min_participants_per_booking ?? 1}–{ct.max_participants_per_booking ?? ct.max_capacity} guests
                         · {ct.duration_minutes}min
                       </div>
@@ -1264,6 +1382,13 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                       <div style="grid-column:span 3">
                         <label class="adm-label">Description</label>
                         <textarea name="description" rows={2} class="adm-input">{ct.description}</textarea>
+                      </div>
+                      <div style="grid-column:span 3">
+                        <label class="adm-label">Tiered Pricing JSON (optional)</label>
+                        <textarea name="price_tiers" rows={5} class="adm-input" placeholder={FLORIDA_PRICE_TIERS_EXAMPLE}>{stringifyPriceTiers(ct.price_tiers)}</textarea>
+                        <div style="font-size:11.5px;color:#94A3B8;margin-top:5px;line-height:1.45">
+                          Leave blank for flat pricing. Florida example: 1 guest $75, 2 guests $70/person, 3+ guests $65/person.
+                        </div>
                       </div>
                     </div>
                     <button type="submit" class="adm-btn adm-btn-teal">Save Changes</button>

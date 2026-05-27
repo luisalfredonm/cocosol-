@@ -208,6 +208,13 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
   const classType = classTypes.find(ct => ct.id === state.classTypeId) ?? null
   const totalAmount = classType ? calculateTotal(classType, state.participants) : 0
 
+  useEffect(() => {
+    if (loadingTypes || !preselectedType || classTypes.length === 0) return
+    if (!classTypes.some(ct => ct.id === preselectedType)) {
+      dispatch({ type: 'ADD_ANOTHER_CLASS' })
+    }
+  }, [loadingTypes, preselectedType, classTypes])
+
   const cartDisplayItems = state.cartItems
     .map(item => ({ item, classType: classTypes.find(ct => ct.id === item.classTypeId) ?? null }))
     .filter(x => x.classType)

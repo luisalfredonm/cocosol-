@@ -1,11 +1,15 @@
 ---
-import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
-import Sidebar from '../components/ui/Sidebar.astro'
-import VideoSection from '../components/sections/VideoSection.astro'
+import TrustBar from '../components/sections/TrustBar.astro'
+import LessonPricing from '../components/sections/LessonPricing.astro'
+import GearIncluded from '../components/sections/GearIncluded.astro'
+import CompareColumns from '../components/sections/CompareColumns.astro'
+import AudienceCards from '../components/sections/AudienceCards.astro'
+import HowItWorks from '../components/sections/HowItWorks.astro'
+import SplitContent from '../components/sections/SplitContent.astro'
+import FinalCTA from '../components/sections/FinalCTA.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
-import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
@@ -13,187 +17,428 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg  from '../assets/images/semi-private-surf-tamarindo-wave-riding.webp'
-import gallery1 from '../assets/images/semi-private-surf-instructor-tamarindo.webp'
-import gallery2 from '../assets/images/couple-surf-lessons-tamarindo-instructor.webp'
-import gallery3 from '../assets/images/small-group-surf-lessons-tamarindo-2-3.webp'
-import gallery4 from '../assets/images/semi-private-surf-costa-rica-beginner-board.webp'
-import videoBg  from '../assets/images/semi-private-surf-tamarindo-2-person.webp'
+import heroImg       from '../assets/images/semi-private-surf-tamarindo-wave-riding.webp'
+import instructorImg from '../assets/images/semi-private-surf-instructor-tamarindo.webp'
+import coachingImg   from '../assets/images/semi-private-surf-tamarindo-2-person.webp'
+import boardImg      from '../assets/images/semi-private-surf-costa-rica-beginner-board.webp'
+import ctaBgImg      from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
 
 const seo = seoData.semiPrivateLessons
 
+const trustItems = [
+  { value: '25+',      label: 'Years Local Experience' },
+  { value: '3:1',      label: 'Max Coach Ratio' },
+  { value: '1.5–2 hr', label: 'Per Session' },
+  { value: 'Int–Adv',  label: 'Skill Level' },
+]
+
+const priceRows = [
+  { name: 'Single Coaching Session', note: '1.5–2h · all pro gear included',         sessions: '/ person',   price: '$95',   popular: true  },
+  { name: 'Starter Pack',            note: 'Same coach · flexible scheduling',         sessions: '4 sessions', price: '$260',  popular: false },
+  { name: 'Progression Pack',        note: '1 professional photo session included',    sessions: '6 sessions', price: '$475',  popular: false },
+  { name: 'Elite Pack',              note: '2 photo sessions · for committed surfers', sessions: '16 sessions', price: '$1,280', popular: false },
+]
+
+const gear = [
+  { label: 'Premium surfboard, matched to your level' },
+  { label: 'High-quality leash & surf wax' },
+  { label: 'UV-protection rash guard' },
+  { label: 'Reef-friendly mineral sunscreen' },
+  { label: 'Pre-session conditions briefing' },
+  { label: 'Certified, bilingual local coach' },
+]
+
+const subblocks = [
+  {
+    image:    coachingImg,
+    imageAlt: 'Surf coach giving wave-by-wave feedback during a coaching session in Cocoa Beach',
+    title:    'Structured, Wave-by-Wave Feedback',
+    body:     'You don\'t just paddle out and hope. Your coach watches every wave and gives specific corrections — where to sit, when to paddle, how to weight your turn. Each session ends with a clear takeaway: exactly what to work on next time.',
+  },
+  {
+    image:    boardImg,
+    imageAlt: 'Premium surfboard selection for surf coaching at Cocoa Beach',
+    title:    'The Right Board for Your Level',
+    body:     'Show up with energy — we bring everything else. No rental runs, no gear that doesn\'t fit your level. Just the right board for the day\'s surf and a leash, rash guard, and sunscreen already covered.',
+  },
+]
+
+const compareLeft = {
+  title:   'Surf Coaching',
+  price:   'From $95 / person',
+  badge:   'For Intermediate & Advanced',
+  items: [
+    'For surfers who already catch and ride waves',
+    'Refines technique, positioning & performance',
+    'Focus: wave reading, timing & maneuvers',
+    'Green, unbroken waves — real surf',
+    'Structured, wave-by-wave correction every session',
+  ],
+}
+
+const compareRight = {
+  title:   'Beginner Lesson',
+  price:   'From $65 / person',
+  items: [
+    'For first-timers who haven\'t surfed before',
+    'Goal: stand up and ride safely',
+    'Focus: safety, paddling & the pop-up',
+    'Whitewater waves — forgiving and stable',
+    'Encouragement and fundamentals first',
+  ],
+}
+
+const audienceCards = [
+  {
+    num:       '01',
+    title:     'Stuck at Intermediate',
+    body:      'You\'ve been surfing for a while but keep repeating the same mistakes. Coaching gives you a coach\'s eye on every wave and a specific plan to break through the plateau — not more of the same.',
+    linkLabel: 'Break through your plateau',
+    linkHref:  '#book',
+  },
+  {
+    num:       '02',
+    title:     'Moving to Green Waves',
+    body:      'You can pop up in whitewater but want to surf unbroken, open-face waves. Coaching bridges that gap — positioning, timing, and how to read the set so you\'re paddling into the right waves.',
+    linkLabel: 'Start surfing green waves',
+    linkHref:  '#book',
+  },
+  {
+    num:       '03',
+    title:     'Competition-Focused',
+    body:      'You compete or want to. Coaching builds sharper technique under real conditions — rail-to-rail turns, wave selection strategy, and performance that holds up when it matters.',
+    linkLabel: 'Train for performance',
+    linkHref:  '#book',
+  },
+  {
+    num:       '04',
+    title:     'Visiting Surfer',
+    body:      'Here for a week and want to leave surfing better than you arrived? One focused coaching session will give you more than a month of solo surfing. Same standard for locals and visitors.',
+    linkLabel: 'Book while you\'re here',
+    linkHref:  '#book',
+  },
+]
+
+const steps = [
+  {
+    title: 'Beach briefing',
+    body:  'You start on the sand with a quick read on the day\'s conditions — swell direction, period, where the peaks are breaking — and a clear focus for the session.',
+  },
+  {
+    title: 'In the water',
+    body:  'Your coach stays close, choosing the right waves for your specific goal and watching every ride. You surf; they observe and position you for the best opportunities.',
+  },
+  {
+    title: 'Wave-by-wave feedback',
+    body:  'After each ride your coach gives specific corrections — where to sit, when to paddle, how to weight a turn. No vague praise; concrete technical adjustments you can apply immediately.',
+  },
+  {
+    title: 'Clear takeaway',
+    body:  'You leave knowing exactly what to work on before the next session, so each session builds on the last instead of starting from scratch.',
+  },
+]
 
 const faqs = [
-  { question: 'What does surf coaching include?', answer: 'Surf coaching includes a certified instructor, surfboard, foam guard, safety briefing, and 90 minutes of focused instruction for 2-3 people.' },
-  { question: 'Is surf coaching suitable for beginners?', answer: 'Absolutely! Small-group surf coaching is perfect for beginners who want to share the experience with a partner or a friend while still getting personalized attention.' },
-  { question: 'How long is a surf coaching session?', answer: 'Each session is 90 minutes, including land training and time in the water.' },
-  { question: 'Do you offer discounts for multiple coaching sessions?', answer: 'Yes! Ask us about multi-lesson options if you want more time in the water and a better rate than single sessions.' },
-]
-
-const cols = [
-  { h: 'Who Can Take Surf Lessons?', items: ['Beginners', 'Kids', 'Intermediate Surfers', 'Families'] },
-  { h: "What's Included",            items: ['90-minute surf lesson', 'Professional certified instructor', 'Foam guard', 'Safety briefing', 'Surfboard included', 'Photos on request'] },
-  { h: 'Perfect For:',               items: ['Couples', 'Friends traveling together', 'Anyone who wants focused attention', 'People looking to learn and improve surf technique'] },
-]
-
-const gallery = [
-  { img: gallery1, alt: 'Small group surf coaching Cocoa Beach board technique correction' },
-  { img: gallery2, alt: 'Couple surf lessons Cocoa Beach with certified instructor in water' },
-  { img: gallery3, alt: 'Small group surf lessons Cocoa Beach 2-3 students on beach' },
-  { img: gallery4, alt: 'Surf coaching Cocoa Beach beginners on foam board' },
+  { question: 'Is surf coaching worth it if I can already surf but feel stuck?', answer: 'Honestly, yes — that "stuck" feeling is exactly what coaching fixes. Most surfers plateau because they repeat the same small mistakes with no one to point them out. At Cocoa Sol Surf, your coach watches every wave and gives specific corrections, so you stop guessing and start improving with a plan. One focused session often shows you more than months of surfing alone.' },
+  { question: 'How do I know if I\'m ready for surf coaching instead of a beginner lesson?', answer: 'Quick test: if you can paddle out and catch waves on your own, you\'re ready for coaching. If you\'re still working on standing up or riding whitewater, a beginner lesson will get you further, faster. Not sure? Message us on WhatsApp at +1 (321) 386-9993 and we\'ll tell you straight.' },
+  { question: 'What\'s the difference between surf lessons and surf coaching in Cocoa Beach?', answer: 'Both put a certified instructor in the water with you — the difference is the goal. A lesson teaches a first-timer to stand up and ride safely. Coaching takes someone who already surfs and refines how they ride: positioning, timing, wave selection, and maneuvers. Our coaching is built specifically for intermediate and advanced surfers.' },
+  { question: 'How much does surf coaching cost in Cocoa Beach?', answer: 'A single coaching session at Cocoa Sol Surf is $95 per person and runs 1.5 to 2 hours, with all professional gear included. Multi-session packages start at $260 for four sessions and include a professional photo session. Many surfers book one session first, then move to a package once they feel the difference.' },
+  { question: 'What actually happens during a surf coaching session?', answer: 'You start with a short beach briefing on the day\'s conditions and what you\'ll focus on. Then you\'re in the water with your coach close by, getting feedback right after your waves — where to sit, when to paddle, how to weight a turn. Every session adapts to that day\'s surf, and you walk out knowing exactly what to work on next time.' },
+  { question: 'Do I need to bring my own surfboard?', answer: 'No. Every coaching session includes a premium board matched to your height, weight, and level, plus a leash, wax, UV-protection rash guard, and reef-friendly sunscreen. If you\'d rather train on your own board — say, you\'re dialing in new equipment — that\'s fine too, just let us know when you book.' },
+  { question: 'Can a surf coach really help me read waves and position better?', answer: 'That\'s one of the biggest things coaching fixes. Reading the set and sitting in the right spot is the hardest skill to learn on your own, and it improves your sessions more than any single maneuver. Our coaches have surfed Cocoa Beach for 25+ years, so they know where the wave stands up on a given swell and can put you in the right place that day.' },
+  { question: 'How many sessions do I need to actually improve my surfing?', answer: 'You\'ll feel a difference after one session, but real, lasting progress comes from consistency. That\'s why our packages run 4, 6, or 16 sessions with the same coach — each one builds on the last instead of starting from scratch. The 6-session Progression Pack is the most popular because it\'s enough to lock in new habits.' },
+  { question: 'When\'s the best time of year for surf coaching in Cocoa Beach?', answer: 'You can surf Cocoa Beach year-round. For intermediate and advanced coaching, fall and winter are prime — that\'s when cleaner, stronger swells roll in. Spring and summer are gentler, which is great for sharpening fundamentals and building confidence on green waves before the bigger days arrive.' },
+  { question: 'Can you coach international visitors who don\'t speak much English?', answer: 'Absolutely. Our coaches are certified and bilingual, so visitors from the U.S., Canada, and Europe get clear, precise coaching in their own language. You get the same standard of instruction whether you\'re a Cocoa Beach local or here for the week.' },
 ]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Lessons',href:'/tamarindo-surf-lessons'},{name:'Surf Coaching',href:'/surf-coaching-cocoa-beach'}]} />
-  <ProductSchema slot="head" name="Surf Coaching Cocoa Beach" description="Small-group surf coaching for 2-3 people in Cocoa Beach, Florida. Great for couples, friends, and siblings at an affordable price." price="60" url="/surf-coaching-cocoa-beach" image="/images/semi-private-surf-tamarindo-wave-riding.webp" />
+  <BreadcrumbSchema slot="head" items={[
+    { name: 'Home',         href: '/' },
+    { name: 'Surf Lessons', href: '/cocoa-beach-surf-lessons' },
+    { name: 'Surf Coaching', href: '/surf-coaching-cocoa-beach' },
+  ]} />
+  <ProductSchema
+    slot="head"
+    name="Surf Coaching Cocoa Beach"
+    description="Professional surf coaching in Cocoa Beach, Florida for intermediate and advanced surfers. Improve technique, positioning and wave selection with local coaches at Cocoa Sol Surf."
+    price="95"
+    url="/surf-coaching-cocoa-beach"
+    image="/images/semi-private-surf-tamarindo-wave-riding.webp"
+  />
   <FAQSchema slot="head" items={faqs} />
 
-  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <!-- HERO -->
   <Hero
-    title="Surf Coaching Cocoa Beach - Small Group Surfing Experience"
+    title="Surf Coaching Cocoa Beach — Performance Training for Intermediate & Advanced Surfers"
     image={heroImg}
-    imageAlt="Surf coaching Cocoa Beach couple riding wave together"
-    objectPosition="center center"
-    breadcrumb={{ label: 'Surf Lessons', href: '/tamarindo-surf-lessons' }}
-    cta={{ label: 'Check Availability', href: '#book' }}
+    imageAlt="Surf coaching session at Cocoa Beach Florida — intermediate surfer getting wave-by-wave feedback"
+    breadcrumb={{ label: 'Surf Lessons', href: '/cocoa-beach-surf-lessons' }}
+    cta={{ label: 'Book a Coaching Session', href: '#book' }}
     height="large"
   />
 
-  <!-- ── MAIN CONTENT ───────────────────────────────────────────────────────── -->
-  <section class="py-20 container mx-auto px-4">
-    <div class="grid lg:grid-cols-3 gap-12">
+  <!-- TRUST BAR -->
+  <TrustBar items={trustItems} />
 
-      <!-- Left col -->
-      <div class="lg:col-span-2">
-
-        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">Up to 3 Students</span>
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Surf Coaching Cocoa Beach - Learn Together</h2>
-        <p class="text-gray-700 leading-relaxed mb-4">Our <strong>surf coaching in Cocoa Beach</strong> is the perfect option for couples, friends, or small groups of 2-3 people who want to share the experience while still receiving personalized attention from a certified instructor. You get the social energy of learning with someone you know, plus the focused coaching that helps you progress faster.</p>
-        <p class="text-gray-700 leading-relaxed mb-4">These small-group sessions are a great value — you share the cost with your group while still benefiting from a professional, certified surf instructor who adapts the session to your levels and goals.</p>
-        <p class="text-gray-700 leading-relaxed mb-8">Whether you are a couple looking for a shared adventure, friends visiting Cocoa Beach for a week, or a family with kids, this format gives you real coaching without the higher cost of one-on-one instruction. Most students in our small-group sessions stand up on the board within the first 30 minutes on the water.</p>
-
-        <!-- Comparison note -->
-        <div class="bg-[#00BCD4]/5 border border-[#00BCD4]/20 rounded-2xl px-6 py-4 mb-8">
-          <p class="text-gray-700 text-sm leading-relaxed"><strong>Surf coaching vs. group lessons:</strong> Group lessons fit up to 4 students and are the most affordable entry point. Surf coaching keeps it to 2-3 people maximum, so your instructor spends far more time with each surfer, giving corrections after every wave. If you are traveling with a partner or a small group of friends and want faster results without paying for a private session, surf coaching is the smartest choice.</p>
-        </div>
-
-        <!-- What to Expect -->
-        <div class="bg-gray-50 border border-gray-100 rounded-3xl p-6 mb-8">
-          <h3 class="text-lg font-bold text-gray-900 mb-3">What to Expect on the Day of Your Lesson</h3>
-          <p class="text-gray-700 leading-relaxed text-sm">Your instructor will meet you on Cocoa Beach for a 15-minute land warm-up covering ocean safety, paddling technique, and how to pop up correctly on the board. After the briefing, you move into the water for the rest of your 90-minute session. Expect real, hands-on coaching with corrections after every wave - not just a quick demonstration and then watching from the shore. All skill levels are welcome, and the instructor will adjust the coaching pace for each person in your group so nobody feels left behind. You do not need any prior experience. Just bring reef-safe sunscreen, a positive attitude, and a willingness to get in the water.</p>
-        </div>
-
-        <!-- 3-col cards -->
-        <div class="grid md:grid-cols-3 gap-4 mb-8">
-          {cols.map(col => (
-            <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-              <h3 class="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">{col.h}</h3>
-              <ul class="space-y-2">
-                {col.items.map(i => (
-                  <li class="flex items-center gap-2.5 text-sm text-gray-600">
-                    <span class="w-4 h-4 rounded-full bg-[#00BCD4]/15 flex items-center justify-center shrink-0">
-                      <svg class="w-2.5 h-2.5 text-[#00BCD4]" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                    {i}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <!-- Gallery -->
-        <div class="grid grid-cols-2 gap-3 mb-10">
-          {gallery.map(({ img, alt }, i) => (
-            <div class={`overflow-hidden rounded-2xl shadow-sm h-56 ${i % 2 === 1 ? 'mt-4' : ''}`}>
-              <Image
-                src={img}
-                alt={alt}
-                class="w-full h-full block object-cover object-center hover:scale-105 transition-transform duration-500"
-                widths={[200, 400]}
-                loading="lazy"
-                decoding="async"
-                sizes="(min-width: 768px) 25vw, 50vw"
-              />
-            </div>
-          ))}
-        </div>
-
-        <!-- FAQ -->
-        <div class="border-t border-gray-100 pt-10">
-          <FAQ items={faqs} title="Frequently Asked Questions" columns={1}/>
-        </div>
-
-      </div>
-
-      <!-- Right col: Sidebar -->
-      <div>
-        <Sidebar
-          price="$60"
-          priceLabel="/ Per Person"
-          includes={['90-minute surf lesson', 'Professional certified instructor', 'Surfboard included', 'Foam guard', 'Safety briefing', 'Photos on request']}
-          ctaLabel="Check Availability"
-          ctaHref="#book"
-        />
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ── VIDEO SECTION ──────────────────────────────────────────────────────── -->
-  <VideoSection
-    title="See What a Small-Group Surf Coaching Session Looks Like in Cocoa Beach"
-    subtitle="Watch what surf coaching looks like - personalized instruction for 2-3 people on Cocoa Beach."
-    bgImage={videoBg}
-    bgImageAlt="2-person surf coaching Cocoa Beach with personalized instructor attention"
-    cta={{ label: 'Check Availability', href: '#book' }}
+  <!-- PRICING -->
+  <LessonPricing
+    eyebrow="Pricing"
+    title="Surf Coaching Prices & Packages in Cocoa Beach"
+    lead1="Straightforward pricing, no surprises at the beach. Start with a single session to feel the difference, or commit to a package for steady, measurable progression."
+    lead2="Real progress comes from consistency. With the same coach across sessions, each one builds on the last — and every package includes a professional photo session."
+    rows={priceRows}
+    altLinks={[
+      { label: 'Private Lessons from $75', href: '/private-surf-lessons-cocoa-beach' },
+      { label: 'Group Lessons from $65',   href: '/group-surf-lessons-cocoa-beach' },
+    ]}
+    cardLabel="Surf Coaching"
+    cardFrom="$95"
+    cardUnit="/ person · 1.5–2 hours"
+    cardIncludes={[
+      'Premium board matched to your level',
+      'Leash, rash guard & sunscreen',
+      'Certified, bilingual local coach',
+      'Wave-by-wave feedback',
+      'Pre-session conditions briefing',
+    ]}
+    ctaLabel="Book a Coaching Session"
+    ctaHref="#book"
   />
 
-  <!-- ── BOOKING WIZARD ─────────────────────────────────────────────────────── -->
-  <section id="book" class="py-16 bg-white min-h-[800px]" style="scroll-margin-top: 96px;">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-10">
-        <span class="inline-block bg-[#00BCD4]/10 text-[#00BCD4] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Ready to Ride?</span>
-        <h2 class="text-3xl font-bold text-gray-900 mb-3">Book Your Surf Coaching Session</h2>
-        <p class="text-gray-500 max-w-md mx-auto">Select your date and time below. Your surf coaching session is pre-selected - just pick when you want to surf.</p>
-      </div>
-      <div class="max-w-4xl mx-auto">
-        <BookingWizard preselectedType="semi-private" client:idle />
-      </div>
-      <p class="text-center mt-4 text-sm text-gray-400">Secure payments · Trusted instructors · Flexible rescheduling</p>
+  <!-- GEAR INCLUDED -->
+  <GearIncluded
+    eyebrow="What's included"
+    title="What's Included in Every Surf Coaching Session"
+    subtitle="Every session is built around your level and the day's conditions. There's no fixed script, because the ocean doesn't follow one."
+    gear={gear}
+    subblocks={subblocks}
+  />
+
+  <!-- COMPARE COLUMNS -->
+  <CompareColumns
+    eyebrow="Make the right call"
+    title="Surf Coaching vs. Beginner Surf Lessons"
+    subtitle="Both put a certified instructor in the water with you. The difference is the goal — and picking the right one means you progress faster and spend smarter."
+    left={compareLeft}
+    right={compareRight}
+    note="Still working on standing up?"
+    noteLink={{ label: 'Start with a lesson →', href: '/group-surf-lessons-cocoa-beach' }}
+  />
+
+  <!-- AUDIENCE CARDS -->
+  <AudienceCards
+    eyebrow="Who it's for"
+    title="Who Is Surf Coaching in Cocoa Beach For?"
+    subtitle="This isn't a first-timer lesson. Coaching is for surfers who are past the basics and ready to break through a plateau."
+    cards={audienceCards}
+  />
+
+  <!-- HOW IT WORKS -->
+  <HowItWorks
+    eyebrow="Step by step"
+    title="What Happens During a Coaching Session"
+    subtitle="No guesswork. Here's exactly how your session unfolds, from the sand to the debrief."
+    steps={steps}
+    footer="Every session adapts to that day's surf — that's the advantage of training with locals who know these breaks."
+  />
+
+  <!-- SPLIT CONTENT — coach credentials -->
+  <SplitContent
+    eyebrow="Your coaches"
+    title="Why Train With Our Cocoa Beach Surf Coaches"
+    body={[
+      'Our coaches have surfed and taught these breaks for more than 25 years. They know how the sandbars shift, where the wave stands up on a given swell, and how to put you in the right spot today — not generic advice pulled from a manual.',
+      'Certified, safety-trained, and bilingual, our coaches deliver clear, precise instruction whether you\'re a local regular or a visitor from overseas. You get the same high standard either way — and a clear plan to keep improving after you leave the water.',
+    ]}
+    image={instructorImg}
+    imageAlt="Certified Cocoa Beach surf coach reviewing technique with an intermediate surfer in the lineup"
+    reverse={true}
+    bg="white"
+    ctaLabel="Book a Coaching Session"
+    ctaHref="#book"
+  />
+
+  <!-- TESTIMONIALS -->
+  <Testimonials
+    title="What Our Students Say"
+    items={[
+      {
+        name: 'Guest Name',
+        role: 'Intermediate surfer · Google Review',
+        text: 'Add a real guest review here — keep it specific: what they were stuck on, and what changed after a coaching session.',
+      },
+      {
+        name: 'Guest Name',
+        role: 'Performance surfer · Google Review',
+        text: 'Add a real guest review here — ideally someone who took a multi-session package and noticed clear progression.',
+      },
+    ]}
+  />
+
+  <!-- FAQ -->
+  <section class="sc-faq">
+    <div class="sc-faq-wrap">
+      <h2 class="sc-faq-title">Surf Coaching Cocoa Beach — Frequently Asked Questions</h2>
+      <FAQ items={faqs} columns={1} />
     </div>
   </section>
 
-  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
-  <Testimonials items={[
-    { name: 'Carlos & Maria',      role: 'Couple travelers', text: 'We booked surf coaching as a couple and it was perfect. The instructor gave us individual feedback while we had fun together. Definitely recommend!' },
-    { name: 'The Johnson Family',  role: 'Family',           text: 'Booked surf coaching for our family of 3 and it was the highlight of our Florida trip. Patient instructor, great waves, unforgettable experience.' },
-  ]}/>
+  <!-- BOOKING WIZARD -->
+  <section id="book" class="sc-book" style="scroll-margin-top: 96px;">
+    <div class="sc-book-wrap">
+      <div class="sc-book-head">
+        <span class="sc-book-eyebrow">Ready to Level Up?</span>
+        <h2 class="sc-book-title">Book Your Coaching Session</h2>
+        <p class="sc-book-sub">Start working on what's actually holding your surfing back. Spots fill fast around the best swell windows — secure yours.</p>
+      </div>
+      <div class="sc-book-wizard">
+        <BookingWizard preselectedType="coaching" client:idle />
+      </div>
+      <p class="sc-book-note">Certified coaches · All pro gear included · Open daily 9 AM–5 PM</p>
+    </div>
+  </section>
 
-  <!-- ── NEED HELP ──────────────────────────────────────────────────────────── -->
-  <NeedHelp/>
+  <!-- FINAL CTA -->
+  <FinalCTA
+    bgImage={ctaBgImg}
+    bgImageAlt="Surf coach and student at Cocoa Beach Florida during a coaching session"
+    title="Surf Better, Not Just More"
+    subtitle="Book a coaching session and start working on what's actually holding your surfing back. One focused session shows you more than months alone in the water."
+    primaryCta={{ label: 'Book a Session', href: '#book' }}
+    secondaryCta={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    meta={[
+      { icon: '✓', text: 'Certified, bilingual coaches' },
+      { icon: '✓', text: 'All pro gear included' },
+      { icon: '✓', text: 'Open daily · 9 AM–5 PM' },
+    ]}
+  />
 
-  <!-- ── SEO INTERNAL LINKS ─────────────────────────────────────────────────── -->
-  <section class="py-10 bg-gray-50 border-t border-gray-100">
-    <div class="container mx-auto px-4">
-      <h2 class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-widest">Also Available at Pura Vida Surf School</h2>
-      <div class="flex flex-wrap gap-2">
+  <!-- SEO INTERNAL LINKS -->
+  <section class="sc-links">
+    <div class="sc-links-wrap">
+      <h2 class="sc-links-title">Also Available at Cocoa Sol Surf</h2>
+      <div class="sc-links-list">
         {[
-          { l: 'Private Surf Lessons Cocoa Beach', h: '/private-surf-lessons-cocoa-beach' },
-          { l: 'Group Surf Lessons Cocoa Beach', h: '/group-surf-lessons-cocoa-beach' },
-          { l: 'Surf Camp Cocoa Beach',           h: '/surf-camp-cocoa-beach' },
-          { l: 'Surf Packages',                   h: '/tamarindo-surf-packages' },
+          { l: 'Private Surf Lessons',  h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Group Surf Lessons',    h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Surf Packages',         h: '/surf-packages-cocoa-beach' },
+          { l: 'Surf Camp Cocoa Beach', h: '/surf-camp-cocoa-beach' },
         ].map(x => (
-          <a href={x.h} data-astro-prefetch="viewport"
-            class="px-4 py-2 bg-white hover:bg-[#00BCD4]/8 border border-gray-200 hover:border-[#00BCD4]/40 hover:text-[#00BCD4] rounded-full text-sm text-gray-600 transition-colors font-medium">
-            {x.l}
-          </a>
+          <a href={x.h} data-astro-prefetch="viewport" class="sc-link">{x.l}</a>
         ))}
       </div>
     </div>
   </section>
 
 </BaseLayout>
+
+<style>
+  /* ── FAQ ─────────────────────────────────────────────────────────────── */
+  .sc-faq {
+    background: #EFF9FB;
+    padding: 80px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .sc-faq-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .sc-faq-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #0A3A40;
+    margin-bottom: 36px;
+    line-height: 1.1;
+  }
+
+  /* ── Booking ─────────────────────────────────────────────────────────── */
+  .sc-book {
+    background: #fff;
+    padding: 80px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .sc-book-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .sc-book-head { text-align: center; margin-bottom: 36px; }
+  .sc-book-eyebrow {
+    display: inline-block;
+    background: rgba(0,188,212,.10);
+    color: #00838F;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .sc-book-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #0A3A40;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  .sc-book-sub {
+    font-size: 1rem;
+    color: #5A7270;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+  .sc-book-wizard { margin-bottom: 16px; }
+  .sc-book-note {
+    text-align: center;
+    font-size: .85rem;
+    color: #9ab;
+  }
+
+  /* ── SEO links ───────────────────────────────────────────────────────── */
+  .sc-links {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    padding: 40px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .sc-links-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .sc-links-title {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 16px;
+  }
+  .sc-links-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sc-link {
+    padding: 8px 18px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    font-size: .88rem;
+    color: #5A7270;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .sc-link:hover {
+    border-color: rgba(0,188,212,.4);
+    color: #00838F;
+  }
+
+  @media (max-width: 600px) {
+    .sc-faq, .sc-book { padding: 60px 0; }
+    .sc-faq-wrap, .sc-book-wrap, .sc-links-wrap { padding: 0 20px; }
+  }
+</style>
