@@ -4,8 +4,6 @@ export type ClassTypeId =
   | 'group'
   | 'pkg-3-days'
   | 'pkg-5-days'
-  | 'camp-5-days'
-  | 'camp-7-days'
 
 export type Category = 'lesson' | 'package' | 'camp'
 
@@ -79,46 +77,6 @@ export const CLASS_TYPES: Record<ClassTypeId, ClassType> = {
     included: ['4 x 90-min lessons', '1 surf trip', 'Surfboard & gear', 'Certified instructor', 'Photos'],
     defaultSlots: ['07:00', '09:00'],
     badge: 'Best Value',
-  },
-  'camp-5-days': {
-    id: 'camp-5-days',
-    name: '5 Days Surf Camp',
-    category: 'camp',
-    pricePerPerson: 1049,
-    maxCapacity: 8,
-    durationMinutes: 90,
-    description: 'All-inclusive 5-day immersive surf camp with accommodation.',
-    included: [
-      '4 x 90-min lessons',
-      'Accommodation (4 nights)',
-      'Breakfast daily',
-      '1 surf trip',
-      'Surfboard & gear',
-      'Airport transfer',
-      'Photos & video',
-    ],
-    defaultSlots: ['07:00'],
-  },
-  'camp-7-days': {
-    id: 'camp-7-days',
-    name: '7 Days Surf Camp',
-    category: 'camp',
-    pricePerPerson: 1399,
-    maxCapacity: 8,
-    durationMinutes: 90,
-    description: 'The ultimate week-long surf camp. Maximum progress, maximum fun.',
-    included: [
-      '6 x 90-min lessons',
-      'Accommodation (6 nights)',
-      'Breakfast daily',
-      '2 surf trips',
-      'Surfboard & gear',
-      'Airport transfer',
-      'Photos & video',
-      'Yoga session',
-    ],
-    defaultSlots: ['07:00'],
-    badge: 'Ultimate Experience',
   },
 }
 

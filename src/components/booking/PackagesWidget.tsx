@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { CLASS_TYPES, formatCurrency, type ClassTypeId } from '../../lib/bookingConfig'
 import BookingWizard from './BookingWizard'
 
-const PACKAGES: ClassTypeId[] = ['pkg-3-days', 'pkg-5-days', 'camp-5-days', 'camp-7-days']
+const PACKAGES: ClassTypeId[] = ['pkg-3-days', 'pkg-5-days']
 
 interface Props {
   showCamps?: boolean

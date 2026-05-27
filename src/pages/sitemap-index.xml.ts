@@ -19,8 +19,6 @@ const pages: SitemapEntry[] = [
   { loc: "/group-surf-lessons-cocoa-beach", changefreq: "monthly", priority: "0.9" },
   { loc: "/family-surf-lessons-tamarindo", changefreq: "monthly", priority: "0.9" },
   { loc: "/surf-camp-cocoa-beach", changefreq: "monthly", priority: "0.9" },
-  { loc: "/5-days-surf-camp-tamarindo", changefreq: "monthly", priority: "0.8" },
-  { loc: "/7-days-surf-camp-tamarindo", changefreq: "monthly", priority: "0.8" },
   { loc: "/tamarindo-surf-packages", changefreq: "monthly", priority: "0.8" },
   { loc: "/starter-pack", changefreq: "monthly", priority: "0.8" },
   { loc: "/progression-pack", changefreq: "monthly", priority: "0.8" },

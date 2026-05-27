@@ -59,8 +59,8 @@ if (Astro.request.method === 'POST') {
     if (action === 'upsert_camp_session') {
       const id = form.get('id') as string | null
       const startDate = form.get('start_date') as string
-      const campType = form.get('camp_type') as string
-      const nights = campType === '7day' ? 6 : 4
+      const campType = 'custom'
+      const nights = parseInt(form.get('nights') as string) || 1
       const startObj = new Date(startDate + 'T12:00:00')
       startObj.setDate(startObj.getDate() + nights)
       const endDate = startObj.toISOString().slice(0, 10)
@@ -1620,11 +1620,8 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
               <form method="POST" style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start">
                 <input type="hidden" name="action" value="upsert_camp_session" />
                 <div>
-                  <label class="adm-label">Camp Type</label>
-                  <select name="camp_type" required class="adm-input">
-                    <option value="5day">5-Day Camp (4 nights)</option>
-                    <option value="7day">7-Day Camp (6 nights)</option>
-                  </select>
+                  <label class="adm-label">Nights</label>
+                  <input type="number" min="1" name="nights" required class="adm-input" placeholder="4" style="width:110px" />
                 </div>
                 <div>
                   <label class="adm-label">Start Date (Sunday)</label>
@@ -1676,7 +1673,7 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                         const assignedRooms = (s.camp_session_rooms ?? []).length
                         return (
                           <tr>
-                            <td><span style={`font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:${s.camp_type==='7day'?'#EDE9FE':'#E0F7FA'};color:${s.camp_type==='7day'?'#5B21B6':'#006064'}`}>{s.camp_type === '7day' ? '7-Day' : '5-Day'}</span></td>
+                            <td><span style="font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:#E0F7FA;color:#006064">Custom Camp</span></td>
                             <td style="font-weight:600">{new Date(s.start_date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</td>
                             <td>{new Date(s.end_date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</td>
                             <td style="font-weight:700;color:#0097A7">${Number(s.price_per_person_usd).toFixed(2)}</td>
@@ -1727,8 +1724,8 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                             ))}
                           </td>
                           <td>
-                            <span style={`font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:${b.camp_sessions?.camp_type==='7day'?'#EDE9FE':'#E0F7FA'};color:${b.camp_sessions?.camp_type==='7day'?'#5B21B6':'#006064'}`}>
-                              {b.camp_sessions?.camp_type === '7day' ? '7-Day' : '5-Day'}
+                            <span style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:#E0F7FA;color:#006064">
+                              Custom Camp
                             </span>
                           </td>
                           <td style="font-weight:600">{b.camp_rooms?.name ?? '—'}</td>

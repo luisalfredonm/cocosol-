@@ -1,359 +1,124 @@
 ---
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Testimonials from '../components/sections/Testimonials.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
 
+import heroImg from '../assets/images/surf-camp-costa-rica-tamarindo-sunset.webp'
 import campGallery1 from '../assets/images/surf-camp-tamarindo-guided-surf-trip.webp'
 import campGallery2 from '../assets/images/tamarindo-surf-camp-video-analysis.webp'
-import campGallery3 from '../assets/images/best-surf-camp-tamarindo-costa-rica.webp'
-import campGallery4 from '../assets/images/tamarindo-surf-retreat-ocean-view.webp'
-import campGallery5 from '../assets/images/surf-camp-tamarindo-instructor-coaching.webp'
-import campGallery6 from '../assets/images/surf-camp-costa-rica-tamarindo-students.webp'
-import campGallery7 from '../assets/images/tamarindo-surf-camp-morning-lesson.webp'
-import campGallery8 from '../assets/images/surf-vacation-tamarindo-camp-group.webp'
-import campGallery9 from '../assets/images/surf-camp-costa-rica-tamarindo-sunset.webp'
+import campGallery3 from '../assets/images/surf-camp-tamarindo-instructor-coaching.webp'
+import campGallery4 from '../assets/images/surf-vacation-tamarindo-camp-group.webp'
 
 const seo = seoData.surfCamp
 
-const campGallery = [
-  { img: campGallery1, alt: 'Cocoa Beach surf camp guided surf trip to a nearby break' },
-  { img: campGallery2, alt: 'Cocoa Beach surf camp video analysis session between lessons' },
-  { img: campGallery3, alt: 'Best surf camp in Cocoa Beach Florida for beginners and intermediates' },
-  { img: campGallery4, alt: 'Cocoa Beach surf retreat with daily lessons included' },
-  { img: campGallery5, alt: 'Surf camp in Cocoa Beach - certified instructor coaching technique' },
-  { img: campGallery6, alt: 'Surf camp Cocoa Beach students after daily session' },
-  { img: campGallery7, alt: 'Cocoa Beach surf camp morning lesson on the beach at sunrise' },
-  { img: campGallery8, alt: 'Surf vacation Cocoa Beach camp group ready for morning session' },
-]
-
 const faqs = [
-  { question: 'Do I need surf experience to join the camp?', answer: 'No experience needed. Both camps are designed for complete beginners. Our certified instructors build your skills day by day from zero. By the end of the week, most campers are surfing green waves confidently.' },
-  { question: 'Is accommodation included in the camp?', answer: 'Accommodation is available as an add-on. We work with partner hotels and stays in Cocoa Beach at preferential rates. Contact us to find the best option for your budget and preferences.' },
-  { question: "What's the difference between 5-day and 7-day?", answer: 'The 5-day camp has 4 lessons and 1 surf trip. The 7-day adds 2 extra lessons, a second surf trip, and a photo package. If you have the time, the 7-day delivers significantly more progression.' },
-  { question: 'What if the weather or waves are bad?', answer: "Florida weather changes quickly, and rain doesn't always stop surfing. If conditions are unsafe, we reschedule at no extra cost. Safety always comes first." },
-  { question: 'Can I join a camp alone?', answer: "Absolutely — solo travelers are welcome and common. You'll meet fellow surfers from around the world and leave with new friends. The camp atmosphere makes it easy to connect." },
-  { question: 'What should I bring to camp?', answer: 'Just sunblock, a towel, and energy. We provide surfboards, rash guard, and all equipment. Travel light — the ocean does the rest.' },
-]
-
-const camps = [
-  {
-    href: '/5-days-surf-camp-tamarindo',
-    duration: '5 Days',
-    nights: '4 nights',
-    price: '$1,049',
-    tag: null,
-    headline: '5-Day Surf Camp',
-    sub: '4 surf lessons · 1 surf trip · Video analysis',
-    includes: [
-      '4 surf lessons with certified instructor',
-      '1 guided surf trip to a nearby break',
-      'Video analysis & technique feedback',
-      'Your own rash guard to keep',
-      'Unlimited board rental during camp',
-      'Adventure activity (ATV, Zip-line, Catamaran)',
-    ],
-    ctaLabel: 'View Details & Book â†’',
-    featured: false,
-  },
-  {
-    href: '/7-days-surf-camp-tamarindo',
-    duration: '7 Days',
-    nights: '6 nights',
-    price: '$1,399',
-    tag: 'Most Complete',
-    headline: '7-Day Surf Camp',
-    sub: '6 surf lessons · 2 surf trips · Video analysis',
-    includes: [
-      '6 surf lessons with certified instructor',
-      '2 guided surf trips to different breaks',
-      'Video analysis & technique feedback',
-      'Professional photo package',
-      'Your own rash guard to keep',
-      'Unlimited board rental during camp',
-      'Adventure activity (ATV, Zip-line, Catamaran)',
-    ],
-    ctaLabel: 'View Details & Book â†’',
-    featured: true,
-  },
+  { question: 'Do I need surf experience to join the camp?', answer: 'No experience is required. We adapt the coaching plan to your level, goals, and comfort in the ocean.' },
+  { question: 'Is accommodation included?', answer: 'Accommodation can be arranged as an add-on through partner stays in Cocoa Beach. Contact us and we will help match the right option to your budget.' },
+  { question: 'Can the camp be customized?', answer: 'Yes. The Cocoa Beach camp can be planned around your travel dates, surf level, and how much coaching you want during your stay.' },
+  { question: 'What happens if conditions are unsafe?', answer: 'If weather or waves are unsafe, we reschedule. Safety comes first, and Florida conditions can change quickly.' },
+  { question: 'Can I join alone?', answer: 'Yes. Solo travelers are welcome, and private coaching is available if you prefer a more focused experience.' },
+  { question: 'What should I bring?', answer: 'Bring sunscreen, water, a towel, and comfortable beachwear. We provide surfboards and the core lesson equipment.' },
 ]
 
 const inclusions = [
-  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', label: 'ISA Certified Instructors' },
-  { icon: 'M15 10l4.553-2.069A1 1 0 0121 8.87V15.13a1 1 0 01-1.447.899L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z', label: 'Video Analysis' },
-  { icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z', label: 'Accommodation Available' },
-  { icon: 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 9m0 8V9m0 0L9 7', label: 'Surf Trip Included' },
-  { icon: 'M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z', label: 'Photo Package' },
-  { icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', label: 'Best Value Packages' },
+  'Certified surf coaching',
+  'Surfboard and lesson equipment',
+  'Video feedback available',
+  'Beginner-friendly Cocoa Beach waves',
+  'Flexible scheduling',
+  'Accommodation support on request',
 ]
 
-const stats = [
-  { value: '500+', label: 'Surfers Trained' },
-  { value: '4.9â˜…', label: 'Average Rating' },
-  { value: '10+', label: 'Years of Coaching' },
-  { value: '100%', label: 'ISA Certified' },
-]
-
-const whyUs = [
-  {
-    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-    title: 'Safety First',
-    desc: 'All instructors are ISA certified and trained in ocean rescue and first aid. Your safety is our number one priority in and out of the water.',
-  },
-  {
-    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
-    title: 'Real Progression',
-    desc: 'Structured daily sessions with video analysis and personalized coaching means you improve faster than in any single lesson. Guaranteed.',
-  },
-  {
-    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
-    title: 'Small Groups',
-    desc: 'Maximum 6 students per instructor. Every surfer gets real attention, feedback, and coaching — not just a crowd on a beach.',
-  },
+const gallery = [
+  { img: campGallery1, alt: 'Cocoa Beach surf camp guided session' },
+  { img: campGallery2, alt: 'Surf camp video coaching session' },
+  { img: campGallery3, alt: 'Certified surf instructor coaching in Cocoa Beach' },
+  { img: campGallery4, alt: 'Cocoa Beach surf camp group experience' },
 ]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Surf Camp Cocoa Beach',href:'/surf-camp-cocoa-beach'}]} />
+  <BreadcrumbSchema slot="head" items={[{ name: 'Home', href: '/' }, { name: 'Surf Camp Cocoa Beach', href: '/surf-camp-cocoa-beach' }]} />
   <FAQSchema slot="head" items={faqs} />
 
-  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
-  <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+  <section class="relative min-h-[82vh] flex items-center justify-center overflow-hidden">
     <Image
-      src={campGallery9}
-      alt="Surf camp Cocoa Beach Florida with a beautiful sunset"
+      src={heroImg}
+      alt="Surf camp Cocoa Beach Florida"
       class="absolute inset-0 w-full h-full object-cover object-center"
       widths={[800, 1200, 1920]}
       loading="eager"
       decoding="async"
       sizes="100vw"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/80"/>
-
-    <!-- Breadcrumb -->
-    <nav class="absolute top-6 left-1/2 -translate-x-1/2 w-full max-w-7xl px-6 z-10">
-      <ol class="flex items-center gap-2 text-white/60 text-sm">
-        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
-        <li class="text-white/30">/</li>
-        <li class="text-white font-medium">Surf Camp Cocoa Beach</li>
-      </ol>
-    </nav>
+    <div class="absolute inset-0 bg-slate-950/65"></div>
 
     <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold px-5 py-2.5 rounded-full mb-8 border border-white/20">
-        <span class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></span>
-        Cocoa Beach · Florida
-      </div>
-
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.05]">
-        Cocoa Beach Surf<br/>
-        <span class="text-teal-400">Camp Life</span>
+      <span class="inline-flex items-center bg-white/10 text-white text-sm font-semibold px-5 py-2.5 rounded-full mb-8 border border-white/20">
+        Cocoa Beach, Florida
+      </span>
+      <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+        Cocoa Beach Surf Camp
       </h1>
-
-      <p class="text-xl md:text-2xl text-white/75 mb-10 max-w-2xl mx-auto leading-relaxed">
-        Surf camps in Cocoa Beach. Daily lessons, certified coaches, video analysis, and Florida beach-town energy.
+      <p class="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+        Flexible surf camp coaching with daily lessons, certified instructors, video feedback, and classic Florida beach-town energy.
       </p>
-
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-        <a href="/5-days-surf-camp-tamarindo"
-          class="px-8 py-4 bg-white text-gray-900 font-bold rounded-2xl hover:bg-gray-100 transition-all text-lg shadow-xl hover:shadow-2xl hover:-translate-y-0.5">
-          5-Day Camp — $1,049
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/book-now" class="px-8 py-4 bg-white text-gray-900 font-bold rounded-2xl hover:bg-gray-100 transition-all text-lg shadow-xl">
+          Book Your Camp
         </a>
-        <a href="/7-days-surf-camp-tamarindo"
-          class="px-8 py-4 bg-teal-500 text-white font-bold rounded-2xl hover:bg-teal-400 transition-all text-lg shadow-xl shadow-teal-900/30 hover:shadow-2xl hover:-translate-y-0.5">
-          7-Day Camp — $1,399 âœ¦
+        <a href="https://wa.me/50661987851" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-teal-500 text-white font-bold rounded-2xl hover:bg-teal-400 transition-all text-lg shadow-xl">
+          Ask About Dates
         </a>
-      </div>
-
-      <p class="text-white/40 text-sm">Camps start every Sunday · Limited spots available</p>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 z-10">
-      <span class="text-xs tracking-widest uppercase">Scroll</span>
-      <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-      </svg>
-    </div>
-  </section>
-
-  <!-- ── STATS BAR ──────────────────────────────────────────────────────────── -->
-  <section class="bg-white border-b border-gray-100">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
-        {stats.map(s => (
-          <div class="py-8 px-6 text-center">
-            <p class="text-3xl font-extrabold text-teal-600 mb-1">{s.value}</p>
-            <p class="text-sm text-gray-500 font-medium">{s.label}</p>
-          </div>
-        ))}
       </div>
     </div>
   </section>
 
-  <!-- ── CHOOSE YOUR CAMP ───────────────────────────────────────────────────── -->
-  <section class="py-24 bg-white">
+  <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-14">
-        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Choose Your Experience</span>
-        <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Two Camps, One Goal: Surfing</h2>
-        <p class="text-gray-500 max-w-xl mx-auto text-lg">
-          Whether you have 5 days or a full week, both camps deliver real surf progression, unforgettable memories, and the laid-back Cocoa Beach lifestyle.
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Camp Includes</span>
+        <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Built Around Your Surf Goals</h2>
+        <p class="text-gray-500 text-lg leading-relaxed">
+          This camp is designed for travelers who want more than one lesson: consistent coaching, a clear progression plan, and enough ocean time to build real confidence.
         </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        {camps.map(camp => (
-          <div class={`relative flex flex-col rounded-3xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${camp.featured ? 'ring-2 ring-teal-500' : 'border border-gray-200'}`}>
-
-            {camp.tag && (
-              <div class="absolute top-0 inset-x-0 flex justify-center z-10">
-                <span class="bg-teal-500 text-white text-xs font-bold px-6 py-1.5 rounded-b-2xl tracking-wide">
-                  {camp.tag}
-                </span>
-              </div>
-            )}
-
-            <!-- Card header -->
-            <div class={`px-8 py-10 ${camp.featured ? 'bg-gradient-to-br from-slate-800 to-slate-900' : 'bg-gradient-to-br from-teal-600 to-teal-800'} ${camp.tag ? 'pt-14' : ''}`}>
-              <span class={`text-xs font-bold uppercase tracking-widest mb-3 block ${camp.featured ? 'text-teal-400' : 'text-teal-200'}`}>
-                {camp.duration} · {camp.nights}
-              </span>
-              <h3 class="text-3xl font-extrabold text-white mb-2">{camp.headline}</h3>
-              <p class={`text-sm ${camp.featured ? 'text-slate-400' : 'text-teal-100'}`}>{camp.sub}</p>
-            </div>
-
-            <!-- Card body -->
-            <div class="bg-white p-8 flex-1 flex flex-col">
-              <div class="flex items-baseline gap-1.5 mb-7">
-                <span class="text-4xl font-extrabold text-gray-900">{camp.price}</span>
-                <span class="text-gray-400 text-sm">/ per person</span>
-              </div>
-
-              <ul class="space-y-3 mb-8 flex-1">
-                {camp.includes.map(item => (
-                  <li class="flex items-start gap-3 text-gray-700 text-sm">
-                    <svg class="w-4 h-4 text-teal-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              <a href={camp.href}
-                class={`block text-center py-4 px-6 font-bold rounded-2xl transition-all text-sm ${camp.featured
-                  ? 'bg-teal-600 text-white hover:bg-teal-700'
-                  : 'bg-gray-900 text-white hover:bg-gray-800'
-                }`}>
-                {camp.ctaLabel}
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <p class="text-center text-gray-400 text-sm mt-8">
-        Not sure which camp is right for you?
-        <a href="https://wa.me/50661987851" target="_blank" rel="noopener noreferrer" class="text-teal-600 font-semibold hover:underline ml-1">
-          Ask us on WhatsApp â†’
-        </a>
-      </p>
-    </div>
-  </section>
-
-  <!-- ── WHAT'S INCLUDED ────────────────────────────────────────────────────── -->
-  <section class="py-20 bg-teal-50">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">All Camps Include</span>
-        <h2 class="text-3xl font-extrabold text-gray-900">Everything You Need to Surf</h2>
-        <p class="text-gray-500 mt-3 max-w-lg mx-auto">All equipment, instruction, and experiences are included. Just bring yourself and your stoke.</p>
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
         {inclusions.map(item => (
-          <div class="flex items-center gap-4 bg-white rounded-2xl px-5 py-4 shadow-sm border border-teal-100">
-            <div class="w-10 h-10 bg-teal-100 rounded-xl flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={item.icon}/>
-              </svg>
-            </div>
-            <span class="font-semibold text-gray-800 text-sm">{item.label}</span>
+          <div class="bg-teal-50 border border-teal-100 rounded-2xl px-5 py-4 flex items-center gap-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+            <span class="font-semibold text-gray-800 text-sm">{item}</span>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ── PHOTO GALLERY ──────────────────────────────────────────────────────── -->
-  <section class="py-20 bg-white overflow-hidden">
+  <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-10">
-        <h2 class="text-3xl font-extrabold text-gray-900">Life at Camp</h2>
-        <p class="text-gray-500 mt-2">Real moments from real campers in Cocoa Beach.</p>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {campGallery.map(({ img, alt }) => (
-          <div class="overflow-hidden rounded-2xl h-48 md:h-56">
-            <Image
-              src={img}
-              alt={alt}
-              class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500"
-              widths={[400, 800]}
-              loading="lazy"
-              decoding="async"
-              sizes="(min-width: 768px) 25vw, 50vw"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ── WHY TAMARINDO ──────────────────────────────────────────────────────── -->
-  <section class="py-20 bg-slate-900 text-white">
-    <div class="container mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
         <div>
-          <span class="inline-block bg-teal-500/20 text-teal-400 text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wider uppercase">The Location</span>
-          <h2 class="text-4xl font-extrabold mb-6 leading-tight">
-            Cocoa Beach - <span class="text-teal-400">Florida's Classic</span> Surf Town
-          </h2>
-          <p class="text-slate-400 leading-relaxed mb-6">
-            Cocoa Beach is one of Florida's most iconic surf destinations. Warm water, approachable beach breaks, a laid-back surf culture, and a long shoreline make it a natural place to learn and progress.
+          <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wider uppercase">The Location</span>
+          <h2 class="text-4xl font-extrabold text-gray-900 mb-6">Why Cocoa Beach Works</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Cocoa Beach is one of Florida's most iconic surf towns. The waves are approachable, the beach is easy to access, and the surf culture makes it a natural place to learn or progress.
           </p>
-          <ul class="space-y-3">
-            {[
-              'Consistent waves 365 days a year',
-              'Warm 27Â°C ocean water — no wetsuit needed',
-              'Perfect beach break for beginners & intermediates',
-              '200m from the beach — walk to surf every day',
-            ].map(item => (
-              <li class="flex items-center gap-3 text-slate-300 text-sm">
-                <svg class="w-4 h-4 text-teal-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                {item}
-              </li>
-            ))}
+          <ul class="space-y-3 text-gray-700">
+            <li>Consistent beach-break waves</li>
+            <li>Beginner-friendly learning zones</li>
+            <li>Warm Florida water and relaxed surf-town atmosphere</li>
+            <li>Coaching available for complete beginners and improving surfers</li>
           </ul>
         </div>
         <div class="grid grid-cols-2 gap-3">
-          {[
-            { icon: 'ðŸŒŠ', title: 'Consistent Waves', desc: 'Year-round surf conditions ideal for learning and improving.' },
-            { icon: 'â˜€ï¸', title: 'Perfect Weather', desc: '27Â°C water and warm tropical days every single day.' },
-            { icon: 'ðŸŒ´', title: 'Pura Vida Vibes', desc: 'Laid-back culture, great food, and unforgettable sunsets.' },
-            { icon: 'ðŸ„', title: 'Surf Town', desc: 'A community built around surf, adventure, and the ocean.' },
-          ].map(c => (
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors">
-              <span class="text-2xl mb-3 block">{c.icon}</span>
-              <h3 class="font-bold text-white text-sm mb-1">{c.title}</h3>
-              <p class="text-slate-500 text-xs leading-relaxed">{c.desc}</p>
+          {gallery.map(({ img, alt }) => (
+            <div class="overflow-hidden rounded-2xl aspect-[4/3]">
+              <Image src={img} alt={alt} class="w-full h-full object-cover object-center" widths={[400, 800]} loading="lazy" decoding="async" />
             </div>
           ))}
         </div>
@@ -361,69 +126,28 @@ const whyUs = [
     </div>
   </section>
 
-  <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
-  <section class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Why Pura Vida Surf School</span>
-        <h2 class="text-3xl font-extrabold text-gray-900">The Best Surf Camp in Cocoa Beach</h2>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        {whyUs.map(w => (
-          <div class="text-center p-8 rounded-3xl border border-gray-100 bg-gray-50 hover:border-teal-200 hover:bg-teal-50 transition-all">
-            <div class="w-14 h-14 bg-teal-100 rounded-2xl flex items-center justify-center mx-auto mb-5">
-              <svg class="w-7 h-7 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={w.icon}/>
-              </svg>
-            </div>
-            <h3 class="font-bold text-gray-900 text-lg mb-3">{w.title}</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">{w.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
-  <Testimonials bg="gray" title="What Campers Say About Us" items={[
-    { name: 'Jess Armijo', role: 'Digital Nomad', country: 'USA', text: 'The surf camp was an incredible experience. Waking up every morning to surf, improving every day, and the adventure activity was the perfect way to finish the week. Already planning my return trip!' },
-    { name: 'William Bowman', role: 'Surfer', country: 'UK', text: 'I came to Cocoa Beach not knowing how to surf and left riding green waves confidently. The instructors are amazing, the video analysis was a game-changer, and the camp atmosphere is really special.' },
-    { name: 'Emma R.', role: 'Solo Traveler', country: 'Australia', text: 'Came alone and left with new friends, a new skill, and a new addiction to surfing. The 7-day camp is worth every penny. The photo package was an amazing bonus — incredible memories.' },
-    { name: 'Jake S.', role: 'Remote Worker', country: 'Canada', text: 'One week, 6 lessons, and I went from complete beginner to surfing real waves. The structured progression plan and video analysis sessions were game-changing. Best week of my year without question.' },
-  ]}/>
-
-  <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4 max-w-4xl">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-extrabold text-gray-900">Frequently Asked Questions</h2>
-        <p class="text-gray-500 mt-3">Everything you need to know before booking your surf camp.</p>
+        <p class="text-gray-500 mt-3">Everything you need to know before booking your Cocoa Beach surf camp.</p>
       </div>
-      <FAQ columns={2} items={faqs}/>
+      <FAQ columns={2} items={faqs} />
     </div>
   </section>
 
-  <!-- ── FINAL CTA ──────────────────────────────────────────────────────────── -->
   <section class="py-20 bg-gradient-to-br from-teal-600 to-teal-800">
     <div class="container mx-auto px-4 text-center">
       <h2 class="text-4xl font-extrabold text-white mb-4">Ready to Surf Every Day?</h2>
       <p class="text-teal-100 text-lg mb-10 max-w-xl mx-auto">
-        Pick your camp, view all the details, and book your spot directly on the next page. Camps fill up fast — especially in peak season.
+        Tell us your dates and goals, and we will help you shape the right Cocoa Beach camp experience.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/5-days-surf-camp-tamarindo"
-          class="px-8 py-4 bg-white text-gray-900 font-bold rounded-2xl hover:bg-gray-50 transition-all text-lg shadow-xl hover:-translate-y-0.5">
-          5-Day Camp — $1,049
-        </a>
-        <a href="/7-days-surf-camp-tamarindo"
-          class="px-8 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 transition-all text-lg shadow-xl hover:-translate-y-0.5">
-          7-Day Camp — $1,399 âœ¦
-        </a>
+        <a href="/book-now" class="px-8 py-4 bg-white text-gray-900 font-bold rounded-2xl hover:bg-gray-50 transition-all text-lg shadow-xl">Book Your Camp</a>
+        <a href="https://wa.me/50661987851" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 transition-all text-lg shadow-xl">Ask About Dates</a>
       </div>
-      <p class="mt-6 text-teal-200/60 text-sm">Camps start every Sunday · Secure payment · Flexible rescheduling</p>
     </div>
   </section>
 
-  <NeedHelp/>
-
+  <NeedHelp />
 </BaseLayout>
