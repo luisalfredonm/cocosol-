@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-const BASE = "https://puravidasurfschool.com";
+const BASE = "https://cocosolsurf.com";
 
 interface SitemapEntry {
   loc: string;
@@ -13,20 +13,14 @@ const TODAY = new Date().toISOString().split("T")[0];
 
 const pages: SitemapEntry[] = [
   { loc: "/", changefreq: "weekly", priority: "1.0", lastmod: TODAY },
-  { loc: "/tamarindo-surf-lessons", changefreq: "monthly", priority: "0.9" },
   { loc: "/private-surf-lessons-cocoa-beach", changefreq: "monthly", priority: "0.9" },
   { loc: "/surf-coaching-cocoa-beach", changefreq: "monthly", priority: "0.9" },
   { loc: "/group-surf-lessons-cocoa-beach", changefreq: "monthly", priority: "0.9" },
-  { loc: "/family-surf-lessons-tamarindo", changefreq: "monthly", priority: "0.9" },
   { loc: "/surf-camp-cocoa-beach", changefreq: "monthly", priority: "0.9" },
   { loc: "/kids-surf-lessons-cocoa-beach", changefreq: "monthly", priority: "0.9" },
   { loc: "/surf-packages-cocoa-beach", changefreq: "monthly", priority: "0.9" },
-  { loc: "/tamarindo-surf-packages", changefreq: "monthly", priority: "0.8" },
-  { loc: "/starter-pack", changefreq: "monthly", priority: "0.8" },
-  { loc: "/progression-pack", changefreq: "monthly", priority: "0.8" },
-  { loc: "/elite-pack", changefreq: "monthly", priority: "0.8" },
-  { loc: "/best-surf-school-in-tamarindo", changefreq: "monthly", priority: "0.8" },
-  { loc: "/surf-school-near-me-tamarindo", changefreq: "monthly", priority: "0.8" },
+  { loc: "/best-surf-school-cocoa-beach", changefreq: "monthly", priority: "0.8" },
+  { loc: "/contact", changefreq: "yearly", priority: "0.6" },
   { loc: "/book-now", changefreq: "monthly", priority: "0.7" },
   { loc: "/blog", changefreq: "weekly", priority: "0.8", lastmod: TODAY },
   { loc: "/blog/best-time-to-surf-tamarindo", changefreq: "monthly", priority: "0.7" },

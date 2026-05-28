@@ -10,7 +10,7 @@ export interface Props {
   synonyms?: string[]
 }
 const { title, description, slug, keyfocus, image = '/images/surf-school-tamarindo-students.webp', noindex = false, type = 'website', synonyms = [] } = Astro.props
-const site = 'https://puravidasurfschool.com'
+const site = 'https://cocosolsurf.com'
 const canonical = slug === '/' ? site : `${site}${slug}`
 const ogImage = `${site}${image}`
 const jsonLd = {
@@ -20,25 +20,24 @@ const jsonLd = {
       '@type': ['LocalBusiness', 'SportsActivityLocation'],
       sport: 'Surfing',
       '@id': `${site}/#business`,
-      name: 'Pura Vida Surf School',
-      description: 'Surf school in Tamarindo, Costa Rica offering private, semi-private and group surf lessons, surf camps and packages.',
+      name: 'Cocoa Sol Surf',
+      description: 'Surf school in Cocoa Beach, Florida offering private, group and coaching surf lessons, kids lessons, surf camps and packages.',
       url: site,
-      telephone: '+50661987851',
-      email: 'info@puravidasurfschool.com',
+      telephone: '+13213869993',
+      email: 'info@cocosolsurflessons.com',
       image: ogImage,
-      priceRange: '$50-$1399',
-      currenciesAccepted: 'USD, CRC',
-      address: { '@type': 'PostalAddress', addressLocality: 'Tamarindo', addressRegion: 'Guanacaste', addressCountry: 'CR' },
-      geo: { '@type': 'GeoCoordinates', latitude: 10.2994, longitude: -85.8415 },
-      openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '07:00', closes: '17:00' }],
-      sameAs: ['https://www.facebook.com/profile.php?id=61578013897729', 'https://www.instagram.com/pura_vidasurfschool', 'https://www.tiktok.com/@puravidasurfschool'],
+      priceRange: '$65-$900',
+      currenciesAccepted: 'USD',
+      address: { '@type': 'PostalAddress', addressLocality: 'Cocoa Beach', addressRegion: 'FL', addressCountry: 'US' },
+      geo: { '@type': 'GeoCoordinates', latitude: 28.3200, longitude: -80.6076 },
+      openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '09:00', closes: '17:00' }],
     },
     { '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: title, description, ...(keyfocus || synonyms.length > 0 ? { keywords: [keyfocus, ...synonyms].filter(Boolean).join(', ') } : {}), isPartOf: { '@id': `${site}/#website` }, inLanguage: 'en-US' },
     {
       '@type': 'WebSite',
       '@id': `${site}/#website`,
       url: site,
-      name: 'Pura Vida Surf School',
+      name: 'Cocoa Sol Surf School',
       inLanguage: 'en-US',
     },
   ],
@@ -57,7 +56,7 @@ const jsonLd = {
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content={title} />
 <meta property="og:locale" content="en_US" />
-<meta property="og:site_name" content="Pura Vida Surf School" />
+<meta property="og:site_name" content="Cocoa Sol Surf School" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />

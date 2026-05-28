@@ -5,22 +5,31 @@ import FAQ from '../components/ui/FAQ.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
+import { getClassTypes } from '../lib/classTypes'
 import heroImg from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
 
 const seo = seoData.bookNow
 
 // Pre-select class type from URL param (e.g. /book-now?type=private)
-const typeParam = Astro.url.searchParams.get('type') as any
-const validTypes = ['private','private-2h','semi-private','group','pkg-3-private','pkg-3-semi','pkg-5-private','pkg-5-semi']
-const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
+const typeParam = Astro.url.searchParams.get('type')?.trim()
+const preselectedType = typeParam || undefined
+const bookingClassTypes = await getClassTypes()
+const bookingGroups = [
+  { category: 'lesson', label: 'Surf Lessons' },
+  { category: 'package', label: 'Surf Packages' },
+  { category: 'camp', label: 'Surf Camps' },
+].map(group => ({
+  ...group,
+  items: bookingClassTypes.filter(classType => classType.category === group.category),
+})).filter(group => group.items.length > 0)
 ---
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Book Surf Lessons',href:'/book-now'}]} />
   <Hero
-    title="Book Surf Lessons & Packages in Tamarindo"
-    subtitle="Secure your spot online in minutes. Instant confirmation, flexible cancellation."
+    title="Book Surf Lessons & Packages in Cocoa Beach"
+    subtitle="Choose your surf experience, pick a date and reserve your spot online."
     image={heroImg}
-    imageAlt="Book surf lessons Tamarindo Costa Rica"
+    imageAlt="Book surf lessons in Cocoa Beach Florida"
     height="medium"
   />
 
@@ -32,8 +41,8 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
           <p class="section-label mb-2">Online Booking</p>
           <h2 class="text-3xl font-bold text-gray-900 mb-3">Reserve Your Surf Session</h2>
           <p class="text-gray-500 max-w-xl mx-auto">
-            Choose your experience, pick a date and time, and pay securely online.
-            We'll send you a confirmation email right away.
+            Choose your experience, pick a date and time, and send your reservation request.
+            We will follow up with your lesson details.
           </p>
         </div>
 
@@ -42,48 +51,27 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
     </div>
   </section>
 
-  <!-- Quick links to specific services -->
-  <section class="py-10 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <p class="text-center text-sm font-semibold text-gray-400 mb-8 uppercase tracking-widest">Book by service</p>
-      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-
-        <!-- Surf Lessons -->
-        <div>
-          <p class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-3 px-1">Surf Lessons</p>
-          <div class="flex flex-col gap-2">
-            {[
-              { label: '1 Hour Surf Lesson', href: '/book-now?type=private' },
-              { label: 'Semi-Private Lesson', href: '/book-now?type=semi-private' },
-              { label: 'Group Lesson', href: '/book-now?type=group' },
-            ].map(link => (
-              <a href={link.href} class="text-sm border border-gray-200 hover:border-teal-400 hover:text-teal-600 px-4 py-2.5 rounded-xl transition-colors bg-white text-gray-700 font-medium">
-                {link.label}
-              </a>
-            ))}
-          </div>
+  {bookingGroups.length > 0 && (
+    <section class="py-10 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <p class="text-center text-sm font-semibold text-gray-400 mb-8 uppercase tracking-widest">Book by service</p>
+        <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {bookingGroups.map(group => (
+            <div>
+              <p class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-3 px-1">{group.label}</p>
+              <div class="flex flex-col gap-2">
+                {group.items.map(classType => (
+                  <a href={`/book-now?type=${classType.id}`} class="text-sm border border-gray-200 hover:border-teal-400 hover:text-teal-600 px-4 py-2.5 rounded-xl transition-colors bg-white text-gray-700 font-medium">
+                    {classType.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
-
-        <!-- Surf Packages -->
-        <div>
-          <p class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-3 px-1">Surf Packages</p>
-          <div class="flex flex-col gap-2">
-            {[
-              { label: '3-Day Private Package', href: '/book-now?type=pkg-3-private' },
-              { label: '3-Day Semi-Private Package', href: '/book-now?type=pkg-3-semi' },
-              { label: '5-Day Private Package', href: '/book-now?type=pkg-5-private' },
-              { label: '5-Day Semi-Private Package', href: '/book-now?type=pkg-5-semi' },
-            ].map(link => (
-              <a href={link.href} class="text-sm border border-gray-200 hover:border-teal-400 hover:text-teal-600 px-4 py-2.5 rounded-xl transition-colors bg-white text-gray-700 font-medium">
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
-
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <!-- Help + FAQ -->
   <section class="py-16 container mx-auto px-4">
@@ -95,7 +83,7 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
           surf experience based on your level and travel plans.
         </p>
         <a
-          href="https://wa.me/50661987851"
+          href="https://wa.me/13213869993"
           target="_blank"
           rel="noopener"
           class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white font-bold px-5 py-2.5 rounded-xl transition-colors text-sm"
@@ -109,8 +97,8 @@ const preselectedType = validTypes.includes(typeParam) ? typeParam : undefined
       <div>
         <h3 class="font-bold text-gray-900 mb-4">Booking FAQ</h3>
         <FAQ items={[
-          { question: 'How early should I book my session?', answer: 'We recommend booking at least 48 hours in advance, especially during peak season (December–April) to ensure your preferred time slot and instructor.' },
-          { question: 'What happens if the weather is bad?', answer: "If conditions are unsafe for surfing, we will contact you to reschedule at no extra charge. Costa Rica's tropical climate usually allows us to find a good window." },
+          { question: 'How early should I book my session?', answer: 'We recommend booking at least 48 hours in advance, especially during peak season, to help secure your preferred time slot and instructor.' },
+          { question: 'What happens if the weather is bad?', answer: 'If ocean conditions are unsafe for learning, we will contact you to reschedule at no extra charge.' },
           { question: 'Can I cancel or reschedule my booking?', answer: 'Yes! We have a flexible policy. You can reschedule up to 24 hours before your session. Cancellations within 24 hours may be subject to a small fee.' },
           { question: 'Is online payment secure?', answer: 'Absolutely. All online payments are processed securely and we never store your card details.' },
         ]}/>

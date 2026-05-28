@@ -1,7 +1,7 @@
 export const prerender = false
 
 import type { APIRoute } from 'astro'
-import { supabase } from '../../../lib/supabase'
+import { isSupabaseConfigured, supabase } from '../../../lib/supabase'
 import { getClassTypes, calculateTotal } from '../../../lib/classTypes'
 import { getMinParticipants, getMaxParticipants } from '../../../lib/classTypeHelpers'
 import { createPayPalOrder } from '../../../lib/paypalService'
@@ -48,6 +48,10 @@ function envFlag(name: string, fallback: boolean): boolean {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  if (!isSupabaseConfigured) {
+    return json({ error: 'Booking database is not configured. Add Supabase env vars to save reservations.' }, 503)
+  }
+
   let body: any
   try {
     body = await request.json()
@@ -215,6 +219,7 @@ export const POST: APIRoute = async ({ request }) => {
     const summaryItems = normalizedItems.map((item, index) => ({
       bookingId: bookings[index]?.id ?? '',
       classTypeId: item.classTypeId,
+      classTypeName: classTypeMap.get(item.classTypeId)?.name,
       bookingDate: item.date,
       startTime: item.timeSlot,
       participants: item.participants,

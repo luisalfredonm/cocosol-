@@ -39,7 +39,7 @@ export const POST: APIRoute = async ({ request }) => {
   if ((sendSummary || sendAdminSummary) && checkoutId) {
     const { data: bookings } = await supabase
       .from('bookings')
-      .select('*')
+      .select('*, class_types(name)')
       .in('id', bookingIds)
 
     if (bookings && bookings.length > 0) {
@@ -47,6 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
       const summaryItems = bookings.map(b => ({
         bookingId: b.id,
         classTypeId: b.class_type_id,
+        classTypeName: b.class_types?.name,
         bookingDate: b.booking_date,
         startTime: b.start_time,
         participants: b.participants,

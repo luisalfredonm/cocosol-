@@ -9,6 +9,12 @@ export interface Card {
   description: string
   extras?: { label: string }[]
 }
+
+const iconMap: Record<string, string> = {
+  compass: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
+  shield:  `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  package: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+}
 export interface Props {
   eyebrow?: string
   title?: string
@@ -41,17 +47,17 @@ const {
   ],
   cards = [
     {
-      icon: '🧭',
+      icon: 'compass',
       title: 'Certified, Bilingual Local Instructors',
       description: 'Our instructors are certified, fluent in English and Spanish, and — most importantly — local. They read Cocoa Beach\'s conditions every single day and shape each session around the real ocean in front of you, not a one-size-fits-all script.',
     },
     {
-      icon: '🛡️',
+      icon: 'shield',
       title: 'Safety Built Into Everything',
       description: 'Every session starts with a beach safety briefing, and an instructor stays in the water with you the whole time. That local knowledge is the difference between a fun afternoon and actually learning to surf.',
     },
     {
-      icon: '🎽',
+      icon: 'package',
       title: 'Premium Gear, Always Included',
       description: 'No rentals, no surprise fees. We match your board to your height, weight, and skill level — because the right equipment is half of learning fast.',
       extras: [
@@ -106,7 +112,7 @@ const {
     <div class="wcu-cards">
       {cards.map(c => (
         <div class="wcu-card">
-          <div class="wcu-ico">{c.icon}</div>
+          <div class="wcu-ico" set:html={iconMap[c.icon] ?? c.icon}></div>
           <h3>{c.title}</h3>
           <p>{c.description}</p>
           {c.extras && (
@@ -304,9 +310,9 @@ const {
     border-radius: 14px;
     display: grid;
     place-items: center;
-    font-size: 1.5rem;
     margin-bottom: 18px;
     background: linear-gradient(140deg, var(--brand), var(--brand-dark));
+    color: #fff;
   }
   .wcu-card h3 {
     font-family: 'Fraunces', Georgia, serif;

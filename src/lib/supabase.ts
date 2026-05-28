@@ -1,13 +1,48 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 const supabaseUrl = import.meta.env.SUPABASE_URL
 const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY
 
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY environment variables')
+export const missingSupabaseEnv = [
+  !supabaseUrl ? 'SUPABASE_URL' : null,
+  !supabaseKey ? 'SUPABASE_SERVICE_ROLE_KEY' : null,
+].filter(Boolean) as string[]
+
+export const isSupabaseConfigured = missingSupabaseEnv.length === 0
+
+const missingConfigError = new Error(
+  `Missing ${missingSupabaseEnv.join(' or ')} environment variables`
+)
+
+function createMissingSupabaseClient(): SupabaseClient {
+  const query = new Proxy(
+    {},
+    {
+      get(_target, prop) {
+        if (prop === 'then') {
+          return (resolve: (value: unknown) => void) => {
+            resolve({ data: null, error: missingConfigError, count: null })
+          }
+        }
+
+        return () => query
+      },
+    }
+  )
+
+  return new Proxy(
+    {},
+    {
+      get() {
+        return () => query
+      },
+    }
+  ) as SupabaseClient
 }
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
+export const supabase = isSupabaseConfigured
+  ? createClient(supabaseUrl, supabaseKey)
+  : createMissingSupabaseClient()
 
 export interface DbBooking {
   id: string

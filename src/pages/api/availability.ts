@@ -1,13 +1,19 @@
 export const prerender = false
 
 import type { APIRoute } from 'astro'
-import { supabase } from '../../lib/supabase'
+import { isSupabaseConfigured, missingSupabaseEnv, supabase } from '../../lib/supabase'
 import { getClassTypeById } from '../../lib/classTypes'
 
 export const GET: APIRoute = async ({ url }) => {
   const classTypeId = url.searchParams.get('classTypeId') ?? ''
   const date = url.searchParams.get('date') ?? '' // YYYY-MM-DD
   const requestedParticipants = Math.max(1, parseInt(url.searchParams.get('participants') ?? '1', 10) || 1)
+
+  if (!isSupabaseConfigured) {
+    return json({
+      error: `Booking database is not configured. Missing ${missingSupabaseEnv.join(' and ')}.`,
+    }, 503)
+  }
 
   if (!classTypeId || !date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return json({ error: 'Invalid parameters' }, 400)

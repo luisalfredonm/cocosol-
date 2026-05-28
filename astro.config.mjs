@@ -4,7 +4,7 @@ import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel";
 
 export default defineConfig({
-  site: "https://puravidasurfschool.com",
+  site: "https://cocosolsurf.com",
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
@@ -36,16 +36,15 @@ export default defineConfig({
       status: 301,
     },
     "/surf-lessons-tamarindo": {
-      destination: "/tamarindo-surf-lessons",
+      destination: "/",
       status: 301,
     },
     "/7-days-surf-camp-package": {
       destination: "/7-days-surf-camp-tamarindo",
       status: 301,
     },
-    "/contact": { destination: "/surf-school-near-me-tamarindo", status: 301 },
-    "/about": { destination: "/best-surf-school-in-tamarindo", status: 301 },
-    "/about-us": { destination: "/best-surf-school-in-tamarindo", status: 301 },
+    "/about": { destination: "/best-surf-school-cocoa-beach", status: 301 },
+    "/about-us": { destination: "/best-surf-school-cocoa-beach", status: 301 },
     "/book": { destination: "/book-now", status: 301 },
     "/booking": { destination: "/book-now", status: 301 },
   },

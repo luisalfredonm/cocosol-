@@ -1,17 +1,28 @@
-import { useState } from 'react'
-import { CLASS_TYPES, formatCurrency, type ClassTypeId } from '../../lib/bookingConfig'
+import { useEffect, useState } from 'react'
+import { formatCurrency, getStartingPriceInfo } from '../../lib/classTypeHelpers'
+import type { DbClassType } from '../../lib/classTypeHelpers'
 import BookingWizard from './BookingWizard'
-
-const PACKAGES: ClassTypeId[] = ['pkg-3-days', 'pkg-5-days']
 
 interface Props {
   showCamps?: boolean
 }
 
 export default function PackagesWidget({ showCamps = true }: Props) {
-  const [bookingType, setBookingType] = useState<ClassTypeId | null>(null)
+  const [bookingType, setBookingType] = useState<string | null>(null)
+  const [classTypes, setClassTypes] = useState<DbClassType[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const displayed = showCamps ? PACKAGES : PACKAGES.filter(id => id.startsWith('pkg-'))
+  useEffect(() => {
+    fetch('/api/class-types')
+      .then(response => response.json())
+      .then(data => setClassTypes(Array.isArray(data.classTypes) ? data.classTypes : []))
+      .catch(() => setClassTypes([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const displayed = classTypes.filter(classType => (
+    classType.active && (classType.category === 'package' || (showCamps && classType.category === 'camp'))
+  ))
 
   if (bookingType) {
     return (
@@ -27,13 +38,21 @@ export default function PackagesWidget({ showCamps = true }: Props) {
     )
   }
 
+  if (loading) {
+    return <div className="text-sm text-gray-500">Loading packages...</div>
+  }
+
+  if (displayed.length === 0) {
+    return <div className="text-sm text-gray-500">Packages are managed in the booking database.</div>
+  }
+
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      {displayed.map(id => {
-        const pkg = CLASS_TYPES[id]
+      {displayed.map(pkg => {
+        const startingPrice = getStartingPriceInfo(pkg)
         return (
           <div
-            key={id}
+            key={pkg.id}
             className="relative border-2 border-gray-100 rounded-2xl overflow-hidden hover:border-teal-300 hover:shadow-lg transition-all flex flex-col"
           >
             {pkg.badge && (
@@ -48,13 +67,13 @@ export default function PackagesWidget({ showCamps = true }: Props) {
               </p>
               <h3 className="font-extrabold text-gray-900 text-lg mb-1 leading-tight">{pkg.name}</h3>
               <p className="text-3xl font-extrabold text-teal-600 mb-3">
-                {formatCurrency(pkg.pricePerPerson)}
-                <span className="text-sm font-normal text-gray-500">/person</span>
+                {formatCurrency(startingPrice.amount)}
+                <span className="text-sm font-normal text-gray-500">{startingPrice.suffix}</span>
               </p>
               <p className="text-sm text-gray-500 mb-4 leading-snug">{pkg.description}</p>
 
               <ul className="space-y-1.5 mb-6 flex-1">
-                {pkg.included.map(item => (
+                {(pkg.included ?? []).map(item => (
                   <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
                     <svg className="w-4 h-4 text-teal-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -65,7 +84,7 @@ export default function PackagesWidget({ showCamps = true }: Props) {
               </ul>
 
               <button
-                onClick={() => setBookingType(id)}
+                onClick={() => setBookingType(pkg.id)}
                 className="btn-primary w-full text-center text-sm mt-auto"
               >
                 Book Now

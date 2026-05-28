@@ -8,22 +8,22 @@ interface Props {
   currency?: string
 }
 const { name, description, price, url, image, currency = 'USD' } = Astro.props
-const site = 'https://puravidasurfschool.com'
+const site = 'https://cocosolsurf.com'
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name,
   description,
   ...(image ? { image: image.startsWith('http') ? image : `${site}${image}` } : {}),
-  provider: { '@type': 'LocalBusiness', name: 'Pura Vida Surf School', url: site },
-  areaServed: { '@type': 'Place', name: 'Tamarindo, Guanacaste, Costa Rica' },
+  provider: { '@type': 'LocalBusiness', name: 'Cocoa Sol Surf', url: site },
+  areaServed: { '@type': 'Place', name: 'Cocoa Beach, Florida, USA' },
   offers: {
     '@type': 'Offer',
     price,
     priceCurrency: currency,
     availability: 'https://schema.org/InStock',
     url: url.startsWith('http') ? url : `${site}${url}`,
-    seller: { '@type': 'Organization', name: 'Pura Vida Surf School' },
+    seller: { '@type': 'Organization', name: 'Cocoa Sol Surf' },
   },
 }
 ---

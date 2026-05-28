@@ -1,10 +1,11 @@
-import { CLASS_TYPES, formatCurrency, formatTime } from './bookingConfig'
+import { formatCurrency, formatTime } from './classTypeHelpers'
 
 interface BookingEmailData {
   bookingId: string
   customerName: string
   customerEmail: string
   classTypeId: string
+  classTypeName?: string
   bookingDate: string
   startTime: string
   participants: number
@@ -14,6 +15,7 @@ interface BookingEmailData {
 interface CartSummaryItem {
   bookingId: string
   classTypeId: string
+  classTypeName?: string
   bookingDate: string
   startTime: string
   participants: number
@@ -34,19 +36,8 @@ function formatDate(dateStr: string): string {
   })
 }
 
-function getClassTypeName(classTypeId: string): string {
-  const currentClassTypeNames: Record<string, string> = {
-    'pkg-3-private': '3-Day Private Package',
-    'pkg-3-semi': '3-Day Semi-Private Package',
-    'pkg-5-private': '5-Day Private Package',
-    'pkg-5-semi': '5-Day Semi-Private Package',
-    'camp-7-private': '7-Day Private Package',
-    'camp-7-semi': '7-Day Semi-Private Package',
-  }
-  if (currentClassTypeNames[classTypeId]) return currentClassTypeNames[classTypeId]
-
-  const classType = (CLASS_TYPES as Record<string, { name: string } | undefined>)[classTypeId]
-  return classType?.name ?? classTypeId
+function getClassTypeName(item: { classTypeId: string; classTypeName?: string }): string {
+  return item.classTypeName?.trim() || item.classTypeId
 }
 
 function emailShell(params: { preheader: string; title: string; subtitle: string; body: string }): string {
@@ -67,7 +58,7 @@ function emailShell(params: { preheader: string; title: string; subtitle: string
             <table role="presentation" style="width:100%;max-width:680px;border-collapse:collapse;background:#ffffff;border-radius:18px;overflow:hidden;">
               <tr>
                 <td style="background:linear-gradient(135deg,#0b5f66 0%,#0f766e 55%,#14b8a6 100%);padding:32px 30px;color:#ffffff;">
-                  <p style="margin:0;font-size:12px;letter-spacing:1px;text-transform:uppercase;opacity:.9;">Pura Vida Surf School</p>
+                  <p style="margin:0;font-size:12px;letter-spacing:1px;text-transform:uppercase;opacity:.9;">Cocoa Sol Surf School</p>
                   <h1 style="margin:10px 0 8px;font-size:28px;line-height:1.2;font-family:Georgia,serif;">${title}</h1>
                   <p style="margin:0;font-size:14px;line-height:1.6;color:#dff6f3;">${subtitle}</p>
                 </td>
@@ -79,8 +70,8 @@ function emailShell(params: { preheader: string; title: string; subtitle: string
               </tr>
               <tr>
                 <td style="padding:16px 26px 24px;border-top:1px solid #e5e7eb;color:#6b7280;font-size:12px;font-family:Arial,sans-serif;">
-                  Tamarindo, Guanacaste, Costa Rica<br/>
-                  Questions: <a href="mailto:info@puravidasurfschool.com" style="color:#0f766e;text-decoration:none;">info@puravidasurfschool.com</a>
+                  Cocoa Beach, Florida<br/>
+                  Questions: <a href="mailto:info@cocosolsurflessons.com" style="color:#0f766e;text-decoration:none;">info@cocosolsurflessons.com</a>
                 </td>
               </tr>
             </table>
@@ -125,7 +116,7 @@ async function sendEmail(payload: { to: string; subject: string; html: string; f
 }
 
 export async function sendConfirmationEmail(data: BookingEmailData): Promise<void> {
-  const classTypeName = getClassTypeName(data.classTypeId)
+  const classTypeName = getClassTypeName(data)
 
   const bookingDetails = detailRows([
     { label: 'Booking ID', value: `#${data.bookingId.slice(-8).toUpperCase()}` },
@@ -139,7 +130,7 @@ export async function sendConfirmationEmail(data: BookingEmailData): Promise<voi
   const html = emailShell({
     preheader: `Booking confirmed for ${formatDate(data.bookingDate)} at ${formatTime(data.startTime)}.`,
     title: 'Booking Confirmed',
-    subtitle: 'Your surf session is locked in. We are excited to host you in Tamarindo.',
+    subtitle: 'Your surf session is locked in. We are excited to host you in Cocoa Beach.',
     body: `
       <p style="margin:0 0 14px;font-size:15px;line-height:1.7;">Hi ${data.customerName},</p>
       <p style="margin:0 0 20px;font-size:15px;line-height:1.7;">Thanks for choosing us. Here is your elegant booking recap:</p>
@@ -164,7 +155,7 @@ export async function sendConfirmationEmail(data: BookingEmailData): Promise<voi
 export async function sendAdminNotification(data: BookingEmailData): Promise<void> {
   const adminEmail = import.meta.env.ADMIN_EMAIL
   if (!adminEmail) return
-  const classTypeName = getClassTypeName(data.classTypeId)
+  const classTypeName = getClassTypeName(data)
 
   const html = emailShell({
     preheader: `New booking received from ${data.customerName}.`,
@@ -201,7 +192,7 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
   const isOnSite = data.mode === 'on-site'
   const rows = data.items.map(item => `
     <tr>
-      <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;">${getClassTypeName(item.classTypeId)}</td>
+      <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;">${getClassTypeName(item)}</td>
       <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;">${formatDate(item.bookingDate)}</td>
       <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;">${formatTime(item.startTime)}</td>
       <td style="padding:10px 8px;border-bottom:1px solid #e5e7eb;font-size:13px;text-align:center;">${item.participants}</td>
@@ -222,7 +213,7 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
       <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#92400E;">Payment on arrival</p>
       <p style="margin:0;font-size:13px;line-height:1.6;color:#78350F;">
         Please bring cash or card. Your instructor will collect payment at the beach before your session starts.
-        Arrive 15 minutes early at the Pura Vida Surf School tent on Tamarindo Beach.
+        Arrive 15 minutes early at the Cocoa Sol Surf meeting point in Cocoa Beach.
       </p>
     </div>
   ` : `
@@ -280,7 +271,7 @@ export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Pro
   const itemRows = data.items.map((item, index) => `
     <tr>
       <td style="padding:8px 0;color:#6b7280;font-size:13px;">Item ${index + 1}</td>
-      <td style="padding:8px 0;color:#111827;font-size:13px;text-align:right;">${getClassTypeName(item.classTypeId)} | ${formatDate(item.bookingDate)} ${formatTime(item.startTime)} | ${item.participants} pax | ${formatCurrency(item.totalAmount)}</td>
+      <td style="padding:8px 0;color:#111827;font-size:13px;text-align:right;">${getClassTypeName(item)} | ${formatDate(item.bookingDate)} ${formatTime(item.startTime)} | ${item.participants} pax | ${formatCurrency(item.totalAmount)}</td>
     </tr>
   `).join('')
 

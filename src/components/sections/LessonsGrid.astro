@@ -15,7 +15,7 @@ const lessons = [
     imgAlt: 'Private surf lesson Cocoa Beach — one instructor, one student',
     badge: 'Fastest Progression',
     title: 'Private Surf Lessons',
-    description: 'One instructor, one focus: you. The fastest progression and the most personalized feedback — ideal for individuals, couples, and families. If you\'ve only got a few days in town and want to leave actually knowing how to surf, this is the one.',
+    description: 'One instructor, one focus: you. The fastest progression and the most personalized feedback — ideal for individuals, couples, and families.',
     price: 'From $75',
     priceUnit: '/ person',
     priceNote: null,
@@ -27,7 +27,7 @@ const lessons = [
     imgAlt: 'Group surf lessons Cocoa Beach — fun social sessions',
     badge: 'Fun & Social',
     title: 'Group Surf Lessons',
-    description: 'The fun, social way in. You learn alongside others while still getting hands-on attention thanks to our small-group ratio. The easygoing, more affordable entry point — perfect for groups of friends and solo travelers wanting to meet people.',
+    description: 'The fun, social way in. Learn alongside others with hands-on attention, thanks to our small-group ratio. Perfect for friends and solo travelers.',
     price: '$65',
     priceUnit: '/ person',
     priceNote: 'min. 4 people',
@@ -39,7 +39,7 @@ const lessons = [
     imgAlt: 'Surf coaching Cocoa Beach — intermediate and advanced surfers',
     badge: 'Intermediate & Advanced',
     title: 'Surf Coaching',
-    description: 'Already up and riding? Coaching sharpens technique, style, positioning, timing, and wave selection. We focus on real performance in real conditions and build the session around where you want to go next.',
+    description: 'Already riding? Coaching sharpens technique, positioning, timing, and wave selection with real wave-by-wave feedback in real conditions.',
     price: 'From $95',
     priceUnit: '/ person',
     priceNote: null,
@@ -70,26 +70,22 @@ const lessons = [
       {lessons.map(l => (
         <article class="lg-card">
 
-          <!-- Split top: image + price panel -->
-          <div class="lg-top">
-            <div class="lg-img-wrap">
-              <Image
-                src={l.img}
-                alt={l.imgAlt}
-                class="lg-img"
-                widths={[480, 720, 960]}
-                sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-
-            <div class="lg-price-panel">
+          <!-- Image with price overlay -->
+          <div class="lg-img-wrap">
+            <Image
+              src={l.img}
+              alt={l.imgAlt}
+              class="lg-img"
+              widths={[480, 720, 960]}
+              sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 90vw"
+              loading="lazy"
+              decoding="async"
+            />
+            <!-- Price overlay at bottom of image -->
+            <div class="lg-price-overlay">
               <span class="lg-price-amount">{l.price}</span>
               <span class="lg-price-unit">{l.priceUnit}</span>
               {l.priceNote && <span class="lg-price-note">{l.priceNote}</span>}
-              <div class="lg-price-divider"></div>
-              <span class="lg-gear-label">All gear<br/>included</span>
             </div>
           </div>
 
@@ -122,17 +118,14 @@ const lessons = [
 <style>
   /* ── Variables ─────────────────────────────────────────── */
   .lg-section {
-    --deep:   #0A3A40;
-    --brand:  #00BCD4;
+    --deep:       #0A3A40;
+    --brand:      #00BCD4;
     --brand-dark: #0097A7;
     --brand-text: #00838F;
-    --coral:  #FF6A4D;
-    --sun:    #F2A93B;
-    --gray:   #5A7270;
-    --cream:  #FFFDF8;
-    --sand:   #FCF8F0;
-    --line:   rgba(0,188,212,.12);
-    --maxw:   1180px;
+    --coral:      #FF6A4D;
+    --gray:       #5A7270;
+    --line:       rgba(0,188,212,.12);
+    --maxw:       1180px;
 
     padding: 84px 0 96px;
     background: #fff;
@@ -163,7 +156,7 @@ const lessons = [
     color: var(--deep);
     margin-bottom: 18px;
   }
-  .lg-title em { font-style: italic; color: var(--teal); }
+  .lg-title em { font-style: italic; color: var(--brand-text); }
 
   .lg-subtitle {
     font-size: 1.05rem;
@@ -183,83 +176,67 @@ const lessons = [
   .lg-card {
     display: flex;
     flex-direction: column;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
     border: 1px solid var(--line);
-    background: var(--cream);
-    box-shadow: 0 4px 24px -8px rgba(10,58,64,.12);
+    background: #fff;
+    box-shadow: 0 2px 16px -6px rgba(10,58,64,.10);
     transition: transform .25s ease, box-shadow .25s ease;
   }
   .lg-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 16px 40px -12px rgba(10,58,64,.22);
+    box-shadow: 0 20px 48px -12px rgba(10,58,64,.20);
   }
 
-  /* ── Split top ─────────────────────────────────────────── */
-  .lg-top {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    height: 200px;
-  }
-
-  /* Image side */
+  /* ── Image with overlay ────────────────────────────────── */
   .lg-img-wrap {
+    position: relative;
+    height: 240px;
     overflow: hidden;
-    height: 100%;
+    flex-shrink: 0;
   }
+
   .lg-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform .5s ease;
+    display: block;
   }
-  .lg-card:hover .lg-img { transform: scale(1.05); }
+  .lg-card:hover .lg-img { transform: scale(1.06); }
 
-  /* Price panel */
-  .lg-price-panel {
-    background: linear-gradient(160deg, var(--brand), var(--deep));
+  /* Price overlay at bottom of image */
+  .lg-price-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(10,58,64,.92) 0%, rgba(10,58,64,.6) 60%, transparent 100%);
+    padding: 32px 20px 16px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 14px;
-    text-align: center;
-    gap: 2px;
+    align-items: baseline;
+    gap: 6px;
+    flex-wrap: wrap;
   }
 
   .lg-price-amount {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-size: 1.7rem;
     font-weight: 700;
     color: #FFD79A;
     line-height: 1;
   }
   .lg-price-unit {
-    font-size: .78rem;
-    color: rgba(255,255,255,.75);
+    font-size: .82rem;
+    color: rgba(255,255,255,.80);
     font-weight: 500;
-    margin-bottom: 4px;
   }
   .lg-price-note {
-    font-size: .7rem;
-    color: rgba(255,255,255,.6);
+    font-size: .72rem;
+    color: rgba(255,255,255,.60);
     font-weight: 500;
-  }
-
-  .lg-price-divider {
-    width: 32px;
-    height: 1px;
-    background: rgba(255,255,255,.25);
-    margin: 10px auto 10px;
-  }
-
-  .lg-gear-label {
-    font-size: .7rem;
-    color: rgba(255,255,255,.65);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    line-height: 1.4;
+    width: 100%;
+    margin-top: -2px;
   }
 
   /* ── Body ──────────────────────────────────────────────── */
@@ -359,8 +336,8 @@ const lessons = [
   }
   @media (max-width: 600px) {
     .lg-section { padding: 60px 0 72px; }
+    .lg-wrap { padding: 0 20px; }
     .lg-grid { grid-template-columns: 1fr; }
-    .lg-top { height: 180px; }
-    .lg-price-amount { font-size: 1.5rem; }
+    .lg-img-wrap { height: 220px; }
   }
 </style>
