@@ -3,7 +3,7 @@ import {
   calculateTotal,
   getMinParticipants,
   getMaxParticipants,
-  getPricePerPerson,
+  getPriceBreakdown,
   formatPricingTiers,
   getPricingTiers,
 } from '../../../lib/classTypeHelpers'
@@ -21,7 +21,7 @@ export default function StepParticipants({ classType, participants, onChange, on
   const total = calculateTotal(classType, participants)
   const minParticipants = getMinParticipants(classType)
   const maxParticipants = getMaxParticipants(classType)
-  const pricePerPerson = getPricePerPerson(classType, participants)
+  const priceBreakdown = getPriceBreakdown(classType, participants)
   const hasTiers = getPricingTiers(classType).length > 0
 
   return (
@@ -48,9 +48,15 @@ export default function StepParticipants({ classType, participants, onChange, on
       <div className="bg-teal-50 rounded-2xl p-5 mb-8 text-center">
         <p className="text-sm text-teal-700 mb-1">Total price</p>
         <p className="text-4xl font-extrabold text-teal-700">{formatCurrency(total)}</p>
-        <p className="text-sm text-teal-600 mt-1">
-          {formatCurrency(pricePerPerson)} x {participants} {participants === 1 ? 'person' : 'people'}
-        </p>
+        {priceBreakdown.priceType === 'total' ? (
+          <p className="text-sm text-teal-600 mt-1">
+            {formatCurrency(total)} total for {participants} {participants === 1 ? 'person' : 'people'}
+          </p>
+        ) : (
+          <p className="text-sm text-teal-600 mt-1">
+            {formatCurrency(priceBreakdown.unitPrice)} x {participants} {participants === 1 ? 'person' : 'people'}
+          </p>
+        )}
         {hasTiers && (
           <p className="text-xs text-teal-700 mt-3 font-semibold">
             Pricing: {formatPricingTiers(classType)}

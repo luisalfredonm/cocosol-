@@ -21,7 +21,15 @@ export interface PricingTier {
   min_participants: number
   max_participants?: number | null
   price_per_person: number
+  price_type?: 'per_person' | 'total' | null
   label?: string | null
+}
+
+export interface PriceBreakdown {
+  total: number
+  unitPrice: number
+  priceType: 'per_person' | 'total'
+  tier: PricingTier | null
 }
 
 export function getMinParticipants(classType: DbClassType): number {
@@ -46,6 +54,7 @@ export function getPricingTiers(classType: DbClassType): PricingTier[] {
           ? null
           : Math.max(1, Number(tier.max_participants) || 1),
       price_per_person: Math.max(0, Number(tier.price_per_person) || 0),
+      price_type: tier.price_type === 'total' ? 'total' : 'per_person',
       label: tier.label ?? null,
     }))
     .filter(tier => tier.price_per_person > 0)
@@ -53,13 +62,42 @@ export function getPricingTiers(classType: DbClassType): PricingTier[] {
 }
 
 export function getPricePerPerson(classType: DbClassType, participants: number): number {
+  return getPriceBreakdown(classType, participants).unitPrice
+}
+
+export function getPriceBreakdown(classType: DbClassType, participants: number): PriceBreakdown {
   const tiers = getPricingTiers(classType)
   const matchingTier = tiers.find(tier => {
     const max = tier.max_participants ?? Number.POSITIVE_INFINITY
     return participants >= tier.min_participants && participants <= max
   })
 
-  return matchingTier?.price_per_person ?? Number(classType.price_per_person)
+  if (matchingTier) {
+    if (matchingTier.price_type === 'total') {
+      const total = matchingTier.price_per_person
+      return {
+        total,
+        unitPrice: participants > 0 ? total / participants : total,
+        priceType: 'total',
+        tier: matchingTier,
+      }
+    }
+
+    return {
+      total: matchingTier.price_per_person * participants,
+      unitPrice: matchingTier.price_per_person,
+      priceType: 'per_person',
+      tier: matchingTier,
+    }
+  }
+
+  const unitPrice = Number(classType.price_per_person)
+  return {
+    total: unitPrice * participants,
+    unitPrice,
+    priceType: 'per_person',
+    tier: null,
+  }
 }
 
 export function formatPricingTiers(classType: DbClassType): string {
@@ -73,12 +111,27 @@ export function formatPricingTiers(classType: DbClassType): string {
       : max === tier.min_participants
         ? `${tier.min_participants}`
         : `${tier.min_participants}+`
-    return `${guests}: ${formatCurrency(tier.price_per_person)}`
+    const suffix = tier.price_type === 'total' ? ' total' : '/person'
+    return `${guests}: ${formatCurrency(tier.price_per_person)}${suffix}`
   }).join(' | ')
 }
 
 export function calculateTotal(classType: DbClassType, participants: number): number {
-  return getPricePerPerson(classType, participants) * participants
+  return getPriceBreakdown(classType, participants).total
+}
+
+export function getStartingPriceInfo(classType: DbClassType): { amount: number; suffix: string } {
+  const tiers = getPricingTiers(classType)
+  if (tiers.length === 0) return { amount: Number(classType.price_per_person), suffix: '/person' }
+
+  const lowestTier = tiers.reduce((lowest, tier) => (
+    tier.price_per_person < lowest.price_per_person ? tier : lowest
+  ), tiers[0])
+
+  return {
+    amount: lowestTier.price_per_person,
+    suffix: lowestTier.price_type === 'total' ? '/group' : '/person',
+  }
 }
 
 export function formatCurrency(amount: number): string {

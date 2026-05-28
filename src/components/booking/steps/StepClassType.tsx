@@ -1,4 +1,4 @@
-import { formatCurrency, formatPricingTiers, getPricingTiers } from '../../../lib/classTypeHelpers'
+import { formatCurrency, formatPricingTiers, getPricingTiers, getStartingPriceInfo } from '../../../lib/classTypeHelpers'
 import type { DbClassType } from '../../../lib/classTypeHelpers'
 
 interface Props {
@@ -31,9 +31,7 @@ export default function StepClassType({ classTypes, onSelect }: Props) {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {types.map(type => {
               const hasTiers = getPricingTiers(type).length > 0
-              const startingPrice = hasTiers
-                ? Math.min(...getPricingTiers(type).map(tier => tier.price_per_person))
-                : type.price_per_person
+              const startingPrice = getStartingPriceInfo(type)
               return (
               <button
                 key={type.id}
@@ -49,8 +47,8 @@ export default function StepClassType({ classTypes, onSelect }: Props) {
                   {type.name}
                 </p>
                 <p className="text-2xl font-extrabold text-teal-600 mb-2">
-                  {hasTiers ? `From ${formatCurrency(startingPrice)}` : formatCurrency(startingPrice)}
-                  <span className="text-sm font-normal text-gray-500">/person</span>
+                  {hasTiers ? `From ${formatCurrency(startingPrice.amount)}` : formatCurrency(startingPrice.amount)}
+                  <span className="text-sm font-normal text-gray-500">{startingPrice.suffix}</span>
                 </p>
                 {hasTiers && (
                   <p className="text-xs font-semibold text-teal-700 bg-teal-50 border border-teal-100 rounded-lg px-2 py-1 mb-3">

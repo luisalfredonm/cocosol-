@@ -49,6 +49,7 @@ export interface WizardState {
 
 export type Action =
   | { type: 'SET_CLASS'; id: string }
+  | { type: 'GO_TO_DATE' }
   | { type: 'SET_DATE'; date: string }
   | { type: 'SET_TIME'; time: string }
   | { type: 'SET_PARTICIPANTS'; n: number }
@@ -68,8 +69,37 @@ export type Action =
 function reducer(state: WizardState, action: Action): WizardState {
   switch (action.type) {
     case 'SET_CLASS': return { ...state, classTypeId: action.id, step: 2, date: null, timeSlot: null, participants: 1, error: null }
-    case 'SET_DATE': return { ...state, date: action.date, step: 3, timeSlot: null, error: null }
-    case 'SET_TIME': return { ...state, timeSlot: action.time, step: 4, error: null }
+    case 'GO_TO_DATE': return { ...state, step: 3, date: null, timeSlot: null, error: null }
+    case 'SET_DATE': return { ...state, date: action.date, step: 4, timeSlot: null, error: null }
+    case 'SET_TIME': {
+      if (!state.classTypeId || !state.date) return { ...state, timeSlot: action.time, error: null }
+      const currentItem: CartItem = {
+        classTypeId: state.classTypeId,
+        date: state.date,
+        timeSlot: action.time,
+        participants: state.participants,
+      }
+      if (state.editingCartIndex !== null && state.editingCartIndex >= 0 && state.editingCartIndex < state.cartItems.length) {
+        const nextItems = [...state.cartItems]
+        nextItems[state.editingCartIndex] = currentItem
+        return {
+          ...state,
+          timeSlot: action.time,
+          cartItems: nextItems,
+          editingCartIndex: null,
+          step: 5,
+          error: null,
+        }
+      }
+      return {
+        ...state,
+        timeSlot: action.time,
+        cartItems: [...state.cartItems, currentItem],
+        editingCartIndex: null,
+        step: 5,
+        error: null,
+      }
+    }
     case 'SET_PARTICIPANTS': return { ...state, participants: action.n }
     case 'SAVE_CURRENT_ITEM_TO_CART': {
       if (!state.classTypeId || !state.date || !state.timeSlot) return state
@@ -167,7 +197,7 @@ interface Props {
   filterIds?: string[]
 }
 
-const STEP_LABELS = ['Service', 'Date', 'Time', 'Guests', 'Cart', 'Contact', 'Payment', 'Done']
+const STEP_LABELS = ['Service', 'Guests', 'Date', 'Time', 'Cart', 'Contact', 'Payment', 'Done']
 
 export default function BookingWizard({ preselectedType, filterIds }: Props) {
   const [classTypes, setClassTypes] = useState<DbClassType[]>([])
@@ -368,20 +398,20 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
         {state.step === 1 && (
           <StepClassType classTypes={visibleClassTypes} onSelect={id => dispatch({ type: 'SET_CLASS', id })} />
         )}
-        {state.step === 2 && state.classTypeId && (
-          <StepDate classTypeId={state.classTypeId} onSelect={date => dispatch({ type: 'SET_DATE', date })} onBack={() => dispatch({ type: 'PREV_STEP' })} />
-        )}
-        {state.step === 3 && state.classTypeId && state.date && (
-          <StepTime classTypeId={state.classTypeId} date={state.date} onSelect={time => dispatch({ type: 'SET_TIME', time })} onBack={() => dispatch({ type: 'PREV_STEP' })} />
-        )}
-        {state.step === 4 && classType && (
+        {state.step === 2 && classType && (
           <StepParticipants
             classType={classType}
             participants={state.participants}
             onChange={n => dispatch({ type: 'SET_PARTICIPANTS', n })}
-            onContinue={() => dispatch({ type: 'SAVE_CURRENT_ITEM_TO_CART' })}
+            onContinue={() => dispatch({ type: 'GO_TO_DATE' })}
             onBack={() => dispatch({ type: 'PREV_STEP' })}
           />
+        )}
+        {state.step === 3 && state.classTypeId && (
+          <StepDate classTypeId={state.classTypeId} onSelect={date => dispatch({ type: 'SET_DATE', date })} onBack={() => dispatch({ type: 'PREV_STEP' })} />
+        )}
+        {state.step === 4 && state.classTypeId && state.date && (
+          <StepTime classTypeId={state.classTypeId} date={state.date} participants={state.participants} onSelect={time => dispatch({ type: 'SET_TIME', time })} onBack={() => dispatch({ type: 'PREV_STEP' })} />
         )}
         {state.step === 5 && (
           <StepCart

@@ -91,22 +91,50 @@ export const POST: APIRoute = async ({ request }) => {
     const dow = new Date(date + 'T12:00:00').getDay()
     const isoDow = dow === 0 ? 7 : dow
 
-    const [{ data: dateSlots, error: dateSlotsError }, { data: weeklySlots, error: weeklySlotsError }] = await Promise.all([
-      supabase.from('tour_slots').select('start_time').eq('class_type_id', classTypeId).eq('slot_date', date),
-      supabase.from('weekly_slots').select('start_time').eq('class_type_id', classTypeId).eq('day_of_week', isoDow),
+    const [
+      { data: dateSlots, error: dateSlotsError },
+      { data: weeklySlots, error: weeklySlotsError },
+      { data: existingBookings, error: bookingsError },
+    ] = await Promise.all([
+      supabase.from('tour_slots').select('*').eq('class_type_id', classTypeId).eq('slot_date', date),
+      supabase.from('weekly_slots').select('*').eq('class_type_id', classTypeId).eq('day_of_week', isoDow),
+      supabase.from('bookings').select('participants, start_time, status')
+        .eq('class_type_id', classTypeId)
+        .eq('booking_date', date)
+        .eq('start_time', timeSlot)
+        .in('status', ['pending', 'confirmed']),
     ])
 
-    if (dateSlotsError || weeklySlotsError) {
+    if (dateSlotsError || weeklySlotsError || bookingsError) {
       return json({ error: 'Database error while validating booking item' }, 500)
     }
 
-    const validSlots =
-      dateSlots && dateSlots.length > 0 ? dateSlots.map(r => r.start_time.slice(0, 5))
-      : weeklySlots && weeklySlots.length > 0 ? weeklySlots.map(r => r.start_time.slice(0, 5))
+    const slotRows =
+      dateSlots && dateSlots.length > 0 ? dateSlots
+      : weeklySlots && weeklySlots.length > 0 ? weeklySlots
       : []
+    const validSlots = slotRows.map(r => r.start_time.slice(0, 5))
 
     if (validSlots.length > 0 && !validSlots.includes(timeSlot)) {
       return json({ error: `Invalid time slot for ${classType.name} on ${date}` }, 400)
+    }
+
+    const selectedSlot = slotRows.find(slot => slot.start_time.slice(0, 5) === timeSlot) ?? null
+    if (selectedSlot) {
+      const capacity = Math.max(0, Number(selectedSlot.capacity ?? classType.max_capacity ?? 1))
+      const bookingMode = selectedSlot.booking_mode === 'exclusive' ? 'exclusive' : 'shared'
+      const alreadyBooked = (existingBookings ?? []).reduce((sum, booking) => sum + Number(booking.participants ?? 0), 0)
+      const sameRequestParticipants = normalizedItems
+        .filter(item => item.classTypeId === classTypeId && item.date === date && item.timeSlot === timeSlot)
+        .reduce((sum, item) => sum + item.participants, 0)
+      const remaining = Math.max(0, capacity - alreadyBooked - sameRequestParticipants)
+
+      if (bookingMode === 'exclusive' && (alreadyBooked > 0 || sameRequestParticipants > 0)) {
+        return json({ error: `${classType.name} at ${timeSlot} is already reserved.` }, 400)
+      }
+      if (participants > capacity || participants > remaining) {
+        return json({ error: `Only ${remaining} spot${remaining === 1 ? '' : 's'} left for ${classType.name} at ${timeSlot}.` }, 400)
+      }
     }
 
     normalizedItems.push({

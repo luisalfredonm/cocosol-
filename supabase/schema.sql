@@ -73,9 +73,14 @@ CREATE TABLE IF NOT EXISTS tour_slots (
   class_type_id VARCHAR NOT NULL,
   slot_date DATE NOT NULL,
   start_time TIME NOT NULL,
+  capacity INTEGER NOT NULL DEFAULT 1 CHECK (capacity >= 0),
+  booking_mode VARCHAR(20) NOT NULL DEFAULT 'shared' CHECK (booking_mode IN ('shared','exclusive')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (class_type_id, slot_date, start_time)
 );
+
+ALTER TABLE tour_slots ADD COLUMN IF NOT EXISTS capacity INTEGER NOT NULL DEFAULT 1;
+ALTER TABLE tour_slots ADD COLUMN IF NOT EXISTS booking_mode VARCHAR(20) NOT NULL DEFAULT 'shared';
 
 CREATE INDEX IF NOT EXISTS idx_tour_slots_date ON tour_slots(class_type_id, slot_date);
 
@@ -114,8 +119,13 @@ CREATE TABLE IF NOT EXISTS weekly_slots (
   class_type_id VARCHAR NOT NULL REFERENCES class_types(id) ON DELETE CASCADE,
   day_of_week INTEGER NOT NULL CHECK (day_of_week BETWEEN 1 AND 7),
   start_time TIME NOT NULL,
+  capacity INTEGER NOT NULL DEFAULT 1 CHECK (capacity >= 0),
+  booking_mode VARCHAR(20) NOT NULL DEFAULT 'shared' CHECK (booking_mode IN ('shared','exclusive')),
   UNIQUE (class_type_id, day_of_week, start_time)
 );
+
+ALTER TABLE weekly_slots ADD COLUMN IF NOT EXISTS capacity INTEGER NOT NULL DEFAULT 1;
+ALTER TABLE weekly_slots ADD COLUMN IF NOT EXISTS booking_mode VARCHAR(20) NOT NULL DEFAULT 'shared';
 
 CREATE INDEX IF NOT EXISTS idx_weekly_slots_class ON weekly_slots(class_type_id, day_of_week);
 
@@ -147,9 +157,9 @@ UPDATE class_types SET
   category = 'lesson',
   price_per_person = 75.00,
   price_tiers = '[
-    {"min_participants":1,"max_participants":1,"price_per_person":75},
-    {"min_participants":2,"max_participants":2,"price_per_person":70},
-    {"min_participants":3,"max_participants":null,"price_per_person":65}
+    {"min_participants":1,"max_participants":1,"price_per_person":75,"price_type":"per_person"},
+    {"min_participants":2,"max_participants":2,"price_per_person":70,"price_type":"per_person"},
+    {"min_participants":3,"max_participants":null,"price_per_person":65,"price_type":"per_person"}
   ]'::jsonb,
   min_participants_per_booking = 1,
   max_participants_per_booking = 12,
@@ -239,6 +249,11 @@ END $$;
 
 -- Step 3: Update payment_method values from 'stripe' to 'on-site' (if any exist)
 UPDATE bookings SET payment_method = 'on-site' WHERE payment_method = 'stripe';
-UPDATE camp_bookings SET payment_method = 'on-site' WHERE payment_method = 'stripe' OR payment_method = 'cash';
+DO $$
+BEGIN
+  IF to_regclass('public.camp_bookings') IS NOT NULL THEN
+    UPDATE camp_bookings SET payment_method = 'on-site' WHERE payment_method = 'stripe' OR payment_method = 'cash';
+  END IF;
+END $$;
 
 -- Migration complete!

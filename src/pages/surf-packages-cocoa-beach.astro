@@ -1,0 +1,799 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import TrustBar from '../components/sections/TrustBar.astro'
+import FinalCTA from '../components/sections/FinalCTA.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import FAQ from '../components/ui/FAQ.astro'
+import FAQSchema from '../components/seo/FAQSchema.astro'
+import BookingWizard from '../components/booking/BookingWizard'
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
+import { seoData } from '../lib/seo'
+
+import heroImg  from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
+import ctaBgImg from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
+
+const seo = seoData.surfPrices
+
+const trustItems = [
+  { value: 'All Gear', label: 'Included in every lesson' },
+  { value: '$0',       label: 'Hidden fees' },
+  { value: '25+',      label: 'Years teaching' },
+  { value: '7 days',   label: 'Open Mon–Sun' },
+]
+
+const faqs = [
+  { question: "What's included in the price?", answer: "Every price includes a premium surfboard sized to you, a leash, a UV-protection rash guard, surf wax, reef-friendly mineral sunscreen, and a full beach safety briefing. The Progression and Elite packs also include one and two professional photography sessions respectively. All you bring is a swimsuit and a towel — we handle everything else." },
+  { question: 'Do you offer discounts for families or groups?', answer: 'Yes — group lessons start at $65 per person (vs. $75 for private), and our surf camp has multi-kid family rates ($350 for 1 child, $650 for 2 kids, $900 for 3 kids per week). For larger family bookings or corporate groups, message us on WhatsApp and we\'ll put together a tailored quote.' },
+  { question: "What's your cancellation and weather policy?", answer: "If the ocean isn't safe or suitable for learning, we'll always offer to reschedule — your lesson is never lost to bad weather. For personal cancellations, we ask for at least 24 hours' notice to reschedule without a fee. Message us as soon as plans change and we'll work it out." },
+  { question: 'How do I book and pay?', answer: "You can book online through the 'Book a Lesson' button, call us at (321) 386-9993, or send us a WhatsApp message. We'll confirm your time, send you the meeting point, and tell you exactly what to bring. Payment is handled at the time of booking or in person before the lesson — your call." },
+  { question: 'Can I use my package over multiple days or visits?', answer: "Absolutely — that's the whole point of the packages. You schedule your sessions whenever works for you, with the same instructor each time. Whether you spread them across a one-week vacation or come back over several months, we'll fit the schedule to you." },
+  { question: 'Are gratuities expected?', answer: "Never expected, always appreciated. Our instructors put their full energy into every lesson, and if you feel they made your experience special, a tip is a kind way to say thanks — but it's never built into the price or assumed." },
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
+  <BreadcrumbSchema slot="head" items={[
+    { name: 'Home',               href: '/' },
+    { name: 'Prices & Packages',  href: '/surf-packages-cocoa-beach' },
+  ]} />
+  <FAQSchema slot="head" items={faqs} />
+
+  <!-- HERO -->
+  <Hero
+    title="Surf Lesson Prices & Packages in Cocoa Beach"
+    subtitle="Transparent pricing · all gear included · no hidden fees · pick a single lesson or a package"
+    image={heroImg}
+    imageAlt="Surf instructor and student at Cocoa Beach Florida — professional surf lessons"
+    cta={{ label: 'See Packages', href: '#packages' }}
+    ctaSecondary={{ label: 'Book a Lesson', href: '#book' }}
+    height="medium"
+    overlay="dark"
+  />
+
+  <!-- TRUST BAR -->
+  <TrustBar items={trustItems} />
+
+  <!-- SINGLE LESSONS -->
+  <section class="sp-lessons" id="lessons">
+    <div class="sp-wrap">
+      <div class="sp-head">
+        <span class="sp-eyebrow">Single Lessons</span>
+        <h2 class="sp-h2">Just want to try it once?</h2>
+        <p class="sp-lead">The easiest way to start — book one, see how it feels, no commitment. Every single lesson includes all the gear you need.</p>
+      </div>
+
+      <div class="sp-list">
+        <div class="sp-row">
+          <div class="sp-name">
+            <small>Most attention</small>
+            Private Lesson
+          </div>
+          <div class="sp-price">$75 <span>per person</span></div>
+          <p class="sp-desc">One instructor, one student. The fastest way to stand up — ideal for individuals, couples, and first-timers who want 100% focus.</p>
+          <a href="/private-surf-lessons-cocoa-beach" class="sp-btn">See Private Lessons</a>
+        </div>
+
+        <div class="sp-row">
+          <div class="sp-name">
+            <small>Best social rate</small>
+            Group Lesson
+          </div>
+          <div class="sp-price">$65 <span>per person · min. 4</span></div>
+          <p class="sp-desc">Learn with others in a small group. Still hands-on coaching, more energy, lower cost. Great for friends and family groups.</p>
+          <a href="/group-surf-lessons-cocoa-beach" class="sp-btn">See Group Lessons</a>
+        </div>
+
+        <div class="sp-row">
+          <div class="sp-name">
+            <small>For experienced surfers</small>
+            Surf Coaching
+          </div>
+          <div class="sp-price">From $95 <span>per person</span></div>
+          <p class="sp-desc">For intermediate & advanced surfers. Sharpen technique, positioning, timing, and wave selection with wave-by-wave feedback.</p>
+          <a href="/surf-coaching-cocoa-beach" class="sp-btn">See Surf Coaching</a>
+        </div>
+
+        <div class="sp-row sp-row--camp">
+          <div class="sp-name">
+            <small>Ages 6–16 · Mon–Fri</small>
+            Kids Surf Camp
+          </div>
+          <div class="sp-price">From $350 <span>per week</span></div>
+          <p class="sp-desc">5 days, same coach all week, 3:1 max ratio. All gear plus a professional photo session. The best value for families with kids.</p>
+          <a href="/surf-camp-cocoa-beach" class="sp-btn">See Surf Camp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="sp-pkg-section" id="packages">
+    <div class="sp-wrap">
+      <div class="sp-pkg-intro">
+        <span class="sp-eyebrow">Multi-Session Packages</span>
+        <h2 class="sp-h2">Want to actually get good?</h2>
+        <p class="sp-pkg-sub">The biggest factor in surf progress isn't talent — it's <strong>consistency</strong>. Our packages bundle multiple lessons with the same instructor, flexible scheduling, and professional photos in the bigger tiers.</p>
+      </div>
+
+      <div class="sp-pkg-grid">
+
+        <!-- Starter -->
+        <div class="sp-pkg">
+          <div class="sp-pk-name">Starter Pack</div>
+          <div class="sp-pk-sessions">4 × 1 hr Lessons</div>
+          <div class="sp-pk-price">$260</div>
+          <p class="sp-pk-per">$65 per lesson · flexible scheduling</p>
+          <p class="sp-pk-tagline">Try a few lessons, find your feet, see real progress.</p>
+          <ul class="sp-pk-feat">
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Lowest per-lesson rate
+            </li>
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Same instructor throughout
+            </li>
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              All gear included
+            </li>
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Flexible scheduling
+            </li>
+          </ul>
+          <a href="#book" class="sp-pk-btn sp-pk-btn--outline">Choose Starter</a>
+        </div>
+
+        <!-- Progression (featured) -->
+        <div class="sp-pkg sp-pkg--featured">
+          <span class="sp-badge">★ Most Popular</span>
+          <div class="sp-pk-name">Progression Pack</div>
+          <div class="sp-pk-sessions">6 × 1 hr Lessons</div>
+          <div class="sp-pk-price">$475</div>
+          <p class="sp-pk-per">The sweet spot for real progress</p>
+          <p class="sp-pk-tagline">Enough sessions to truly progress — and leave with photos to prove it.</p>
+          <ul class="sp-pk-feat">
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              6 sessions to go from standing up to confidently riding
+            </li>
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <strong>1 professional photography session</strong>
+            </li>
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Same instructor every session
+            </li>
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              All gear included · flexible scheduling
+            </li>
+          </ul>
+          <a href="#book" class="sp-pk-btn sp-pk-btn--primary">Choose Progression</a>
+        </div>
+
+        <!-- Elite -->
+        <div class="sp-pkg">
+          <div class="sp-pk-name">Elite Pack</div>
+          <div class="sp-pk-sessions">16 × 1 hr Lessons</div>
+          <div class="sp-pk-price">$1,280</div>
+          <p class="sp-pk-per">For surfers fully committed to the journey</p>
+          <p class="sp-pk-tagline">The complete arc — from your first wave to riding clean and confident.</p>
+          <ul class="sp-pk-feat">
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              16 full sessions — the full journey
+            </li>
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <strong>2 professional photography sessions</strong>
+            </li>
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Same instructor · personalized curriculum
+            </li>
+            <li>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              All gear included · flexible scheduling
+            </li>
+          </ul>
+          <a href="#book" class="sp-pk-btn sp-pk-btn--outline">Choose Elite</a>
+        </div>
+
+      </div>
+
+      <!-- Helper card -->
+      <div class="sp-helper">
+        <div class="sp-helper-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="sp-helper-text">
+          <h3 class="sp-helper-title">Not sure which option fits you?</h3>
+          <p>Tell us your level, your dates, and what you want to get out of it — we'll recommend the right option in a minute. No pressure, no hard sell.</p>
+        </div>
+        <div class="sp-helper-cta">
+          <a href="https://wa.me/13213869993" class="sp-pk-btn sp-pk-btn--primary">WhatsApp us</a>
+          <a href="tel:+13213869993" class="sp-pk-btn sp-pk-btn--outline">Call (321) 386-9993</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED -->
+  <section class="sp-inc">
+    <div class="sp-wrap">
+      <div class="sp-inc-card">
+        <div class="sp-inc-left">
+          <span class="sp-inc-label">In Every Price</span>
+          <h2 class="sp-h2 sp-h2--sm">Everything you need, included</h2>
+          <p>No rental counter, no surprise add-ons, nothing for you to buy or carry. Arrive in a swimsuit — we handle the rest.</p>
+        </div>
+        <div class="sp-inc-chips">
+          {[
+            'Premium surfboard sized to you',
+            'High-quality safety leash',
+            'UV-protection rash guard',
+            'Professional surf wax',
+            'Reef-friendly mineral sunscreen',
+            'Full beach safety briefing',
+          ].map(item => (
+            <div class="sp-chip">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <Testimonials
+    title="What Our Students Say"
+    bg="gray"
+    items={[
+      {
+        name: 'Thomas R.',
+        role: 'Progression Pack · Google Review',
+        country: 'Toronto, Canada',
+        text: 'We did the Progression Pack on our family trip. The photos they gave us at the end are now framed in our living room — best money we spent on the whole vacation.',
+      },
+      {
+        name: 'Guest Name',
+        role: 'Google Review',
+        text: 'Add a real review here — ideally someone who did a package and noticed clear progression across sessions.',
+      },
+    ]}
+  />
+
+  <!-- FAQ -->
+  <section class="sp-faq">
+    <div class="sp-faq-wrap">
+      <div class="sp-faq-head">
+        <span class="sp-eyebrow" style="display:block;text-align:center;margin-bottom:10px;">Pricing & Booking</span>
+        <h2 class="sp-h2" style="text-align:center;margin-bottom:36px;">Common questions before you book</h2>
+      </div>
+      <FAQ items={faqs} columns={1} />
+    </div>
+  </section>
+
+  <!-- BOOKING WIZARD -->
+  <section id="book" class="sp-book" style="scroll-margin-top: 96px;">
+    <div class="sp-book-wrap">
+      <div class="sp-book-head">
+        <span class="sp-book-eyebrow">Ready when you are</span>
+        <h2 class="sp-book-title">Book Your Cocoa Beach Surf Lesson</h2>
+        <p class="sp-book-sub">Pick a time and we'll meet you on the beach with everything ready. First wave coming up.</p>
+      </div>
+      <div class="sp-book-wizard">
+        <BookingWizard client:idle />
+      </div>
+      <p class="sp-book-note">All gear included · Certified coaches · Open daily 9 AM–5 PM</p>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <FinalCTA
+    bgImage={ctaBgImg}
+    bgImageAlt="Surf lesson at Cocoa Beach Florida — instructor with students on the beach"
+    title="Book Your Cocoa Beach Surf Lesson"
+    subtitle="Spots fill fastest in spring break, summer, and holiday weekends. Secure your date — we'll handle the rest."
+    primaryCta={{ label: 'Book Now', href: '#book' }}
+    secondaryCta={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    meta={[
+      { icon: '✓', text: 'All gear included' },
+      { icon: '✓', text: 'No hidden fees' },
+      { icon: '✓', text: 'Open daily · 9 AM–5 PM · Cocoa Beach, FL' },
+    ]}
+  />
+
+  <!-- SEO INTERNAL LINKS -->
+  <section class="sp-links">
+    <div class="sp-links-wrap">
+      <h2 class="sp-links-title">All Lesson Types at Cocoa Sol Surf</h2>
+      <div class="sp-links-list">
+        {[
+          { l: 'Private Surf Lessons',  h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Group Surf Lessons',    h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Surf Coaching',         h: '/surf-coaching-cocoa-beach' },
+          { l: 'Kids Surf Lessons',     h: '/kids-surf-lessons-cocoa-beach' },
+          { l: 'Surf Camp Cocoa Beach', h: '/surf-camp-cocoa-beach' },
+        ].map(x => (
+          <a href={x.h} data-astro-prefetch="viewport" class="sp-link">{x.l}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Shared tokens ───────────────────────────────────────────────────── */
+  .sp-lessons, .sp-pkg-section, .sp-inc, .sp-faq, .sp-book, .sp-links {
+    --deep:       #0A3A40;
+    --brand:      #00BCD4;
+    --brand-dark: #0097A7;
+    --brand-text: #00838F;
+    --gold:       #FFD079;
+    --muted:      #5A7270;
+    --line:       rgba(10,58,64,.10);
+    --maxw:       1180px;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .sp-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  .sp-eyebrow {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--brand-text);
+    margin-bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sp-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .sp-h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 16px;
+  }
+  .sp-h2--sm { font-size: clamp(1.5rem, 2.8vw, 2rem); }
+
+  .sp-lead { font-size: 1.05rem; color: var(--muted); line-height: 1.7; max-width: 640px; }
+
+  /* ── Single Lessons ──────────────────────────────────────────────────── */
+  .sp-lessons {
+    background: #fff;
+    padding: 84px 0 92px;
+  }
+  .sp-head { margin-bottom: 40px; }
+
+  .sp-list {
+    background: #fff;
+    border-radius: 18px;
+    border: 1.5px solid var(--line);
+    box-shadow: 0 4px 24px -8px rgba(10,58,64,.10);
+    overflow: hidden;
+  }
+  .sp-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1.8fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 26px 30px;
+    border-bottom: 1px solid rgba(10,58,64,.07);
+    transition: background .2s;
+  }
+  .sp-row:last-child { border-bottom: none; }
+  .sp-row:hover { background: #EFF9FB; }
+  .sp-row--camp { background: rgba(255,208,121,.06); }
+  .sp-row--camp:hover { background: rgba(255,208,121,.12); }
+
+  .sp-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--deep);
+    line-height: 1.2;
+  }
+  .sp-name small {
+    display: block;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--brand-text);
+    margin-bottom: 4px;
+  }
+  .sp-price {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--deep);
+    white-space: nowrap;
+  }
+  .sp-price span {
+    display: block;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-size: .82rem;
+    color: var(--muted);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .sp-desc { font-size: .96rem; color: var(--muted); line-height: 1.55; }
+
+  .sp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: var(--gold);
+    color: #3a2400;
+    font-size: .88rem;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .18s, transform .15s;
+  }
+  .sp-btn:hover { background: #f5c84a; transform: translateY(-1px); }
+
+  /* ── Packages ────────────────────────────────────────────────────────── */
+  .sp-pkg-section {
+    background: #EFF9FB;
+    padding: 84px 0 92px;
+  }
+  .sp-pkg-intro {
+    max-width: 680px;
+    margin: 0 auto 52px;
+    text-align: center;
+  }
+  .sp-pkg-intro .sp-eyebrow { display: block; text-align: center; }
+  .sp-pkg-intro .sp-eyebrow::before { display: none; }
+  .sp-pkg-sub { font-size: 1.05rem; color: var(--muted); line-height: 1.7; }
+  .sp-pkg-sub strong { color: var(--deep); }
+
+  .sp-pkg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+    margin-bottom: 40px;
+  }
+
+  .sp-pkg {
+    background: #fff;
+    border-radius: 22px;
+    padding: 36px 30px;
+    border: 1.5px solid var(--line);
+    box-shadow: 0 4px 20px -8px rgba(10,58,64,.10);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform .25s;
+  }
+  .sp-pkg:hover { transform: translateY(-5px); }
+  .sp-pkg--featured {
+    background: linear-gradient(165deg, var(--brand-dark), var(--deep));
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 20px 50px -16px rgba(0,150,164,.45);
+    transform: scale(1.02);
+  }
+  .sp-pkg--featured:hover { transform: scale(1.02) translateY(-5px); }
+
+  .sp-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #3a2400;
+    font-weight: 800;
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .sp-pk-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 4px;
+  }
+  .sp-pkg--featured .sp-pk-name { color: #fff; }
+
+  .sp-pk-sessions {
+    font-size: .88rem;
+    font-weight: 700;
+    color: var(--brand-text);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 16px;
+  }
+  .sp-pkg--featured .sp-pk-sessions { color: var(--gold); }
+
+  .sp-pk-price {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--deep);
+    line-height: 1;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .sp-pkg--featured .sp-pk-price { color: var(--gold); }
+
+  .sp-pk-per {
+    font-size: .9rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .sp-pkg--featured .sp-pk-per { color: rgba(255,255,255,.75); }
+
+  .sp-pk-tagline {
+    font-size: .96rem;
+    color: var(--deep);
+    font-style: italic;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sp-pkg--featured .sp-pk-tagline { color: rgba(255,255,255,.88); border-color: rgba(255,255,255,.18); }
+
+  .sp-pk-feat {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 26px;
+    display: grid;
+    gap: 12px;
+    flex: 1;
+  }
+  .sp-pk-feat li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: .95rem;
+    font-weight: 500;
+    color: var(--deep);
+    line-height: 1.4;
+  }
+  .sp-pkg--featured .sp-pk-feat li { color: rgba(255,255,255,.92); }
+  .sp-pk-feat svg { color: var(--brand-text); flex-shrink: 0; margin-top: 2px; }
+  .sp-pkg--featured .sp-pk-feat svg { color: var(--gold); }
+
+  .sp-pk-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 13px 20px;
+    border-radius: 50px;
+    font-size: .93rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform .15s ease-out, background .18s, box-shadow .2s;
+  }
+  .sp-pk-btn:hover { transform: translateY(-2px); }
+
+  .sp-pk-btn--primary {
+    background: var(--gold);
+    color: #3a2400;
+    box-shadow: 0 8px 24px -6px rgba(255,208,121,.50);
+  }
+  .sp-pk-btn--primary:hover { background: #f5c84a; }
+
+  .sp-pk-btn--outline {
+    background: transparent;
+    color: var(--deep);
+    border: 1.5px solid var(--line);
+  }
+  .sp-pk-btn--outline:hover { border-color: var(--brand); color: var(--brand-text); }
+  .sp-pkg--featured .sp-pk-btn--outline {
+    border-color: rgba(255,255,255,.35);
+    color: #fff;
+  }
+
+  /* Helper */
+  .sp-helper {
+    background: #fff;
+    border-radius: 20px;
+    border: 1.5px solid var(--line);
+    box-shadow: 0 4px 20px -8px rgba(10,58,64,.10);
+    padding: 30px 36px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .sp-helper-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: var(--deep);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    color: var(--gold);
+  }
+  .sp-helper-text { flex: 1; min-width: 220px; }
+  .sp-helper-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 6px;
+  }
+  .sp-helper-text p { font-size: .96rem; color: var(--muted); }
+  .sp-helper-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .sp-helper-cta .sp-pk-btn {
+    width: auto;
+    min-height: 42px;
+    padding: 10px 18px;
+    font-size: .88rem;
+  }
+
+  /* ── What's Included ─────────────────────────────────────────────────── */
+  .sp-inc {
+    background: #fff;
+    padding: 84px 0 92px;
+  }
+  .sp-inc-card {
+    background: #EFF9FB;
+    border-radius: 22px;
+    border: 1.5px solid rgba(0,188,212,.15);
+    padding: 48px;
+    box-shadow: 0 4px 24px -8px rgba(0,188,212,.12);
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .sp-inc-label {
+    display: block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--brand-text);
+    margin-bottom: 12px;
+  }
+  .sp-inc-left p { font-size: 1rem; color: var(--muted); line-height: 1.7; margin-top: 10px; }
+
+  .sp-inc-chips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 28px;
+  }
+  .sp-chip {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    font-size: .96rem;
+    font-weight: 500;
+    color: var(--deep);
+  }
+  .sp-chip svg { color: var(--brand-text); flex-shrink: 0; margin-top: 2px; }
+
+  /* ── FAQ ─────────────────────────────────────────────────────────────── */
+  .sp-faq {
+    background: #EFF9FB;
+    padding: 80px 0;
+  }
+  .sp-faq-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ── Booking ─────────────────────────────────────────────────────────── */
+  .sp-book {
+    background: #fff;
+    padding: 80px 0;
+  }
+  .sp-book-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .sp-book-head { text-align: center; margin-bottom: 36px; }
+  .sp-book-eyebrow {
+    display: inline-block;
+    background: rgba(0,188,212,.10);
+    color: var(--brand-text);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .sp-book-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  .sp-book-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+  .sp-book-wizard { margin-bottom: 16px; }
+  .sp-book-note { text-align: center; font-size: .85rem; color: #9ab; }
+
+  /* ── SEO links ───────────────────────────────────────────────────────── */
+  .sp-links {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    padding: 40px 0;
+  }
+  .sp-links-wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  .sp-links-title {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 16px;
+  }
+  .sp-links-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sp-link {
+    padding: 8px 18px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    font-size: .88rem;
+    color: var(--muted);
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .sp-link:hover { border-color: rgba(0,188,212,.4); color: var(--brand-text); }
+
+  /* ── Responsive ──────────────────────────────────────────────────────── */
+  @media (max-width: 980px) {
+    .sp-row { grid-template-columns: 1fr 1fr; }
+    .sp-row .sp-desc { display: none; }
+    .sp-pkg-grid { grid-template-columns: 1fr 1fr; }
+    .sp-pkg--featured { transform: none; }
+    .sp-pkg--featured:hover { transform: translateY(-5px); }
+    .sp-inc-card { grid-template-columns: 1fr; gap: 30px; padding: 34px; }
+    .sp-helper { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 640px) {
+    .sp-lessons, .sp-pkg-section, .sp-inc, .sp-faq, .sp-book { padding: 60px 0; }
+    .sp-wrap, .sp-faq-wrap, .sp-book-wrap, .sp-links-wrap { padding: 0 20px; }
+    .sp-row { grid-template-columns: 1fr; gap: 12px; padding: 22px 20px; }
+    .sp-pkg-grid { grid-template-columns: 1fr; }
+    .sp-inc-chips { grid-template-columns: 1fr; }
+  }
+</style>

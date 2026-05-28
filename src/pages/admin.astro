@@ -18,6 +18,11 @@ const FLORIDA_PRICE_TIERS_EXAMPLE = `[
   { "min_participants": 2, "max_participants": 2, "price_per_person": 70 },
   { "min_participants": 3, "max_participants": null, "price_per_person": 65 }
 ]`
+const DEFAULT_PRICE_TIER_ROWS = [
+  { min_participants: 1, max_participants: 1, price_per_person: 75, price_type: 'per_person', label: 'Private' },
+  { min_participants: 2, max_participants: 2, price_per_person: 70, price_type: 'per_person', label: 'Semi-private' },
+  { min_participants: 3, max_participants: null, price_per_person: 65, price_type: 'per_person', label: 'Group' },
+]
 
 function parsePriceTiers(raw: FormDataEntryValue | null) {
   const text = String(raw ?? '').trim()
@@ -35,6 +40,7 @@ function parsePriceTiers(raw: FormDataEntryValue | null) {
             ? null
             : Math.max(1, Number(tier.max_participants) || 1),
         price_per_person: Math.max(0, Number(tier.price_per_person) || 0),
+        price_type: tier.price_type === 'total' ? 'total' : 'per_person',
         label: tier.label ? String(tier.label) : null,
       }))
       .filter((tier: any) => tier.price_per_person > 0)
@@ -46,6 +52,60 @@ function parsePriceTiers(raw: FormDataEntryValue | null) {
 function stringifyPriceTiers(tiers: any) {
   if (!Array.isArray(tiers) || tiers.length === 0) return ''
   return JSON.stringify(tiers, null, 2)
+}
+
+function getTierRows(tiers: any) {
+  if (!Array.isArray(tiers) || tiers.length === 0) return []
+  return tiers.map((tier: any) => ({
+    min_participants: Math.max(1, Number(tier.min_participants) || 1),
+    max_participants:
+      tier.max_participants === null || tier.max_participants === undefined || tier.max_participants === ''
+        ? ''
+        : Math.max(1, Number(tier.max_participants) || 1),
+    price_per_person: Math.max(0, Number(tier.price_per_person) || 0),
+    price_type: tier.price_type === 'total' ? 'total' : 'per_person',
+    label: tier.label ? String(tier.label) : '',
+  }))
+}
+
+function parsePriceTiersFromForm(form: FormData) {
+  const usesVisualEditor = form.get('price_tiers_visual') === 'true'
+  const mins = form.getAll('price_tier_min')
+  const maxes = form.getAll('price_tier_max')
+  const prices = form.getAll('price_tier_price')
+  const labels = form.getAll('price_tier_label')
+  const types = form.getAll('price_tier_type')
+
+  const tiers = mins
+    .map((rawMin, index) => {
+      const rawPrice = String(prices[index] ?? '').trim()
+      if (!rawPrice) return null
+
+      const rawMax = String(maxes[index] ?? '').trim()
+      return {
+        min_participants: Math.max(1, Number(rawMin) || 1),
+        max_participants: rawMax ? Math.max(1, Number(rawMax) || 1) : null,
+        price_per_person: Math.max(0, Number(rawPrice) || 0),
+        price_type: String(types[index] ?? 'per_person') === 'total' ? 'total' : 'per_person',
+        label: String(labels[index] ?? '').trim() || null,
+      }
+    })
+    .filter((tier: any) => tier && tier.price_per_person > 0)
+    .sort((a: any, b: any) => a.min_participants - b.min_participants)
+
+  if (usesVisualEditor) return tiers.length > 0 ? tiers : null
+  if (tiers.length > 0) return tiers
+  return parsePriceTiers(form.get('price_tiers'))
+}
+
+function parseSlotCapacity(raw: FormDataEntryValue | null, fallback = 1) {
+  const parsed = parseInt(String(raw ?? ''), 10)
+  if (Number.isNaN(parsed)) return Math.max(0, fallback)
+  return Math.max(0, parsed)
+}
+
+function parseBookingMode(raw: FormDataEntryValue | null) {
+  return String(raw ?? 'shared') === 'exclusive' ? 'exclusive' : 'shared'
 }
 
 // ── POST handlers ──────────────────────────────────────────────────────────
@@ -171,7 +231,7 @@ if (Astro.request.method === 'POST') {
         name: form.get('name'),
         category: form.get('category') || 'lesson',
         price_per_person: parseFloat(form.get('price_per_person') as string),
-        price_tiers: parsePriceTiers(form.get('price_tiers')),
+        price_tiers: parsePriceTiersFromForm(form),
         min_participants_per_booking: normalizedMin,
         max_participants_per_booking: normalizedMax,
         max_capacity: parseInt(form.get('max_capacity') as string),
@@ -182,6 +242,20 @@ if (Astro.request.method === 'POST') {
         active: form.get('active') === 'true',
         sort_order: parseInt(form.get('sort_order') as string) || 0,
       })
+
+      const firstSlotTime = String(form.get('first_slot_start_time') ?? '').trim()
+      if (firstSlotTime) {
+        await supabase.from('weekly_slots').upsert(
+          {
+            class_type_id: id,
+            day_of_week: parseInt(form.get('first_slot_day_of_week') as string) || 1,
+            start_time: firstSlotTime,
+            capacity: parseSlotCapacity(form.get('first_slot_capacity'), normalizedMax),
+            booking_mode: parseBookingMode(form.get('first_slot_booking_mode')),
+          },
+          { onConflict: 'class_type_id,day_of_week,start_time' }
+        )
+      }
       return Astro.redirect('/admin?tab=class-types')
     }
 
@@ -194,8 +268,9 @@ if (Astro.request.method === 'POST') {
       const normalizedMax = Math.max(normalizedMin, normalizedMaxRaw)
       await supabase.from('class_types').update({
         name: form.get('name'),
+        category: form.get('category') || 'lesson',
         price_per_person: parseFloat(form.get('price_per_person') as string),
-        price_tiers: parsePriceTiers(form.get('price_tiers')),
+        price_tiers: parsePriceTiersFromForm(form),
         min_participants_per_booking: normalizedMin,
         max_participants_per_booking: normalizedMax,
         max_capacity: parseInt(form.get('max_capacity') as string),
@@ -213,10 +288,17 @@ if (Astro.request.method === 'POST') {
       const day_of_week = parseInt(form.get('day_of_week') as string)
       const start_time = form.get('start_time') as string
       await supabase.from('weekly_slots').upsert(
-        { class_type_id, day_of_week, start_time },
+        {
+          class_type_id,
+          day_of_week,
+          start_time,
+          capacity: parseSlotCapacity(form.get('capacity'), 1),
+          booking_mode: parseBookingMode(form.get('booking_mode')),
+        },
         { onConflict: 'class_type_id,day_of_week,start_time' }
       )
-      return Astro.redirect('/admin?tab=weekly-slots')
+      const redirectTab = form.get('redirect_to') === 'class-types' ? 'class-types' : 'weekly-slots'
+      return Astro.redirect(`/admin?tab=${redirectTab}`)
     }
     if (action === 'delete_weekly_slot') {
       await supabase.from('weekly_slots').delete().eq('id', parseInt(form.get('id') as string))
@@ -240,11 +322,14 @@ if (Astro.request.method === 'POST') {
     }
 
     if (action === 'add_slot') {
+      const class_type_id = form.get('class_type_id') as string
       await supabase.from('tour_slots').upsert(
         {
-          class_type_id: form.get('class_type_id'),
+          class_type_id,
           slot_date: form.get('slot_date'),
           start_time: form.get('start_time'),
+          capacity: parseSlotCapacity(form.get('capacity'), 1),
+          booking_mode: parseBookingMode(form.get('booking_mode')),
         },
         { onConflict: 'class_type_id,slot_date,start_time' }
       )
@@ -501,6 +586,8 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
     .adm-btn { padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; transition: all 0.15s; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; }
     .adm-btn-teal { background: linear-gradient(135deg, #00BCD4, #0097A7); color: white; box-shadow: 0 2px 8px rgba(0,188,212,0.22); }
     .adm-btn-teal:hover { background: linear-gradient(135deg, #26C6DA, #00BCD4); box-shadow: 0 4px 14px rgba(0,188,212,0.35); transform: translateY(-1px); }
+    .adm-btn-light { background: #F8FAFC; color: #0F766E; border: 1px solid #CCFBF1; box-shadow: none; }
+    .adm-btn-light:hover { background: #ECFEFF; border-color: #67E8F9; }
     .adm-btn-confirm { background: #DCFCE7; color: #15803D; padding: 5px 11px; font-size: 12px; }
     .adm-btn-confirm:hover { background: #BBF7D0; }
     .adm-btn-cancel { background: #FEE2E2; color: #DC2626; padding: 5px 11px; font-size: 12px; }
@@ -623,6 +710,51 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
     }
     .adm-btn-view:hover { background: #EFF6FF; border-color: #93C5FD; color: #1D4ED8; }
     .adm-btn-view svg { width: 13px; height: 13px; }
+
+    .adm-help { font-size: 11.5px; color: #94A3B8; margin-top: 4px; line-height: 1.45; }
+    .adm-tier-editor {
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 14px;
+      background: #FBFEFF;
+    }
+    .adm-tier-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .adm-tier-grid {
+      display: grid;
+      grid-template-columns: 78px 78px minmax(120px, 1fr) 118px 132px 32px;
+      gap: 8px;
+      align-items: center;
+    }
+    .adm-tier-grid-head {
+      color: #64748B;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin-bottom: 6px;
+      padding: 0 2px;
+    }
+    .adm-tier-row { margin-bottom: 8px; }
+    .adm-tier-remove {
+      width: 30px;
+      height: 30px;
+      border: 0;
+      border-radius: 8px;
+      background: #FEF2F2;
+      color: #EF4444;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      font-family: inherit;
+    }
+    .adm-tier-remove:hover { background: #FEE2E2; color: #B91C1C; }
+    .adm-tier-fallback { display: none; }
   </style>
 </head>
 <body>
@@ -1256,6 +1388,7 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                       <select name="category" class="adm-input">
                         <option value="lesson">Lesson</option>
                         <option value="package">Package</option>
+                        <option value="camp">Summer Camp</option>
                       </select>
                     </div>
                     <div>
@@ -1301,9 +1434,68 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                       <label class="adm-label">Included (comma-separated)</label>
                       <input type="text" name="included" class="adm-input" value="Surfboard, Leash, Rash guard, Certified instructor" />
                     </div>
-                    <div style="grid-column:span 3">
-                      <label class="adm-label">Tiered Pricing JSON</label>
-                      <textarea name="price_tiers" rows={5} class="adm-input">{FLORIDA_PRICE_TIERS_EXAMPLE}</textarea>
+                    <div style="grid-column:span 3;border:1px solid #E2E8F0;border-radius:12px;padding:14px;background:#F8FAFC">
+                      <div style="font-size:13px;font-weight:800;color:#0F172A;margin-bottom:4px">First weekly slot</div>
+                      <div style="font-size:12px;color:#64748B;margin-bottom:12px">Optional, but recommended: create the first bookable time and its real capacity while adding the service.</div>
+                      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px">
+                        <div>
+                          <label class="adm-label">Day</label>
+                          <select name="first_slot_day_of_week" class="adm-input">
+                            {DOW_LABELS.slice(1).map((d, i) => (
+                              <option value={i + 1}>{d}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label class="adm-label">Start Time</label>
+                          <input type="time" name="first_slot_start_time" class="adm-input" />
+                        </div>
+                        <div>
+                          <label class="adm-label">Slot Capacity</label>
+                          <input type="number" name="first_slot_capacity" value="12" min="0" max="100" class="adm-input" />
+                        </div>
+                        <div>
+                          <label class="adm-label">Booking Mode</label>
+                          <select name="first_slot_booking_mode" class="adm-input">
+                            <option value="shared">Shared capacity</option>
+                            <option value="exclusive">Exclusive</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="adm-tier-editor" style="grid-column:span 3" data-tier-editor>
+                      <input type="hidden" name="price_tiers_visual" value="true" />
+                      <div class="adm-tier-head">
+                        <div>
+                          <label class="adm-label">Pricing by number of people</label>
+                          <div class="adm-help">Leave all rows empty to use the base price for every guest.</div>
+                        </div>
+                        <button type="button" class="adm-btn adm-btn-light" data-add-tier-row>Add tier</button>
+                      </div>
+                      <div class="adm-tier-grid adm-tier-grid-head">
+                        <span>From</span>
+                        <span>To</span>
+                        <span>Label</span>
+                        <span>Price</span>
+                        <span>Type</span>
+                        <span></span>
+                      </div>
+                      <div data-tier-rows>
+                        {DEFAULT_PRICE_TIER_ROWS.map(tier => (
+                          <div class="adm-tier-grid adm-tier-row">
+                            <input type="number" name="price_tier_min" value={tier.min_participants} min="1" class="adm-input" />
+                            <input type="number" name="price_tier_max" value={tier.max_participants ?? ''} min="1" class="adm-input" placeholder="No limit" />
+                            <input type="text" name="price_tier_label" value={tier.label} class="adm-input" placeholder="Group" />
+                            <input type="number" name="price_tier_price" value={tier.price_per_person} min="0" step="0.01" class="adm-input" />
+                            <select name="price_tier_type" class="adm-input">
+                              <option value="per_person" selected={tier.price_type !== 'total'}>Per person</option>
+                              <option value="total" selected={tier.price_type === 'total'}>Total</option>
+                            </select>
+                            <button type="button" class="adm-tier-remove" data-remove-tier-row title="Remove tier">×</button>
+                          </div>
+                        ))}
+                      </div>
+                      <textarea name="price_tiers" class="adm-tier-fallback" aria-hidden="true">{FLORIDA_PRICE_TIERS_EXAMPLE}</textarea>
                     </div>
                   </div>
                   <button type="submit" class="adm-btn adm-btn-teal">Create Service</button>
@@ -1349,6 +1541,14 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                         <input type="text" name="badge" value={ct.badge ?? ''} placeholder="e.g. Best Value" class="adm-input" />
                       </div>
                       <div>
+                        <label class="adm-label">Category</label>
+                        <select name="category" class="adm-input">
+                          <option value="lesson" selected={ct.category === 'lesson'}>Lesson</option>
+                          <option value="package" selected={ct.category === 'package'}>Package</option>
+                          <option value="camp" selected={ct.category === 'camp'}>Summer Camp</option>
+                        </select>
+                      </div>
+                      <div>
                         <label class="adm-label">Price / Person (USD)</label>
                         <input type="number" name="price_per_person" value={ct.price_per_person} step="0.01" min="0" required class="adm-input" />
                       </div>
@@ -1383,16 +1583,106 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                         <label class="adm-label">Description</label>
                         <textarea name="description" rows={2} class="adm-input">{ct.description}</textarea>
                       </div>
-                      <div style="grid-column:span 3">
-                        <label class="adm-label">Tiered Pricing JSON (optional)</label>
-                        <textarea name="price_tiers" rows={5} class="adm-input" placeholder={FLORIDA_PRICE_TIERS_EXAMPLE}>{stringifyPriceTiers(ct.price_tiers)}</textarea>
-                        <div style="font-size:11.5px;color:#94A3B8;margin-top:5px;line-height:1.45">
-                          Leave blank for flat pricing. Florida example: 1 guest $75, 2 guests $70/person, 3+ guests $65/person.
+                      <div class="adm-tier-editor" style="grid-column:span 3" data-tier-editor>
+                        <input type="hidden" name="price_tiers_visual" value="true" />
+                        <div class="adm-tier-head">
+                          <div>
+                            <label class="adm-label">Pricing by number of people</label>
+                            <div class="adm-help">Use a blank “To” value for open-ended tiers like 3+ guests.</div>
+                          </div>
+                          <button type="button" class="adm-btn adm-btn-light" data-add-tier-row>Add tier</button>
                         </div>
+                        <div class="adm-tier-grid adm-tier-grid-head">
+                          <span>From</span>
+                          <span>To</span>
+                          <span>Label</span>
+                          <span>Price</span>
+                          <span>Type</span>
+                          <span></span>
+                        </div>
+                        <div data-tier-rows>
+                          {(getTierRows(ct.price_tiers).length > 0 ? getTierRows(ct.price_tiers) : [{ min_participants: '', max_participants: '', label: '', price_per_person: '', price_type: 'per_person' }]).map((tier: any) => (
+                            <div class="adm-tier-grid adm-tier-row">
+                              <input type="number" name="price_tier_min" value={tier.min_participants} min="1" class="adm-input" placeholder="1" />
+                              <input type="number" name="price_tier_max" value={tier.max_participants} min="1" class="adm-input" placeholder="No limit" />
+                              <input type="text" name="price_tier_label" value={tier.label} class="adm-input" placeholder="Group" />
+                              <input type="number" name="price_tier_price" value={tier.price_per_person} min="0" step="0.01" class="adm-input" placeholder={ct.price_per_person} />
+                              <select name="price_tier_type" class="adm-input">
+                                <option value="per_person" selected={tier.price_type !== 'total'}>Per person</option>
+                                <option value="total" selected={tier.price_type === 'total'}>Total</option>
+                              </select>
+                              <button type="button" class="adm-tier-remove" data-remove-tier-row title="Remove tier">×</button>
+                            </div>
+                          ))}
+                        </div>
+                        <textarea name="price_tiers" class="adm-tier-fallback" aria-hidden="true">{stringifyPriceTiers(ct.price_tiers)}</textarea>
                       </div>
                     </div>
                     <button type="submit" class="adm-btn adm-btn-teal">Save Changes</button>
                   </form>
+                  <div style="margin-top:18px;border-top:1px solid #E2E8F0;padding-top:16px">
+                    <div style="font-size:13px;font-weight:800;color:#0F172A;margin-bottom:4px">Schedule & capacity</div>
+                    <div style="font-size:12px;color:#64748B;margin-bottom:12px">Each time can have its own capacity and booking behavior.</div>
+                    <form method="POST" style="display:grid;grid-template-columns:1.2fr 1fr 1fr 1.2fr auto;gap:10px;align-items:end;margin-bottom:12px">
+                      <input type="hidden" name="action" value="add_weekly_slot" />
+                      <input type="hidden" name="redirect_to" value="class-types" />
+                      <input type="hidden" name="class_type_id" value={ct.id} />
+                      <div>
+                        <label class="adm-label">Day</label>
+                        <select name="day_of_week" required class="adm-input">
+                          {DOW_LABELS.slice(1).map((d, i) => (
+                            <option value={i + 1}>{d}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label class="adm-label">Time</label>
+                        <input type="time" name="start_time" required class="adm-input" />
+                      </div>
+                      <div>
+                        <label class="adm-label">Capacity</label>
+                        <input type="number" name="capacity" value={ct.max_capacity} min="0" max="100" required class="adm-input" />
+                      </div>
+                      <div>
+                        <label class="adm-label">Mode</label>
+                        <select name="booking_mode" class="adm-input">
+                          <option value="shared">Shared capacity</option>
+                          <option value="exclusive">Exclusive</option>
+                        </select>
+                      </div>
+                      <button type="submit" class="adm-btn adm-btn-teal">Add Time</button>
+                    </form>
+                    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px">
+                      {DOW_LABELS.slice(1).map((day, index) => {
+                        const dayNumber = index + 1
+                        const daySlots = weeklySlotsByService[ct.id]?.[dayNumber] ?? []
+                        return (
+                          <div style="border:1px solid #E2E8F0;border-radius:10px;padding:8px;background:#FFFFFF;min-height:74px">
+                            <div style="font-size:11px;font-weight:800;color:#64748B;margin-bottom:6px">{day.slice(0, 3)}</div>
+                            {daySlots.length === 0 ? (
+                              <div style="font-size:11px;color:#CBD5E1">No times</div>
+                            ) : (
+                              <div style="display:flex;flex-direction:column;gap:6px">
+                                {daySlots.map((s: any) => (
+                                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:4px">
+                                    <div>
+                                      <div style="font-size:12px;font-weight:800;color:#0E7490">{formatTime(s.start_time)}</div>
+                                      <div style="font-size:10.5px;color:#64748B">{s.capacity ?? ct.max_capacity} spots · {s.booking_mode === 'exclusive' ? 'exclusive' : 'shared'}</div>
+                                    </div>
+                                    <form method="POST" style="display:inline">
+                                      <input type="hidden" name="action" value="delete_weekly_slot" />
+                                      <input type="hidden" name="id" value={s.id} />
+                                      <button type="submit" style="background:none;border:none;cursor:pointer;color:#94A3B8;font-size:16px;line-height:1;padding:0;font-family:inherit" title="Remove slot">×</button>
+                                    </form>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
                 </div>
               </details>
             ))}
@@ -1429,6 +1719,17 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                   <label class="adm-label">Start Time</label>
                   <input type="time" name="start_time" required class="adm-input" style="width:132px" />
                 </div>
+                <div>
+                  <label class="adm-label">Capacity</label>
+                  <input type="number" name="capacity" min="0" max="100" value="8" required class="adm-input" style="width:104px" />
+                </div>
+                <div>
+                  <label class="adm-label">Mode</label>
+                  <select name="booking_mode" class="adm-input" style="width:156px">
+                    <option value="shared">Shared capacity</option>
+                    <option value="exclusive">Exclusive</option>
+                  </select>
+                </div>
                 <button type="submit" class="adm-btn adm-btn-teal">+ Add Slot</button>
               </form>
             </div>
@@ -1451,7 +1752,10 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                           <div style="display:flex;flex-direction:column;gap:4px">
                             {daySlots.map((s: any) => (
                               <div style="display:flex;align-items:center;justify-content:space-between;gap:4px">
-                                <span style="font-size:13px;font-weight:700;color:#0E7490">{formatTime(s.start_time)}</span>
+                                <span>
+                                  <span style="font-size:13px;font-weight:700;color:#0E7490">{formatTime(s.start_time)}</span>
+                                  <span style="display:block;font-size:10.5px;color:#64748B">{s.capacity ?? ct.max_capacity} spots · {s.booking_mode === 'exclusive' ? 'exclusive' : 'shared'}</span>
+                                </span>
                                 <form method="POST" style="display:inline">
                                   <input type="hidden" name="action" value="delete_weekly_slot" />
                                   <input type="hidden" name="id" value={s.id} />
@@ -1490,7 +1794,7 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
             <div class="adm-card adm-card-p">
               <div style="font-size:15px;font-weight:700;color:#0F172A;margin-bottom:4px">Date-specific capacity override</div>
               <div style="font-size:12.5px;color:#94A3B8;line-height:1.5;margin-bottom:16px">
-                Set a custom capacity for a specific date. Use 0 to fully block a date. Currently not enforced during booking to maximize reservations.
+                Legacy date-level override. New bookings now enforce capacity from each weekly or date-specific time slot.
               </div>
               <form method="POST" style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end">
                 <input type="hidden" name="action" value="set_capacity" />
@@ -1591,6 +1895,17 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                   <label class="adm-label">Start Time</label>
                   <input type="time" name="start_time" required class="adm-input" style="width:132px" />
                 </div>
+                <div>
+                  <label class="adm-label">Capacity</label>
+                  <input type="number" name="capacity" min="0" max="100" value="8" required class="adm-input" style="width:104px" />
+                </div>
+                <div>
+                  <label class="adm-label">Mode</label>
+                  <select name="booking_mode" class="adm-input" style="width:156px">
+                    <option value="shared">Shared capacity</option>
+                    <option value="exclusive">Exclusive</option>
+                  </select>
+                </div>
                 <button type="submit" class="adm-btn adm-btn-teal">+ Add Override</button>
               </form>
             </div>
@@ -1614,6 +1929,8 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                         <th>Service</th>
                         <th>Date</th>
                         <th>Override Time</th>
+                        <th>Capacity</th>
+                        <th>Mode</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -1623,6 +1940,8 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                           <td style="font-weight:600;color:#0F172A">{s.class_types?.name ?? s.class_type_id}</td>
                           <td>{new Date(s.slot_date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</td>
                           <td><span style="font-weight:800;color:#0097A7;font-size:14px">{formatTime(s.start_time)}</span></td>
+                          <td><span style="font-weight:700;color:#0F172A">{s.capacity ?? classTypesById[s.class_type_id]?.max_capacity ?? 1}</span></td>
+                          <td><span style="font-size:11px;font-weight:800;text-transform:uppercase;color:#64748B">{s.booking_mode === 'exclusive' ? 'Exclusive' : 'Shared'}</span></td>
                           <td>
                             <form method="POST">
                               <input type="hidden" name="action" value="delete_slot" />
@@ -1956,6 +2275,41 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
   // Cerrar dialog al hacer click en el backdrop
   document.addEventListener('click', e => {
     if (e.target instanceof HTMLDialogElement) e.target.close()
+  })
+
+  document.addEventListener('click', e => {
+    const target = e.target
+    if (!(target instanceof HTMLElement)) return
+
+    const addButton = target.closest('[data-add-tier-row]')
+    if (addButton) {
+      const editor = addButton.closest('[data-tier-editor]')
+      const rows = editor?.querySelector('[data-tier-rows]')
+      if (!rows) return
+
+      const row = document.createElement('div')
+      row.className = 'adm-tier-grid adm-tier-row'
+      row.innerHTML = `
+        <input type="number" name="price_tier_min" min="1" class="adm-input" placeholder="1" />
+        <input type="number" name="price_tier_max" min="1" class="adm-input" placeholder="No limit" />
+        <input type="text" name="price_tier_label" class="adm-input" placeholder="Group" />
+        <input type="number" name="price_tier_price" min="0" step="0.01" class="adm-input" placeholder="65" />
+        <select name="price_tier_type" class="adm-input">
+          <option value="per_person">Per person</option>
+          <option value="total">Total</option>
+        </select>
+        <button type="button" class="adm-tier-remove" data-remove-tier-row title="Remove tier">×</button>
+      `
+      rows.appendChild(row)
+      const firstInput = row.querySelector('input')
+      if (firstInput instanceof HTMLInputElement) firstInput.focus()
+      return
+    }
+
+    const removeButton = target.closest('[data-remove-tier-row]')
+    if (removeButton) {
+      removeButton.closest('.adm-tier-row')?.remove()
+    }
   })
 </script>
 </body>

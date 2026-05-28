@@ -10,11 +10,12 @@ interface Slot {
 interface Props {
   classTypeId: string
   date: string
+  participants: number
   onSelect: (time: string) => void
   onBack: () => void
 }
 
-export default function StepTime({ classTypeId, date, onSelect, onBack }: Props) {
+export default function StepTime({ classTypeId, date, participants, onSelect, onBack }: Props) {
   const [slots, setSlots] = useState<Slot[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -27,7 +28,7 @@ export default function StepTime({ classTypeId, date, onSelect, onBack }: Props)
   useEffect(() => {
     setLoading(true)
     setError(null)
-    fetch(`/api/availability?classTypeId=${classTypeId}&date=${date}`)
+    fetch(`/api/availability?classTypeId=${classTypeId}&date=${date}&participants=${participants}`)
       .then(r => r.json())
       .then(data => {
         if (data.error) throw new Error(data.error)
@@ -35,7 +36,7 @@ export default function StepTime({ classTypeId, date, onSelect, onBack }: Props)
       })
       .catch(err => setError(err.message))
       .finally(() => setLoading(false))
-  }, [classTypeId, date])
+  }, [classTypeId, date, participants])
 
   return (
     <div>
@@ -79,7 +80,13 @@ export default function StepTime({ classTypeId, date, onSelect, onBack }: Props)
                 {formatTime(slot.time)}
               </p>
               <p className={`text-xs mt-0.5 ${slot.available ? 'text-gray-500' : 'text-gray-300'}`}>
-                {slot.available ? 'Available' : 'Unavailable'}
+                {slot.available
+                  ? slot.remaining !== null
+                    ? `${slot.remaining} spot${slot.remaining === 1 ? '' : 's'} left`
+                    : 'Available'
+                  : slot.remaining !== null && slot.remaining > 0
+                    ? `Only ${slot.remaining} left`
+                    : 'Unavailable'}
               </p>
             </button>
           ))}

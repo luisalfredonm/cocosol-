@@ -1,153 +1,439 @@
 ---
-import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import NeedHelp from '../components/sections/NeedHelp.astro'
+import Hero from '../components/ui/Hero.astro'
+import TrustBar from '../components/sections/TrustBar.astro'
+import LessonPricing from '../components/sections/LessonPricing.astro'
+import GearIncluded from '../components/sections/GearIncluded.astro'
+import CompareColumns from '../components/sections/CompareColumns.astro'
+import AudienceCards from '../components/sections/AudienceCards.astro'
+import HowItWorks from '../components/sections/HowItWorks.astro'
+import SplitContent from '../components/sections/SplitContent.astro'
+import FinalCTA from '../components/sections/FinalCTA.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
+import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
+import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg from '../assets/images/surf-camp-costa-rica-tamarindo-sunset.webp'
-import campGallery1 from '../assets/images/surf-camp-tamarindo-guided-surf-trip.webp'
-import campGallery2 from '../assets/images/tamarindo-surf-camp-video-analysis.webp'
-import campGallery3 from '../assets/images/surf-camp-tamarindo-instructor-coaching.webp'
-import campGallery4 from '../assets/images/surf-vacation-tamarindo-camp-group.webp'
+import heroImg       from '../assets/images/best-surf-camp-tamarindo-costa-rica.webp'
+import kidsWaterImg  from '../assets/images/surf-camp-costa-rica-tamarindo-students.webp'
+import coachingImg   from '../assets/images/surf-camp-tamarindo-instructor-coaching.webp'
+import locationImg   from '../assets/images/surf-camp-tamarindo-guided-surf-trip.webp'
+import ctaBgImg      from '../assets/images/surf-camp-costa-rica-tamarindo-sunset.webp'
 
 const seo = seoData.surfCamp
 
+const trustItems = [
+  { value: '25+',     label: 'Years Teaching' },
+  { value: '3:1',     label: 'Kids per Coach' },
+  { value: '5 days',  label: 'Full Progression' },
+  { value: 'All Gear', label: 'Included' },
+]
+
+const priceRows = [
+  { name: '1 Child',     note: 'Individual attention · same coach all week',       sessions: '/ week', price: '$350', popular: false },
+  { name: '2 Kids',      note: 'Perfect for siblings or best friends',              sessions: '/ week', price: '$650', popular: true  },
+  { name: '3 Kids',      note: 'Best family value · max group size per instructor', sessions: '/ week', price: '$900', popular: false },
+]
+
+const gear = [
+  { label: 'Beginner-friendly foam surfboard' },
+  { label: 'Leash & surf wax' },
+  { label: 'UV-protection rash guard' },
+  { label: 'Reef-friendly mineral sunscreen' },
+  { label: 'Daily safety briefing' },
+  { label: 'Certified, bilingual coach' },
+]
+
+const subblocks = [
+  {
+    image:    kidsWaterImg,
+    imageAlt: 'Kids surf camp at Cocoa Beach — small group in the water with their certified coach',
+    title:    'Small Groups, Real Attention',
+    body:     'With a maximum of 3 kids per instructor, every child gets personalized coaching — not just a turn in the waves. Your coach knows each kid\'s progress day by day and adjusts the plan accordingly. No one gets lost in a crowd.',
+  },
+  {
+    image:    coachingImg,
+    imageAlt: 'Surf camp instructor coaching a young surfer on the beach at Cocoa Beach Florida',
+    title:    'Pro Photography Included',
+    body:     'Every camp week includes a professional photo session so you leave with images of your kid\'s first real waves. Real memories, not just phone snapshots. Included at no extra cost — because that moment deserves to be captured properly.',
+  },
+]
+
+const compareLeft = {
+  title:   'Surf Camp',
+  price:   'From $350 / week (Mon–Fri)',
+  badge:   'Best for Kids',
+  items: [
+    '5 full days of progressive surf coaching',
+    'Same certified coach the entire week',
+    '3:1 max kids-to-coach ratio',
+    'Professional photo session included',
+    'Daily safety briefing on the beach',
+    'Builds real confidence, not just pop-ups',
+  ],
+}
+
+const compareRight = {
+  title:   'Single Surf Lesson',
+  price:   'From $65 / person',
+  items: [
+    'One 1.5–2 hour session',
+    'Great for a first-time experience',
+    'Certified instructor in the water',
+    'All gear included',
+    'Works for any age or level',
+  ],
+}
+
+const audienceCards = [
+  {
+    num:   '01',
+    title: '3 Kids per Instructor',
+    body:  'We cap every camp group at 3 kids per coach. That\'s not a selling point — it\'s the only way real progression happens. Your child gets eyes on every wave, corrections right after each ride, and a coach who knows their strengths by Day 2.',
+  },
+  {
+    num:   '02',
+    title: 'Same Coach All Week',
+    body:  'Consistency matters for kids. When a child has the same instructor from Monday to Friday, the coach learns how they move, what clicks for them, and how to push without overwhelming. That kind of continuity is what makes the week transformational.',
+  },
+  {
+    num:   '03',
+    title: 'Certified & Bilingual',
+    body:  'Every coach at Cocoa Sol is certified in surf instruction and water safety. All are bilingual, so kids from across the U.S. and international visitors get the same clear, patient guidance — in the language that works best for them.',
+  },
+  {
+    num:   '04',
+    title: '25+ Years on This Beach',
+    body:  'Our coaches know every sandbar, current, and swell pattern at Cocoa Beach. That local knowledge means we know exactly where to position kids for the safest, most wave-rich experience — not just a safe one.',
+  },
+]
+
+const steps = [
+  {
+    title: 'Drop-off & beach briefing',
+    body:  'Every morning starts with a quick safety and conditions briefing on the sand. Kids learn about ocean awareness, current, and wave etiquette — the habits that make them safer surfers for life.',
+  },
+  {
+    title: 'Sand warm-up & technique',
+    body:  'Before entering the water, we practice on the sand. Pop-up timing, board position, foot placement — the mechanics that make water sessions productive instead of frustrating.',
+  },
+  {
+    title: 'Water session with your coach',
+    body:  'Your coach is in the water with the group the entire time. They select the right waves, guide each kid into position, and give corrections right after each ride while the feeling is still fresh.',
+  },
+  {
+    title: 'Wrap-up & what\'s next',
+    body:  'Each session ends with a brief debrief — what each kid did well, what to focus on tomorrow, and a quick celebration of wins. Kids leave energized, not exhausted.',
+  },
+]
+
 const faqs = [
-  { question: 'Do I need surf experience to join the camp?', answer: 'No experience is required. We adapt the coaching plan to your level, goals, and comfort in the ocean.' },
-  { question: 'Is accommodation included?', answer: 'Accommodation can be arranged as an add-on through partner stays in Cocoa Beach. Contact us and we will help match the right option to your budget.' },
-  { question: 'Can the camp be customized?', answer: 'Yes. The Cocoa Beach camp can be planned around your travel dates, surf level, and how much coaching you want during your stay.' },
-  { question: 'What happens if conditions are unsafe?', answer: 'If weather or waves are unsafe, we reschedule. Safety comes first, and Florida conditions can change quickly.' },
-  { question: 'Can I join alone?', answer: 'Yes. Solo travelers are welcome, and private coaching is available if you prefer a more focused experience.' },
-  { question: 'What should I bring?', answer: 'Bring sunscreen, water, a towel, and comfortable beachwear. We provide surfboards and the core lesson equipment.' },
-]
-
-const inclusions = [
-  'Certified surf coaching',
-  'Surfboard and lesson equipment',
-  'Video feedback available',
-  'Beginner-friendly Cocoa Beach waves',
-  'Flexible scheduling',
-  'Accommodation support on request',
-]
-
-const gallery = [
-  { img: campGallery1, alt: 'Cocoa Beach surf camp guided session' },
-  { img: campGallery2, alt: 'Surf camp video coaching session' },
-  { img: campGallery3, alt: 'Certified surf instructor coaching in Cocoa Beach' },
-  { img: campGallery4, alt: 'Cocoa Beach surf camp group experience' },
+  { question: 'What ages is the surf camp designed for?', answer: 'Our Cocoa Beach surf camp is designed for kids ages 6 to 16. We adapt the coaching style and board choice to each child\'s size, confidence, and experience level — beginners and kids who have surfed before are both welcome.' },
+  { question: 'Does my child need surf experience to join the camp?', answer: 'No experience is needed. Most kids who join the camp have never surfed before. By Day 3, the majority are riding waves on their own. Kids who already surf a little progress faster and we adjust the curriculum to match.' },
+  { question: 'What is the maximum number of kids per instructor?', answer: 'We keep a strict 3:1 ratio — a maximum of 3 kids per certified coach. This is non-negotiable for us. Real supervision, real feedback, and real safety require small groups. We never exceed this.' },
+  { question: 'What does the camp include?', answer: 'Every camp week includes daily surf coaching (Mon–Fri), a certified bilingual instructor assigned to your group for the full week, all surf gear (board, leash, rash guard, mineral sunscreen), a daily beach safety briefing, and one professional photo session of your child surfing.' },
+  { question: 'What should my child bring?', answer: 'Just bring sunscreen, a towel, water, and a good breakfast. We provide the surfboard, leash, rash guard, and reef-friendly sunscreen. Comfortable swimwear or board shorts are fine. No flip-flops in the water.' },
+  { question: 'What happens if there are bad waves or unsafe conditions?', answer: 'Safety is always the first call. If conditions are not suitable for kids — whether from storm swells, strong currents, or lightning — we adapt: shorten the water session, move to a protected area, or reschedule the session. We\'ve been reading these conditions for 25+ years. You\'re in good hands.' },
+  { question: 'Are the instructors certified?', answer: 'Yes. Every coach at Cocoa Sol Surf is certified in surf instruction and water safety. All coaches are also bilingual, so kids who are more comfortable in Spanish get the same quality of instruction.' },
+  { question: 'Can siblings of different ages join the same group?', answer: 'Absolutely. Siblings are actually ideal — same drop-off, same schedule, and they push each other in the water. If there\'s a big age or skill gap, we may make small adjustments to how the session is structured, but they stay together.' },
+  { question: 'Where exactly does the camp take place?', answer: 'All sessions are held at Cocoa Beach, Florida — one of the best beginner surf spots on the East Coast. We use sections of the beach that are specifically suited for kids: consistent whitewater, no rocks, and away from crowded areas.' },
+  { question: 'How do I book and what is the payment policy?', answer: 'Book online through the form on this page or reach out on WhatsApp at +1 (321) 386-9993. We require a deposit to confirm your week. Full balance is due before the first session. If you need to reschedule, contact us at least 48 hours in advance.' },
 ]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <BreadcrumbSchema slot="head" items={[{ name: 'Home', href: '/' }, { name: 'Surf Camp Cocoa Beach', href: '/surf-camp-cocoa-beach' }]} />
+  <BreadcrumbSchema slot="head" items={[
+    { name: 'Home',                   href: '/' },
+    { name: 'Surf Camp Cocoa Beach',  href: '/surf-camp-cocoa-beach' },
+  ]} />
+  <ProductSchema
+    slot="head"
+    name="Cocoa Beach Surf Camp"
+    description="Kids surf camp in Cocoa Beach, Florida. 5 days of progressive surf coaching with certified instructors, 3:1 max ratio, all gear included, and professional photo session."
+    price="350"
+    url="/surf-camp-cocoa-beach"
+    image="/images/best-surf-camp-tamarindo-costa-rica.webp"
+  />
   <FAQSchema slot="head" items={faqs} />
 
-  <section class="relative min-h-[82vh] flex items-center justify-center overflow-hidden">
-    <Image
-      src={heroImg}
-      alt="Surf camp Cocoa Beach Florida"
-      class="absolute inset-0 w-full h-full object-cover object-center"
-      widths={[800, 1200, 1920]}
-      loading="eager"
-      decoding="async"
-      sizes="100vw"
-    />
-    <div class="absolute inset-0 bg-slate-950/65"></div>
+  <!-- HERO -->
+  <Hero
+    title="Cocoa Beach Surf Camp — 5-Day Kids Surf Program with Certified Coaches"
+    subtitle="Small groups · same coach all week · all gear included · professional photos"
+    image={heroImg}
+    imageAlt="Kids surf camp at Cocoa Beach Florida — small group session with certified instructor in the ocean"
+    breadcrumb={{ label: 'Surf Lessons', href: '/cocoa-beach-surf-lessons' }}
+    cta={{ label: 'Book Your Camp Week', href: '#book' }}
+    ctaSecondary={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    height="large"
+  />
 
-    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-      <span class="inline-flex items-center bg-white/10 text-white text-sm font-semibold px-5 py-2.5 rounded-full mb-8 border border-white/20">
-        Cocoa Beach, Florida
-      </span>
-      <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
-        Cocoa Beach Surf Camp
-      </h1>
-      <p class="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-        Flexible surf camp coaching with daily lessons, certified instructors, video feedback, and classic Florida beach-town energy.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/book-now" class="px-8 py-4 bg-white text-gray-900 font-bold rounded-2xl hover:bg-gray-100 transition-all text-lg shadow-xl">
-          Book Your Camp
-        </a>
-        <a href="https://wa.me/50661987851" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-teal-500 text-white font-bold rounded-2xl hover:bg-teal-400 transition-all text-lg shadow-xl">
-          Ask About Dates
-        </a>
-      </div>
+  <!-- TRUST BAR -->
+  <TrustBar items={trustItems} />
+
+  <!-- PRICING -->
+  <LessonPricing
+    eyebrow="Pricing"
+    title="Surf Camp Prices at Cocoa Beach"
+    lead1="One flat weekly rate covers everything — coaching, all surf gear, and the professional photo session. No add-ons, no surprises at drop-off."
+    lead2="We keep groups at a maximum of 3 kids per instructor, so each option below is a focused, personalized experience — not a camp where kids wait their turn."
+    rows={priceRows}
+    altLinks={[
+      { label: 'Private Lessons from $75',   href: '/private-surf-lessons-cocoa-beach' },
+      { label: 'Group Lessons from $65',     href: '/group-surf-lessons-cocoa-beach' },
+    ]}
+    cardLabel="Surf Camp from"
+    cardFrom="$350"
+    cardUnit="/ week · Mon–Fri"
+    cardIncludes={[
+      'All surf gear (board, leash, rash guard)',
+      '3:1 max kids-to-coach ratio',
+      'Same certified instructor all week',
+      'Professional photo session included',
+      'Daily beach safety briefing',
+    ]}
+    ctaLabel="Book Your Camp Week"
+    ctaHref="#book"
+    whatsapp="13213869993"
+  />
+
+  <!-- GEAR INCLUDED -->
+  <GearIncluded
+    eyebrow="What's included"
+    title="Everything Included in Every Camp Week"
+    subtitle="Drop your kids off with a towel and a smile. We handle the rest — gear, coaching, safety, and photos. Nothing to rent, buy, or figure out."
+    gear={gear}
+    subblocks={subblocks}
+  />
+
+  <!-- COMPARE COLUMNS -->
+  <CompareColumns
+    eyebrow="Make the right call"
+    title="Surf Camp vs. A Single Surf Lesson"
+    subtitle="A single lesson is a great intro. A full camp week is where real surfing begins. Here's the honest difference."
+    left={compareLeft}
+    right={compareRight}
+    note="Just want to try surfing first?"
+    noteLink={{ label: 'Start with a group lesson →', href: '/group-surf-lessons-cocoa-beach' }}
+  />
+
+  <!-- AUDIENCE CARDS (repurposed as trust/quality pillars) -->
+  <AudienceCards
+    eyebrow="Why parents choose us"
+    title="What Makes Our Camp Different"
+    subtitle="We've been teaching kids to surf on this beach for over 25 years. These four things are why families come back."
+    cards={audienceCards}
+  />
+
+  <!-- HOW IT WORKS -->
+  <HowItWorks
+    eyebrow="A typical camp day"
+    title="What Happens Each Day at Camp"
+    subtitle="Every day follows a clear rhythm — safe, progressive, and designed to keep kids excited to come back tomorrow."
+    steps={steps}
+    footer="Exact timing adapts to that day's tide and conditions — that's what 25 years of local knowledge looks like."
+  />
+
+  <!-- SPLIT CONTENT — why Cocoa Beach -->
+  <SplitContent
+    eyebrow="The location"
+    title="Why Cocoa Beach Is the Best Place for Kids to Learn to Surf"
+    body={[
+      'Cocoa Beach has one of the most consistent, beginner-friendly beach breaks on the East Coast. The waves break wide and gently, giving kids plenty of time to practice without the chaos of a crowded or powerful surf spot.',
+      'Our coaches have surfed and taught these exact breaks for over 25 years. They know where the sandbars shift, how the tide affects the break, and exactly which section of beach is safest and most productive for kids on any given day.',
+      '<strong>Warm water, relaxed vibe, and a true surf-town atmosphere</strong> make Cocoa Beach the kind of place kids want to return to — and many do, year after year.',
+    ]}
+    image={locationImg}
+    imageAlt="Cocoa Beach surf camp location — gentle Florida beach break perfect for kids learning to surf"
+    reverse={true}
+    bg="white"
+    ctaLabel="Book Your Camp Week"
+    ctaHref="#book"
+  />
+
+  <!-- TESTIMONIALS -->
+  <Testimonials
+    title="What Parents Say"
+    items={[
+      {
+        name: 'Parent Name',
+        role: 'Camp parent · Google Review',
+        text: 'Add a real parent review here — specific details about their child\'s experience and what changed over the week make the most compelling testimonials.',
+      },
+      {
+        name: 'Parent Name',
+        role: 'Camp parent · Google Review',
+        text: 'Add a real parent review here — ideally someone whose child went from nervous beginner to confident wave rider by Day 5.',
+      },
+    ]}
+  />
+
+  <!-- FAQ -->
+  <section class="scc-faq">
+    <div class="scc-faq-wrap">
+      <h2 class="scc-faq-title">Cocoa Beach Surf Camp — Frequently Asked Questions</h2>
+      <FAQ items={faqs} columns={1} />
     </div>
   </section>
 
-  <section class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-      <div class="max-w-3xl mx-auto text-center mb-12">
-        <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-wider uppercase">Camp Includes</span>
-        <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Built Around Your Surf Goals</h2>
-        <p class="text-gray-500 text-lg leading-relaxed">
-          This camp is designed for travelers who want more than one lesson: consistent coaching, a clear progression plan, and enough ocean time to build real confidence.
-        </p>
+  <!-- BOOKING WIZARD -->
+  <section id="book" class="scc-book" style="scroll-margin-top: 96px;">
+    <div class="scc-book-wrap">
+      <div class="scc-book-head">
+        <span class="scc-book-eyebrow">Ready to Book?</span>
+        <h2 class="scc-book-title">Reserve Your Camp Week</h2>
+        <p class="scc-book-sub">Summer weeks fill fast. Secure your spot now and we'll confirm your dates and coach assignment within 24 hours.</p>
       </div>
+      <div class="scc-book-wizard">
+        <BookingWizard preselectedType="camp" client:idle />
+      </div>
+      <p class="scc-book-note">Certified coaches · All gear included · Mon–Fri · Ages 6–16</p>
+    </div>
+  </section>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-        {inclusions.map(item => (
-          <div class="bg-teal-50 border border-teal-100 rounded-2xl px-5 py-4 flex items-center gap-3">
-            <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
-            <span class="font-semibold text-gray-800 text-sm">{item}</span>
-          </div>
+  <!-- FINAL CTA -->
+  <FinalCTA
+    bgImage={ctaBgImg}
+    bgImageAlt="Cocoa Beach surf camp sunset — kids finishing their last session of the week"
+    title="Your Kid's Best Week of Summer Starts Here"
+    subtitle="5 days, the same coach, real waves, and memories that last. Book your camp week and let's get your kids surfing."
+    primaryCta={{ label: 'Book Your Camp Week', href: '#book' }}
+    secondaryCta={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    meta={[
+      { icon: '✓', text: 'Ages 6–16 · All levels welcome' },
+      { icon: '✓', text: '3:1 max ratio · certified coaches' },
+      { icon: '✓', text: 'All gear + pro photos included' },
+    ]}
+  />
+
+  <!-- SEO INTERNAL LINKS -->
+  <section class="scc-links">
+    <div class="scc-links-wrap">
+      <h2 class="scc-links-title">Also Available at Cocoa Sol Surf</h2>
+      <div class="scc-links-list">
+        {[
+          { l: 'Private Surf Lessons',  h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Surf Coaching',         h: '/surf-coaching-cocoa-beach' },
+          { l: 'Group Surf Lessons',    h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Surf Packages',         h: '/surf-packages-cocoa-beach' },
+        ].map(x => (
+          <a href={x.h} data-astro-prefetch="viewport" class="scc-link">{x.l}</a>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-        <div>
-          <span class="inline-block bg-teal-100 text-teal-700 text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wider uppercase">The Location</span>
-          <h2 class="text-4xl font-extrabold text-gray-900 mb-6">Why Cocoa Beach Works</h2>
-          <p class="text-gray-600 leading-relaxed mb-6">
-            Cocoa Beach is one of Florida's most iconic surf towns. The waves are approachable, the beach is easy to access, and the surf culture makes it a natural place to learn or progress.
-          </p>
-          <ul class="space-y-3 text-gray-700">
-            <li>Consistent beach-break waves</li>
-            <li>Beginner-friendly learning zones</li>
-            <li>Warm Florida water and relaxed surf-town atmosphere</li>
-            <li>Coaching available for complete beginners and improving surfers</li>
-          </ul>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          {gallery.map(({ img, alt }) => (
-            <div class="overflow-hidden rounded-2xl aspect-[4/3]">
-              <Image src={img} alt={alt} class="w-full h-full object-cover object-center" widths={[400, 800]} loading="lazy" decoding="async" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-20 bg-white">
-    <div class="container mx-auto px-4 max-w-4xl">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-extrabold text-gray-900">Frequently Asked Questions</h2>
-        <p class="text-gray-500 mt-3">Everything you need to know before booking your Cocoa Beach surf camp.</p>
-      </div>
-      <FAQ columns={2} items={faqs} />
-    </div>
-  </section>
-
-  <section class="py-20 bg-gradient-to-br from-teal-600 to-teal-800">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-4xl font-extrabold text-white mb-4">Ready to Surf Every Day?</h2>
-      <p class="text-teal-100 text-lg mb-10 max-w-xl mx-auto">
-        Tell us your dates and goals, and we will help you shape the right Cocoa Beach camp experience.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/book-now" class="px-8 py-4 bg-white text-gray-900 font-bold rounded-2xl hover:bg-gray-50 transition-all text-lg shadow-xl">Book Your Camp</a>
-        <a href="https://wa.me/50661987851" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 transition-all text-lg shadow-xl">Ask About Dates</a>
-      </div>
-    </div>
-  </section>
-
-  <NeedHelp />
 </BaseLayout>
+
+<style>
+  /* ── FAQ ─────────────────────────────────────────────────────────────── */
+  .scc-faq {
+    background: #EFF9FB;
+    padding: 80px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .scc-faq-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .scc-faq-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #0A3A40;
+    margin-bottom: 36px;
+    line-height: 1.1;
+  }
+
+  /* ── Booking ─────────────────────────────────────────────────────────── */
+  .scc-book {
+    background: #fff;
+    padding: 80px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .scc-book-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .scc-book-head { text-align: center; margin-bottom: 36px; }
+  .scc-book-eyebrow {
+    display: inline-block;
+    background: rgba(0,188,212,.10);
+    color: #00838F;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .scc-book-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #0A3A40;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  .scc-book-sub {
+    font-size: 1rem;
+    color: #5A7270;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+  .scc-book-wizard { margin-bottom: 16px; }
+  .scc-book-note {
+    text-align: center;
+    font-size: .85rem;
+    color: #9ab;
+  }
+
+  /* ── SEO links ───────────────────────────────────────────────────────── */
+  .scc-links {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    padding: 40px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .scc-links-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .scc-links-title {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 16px;
+  }
+  .scc-links-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .scc-link {
+    padding: 8px 18px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    font-size: .88rem;
+    color: #5A7270;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .scc-link:hover {
+    border-color: rgba(0,188,212,.4);
+    color: #00838F;
+  }
+
+  @media (max-width: 600px) {
+    .scc-faq, .scc-book { padding: 60px 0; }
+    .scc-faq-wrap, .scc-book-wrap, .scc-links-wrap { padding: 0 20px; }
+  }
+</style>
