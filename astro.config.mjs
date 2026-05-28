@@ -47,5 +47,13 @@ export default defineConfig({
     "/about-us": { destination: "/best-surf-school-cocoa-beach", status: 301 },
     "/book": { destination: "/book-now", status: 301 },
     "/booking": { destination: "/book-now", status: 301 },
+    "/blog/best-time-to-surf-tamarindo": { destination: "/blog", status: 301 },
+    "/blog/how-to-get-from-san-jose-to-tamarindo": { destination: "/blog", status: 301 },
+    "/blog/is-tamarindo-good-for-beginner-surfers": { destination: "/blog/is-cocoa-beach-good-for-surfing", status: 301 },
+    "/blog/surf-trip-costa-rica-packing-list": { destination: "/blog", status: 301 },
+    "/blog/surfing-with-kids-tamarindo": { destination: "/blog", status: 301 },
+    "/blog/tamarindo-vs-jaco-surf-beginners": { destination: "/blog", status: 301 },
+    "/blog/what-is-a-surf-camp": { destination: "/blog", status: 301 },
+    "/blog/what-to-expect-first-surf-lesson-tamarindo": { destination: "/blog/beginners-guide-to-surfing", status: 301 },
   },
 });

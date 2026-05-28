@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import NeedHelp from '../../components/sections/NeedHelp.astro'
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
+import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro'
+import FAQSchema from '../../components/seo/FAQSchema.astro'
+
+const seo = {
+  title: 'Surfing Near Orlando | Best Spots & How to Get There',
+  description: 'Looking for surfing near Orlando? Cocoa Beach is just 60 minutes away — Florida\'s surf capital with beginner-friendly waves, certified instructors, and easy access from Disney, Universal, and the Space Coast.',
+  slug: '/blog/surfing-near-orlando',
+  keyfocus: 'surfing near orlando',
+  synonyms: ['surf lessons near orlando', 'surfing from orlando', 'surf near orlando florida', 'cocoa beach from orlando'],
+  image: '/images/surf-school-tamarindo-students.webp',
+}
+
+const faqs = [
+  { q: 'How far is Cocoa Beach from Orlando?', a: 'Cocoa Beach is about 60 miles east of Orlando — roughly a one-hour drive on the Beachline Expressway (SR 528), depending on traffic. It\'s the closest ocean beach to Orlando and the most accessible surf destination in Central Florida.' },
+  { q: 'Can I take a surf lesson as a day trip from Orlando?', a: 'Absolutely. A surf lesson takes 90 minutes to 2 hours, which means you can drive from Orlando in the morning, take your lesson, grab lunch on the beach, and be back by mid-afternoon. Many guests combine it with a visit to the Kennedy Space Center, which is minutes away.' },
+  { q: 'Is Cocoa Beach a good place to learn to surf near Orlando?', a: 'Yes — it\'s the best option near Orlando. The waves at Cocoa Beach are gentle and consistent, the bottom is sandy (no sharp reef), and the area has established surf schools with certified instructors. You\'ll stand up on your first lesson at the same beach where Ron Jon\'s has been selling surf gear since 1963.' },
+  { q: 'Is there surfing near Disney World?', a: 'Disney World is in Kissimmee, about 75 miles from the beach. The closest Atlantic surf is at Cocoa Beach (1 hr 15 min) or New Smyrna Beach (about 1.5 hours). For families visiting Disney who want to add a surf day, Cocoa Beach is the standard choice — it\'s the easiest route and has the most surf infrastructure.' },
+  { q: 'What is the best surf school near Orlando?', a: 'Cocoa Sol Surf School in Cocoa Beach is a certified local school about one hour from Orlando. We offer private lessons ($75/person), group lessons ($65/person), surf coaching for intermediate and advanced surfers, and a kids surf camp. All gear is included in every session.' },
+  { q: 'How do I get from Orlando to Cocoa Beach?', a: 'Drive east on SR 528 (Beachline Expressway) directly to Cocoa Beach — about 60 miles, 1 hour without traffic. Public transit exists but is slow and impractical for a surf trip. Rideshare (Uber/Lyft) works but expensive for a day trip. Most guests drive their rental car or their own vehicle.' },
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms} type="article">
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'Surfing Near Orlando',href:seo.slug}]} />
+  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2026-05-27" image={seo.image} authorName="Victor Nuñez" />
+  <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a }))} />
+
+  <!-- HERO -->
+  <section class="bg-gray-900 py-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-tamarindo-students.webp'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
+    <div class="relative z-10 container mx-auto px-4">
+      <div class="max-w-3xl">
+        <nav class="flex items-center gap-2 text-sm text-white/50 mb-6">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <span>/</span>
+          <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+          <span>/</span>
+          <span class="text-white/80">Surfing Near Orlando</span>
+        </nav>
+        <span class="inline-block bg-blue-500/20 text-blue-300 text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase border border-blue-500/30">
+          Destination Guide
+        </span>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
+          Surfing Near Orlando — Everything You Need to Know
+        </h1>
+        <p class="text-white/70 text-lg leading-relaxed mb-6">
+          Orlando doesn't have waves, but Cocoa Beach does — and it's only an hour away. Here's how to add a surf session to your Central Florida trip without losing a full day.
+        </p>
+        <div class="flex items-center gap-4 text-sm text-white/50">
+          <span>By Victor Nuñez</span>
+          <span>·</span>
+          <span>May 27, 2026</span>
+          <span>·</span>
+          <span>6 min read</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY FACTS BAR -->
+  <section class="bg-[#0A3A40] py-10">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto text-center">
+        {[
+          { value: '60 mi', label: 'from Orlando' },
+          { value: '~1 hr', label: 'drive time' },
+          { value: 'SR 528', label: 'Beachline Expwy' },
+          { value: '$75', label: 'lesson from' },
+        ].map(s => (
+          <div>
+            <p class="text-2xl font-extrabold text-[#FFD079] mb-1">{s.value}</p>
+            <p class="text-sm text-white/60 font-medium">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto prose prose-gray prose-lg">
+
+        <p class="lead text-xl text-gray-600 leading-relaxed font-normal mb-8">
+          If you're visiting Orlando — for the theme parks, the Kennedy Space Center, or anything else — you're exactly one hour from Florida's best beginner surf beach. Cocoa Beach is the closest ocean to Orlando, and it's the right kind of ocean for learning to surf.
+        </p>
+
+        <h2>Where Exactly Is the Closest Surf to Orlando?</h2>
+        <p>
+          Cocoa Beach sits on the Atlantic coast, directly east of Orlando on the Beachline Expressway (SR 528). The drive is straightforward: one highway, no confusing exits, about 60 miles. On a normal day it's 55–65 minutes depending on where in the Orlando area you're starting from.
+        </p>
+        <p>
+          This makes Cocoa Beach the standard answer to "surfing near Orlando" — it's closer than New Smyrna Beach, more developed than Sebastian Inlet, and has more surf schools, more infrastructure, and more reliable beginner conditions than anywhere else in the region.
+        </p>
+
+        <h2>How to Get from Orlando to Cocoa Beach</h2>
+        <p>
+          Drive east on SR 528 (Beachline Expressway) from Orlando. The road goes almost directly to the beach. You'll pass through the suburbs, cross the Indian River, and arrive at Cocoa Beach in about an hour.
+        </p>
+        <p>
+          There's a small toll on the Beachline — bring a few dollars or use SunPass if you have one. Parking at the beach is available in several public lots near the pier and scattered along the main strip.
+        </p>
+        <p>
+          Rideshare is technically possible but expensive for a day trip — a round trip Uber from Orlando to Cocoa Beach can run $80–$120. A rental car is the standard choice for visitors.
+        </p>
+
+        <h2>What the Waves Are Like</h2>
+        <p>
+          Cocoa Beach has what most Central Florida visitors need: gentle, consistent Atlantic swells that break slowly over a sandy bottom. On a typical summer or spring day, waves run 1–3 feet — enough to practice on, not enough to be dangerous for a first-timer.
+        </p>
+        <p>
+          Fall brings the best surf — cleaner 3–5 foot swells from Atlantic storm systems — but that's intermediate territory. For most theme park tourists who want to add a surf experience, the summer and spring conditions are exactly right.
+        </p>
+        <p>
+          The bottom is sand, not reef. If you fall, you land in soft ocean floor, not sharp coral. That's not a minor detail — it's one of the main reasons Cocoa Beach works as a learning spot.
+        </p>
+
+        <h2>How to Fit a Surf Lesson Into an Orlando Trip</h2>
+        <p>
+          A surf lesson runs 90 minutes to 2 hours. Add the drive from Orlando (1 hour each way) and you're looking at a 4–5 hour commitment for a half-day. This means you can realistically:
+        </p>
+        <ul>
+          <li><strong>Leave Orlando at 8 AM</strong> → arrive Cocoa Beach 9 AM → lesson 9:30–11:30 AM → lunch on the beach → back in Orlando by 2–3 PM</li>
+          <li><strong>Combine with Kennedy Space Center</strong> — it's 10 minutes from Cocoa Beach. Surf in the morning, Space Center in the afternoon</li>
+          <li><strong>Make it a beach day</strong> — book an early lesson, then spend the afternoon at the beach or exploring the Cocoa Beach strip</li>
+        </ul>
+        <p>
+          Our guests from Orlando typically book the 9 AM session — it's the best time of day for learning (morning winds are calmer, waves are cleaner), and it leaves the rest of the day open.
+        </p>
+
+        <div class="not-prose bg-[#EFF9FB] rounded-2xl p-8 border border-[#00BCD4]/20 my-10">
+          <h3 class="text-xl font-bold text-[#0A3A40] mb-3">Book your Cocoa Beach surf lesson</h3>
+          <p class="text-gray-600 mb-5">60 minutes from Orlando. All gear included. Most first-timers stand up on their very first wave.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/book-now" class="inline-flex items-center px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-xl hover:bg-[#0097A7] transition-colors">
+              Book Online
+            </a>
+            <a href="/surf-packages-cocoa-beach" class="inline-flex items-center px-6 py-3 border-2 border-[#00BCD4]/40 text-[#00838F] font-semibold rounded-xl hover:border-[#00BCD4] transition-colors">
+              View Prices
+            </a>
+          </div>
+        </div>
+
+        <h2>What to Do While You're There</h2>
+        <p>
+          Cocoa Beach has enough to turn a surf day into a full day out:
+        </p>
+        <ul>
+          <li><strong>Ron Jon Surf Shop</strong> — the most famous surf shop in Florida, open 24 hours. Even non-surfers browse it. On the main strip.</li>
+          <li><strong>Cocoa Beach Pier</strong> — restaurants, bars, and ocean views. Good spot for lunch after your lesson.</li>
+          <li><strong>Kennedy Space Center</strong> — 10 minutes north of Cocoa Beach. One of the best NASA facilities open to the public.</li>
+          <li><strong>Canaveral National Seashore</strong> — a protected stretch of undeveloped beach north of Cocoa, worth the drive for a quieter experience.</li>
+        </ul>
+
+        <h2>What Our Orlando-Area Guests Say</h2>
+        <p>
+          The most common reaction we get from guests who drive over from Orlando is surprise — at how quickly the city disappears on the Beachline, at how different Cocoa Beach feels from the theme park corridor, and at how soon they're standing on a surfboard.
+        </p>
+        <p>
+          It's a different Florida than most tourists see. Worth the hour's drive.
+        </p>
+
+        <h2>Practical Details</h2>
+        <ul>
+          <li><strong>Location:</strong> 400 Jetty Park Rd, Port Canaveral, FL 32920</li>
+          <li><strong>Phone:</strong> (321) 386-9993</li>
+          <li><strong>Hours:</strong> Open daily, 9 AM–5 PM</li>
+          <li><strong>Booking:</strong> Online at cocosolsurf.com or by phone/WhatsApp</li>
+          <li><strong>Lesson cost:</strong> Private $75/person · Group $65/person · Kids camp from $350/week</li>
+          <li><strong>Everything included:</strong> Surfboard, leash, rash guard, sunscreen, safety briefing</li>
+        </ul>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- FAQ SECTION -->
+  <section class="py-16 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <h2 class="text-2xl font-extrabold text-gray-900 mb-8">Surfing Near Orlando — FAQ</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="font-bold text-gray-900 mb-2">{faq.q}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERNAL LINKS -->
+  <section class="py-12 bg-white border-t border-gray-100">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocoa Sol Surf</h2>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { l: 'Private Surf Lessons — $75', h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Group Surf Lessons — $65', h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Kids Surf Camp', h: '/surf-camp-cocoa-beach' },
+          { l: 'Is Cocoa Beach Good for Surfing?', h: '/blog/is-cocoa-beach-good-for-surfing' },
+          { l: "Beginner's Guide to Surfing", h: '/blog/beginners-guide-to-surfing' },
+        ].map(x => (
+          <a href={x.h} class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-sm text-gray-600 font-medium hover:border-[#00BCD4]/50 hover:text-[#00838F] transition-colors">{x.l}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <NeedHelp />
+</BaseLayout>
+
+<style>
+  .prose h2 { font-family: 'Fraunces', Georgia, serif; color: #0A3A40; margin-top: 2.5rem; margin-bottom: 1rem; }
+  .prose h3 { color: #0A3A40; margin-top: 1.75rem; }
+  .prose a { color: #00838F; }
+  .prose a:hover { color: #0097A7; }
+</style>

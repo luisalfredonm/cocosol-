@@ -188,79 +188,32 @@ export const seoData: Record<string, PageSEOWithRoute> = {
     related: ['surf lessons cocoa beach', 'surf camp cocoa beach'],
     ogImage: '/images/hero-home.jpg',
   }),
-
-  // Legacy blog metadata retained so existing Tamarindo blog pages keep building.
-  bestTimeSurf: withRoute('/blog/best-time-to-surf-tamarindo', {
-    title: 'Best Time to Surf in Tamarindo | Month-by-Month Guide',
+  isCocoaBeachGoodForSurfing: withRoute('/blog/is-cocoa-beach-good-for-surfing', {
+    title: 'Is Cocoa Beach Good for Surfing? A Local Guide',
     description:
-      'Discover the best time to surf in Tamarindo, Costa Rica with a month-by-month breakdown of swell, wind and crowd conditions.',
-    keyfocus: 'best time to surf tamarindo',
-    synonyms: ['tamarindo surf season', 'when to surf tamarindo'],
-    related: ['surf lessons tamarindo', 'surf camp tamarindo'],
+      'The honest breakdown on Cocoa Beach surf conditions, best times of year, beginner spots and what local instructors say about Florida\'s most surf-friendly coast.',
+    keyfocus: 'is cocoa beach good for surfing',
+    synonyms: ['cocoa beach surf conditions', 'surfing in cocoa beach', 'cocoa beach waves for beginners'],
+    related: ['surf lessons cocoa beach', 'best time to surf cocoa beach'],
+    ogImage: '/images/surf-school-tamarindo-surf-instructor-student.webp',
   }),
-  firstSurfLesson: withRoute('/blog/what-to-expect-first-surf-lesson-tamarindo', {
-    title: 'What to Expect on Your First Surf Lesson in Tamarindo',
+  beginnersGuideToSurfing: withRoute('/blog/beginners-guide-to-surfing', {
+    title: "The Complete Beginner's Guide to Surfing",
     description:
-      'Nervous about your first surf lesson in Tamarindo? See what happens from arrival to catching your first wave. No experience needed.',
-    keyfocus: 'first surf lesson tamarindo',
-    synonyms: ['beginner surf lesson tamarindo', 'first time surfing tamarindo'],
-    related: ['private surf lessons tamarindo', 'group surf lessons tamarindo'],
+      'Everything you need to know before you get in the water — the pop-up, gear, the 5 mistakes beginners make, and why a lesson beats trying it alone every time.',
+    keyfocus: 'beginners guide to surfing',
+    synonyms: ['how to start surfing', 'learn to surf guide', 'surfing for beginners'],
+    related: ['surf lessons cocoa beach', 'private surf lessons cocoa beach'],
+    ogImage: '/images/surf-school-tamarindo-beginner-lesson.webp',
   }),
-  familySurfLessons: withRoute('/family-surf-lessons-tamarindo', {
-    title: 'Family Surf Lessons Tamarindo | Surf with Your Kids',
+  surfingNearOrlando: withRoute('/blog/surfing-near-orlando', {
+    title: 'Surfing Near Orlando — Best Spots & How to Get There',
     description:
-      'Fun and safe family surf lessons in Tamarindo for kids and adults with certified instructors and patient coaching.',
-    keyfocus: 'family surf lessons tamarindo',
-    synonyms: ['surf lessons for families tamarindo', 'kids surf lessons tamarindo'],
-    related: ['group surf lessons tamarindo', 'beginner surf lessons tamarindo'],
-  }),
-  sanJoseToTamarindo: withRoute('/blog/how-to-get-from-san-jose-to-tamarindo', {
-    title: 'How to Get from San Jose to Tamarindo | Transport Guide',
-    description:
-      'Compare shuttle, rental car and bus options from San Jose to Tamarindo with times, costs and local travel tips.',
-    keyfocus: 'how to get from san jose to tamarindo',
-    synonyms: ['san jose to tamarindo', 'tamarindo transportation'],
-    related: ['tamarindo surf lessons', 'tamarindo travel guide'],
-  }),
-  tamarindoVsJaco: withRoute('/blog/tamarindo-vs-jaco-surf-beginners', {
-    title: 'Tamarindo vs Jaco for Beginner Surfers | Which Is Better?',
-    description:
-      'Tamarindo or Jaco? Compare both surf destinations for beginner surfers by waves, crowds, infrastructure and vibe.',
-    keyfocus: 'tamarindo vs jaco surf',
-    synonyms: ['tamarindo vs jaco surfing', 'best beginner surf spot costa rica'],
-    related: ['tamarindo surf lessons', 'private surf lessons tamarindo'],
-  }),
-  packingList: withRoute('/blog/surf-trip-costa-rica-packing-list', {
-    title: 'Surf Trip Packing List: What to Bring to Costa Rica',
-    description:
-      'A complete packing list for a surf trip to Costa Rica, including gear, clothing and documents for Tamarindo.',
-    keyfocus: 'surf trip costa rica packing list',
-    synonyms: ['what to pack for surf trip costa rica', 'costa rica surf packing list'],
-    related: ['tamarindo surf lessons', 'surf camp tamarindo'],
-  }),
-  isTamarindoGoodForBeginners: withRoute('/blog/is-tamarindo-good-for-beginner-surfers', {
-    title: 'Is Tamarindo Good for Beginner Surfers? | Local Guide',
-    description:
-      'Wondering if Tamarindo is right for learning to surf? Learn about the waves, conditions and beginner-friendly spots.',
-    keyfocus: 'is tamarindo good for beginner surfers',
-    synonyms: ['tamarindo beginner surf', 'learn to surf tamarindo'],
-    related: ['group surf lessons tamarindo', 'private surf lessons tamarindo'],
-  }),
-  surfingWithKids: withRoute('/blog/surfing-with-kids-tamarindo', {
-    title: 'Surfing with Kids in Tamarindo | Family Surf Guide',
-    description:
-      'What parents need to know about surfing with kids in Tamarindo, including age, safety, gear and family lesson tips.',
-    keyfocus: 'surfing with kids tamarindo',
-    synonyms: ['kids surfing tamarindo', 'family surf costa rica'],
-    related: ['family surf lessons tamarindo', 'surf camp tamarindo'],
-  }),
-  whatIsSurfCamp: withRoute('/blog/what-is-a-surf-camp', {
-    title: 'What Is a Surf Camp? Everything You Need to Know',
-    description:
-      'Learn what a surf camp is, what to expect, who it is for and how it compares with regular surf lessons.',
-    keyfocus: 'what is a surf camp',
-    synonyms: ['surf camp explained', 'surf camp vs surf lessons'],
-    related: ['surf camp cocoa beach', 'beginner surf camp'],
+      'Cocoa Beach is just 60 minutes from Orlando. Here\'s how to add a surf lesson to your Central Florida trip — without losing a full day to travel.',
+    keyfocus: 'surfing near orlando',
+    synonyms: ['surf lessons near orlando', 'surf near orlando florida', 'cocoa beach from orlando'],
+    related: ['surf lessons cocoa beach', 'things to do near orlando'],
+    ogImage: '/images/surf-school-tamarindo-students.webp',
   }),
 }
 

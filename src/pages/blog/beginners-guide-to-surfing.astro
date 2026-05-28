@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import NeedHelp from '../../components/sections/NeedHelp.astro'
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
+import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro'
+import FAQSchema from '../../components/seo/FAQSchema.astro'
+
+const seo = {
+  title: 'Beginner\'s Guide to Surfing | How to Start from Zero',
+  description: 'Everything you need to know before your first surf lesson — what to expect, how to stand up, what to wear, and how to choose the right lesson type. A practical guide from certified surf instructors.',
+  slug: '/blog/beginners-guide-to-surfing',
+  keyfocus: 'beginners guide to surfing',
+  synonyms: ['how to start surfing', 'surfing for beginners', 'learn to surf guide', 'first time surfing tips'],
+  image: '/images/surf-school-tamarindo-beginner-lesson.webp',
+}
+
+const faqs = [
+  { q: 'Do I need to know how to swim before surfing?', a: 'You don\'t need to be a competitive swimmer, but you should be comfortable in the water and able to swim at least 50 meters without stopping. If you\'re nervous about the ocean, let your instructor know — we always start in waist-deep water and work within your comfort zone.' },
+  { q: 'What age can you start surfing?', a: 'Kids can start as young as 5–6 years old with the right board and instruction. There\'s no upper age limit — we regularly teach adults in their 50s, 60s, and beyond. The key is matching the instruction to the individual\'s physical ability and confidence, not their age.' },
+  { q: 'How long does it take to learn to surf?', a: 'Most beginners stand up and ride their first wave in their very first lesson. Getting comfortable on unbroken green waves takes a few sessions. Surfing with any real consistency and reading waves takes months to years. The curve is steep at first and then gradual — which is what makes surfing so addictive.' },
+  { q: 'Is surfing hard to learn?', a: 'The basics — paddling out, catching a wave, and popping up — are learnable in a single lesson for most people. What takes time is the ocean knowledge: reading waves, positioning in the lineup, and timing. A certified instructor compresses the learning curve significantly by teaching you what actually matters from day one.' },
+  { q: 'What should I wear to a surf lesson?', a: 'Wear a swimsuit or board shorts under the rash guard your instructor provides. Bring a towel and a change of dry clothes. Leave your phone in the car or with someone on the beach — you won\'t need it. Everything else (board, leash, rash guard, sunscreen) is included in your lesson.' },
+  { q: 'Private lesson or group lesson for a beginner?', a: 'Both work. Private lessons give you 100% of the instructor\'s attention and are faster for progression — ideal if you\'re short on time or want to progress quickly. Group lessons are more social, more fun if you\'re going with friends, and cost less. At Cocoa Sol Surf, we offer both — private from $75, group from $65 per person.' },
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms} type="article">
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:"Beginner's Guide to Surfing",href:seo.slug}]} />
+  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished="2026-05-27" image={seo.image} authorName="Victor Nuñez" />
+  <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a }))} />
+
+  <!-- HERO -->
+  <section class="bg-gray-900 py-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-tamarindo-beginner-lesson.webp'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
+    <div class="relative z-10 container mx-auto px-4">
+      <div class="max-w-3xl">
+        <nav class="flex items-center gap-2 text-sm text-white/50 mb-6">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <span>/</span>
+          <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+          <span>/</span>
+          <span class="text-white/80">Beginner's Guide to Surfing</span>
+        </nav>
+        <span class="inline-block bg-green-500/20 text-green-300 text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase border border-green-500/30">
+          Beginner Info
+        </span>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
+          The Complete Beginner's Guide to Surfing
+        </h1>
+        <p class="text-white/70 text-lg leading-relaxed mb-6">
+          Everything you need to know before you get in the water — from what to expect on your first lesson to the mistakes most beginners make and how to avoid them.
+        </p>
+        <div class="flex items-center gap-4 text-sm text-white/50">
+          <span>By Victor Nuñez</span>
+          <span>·</span>
+          <span>May 27, 2026</span>
+          <span>·</span>
+          <span>8 min read</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto prose prose-gray prose-lg">
+
+        <p class="lead text-xl text-gray-600 leading-relaxed font-normal mb-8">
+          Every surfer you've ever seen started exactly where you are. They didn't know what a rip current was. They couldn't read a wave. They fell off their board thirty times before they got it right. This guide is the briefing they wished they had.
+        </p>
+
+        <h2>What Surfing Actually Involves</h2>
+        <p>
+          Surfing has three distinct phases: paddling out, catching the wave, and riding it. Each has its own skills, and beginners usually focus most of their mental energy on step three — the riding — while underestimating how much the first two matter.
+        </p>
+        <p>
+          Paddling efficiency is what gets you into position and what gets you onto waves. A good pop-up (the move from lying on your board to standing up) determines whether you're surfing or swimming. Wave reading — understanding where to sit, which waves to take, when to paddle — is the skill that separates beginner surfers from intermediate ones, and it takes the most time to build.
+        </p>
+        <p>
+          You'll spend your first lesson working on all three. And yes, most people stand up on their first try.
+        </p>
+
+        <h2>Before You Get in the Water: What Happens at the Beach</h2>
+        <p>
+          A good surf lesson starts on the sand, not in the ocean. Your instructor will cover:
+        </p>
+        <ul>
+          <li><strong>Ocean safety:</strong> Identifying rip currents, how to escape one, reading the break, surf etiquette</li>
+          <li><strong>Your board:</strong> How it works, why it's the right size for you, how to carry it safely</li>
+          <li><strong>The pop-up:</strong> You'll practice standing up on the board on dry land before you do it in the water. This is not optional — it's why it works</li>
+          <li><strong>Wave timing:</strong> When to start paddling, how to read a set</li>
+        </ul>
+        <p>
+          This briefing takes 15–20 minutes. Don't rush it — it's the reason you'll catch waves on your first day instead of your third.
+        </p>
+
+        <h2>The Pop-Up: The Core Skill</h2>
+        <p>
+          The pop-up is the movement from lying on your board (paddling position) to standing up (surfing position). It needs to happen in one fluid motion — no kneeling, no pushing up slowly, no looking down at your feet.
+        </p>
+        <p>Here's the basic sequence:</p>
+        <ol>
+          <li>Feel the wave catch the board — your instructor will tell you when to go</li>
+          <li>Two or three strong paddle strokes to match the wave's speed</li>
+          <li>Hands flat on the board at chest level, then push up and jump both feet to the center of the board in one movement</li>
+          <li>Land with feet shoulder-width apart, front foot angled 45 degrees, back foot perpendicular</li>
+          <li>Bend your knees, arms out for balance, eyes up and forward — never look at your feet</li>
+        </ol>
+        <p>
+          Practice this on dry land until it becomes muscle memory. Then when the wave comes, you don't think — you just do it.
+        </p>
+
+        <h2>Gear: What You Actually Need</h2>
+        <p>
+          For your first lesson, you don't need to own or buy anything. A surf lesson with a reputable school includes everything: board, leash, rash guard, and often sunscreen.
+        </p>
+
+        <h3>The Board</h3>
+        <p>
+          Beginners always start on a longboard or foam board — wide, thick, and long (8–10 feet). These boards are stable and float well, making them much easier to paddle and ride. You'll graduate to shorter boards as your balance and paddling improve, but that takes time. Anyone who hands a beginner a shortboard is setting them up to fail.
+        </p>
+
+        <h3>Rash Guard</h3>
+        <p>
+          A rash guard protects your skin from sunburn and from the board rubbing against your chest and ribs during paddling. Wear one, even on cloudy days — UV exposure in the water is higher than on land.
+        </p>
+
+        <h3>Leash</h3>
+        <p>
+          The leash connects your ankle to your board. It keeps the board from washing to the shore every time you fall — and it keeps the board from becoming a projectile that hits other surfers. Always wear your leash.
+        </p>
+
+        <h2>The 5 Mistakes Beginners Make</h2>
+
+        <h3>1. Looking at their feet</h3>
+        <p>
+          The moment you look down at your feet, you lose your balance. Eyes up and forward — pick a point on the horizon and look at it. The board and your feet will take care of themselves.
+        </p>
+
+        <h3>2. Standing too far forward on the board</h3>
+        <p>
+          If the nose of your board keeps diving into the water (pearling), you're too far forward. The sweet spot is center — hips roughly over the middle of the board.
+        </p>
+
+        <h3>3. Grabbing the rails</h3>
+        <p>
+          New surfers instinctively grab the sides of the board for stability. This actually destabilizes you. Arms out, not gripping. Think balance, not holding on.
+        </p>
+
+        <h3>4. Waiting for the "perfect" wave</h3>
+        <p>
+          In your first lesson, every wave that comes to you is the right wave. Catch as many as you can. Your progress is directly proportional to the number of waves you ride, not the quality of each one.
+        </p>
+
+        <h3>5. Paddling too slowly</h3>
+        <p>
+          You have to match the speed of the wave to catch it. Most beginners paddle too slowly and then wonder why the wave rolls under them. When your instructor says go, go hard.
+        </p>
+
+        <h2>What to Wear and Bring</h2>
+        <ul>
+          <li>Swimsuit or board shorts — you'll be in the water, dress accordingly</li>
+          <li>A towel and dry clothes for after</li>
+          <li>Water to drink — you'll be more tired than you expect</li>
+          <li>Leave valuables and your phone in the car or with someone on the beach</li>
+        </ul>
+        <p>
+          Your lesson provider will give you the rash guard, the board, the leash, and usually reef-safe sunscreen. All you need to bring is yourself.
+        </p>
+
+        <h2>Should You Take a Lesson or Just Try It Yourself?</h2>
+        <p>
+          Try it yourself, and you'll spend most of your time in the water confused, developing bad habits that take twice as long to un-learn, and potentially putting yourself in situations you don't have the knowledge to handle safely.
+        </p>
+        <p>
+          Take a lesson, and within 90 minutes you'll have the basics of paddling, the pop-up, wave selection, and ocean safety. You'll have caught real waves. You'll know what to work on. And you'll be safer doing it.
+        </p>
+        <p>
+          The cost of a surf lesson pays for itself in the first session, in time saved and frustration avoided.
+        </p>
+
+        <div class="not-prose bg-[#EFF9FB] rounded-2xl p-8 border border-[#00BCD4]/20 my-10">
+          <h3 class="text-xl font-bold text-[#0A3A40] mb-3">Book your first surf lesson in Cocoa Beach</h3>
+          <p class="text-gray-600 mb-5">Certified instructors, all gear included, beginner-friendly waves. Most first-timers stand up on their first session.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/private-surf-lessons-cocoa-beach" class="inline-flex items-center px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-xl hover:bg-[#0097A7] transition-colors">
+              Private Lesson — $75
+            </a>
+            <a href="/group-surf-lessons-cocoa-beach" class="inline-flex items-center px-6 py-3 border-2 border-[#00BCD4]/40 text-[#00838F] font-semibold rounded-xl hover:border-[#00BCD4] transition-colors">
+              Group Lesson — $65
+            </a>
+          </div>
+        </div>
+
+        <h2>What Happens After Your First Lesson</h2>
+        <p>
+          After one lesson, most beginners can catch a wave and ride straight. After a few sessions, they're starting to angle across the wave and control their direction. After a season of regular surfing, the ocean starts to make sense — where to sit, which waves to take, how to read a set from the channel.
+        </p>
+        <p>
+          The first lesson is the hardest and the most exciting. Every session after builds on it. The muscle memory develops fast, the ocean stops being intimidating, and the feeling of catching a wave — even a small one — stays addictive for a very long time.
+        </p>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- FAQ SECTION -->
+  <section class="py-16 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <h2 class="text-2xl font-extrabold text-gray-900 mb-8">Common Questions from First-Time Surfers</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="font-bold text-gray-900 mb-2">{faq.q}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERNAL LINKS -->
+  <section class="py-12 bg-white border-t border-gray-100">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocoa Sol Surf</h2>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { l: 'Private Surf Lessons', h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Group Surf Lessons', h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Surf Packages & Pricing', h: '/surf-packages-cocoa-beach' },
+          { l: 'Is Cocoa Beach Good for Surfing?', h: '/blog/is-cocoa-beach-good-for-surfing' },
+          { l: 'Surfing Near Orlando', h: '/blog/surfing-near-orlando' },
+        ].map(x => (
+          <a href={x.h} class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-sm text-gray-600 font-medium hover:border-[#00BCD4]/50 hover:text-[#00838F] transition-colors">{x.l}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <NeedHelp />
+</BaseLayout>
+
+<style>
+  .prose h2 { font-family: 'Fraunces', Georgia, serif; color: #0A3A40; margin-top: 2.5rem; margin-bottom: 1rem; }
+  .prose h3 { color: #0A3A40; margin-top: 1.75rem; }
+  .prose a { color: #00838F; }
+  .prose a:hover { color: #0097A7; }
+</style>

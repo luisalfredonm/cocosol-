@@ -6,7 +6,6 @@ import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
 import LessonsGrid from '../components/sections/LessonsGrid.astro'
 import PricingPackages from '../components/sections/PricingPackages.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
-import NeedHelp from '../components/sections/NeedHelp.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import { seoData } from '../lib/seo'
@@ -16,9 +15,6 @@ import gallery1 from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
 import gallery2 from '../assets/images/surf-school-tamarindo-students.webp'
 import gallery3 from '../assets/images/surf-school-tamarindo-private-class.webp'
 import gallery4 from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import privateCard from '../assets/images/surf-school-costa-rica-tamarindo-beach.webp'
-import semiPrivateCard from '../assets/images/surf-school-tamarindo-students.webp'
-import groupCard from '../assets/images/surf-classes-tamarindo-group-session.webp'
 import blogLessonImg from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
 import blogSeasonImg from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
 
@@ -26,16 +22,10 @@ const seo = seoData.home
 
 
 const gallery = [
-  { img: gallery1, alt: 'Surf school Tamarindo — certified instructor on the beach' },
-  { img: gallery2, alt: 'Group surf lessons Tamarindo Costa Rica' },
-  { img: gallery3, alt: 'Surf school Tamarindo — instructor guiding student on a wave' },
-  { img: gallery4, alt: 'Surf school Tamarindo — students catching their first waves' },
-]
-
-const services = [
-  { href: '/private-surf-lessons-cocoa-beach', title: 'Private Surf Lessons', badge: '1-on-1 coaching', img: privateCard },
-  { href: '/surf-coaching-cocoa-beach', title: 'Surf Coaching', badge: 'Up to 3 students', img: semiPrivateCard },
-  { href: '/group-surf-lessons-cocoa-beach', title: 'Group Surf Lessons', badge: 'Up to 4 students', img: groupCard },
+  { img: gallery1, alt: 'Cocoa Sol Surf School — certified instructor on Cocoa Beach' },
+  { img: gallery2, alt: 'Group surf lessons in Cocoa Beach, Florida' },
+  { img: gallery3, alt: 'Surf instructor guiding student on a wave at Cocoa Beach' },
+  { img: gallery4, alt: 'Students catching their first waves at Cocoa Sol Surf School' },
 ]
 
 
@@ -50,7 +40,7 @@ const faqs = [
   { question: 'Do I need to know how to swim to surf?', answer: 'Basic swimming ability is recommended for safety. Our instructors will assess your comfort level before entering the water.' },
   { question: 'What is the best option to learn surf?', answer: 'For first-timers, we recommend either a private lesson for maximum personal attention, or a group lesson for a fun social experience at a lower price.' },
   { question: 'What can I expect on a regular day at the school?', answer: 'Your instructor will meet you at the beach, provide all equipment, run a 15-minute safety briefing, then guide you in the water for your session.' },
-  { question: 'What sets your surf camp apart from others?', answer: 'We are a locally-owned school with certified instructors who know Tamarindo inside and out. We keep groups small and focus on real progress, not just fun.' },
+  { question: 'What sets your surf school apart from others?', answer: 'We are a locally-owned school with certified instructors who know Cocoa Beach inside and out. We keep groups small and focus on real progress, not just fun.' },
   { question: 'Can kids take lessons?', answer: 'Absolutely! We welcome kids from age 6. Our instructors are trained to work with young surfers and ensure a safe, fun experience.' },
 ]
 ---
@@ -65,7 +55,7 @@ const faqs = [
     image={heroImg}
     imageAlt="Student riding a wave during surf lessons in Cocoa Beach, Florida"
     cta={{ label: 'Book Now', href: '/book-now' }}
-    ctaSecondary={{ label: 'View Surf Lessons', href: '/cocoa-beach-surf-lessons' }}
+    ctaSecondary={{ label: 'View Surf Lessons', href: '/surf-packages-cocoa-beach' }}
     height="full"
   />
 
@@ -131,7 +121,7 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
           </ul>
 
           <div class="flex flex-wrap items-center gap-4">
-            <a href="/tamarindo-surf-lessons" class="btn-primary">View Surf Lessons Options</a>
+            <a href="/surf-packages-cocoa-beach" class="btn-primary">View Surf Lessons Options</a>
             <div class="inline-flex items-center gap-3 rounded-2xl px-5 py-3" style="background:var(--teal-tint); border:1px solid var(--teal-border)">
               <span class="text-3xl font-extrabold" style="color:var(--teal-primary)">25+</span>
               <span class="text-gray-600 text-sm leading-snug">Years teaching <br/>locally</span>
@@ -147,17 +137,17 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
   <LessonsGrid />
 
   <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
-  <WhyChooseUs subtitle="Tamarindo is known as Costa Rica's surf capital for good reason. The long, sandy beach, forgiving waves, and year-round warm weather make it one of the best places in the world to learn how to surf. At Pura Vida Surf School, we elevate your experience beyond just a surf lesson. We focus on safety, technique, confidence, and pure enjoyment — the perfect combination to help you progress fast and have the time of your life. Many travelers choose our Surf School in Tamarindo because of our certified instructors and perfect waves." />
+  <WhyChooseUs subtitle="Cocoa Beach is Florida's original surf town — and one of the best places on the U.S. East Coast to learn to surf. Gentle, consistent Atlantic waves break over a soft, sandy bottom, giving first-timers the perfect environment to stand up fast and build real confidence. At Cocoa Sol Surf, we go beyond the basics. Every session is built around safety, technique, and the progression that keeps you coming back for more." />
 
   <!-- ── PRICING & SURF CAMP ───────────────────────────────────────────────── -->
   <PricingPackages />
 
   <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
   <Testimonials bg="white" items={[
-    { name: 'Sarah K.', role: 'Traveler', country: 'USA', text: 'The 5-day package was incredible. I went from never surfing to catching green waves by day 4. The surf trip was the highlight of my entire Costa Rica trip!' },
-    { name: 'Marco B.', role: 'Surfer', country: 'Italy', text: 'Best investment of my vacation. The instructor was patient, knowledgeable, and pushed me just the right amount. I came back the following year for more coaching.' },
-    { name: 'Emily R.', role: 'Traveler', country: 'Canada', text: 'The 7-day package was life-changing. I arrived never having surfed before and left catching green waves on my own. Incredible experience — worth every penny!' },
-    { name: 'Alex M.', role: 'Solo Traveler', country: 'Germany', text: 'Came alone and left with new friends and the ability to surf! The group lesson was the best decision I made on my Costa Rica trip. Highly recommend.' },
+    { name: 'Sarah K.', role: 'Google Review · Private lesson', country: 'USA', text: 'We drove down from Orlando for a family lesson and it was the highlight of the whole trip. The instructor was amazing with our kids — everyone stood up on the first session!' },
+    { name: 'Marco B.', role: 'Google Review · Surf coaching', country: 'Italy', text: 'Best investment of my vacation. The instructor was patient, knowledgeable, and pushed me just the right amount. I came back the following year for more coaching.' },
+    { name: 'Emily R.', role: 'Google Review · Group lesson', country: 'Canada', text: 'Came to Cocoa Beach for the first time and booked a group lesson on a whim. Caught my first wave within the first 30 minutes — I was absolutely hooked.' },
+    { name: 'Alex M.', role: 'Google Review · Private lesson', country: 'Germany', text: 'Incredible experience. The instructor read the waves perfectly and put me in exactly the right spot every time. Left surfing way better than when I arrived.' },
   ]}/>
 
   <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
@@ -173,9 +163,9 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
               Surf School FAQs — Everything You Need to Know
             </h2>
             <p class="text-gray-500 text-sm leading-relaxed mb-7">
-              These are the most common questions we get from students planning their first visit to our school here in Tamarindo. Can't find your answer? We reply fast on WhatsApp.
+              These are the most common questions we get from students planning their first surf lesson in Cocoa Beach. Can't find your answer? We reply fast on WhatsApp.
             </p>
-            <a href="/surf-school-near-me-tamarindo"
+            <a href="https://wa.me/13213869993"
               class="inline-flex items-center gap-2 px-5 py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-2xl hover:border-[var(--teal-text)] hover:text-[var(--teal-text)] transition-colors text-sm">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
@@ -200,7 +190,7 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
         <div>
           <span class="section-label mb-2 block">From the Blog</span>
-          <h2 class="text-3xl font-extrabold text-gray-900">Surf Tips & Tamarindo Guides</h2>
+          <h2 class="text-3xl font-extrabold text-gray-900">Surf Tips & Cocoa Beach Guides</h2>
         </div>
         <a href="/blog" class="shrink-0 inline-flex items-center gap-2 font-semibold text-sm hover:gap-3 transition-all" style="color:var(--teal-text)">
           All Articles
@@ -212,22 +202,22 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
       <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
         {[
           {
-            href: '/blog/what-to-expect-first-surf-lesson-tamarindo',
-            category: 'Beginners',
-            categoryColor: 'bg-green-100 text-green-700',
-            title: 'What to Expect on Your First Surf Lesson in Tamarindo',
-            excerpt: "Nervous about your first surf lesson? Here's exactly what happens from arrival to catching your first wave.",
-            date: 'April 18, 2025',
-              image: blogLessonImg,
+            href: '/blog/is-cocoa-beach-good-for-surfing',
+            category: 'Destination',
+            categoryColor: 'bg-amber-100 text-amber-700',
+            title: 'Is Cocoa Beach Good for Surfing? A Local Guide',
+            excerpt: "Wave conditions, best times of year, beginner spots and what to expect — the honest answer from instructors who surf here every day.",
+            date: 'May 27, 2026',
+              image: blogSeasonImg,
           },
           {
-            href: '/blog/best-time-to-surf-tamarindo',
-            category: 'Tamarindo Guide',
-            categoryColor: 'bg-amber-100 text-amber-700',
-            title: 'Best Time to Surf in Tamarindo, Costa Rica',
-            excerpt: 'Month-by-month breakdown of swell, wind, and crowd conditions from our local instructors.',
-            date: 'April 10, 2025',
-              image: blogSeasonImg,
+            href: '/blog/beginners-guide-to-surfing',
+            category: 'Beginner Info',
+            categoryColor: 'bg-green-100 text-green-700',
+            title: "The Complete Beginner's Guide to Surfing",
+            excerpt: "Everything you need before your first surf lesson — the pop-up, gear, the 5 mistakes first-timers make, and how to avoid them.",
+            date: 'May 27, 2026',
+              image: blogLessonImg,
           },
         ].map(post => (
           <a href={post.href} class="group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/30 md:hover:shadow-xl transition-all duration-300">
@@ -258,14 +248,14 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
   <!-- ── SEO INTERNAL LINKS ─────────────────────────────────────────────────── -->
   <section class="py-10 bg-gray-50 border-t border-gray-100 defer-section">
     <div class="container mx-auto px-4">
-      <h2 class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-widest">Our Surf Lessons & Packages in Tamarindo</h2>
+      <h2 class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-widest">Our Surf Lessons & Packages in Cocoa Beach</h2>
       <div class="flex flex-wrap gap-2 md:gap-2 gap-y-3">
         {[
           { label: 'Private Surf Lessons', href: '/private-surf-lessons-cocoa-beach' },
           { label: 'Surf Coaching', href: '/surf-coaching-cocoa-beach' },
           { label: 'Group Surf Lessons', href: '/group-surf-lessons-cocoa-beach' },
-          { label: 'Surf Packages Tamarindo', href: '/tamarindo-surf-packages' },
-          { label: 'Surf Packages Cocoa Beach', href: '/surf-packages-cocoa-beach' },
+          { label: 'Surf Packages', href: '/surf-packages-cocoa-beach' },
+          { label: 'Kids Surf Lessons', href: '/kids-surf-lessons-cocoa-beach' },
           { label: 'Surf Camp Cocoa Beach', href: '/surf-camp-cocoa-beach' },
         ].map(l => (
           <a href={l.href}
