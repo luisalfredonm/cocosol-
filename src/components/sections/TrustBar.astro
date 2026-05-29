@@ -26,11 +26,8 @@ const { items } = Astro.props
   .tb-grid {
     max-width: 1180px;
     margin: 0 auto;
-    padding: 0 28px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,.10);
   }
   .tb-cell {
     background: var(--deep);
@@ -40,6 +37,10 @@ const { items } = Astro.props
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    border-right: 1px solid rgba(255,255,255,.10);
+  }
+  .tb-cell:last-child {
+    border-right: none;
   }
   .tb-value {
     font-family: 'Fraunces', Georgia, serif;
