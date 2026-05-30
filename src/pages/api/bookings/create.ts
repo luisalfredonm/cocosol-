@@ -173,6 +173,9 @@ export const POST: APIRoute = async ({ request }) => {
   let paypalClientId = ''
   let paypalSecret = ''
   let paypalSandbox = true
+  let squareApplicationId = ''
+  let squareLocationId = ''
+  let squareSandbox = true
   try {
     const { data: config, error: configError } = await supabase
       .from('payment_config')
@@ -187,7 +190,10 @@ export const POST: APIRoute = async ({ request }) => {
       paypalClientId = String(activeConfig?.paypal_client_id || '').trim()
       paypalSecret = String(activeConfig?.paypal_secret || '').trim()
       paypalSandbox = activeConfig?.paypal_sandbox !== false
-      console.log('[BookingCreate] Provider:', paymentProvider, '| Sandbox:', paypalSandbox)
+      squareApplicationId = String(activeConfig?.square_application_id || '').trim()
+      squareLocationId = String(activeConfig?.square_location_id || '').trim()
+      squareSandbox = activeConfig?.square_sandbox !== false
+      console.log('[BookingCreate] Provider:', paymentProvider)
     }
   } catch (err) {
     console.error('[BookingCreate] Error fetching payment config:', err)
@@ -232,6 +238,10 @@ export const POST: APIRoute = async ({ request }) => {
           checkoutId,
           customerName: contact.name.trim(),
           customerEmail: contact.email.trim().toLowerCase(),
+          customerPhone: contact.phone?.trim(),
+          customerCountry: contact.country?.trim(),
+          customerNotes: contact.notes?.trim(),
+          paymentMethod: 'on-site',
           items: summaryItems,
           mode: 'on-site',
         })
@@ -247,6 +257,10 @@ export const POST: APIRoute = async ({ request }) => {
           checkoutId,
           customerName: contact.name.trim(),
           customerEmail: contact.email.trim().toLowerCase(),
+          customerPhone: contact.phone?.trim(),
+          customerCountry: contact.country?.trim(),
+          customerNotes: contact.notes?.trim(),
+          paymentMethod: 'on-site',
           items: summaryItems,
           mode: 'on-site',
         })
@@ -348,6 +362,36 @@ export const POST: APIRoute = async ({ request }) => {
       paypalClientId,
       totalAmount,
       provider: 'paypal',
+    })
+  }
+
+  // Handle Square payment
+  if (paymentProvider === 'square') {
+    const { data: bookings, error: dbError } = await insertBookings(
+      baseBookingRows.map(row => ({
+        ...row,
+        status: 'pending',
+        payment_method: 'square',
+      })),
+      null
+    )
+
+    if (dbError || !bookings || bookings.length === 0) {
+      console.error('[BookingCreate] Square DB error:', dbError)
+      return json({ error: 'Failed to save bookings' }, 500)
+    }
+
+    const bookingIds = bookings.map(b => b.id)
+    return json({
+      bookingId: bookingIds[0],
+      bookingIds,
+      checkoutId,
+      clientSecret: null,
+      totalAmount,
+      provider: 'square',
+      squareApplicationId,
+      squareLocationId,
+      squareSandbox,
     })
   }
 

@@ -7,7 +7,7 @@ interface Props {
 
 const { authToken } = Astro.props
 
-let config: any = { provider: 'on-site', paypal_client_id: '', paypal_secret: '', paypal_sandbox: true, credomatic_api_key: '', credomatic_secret: '' }
+let config: any = { provider: 'on-site', paypal_client_id: '', paypal_secret: '', paypal_sandbox: true, square_access_token: '', square_application_id: '', square_location_id: '', square_sandbox: true }
 let error = ''
 
 // Fetch current config
@@ -41,21 +41,21 @@ try {
       <div style="margin-bottom:20px">
         <div class="adm-label">Active Payment Provider</div>
         <div style="display:flex;flex-direction:column;gap:10px">
-          {['on-site', 'paypal', 'credomatic'].map(provider => (
-            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 10px;border-radius:10px;border:1.5px solid transparent;transition:border-color 0.15s" class="provider-label" data-provider={provider}>
+          {[
+            { value: 'square', label: '⬛ Square (Primary)' },
+            { value: 'paypal', label: '🅿️ PayPal (Backup)' },
+            { value: 'on-site', label: '💳 On-Site Payment (Manual)' },
+          ].map(({ value, label }) => (
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 10px;border-radius:10px;border:1.5px solid transparent;transition:border-color 0.15s" class="provider-label" data-provider={value}>
               <input
                 type="radio"
                 name="provider"
-                value={provider}
-                checked={config.provider === provider}
+                value={value}
+                checked={config.provider === value}
                 style="accent-color:#00BCD4;cursor:pointer"
                 class="pvss-provider-radio"
               />
-              <span style="font-size:13px;font-weight:500;color:#475569">
-                {provider === 'on-site' ? '💳 On-Site Payment (Manual)' :
-                 provider === 'paypal' ? '🅿️ PayPal' :
-                 '💰 Credomatic'}
-              </span>
+              <span style="font-size:13px;font-weight:500;color:#475569">{label}</span>
             </label>
           ))}
         </div>
@@ -109,36 +109,64 @@ try {
         </div>
       </div>
 
-      <!-- Credomatic Config -->
-      <div id="credomatic-config" style={`display:${config.provider === 'credomatic' ? 'block' : 'none'}`}>
-        <div style="background:#FEF9C3;border-left:4px solid #EAB308;padding:12px 14px;margin-bottom:16px;border-radius:6px">
-          <div style="font-size:12px;color:#713F12;font-weight:500">Credomatic credentials coming soon. Configure when ready.</div>
+      <!-- Square Config -->
+      <div id="square-config" style={`display:${config.provider === 'square' ? 'block' : 'none'}`}>
+        <div style="background:#EFF6FF;border-left:4px solid #3B82F6;padding:12px 14px;margin-bottom:16px;border-radius:6px">
+          <div style="font-size:12px;color:#1E40AF;font-weight:500">Get these values from your Square Developer Dashboard → Applications.</div>
         </div>
 
         <div style="margin-bottom:14px">
-          <label class="adm-label">Credomatic API Key</label>
-          <input
-            type="text"
-            name="credomatic_api_key"
-            value={config.credomatic_api_key || ''}
-            class="adm-input"
-            placeholder="api_key_xxxx"
-            disabled
-            style="opacity:0.5;cursor:not-allowed"
-          />
-        </div>
-
-        <div style="margin-bottom:14px">
-          <label class="adm-label">Credomatic Secret</label>
+          <label class="adm-label">Square Access Token</label>
           <input
             type="password"
-            name="credomatic_secret"
-            value={config.credomatic_secret || ''}
+            name="square_access_token"
+            value={config.square_access_token || ''}
             class="adm-input"
-            placeholder="••••••••"
-            disabled
-            style="opacity:0.5;cursor:not-allowed"
+            placeholder="EAAAl..."
           />
+          <div style="font-size:11px;color:#64748B;margin-top:4px">Sandbox: starts with EAAAlxxx · Production: starts with EAAAl (never share this)</div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="adm-label">Application ID</label>
+          <input
+            type="text"
+            name="square_application_id"
+            value={config.square_application_id || ''}
+            class="adm-input"
+            placeholder="sandbox-sq0idb-xxx or sq0idp-xxx"
+            style="font-family:monospace;font-size:12px"
+          />
+          <div style="font-size:11px;color:#64748B;margin-top:4px">Sandbox: starts with sandbox-sq0idb- · Production: starts with sq0idp-</div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label class="adm-label">Location ID</label>
+          <input
+            type="text"
+            name="square_location_id"
+            value={config.square_location_id || ''}
+            class="adm-input"
+            placeholder="LXXXXXXXXXXXXXXXXX"
+            style="font-family:monospace;font-size:12px"
+          />
+          <div style="font-size:11px;color:#64748B;margin-top:4px">From Square Dashboard → Locations</div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+            <input
+              type="checkbox"
+              name="square_sandbox"
+              id="square_sandbox"
+              checked={config.square_sandbox !== false}
+              style="accent-color:#00BCD4;width:16px;height:16px;cursor:pointer"
+            />
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#0F172A">Sandbox Mode (Test)</div>
+              <div style="font-size:11px;color:#64748B;margin-top:2px">Use Square sandbox for testing — disable for real payments</div>
+            </div>
+          </label>
         </div>
       </div>
 
@@ -166,7 +194,7 @@ try {
       label.style.backgroundColor = isSelected ? '#E0F7FA' : 'transparent'
     })
     document.getElementById('paypal-config').style.display = provider === 'paypal' ? 'block' : 'none'
-    document.getElementById('credomatic-config').style.display = provider === 'credomatic' ? 'block' : 'none'
+    document.getElementById('square-config').style.display = provider === 'square' ? 'block' : 'none'
   }
 
   function init() {
@@ -194,8 +222,10 @@ try {
           paypal_client_id: formData.get('paypal_client_id') || null,
           paypal_secret: formData.get('paypal_secret') || null,
           paypal_sandbox: formData.get('paypal_sandbox') === 'on',
-          credomatic_api_key: formData.get('credomatic_api_key') || null,
-          credomatic_secret: formData.get('credomatic_secret') || null,
+          square_access_token: formData.get('square_access_token') || null,
+          square_application_id: formData.get('square_application_id') || null,
+          square_location_id: formData.get('square_location_id') || null,
+          square_sandbox: formData.get('square_sandbox') === 'on',
         }
 
         var messageEl = document.getElementById('payment-config-message')

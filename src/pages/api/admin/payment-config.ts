@@ -12,14 +12,15 @@ function checkAuth(request: Request): boolean {
 
 interface PaymentConfig {
   id: string
-  provider: 'on-site' | 'paypal' | 'credomatic'
+  provider: 'on-site' | 'paypal' | 'square'
   paypal_client_id: string | null
   paypal_secret: string | null
   paypal_sandbox: boolean
   paypal_enabled: boolean
-  credomatic_api_key: string | null
-  credomatic_secret: string | null
-  credomatic_enabled: boolean
+  square_access_token: string | null
+  square_application_id: string | null
+  square_location_id: string | null
+  square_sandbox: boolean
   is_active: boolean
   created_at: string
   updated_at: string
@@ -102,7 +103,7 @@ export const POST: APIRoute = async ({ request }) => {
     const { provider, paypal_client_id, paypal_secret, paypal_sandbox, credomatic_api_key, credomatic_secret } = body
 
     // Validate provider
-    if (!['on-site', 'paypal', 'credomatic'].includes(provider)) {
+    if (!['on-site', 'paypal', 'square'].includes(provider)) {
       return new Response(JSON.stringify({ error: 'Invalid provider' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
@@ -126,23 +127,25 @@ export const POST: APIRoute = async ({ request }) => {
     const currentConfig = configList && configList.length > 0 ? configList[0] : null
     console.log('[PaymentConfig POST] Current config:', currentConfig)
 
+    const { square_access_token, square_application_id, square_location_id, square_sandbox } = body
+
     let updateData: Partial<PaymentConfig> = {
       provider,
       paypal_enabled: provider === 'paypal',
-      credomatic_enabled: provider === 'credomatic',
       updated_at: new Date().toISOString(),
     }
 
-    // Add provider-specific keys if provided
     if (provider === 'paypal') {
       updateData.paypal_client_id = paypal_client_id || null
       updateData.paypal_secret = paypal_secret || null
       updateData.paypal_sandbox = paypal_sandbox !== false
     }
 
-    if (provider === 'credomatic') {
-      updateData.credomatic_api_key = credomatic_api_key || null
-      updateData.credomatic_secret = credomatic_secret || null
+    if (provider === 'square') {
+      updateData.square_access_token = square_access_token || null
+      updateData.square_application_id = square_application_id || null
+      updateData.square_location_id = square_location_id || null
+      updateData.square_sandbox = square_sandbox !== false
     }
 
     // Update if exists, insert if not

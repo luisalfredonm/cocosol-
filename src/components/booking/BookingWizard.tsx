@@ -41,10 +41,13 @@ export interface WizardState {
   totalAmount: number
   isLoading: boolean
   error: string | null
-  paymentProvider: 'on-site' | 'paypal' | 'credomatic' | null
+  paymentProvider: 'on-site' | 'paypal' | 'square' | null
   paypalOrderId: string | null
   paypalSandbox: boolean
   paypalClientId: string
+  squareApplicationId: string
+  squareLocationId: string
+  squareSandbox: boolean
 }
 
 export type Action =
@@ -60,7 +63,7 @@ export type Action =
   | { type: 'ADD_ANOTHER_CLASS' }
   | { type: 'GO_TO_CONTACT' }
   | { type: 'SET_CONTACT'; contact: ContactInfo }
-  | { type: 'SET_BOOKINGS'; bookingIds: string[]; clientSecret: string; totalAmount: number; provider: string; paypalOrderId?: string; paypalSandbox?: boolean; paypalClientId?: string }
+  | { type: 'SET_BOOKINGS'; bookingIds: string[]; clientSecret: string; totalAmount: number; provider: string; paypalOrderId?: string; paypalSandbox?: boolean; paypalClientId?: string; squareApplicationId?: string; squareLocationId?: string; squareSandbox?: boolean }
   | { type: 'SET_CONFIRMED' }
   | { type: 'SET_LOADING'; value: boolean }
   | { type: 'SET_ERROR'; msg: string | null }
@@ -182,6 +185,9 @@ function reducer(state: WizardState, action: Action): WizardState {
       paypalOrderId: action.paypalOrderId || null,
       paypalSandbox: action.paypalSandbox !== false,
       paypalClientId: action.paypalClientId || '',
+      squareApplicationId: action.squareApplicationId || '',
+      squareLocationId: action.squareLocationId || '',
+      squareSandbox: action.squareSandbox !== false,
       isLoading: false
     }
     case 'SET_CONFIRMED': return { ...state, step: 8, clientSecret: null, paypalOrderId: null, isLoading: false, error: null }
@@ -232,6 +238,9 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
     paypalOrderId: null,
     paypalSandbox: true,
     paypalClientId: '',
+    squareApplicationId: '',
+    squareLocationId: '',
+    squareSandbox: true,
   })
 
   const visibleClassTypes = filterIds ? classTypes.filter(ct => filterIds.includes(ct.id)) : classTypes
@@ -296,22 +305,19 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
       const provider = data.provider || 'on-site'
 
       // Handle different payment providers
-      if (provider === 'on-site') {
-        // On-site: show Step 7 with payment info so customer knows to pay on arrival
-        dispatch({ type: 'SET_BOOKINGS', bookingIds, clientSecret: '', totalAmount: data.totalAmount, provider })
-      } else {
-        // PayPal or other providers: go to payment step
-        dispatch({
-          type: 'SET_BOOKINGS',
-          bookingIds,
-          clientSecret: data.clientSecret || '',
-          totalAmount: data.totalAmount,
-          provider,
-          paypalOrderId: data.paypalOrderId,
-          paypalSandbox: data.paypalSandbox !== false,
-          paypalClientId: data.paypalClientId || '',
-        })
-      }
+      dispatch({
+        type: 'SET_BOOKINGS',
+        bookingIds,
+        clientSecret: data.clientSecret || '',
+        totalAmount: data.totalAmount,
+        provider,
+        paypalOrderId: data.paypalOrderId,
+        paypalSandbox: data.paypalSandbox !== false,
+        paypalClientId: data.paypalClientId || '',
+        squareApplicationId: data.squareApplicationId || '',
+        squareLocationId: data.squareLocationId || '',
+        squareSandbox: data.squareSandbox !== false,
+      })
     } catch (err: any) {
       dispatch({ type: 'SET_ERROR', msg: err.message })
       dispatch({ type: 'SET_LOADING', value: false })
@@ -439,6 +445,9 @@ export default function BookingWizard({ preselectedType, filterIds }: Props) {
             paypalOrderId={state.paypalOrderId}
             paypalSandbox={state.paypalSandbox}
             paypalClientId={state.paypalClientId}
+            squareApplicationId={state.squareApplicationId}
+            squareLocationId={state.squareLocationId}
+            squareSandbox={state.squareSandbox}
             onSuccess={() => dispatch({ type: 'SET_CONFIRMED' })}
             onError={msg => dispatch({ type: 'SET_ERROR', msg })}
             onBack={() => dispatch({ type: 'PREV_STEP' })}

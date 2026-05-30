@@ -2,11 +2,8 @@ export const prerender = false
 
 import type { APIRoute } from 'astro'
 import { supabase } from '../../../lib/supabase'
-import { capturePayPalOrder } from '../../../lib/paypalService'
-import {
-  sendCartSummaryEmail,
-  sendAdminCartSummaryEmail,
-} from '../../../lib/emailService'
+import { createSquarePayment } from '../../../lib/squareService'
+import { sendCartSummaryEmail, sendAdminCartSummaryEmail } from '../../../lib/emailService'
 
 function envFlag(name: string, fallback: boolean): boolean {
   const raw = (import.meta.env[name] ?? '').toString().trim().toLowerCase()
@@ -16,18 +13,14 @@ function envFlag(name: string, fallback: boolean): boolean {
 
 export const POST: APIRoute = async ({ request }) => {
   let body: any
-  try {
-    body = await request.json()
-  } catch {
-    return json({ error: 'Invalid JSON' }, 400)
+  try { body = await request.json() } catch { return json({ error: 'Invalid JSON' }, 400) }
+
+  const { bookingIds, sourceId } = body
+  if (!Array.isArray(bookingIds) || bookingIds.length === 0 || !sourceId) {
+    return json({ error: 'Missing bookingIds or sourceId' }, 400)
   }
 
-  const { bookingIds, orderId } = body
-  if (!Array.isArray(bookingIds) || bookingIds.length === 0 || !orderId) {
-    return json({ error: 'Missing bookingIds or orderId' }, 400)
-  }
-
-  // Fetch bookings to get payment config
+  // Fetch bookings
   const { data: bookings, error: fetchError } = await supabase
     .from('bookings')
     .select('*, class_types(name)')
@@ -37,49 +30,64 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ error: 'Bookings not found' }, 404)
   }
 
-  // Fetch payment config to get PayPal credentials
+  // Fetch Square config
   const { data: config, error: configError } = await supabase
     .from('payment_config')
     .select('*')
     .eq('is_active', true)
     .single()
 
-  if (configError || !config || !config.paypal_client_id || !config.paypal_secret) {
-    return json({ error: 'PayPal configuration not found' }, 500)
+  if (configError || !config || !config.square_access_token || !config.square_location_id) {
+    return json({ error: 'Square configuration not found' }, 500)
   }
 
-  // Capture PayPal order
-  let paypalOrder
+  const totalAmount = bookings.reduce((sum: number, b: any) => sum + Number(b.total_amount), 0)
+  const checkoutId = bookings[0]?.checkout_id
+
+  // Charge via Square
+  let squarePaymentId: string
   try {
-    paypalOrder = await capturePayPalOrder(config.paypal_client_id, config.paypal_secret, orderId)
+    const result = await createSquarePayment({
+      accessToken: config.square_access_token,
+      sandbox: config.square_sandbox !== false,
+      sourceId,
+      amountDollars: totalAmount,
+      currency: 'USD',
+      locationId: config.square_location_id,
+      idempotencyKey: checkoutId,
+    })
+
+    if (result.status !== 'COMPLETED') {
+      return json({ error: `Payment not completed (status: ${result.status})` }, 400)
+    }
+
+    squarePaymentId = result.paymentId
   } catch (err: any) {
-    return json({ error: `PayPal capture failed: ${err.message}` }, 500)
+    console.error('[CaptureSquare] Payment failed:', err)
+    return json({ error: err.message }, 400)
   }
 
-  if (paypalOrder.status !== 'COMPLETED') {
-    return json({ error: 'PayPal payment not completed' }, 400)
-  }
-
-  // Update bookings to confirmed
+  // Confirm bookings in DB
   const { error: updateError } = await supabase
     .from('bookings')
     .update({
       status: 'confirmed',
+      external_payment_id: squarePaymentId,
       updated_at: new Date().toISOString(),
     })
     .in('id', bookingIds)
 
   if (updateError) {
-    return json({ error: 'Failed to update bookings' }, 500)
+    console.error('[CaptureSquare] Failed to confirm bookings:', updateError)
+    return json({ error: 'Failed to confirm bookings' }, 500)
   }
 
   // Send confirmation emails
   const sendSummary = envFlag('EMAIL_SUMMARY_ENABLED', true)
   const sendAdminSummary = envFlag('EMAIL_ADMIN_SUMMARY_ENABLED', true)
   const first = bookings[0]
-  const checkoutId = first?.checkout_id ?? orderId
   const nowIso = new Date().toISOString()
-  const summaryItems = bookings.map(b => ({
+  const summaryItems = bookings.map((b: any) => ({
     bookingId: b.id,
     classTypeId: b.class_type_id,
     classTypeName: b.class_types?.name,
@@ -98,13 +106,13 @@ export const POST: APIRoute = async ({ request }) => {
         customerPhone: first.customer_phone,
         customerCountry: first.customer_country,
         customerNotes: first.notes,
-        paymentMethod: 'paypal',
+        paymentMethod: 'square',
         items: summaryItems,
         mode: 'paid',
       })
       await supabase.from('bookings').update({ checkout_summary_sent_at: nowIso }).eq('checkout_id', checkoutId)
-    } catch (error) {
-      console.error('Failed to send PayPal confirmation email to customer', { error })
+    } catch (err) {
+      console.error('[CaptureSquare] Failed to send customer email:', err)
     }
   }
 
@@ -117,21 +125,17 @@ export const POST: APIRoute = async ({ request }) => {
         customerPhone: first.customer_phone,
         customerCountry: first.customer_country,
         customerNotes: first.notes,
-        paymentMethod: 'paypal',
+        paymentMethod: 'square',
         items: summaryItems,
         mode: 'paid',
       })
       await supabase.from('bookings').update({ checkout_admin_summary_sent_at: nowIso }).eq('checkout_id', checkoutId)
-    } catch (error) {
-      console.error('Failed to send PayPal confirmation email to admin', { error })
+    } catch (err) {
+      console.error('[CaptureSquare] Failed to send admin email:', err)
     }
   }
 
-  return json({
-    success: true,
-    bookingIds,
-    status: 'confirmed',
-  })
+  return json({ success: true, bookingIds, status: 'confirmed' })
 }
 
 function json(data: object, status = 200) {
