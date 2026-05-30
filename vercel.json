@@ -59,57 +59,42 @@
   "redirects": [
     {
       "source": "/about",
-      "destination": "/best-surf-school-in-tamarindo",
+      "destination": "/best-surf-school-cocoa-beach",
       "permanent": true
     },
     {
       "source": "/about-us",
-      "destination": "/best-surf-school-in-tamarindo",
-      "permanent": true
-    },
-    {
-      "source": "/contact",
-      "destination": "/surf-school-near-me-tamarindo",
+      "destination": "/best-surf-school-cocoa-beach",
       "permanent": true
     },
     {
       "source": "/contact-us",
-      "destination": "/surf-school-near-me-tamarindo",
+      "destination": "/contact",
       "permanent": true
     },
     {
       "source": "/surf-lessons",
-      "destination": "/tamarindo-surf-lessons",
+      "destination": "/surf-packages-cocoa-beach",
       "permanent": true
     },
     {
       "source": "/surf-camp",
-      "destination": "/surf-camp-tamarindo",
+      "destination": "/surf-camp-cocoa-beach",
       "permanent": true
     },
     {
       "source": "/packages",
-      "destination": "/surf-packages",
+      "destination": "/surf-packages-cocoa-beach",
       "permanent": true
     },
     {
       "source": "/private-surf-lessons",
-      "destination": "/private-surf-lessons-tamarindo",
+      "destination": "/private-surf-lessons-cocoa-beach",
       "permanent": true
     },
     {
       "source": "/group-surf-lessons",
-      "destination": "/group-surf-lessons-tamarindo",
-      "permanent": true
-    },
-    {
-      "source": "/7-days-surf-camp",
-      "destination": "/7-days-surf-camp-tamarindo",
-      "permanent": true
-    },
-    {
-      "source": "/5-days-surf-camp",
-      "destination": "/5-days-surf-camp-tamarindo",
+      "destination": "/group-surf-lessons-cocoa-beach",
       "permanent": true
     }
   ]
