@@ -189,7 +189,10 @@ const campFeatures = [
     --brand:      #00BCD4;
     --brand-dark: #0097A7;
     --brand-text: #00838F;
-    --coral:      #FF6A4D;
+    --brand-strong:#006064;       /* teal text on tinted bg — AA 7:1 */
+    --coral:      #FF6A4D;         /* decorative only (borders, shadows) */
+    --coral-cta:  #C2410C;         /* white text on coral — AA 5.2:1 */
+    --coral-on-dark:#FF8466;       /* coral text on navy — AA 5.2:1 */
     --gold:       #FFD079;
     --sand:       #FCF8F0;
     --cream:      #FFFDF8;
@@ -217,7 +220,7 @@ const campFeatures = [
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .2em;
-    color: var(--brand);
+    color: var(--brand-strong);
     margin-bottom: 14px;
   }
   .pp-title {
@@ -275,7 +278,7 @@ const campFeatures = [
     align-items: center;
     justify-content: center;
     gap: 6px;
-    background: var(--coral);
+    background: var(--coral-cta);
     color: #fff;
     font-size: .7rem;
     font-weight: 700;
@@ -321,7 +324,7 @@ const campFeatures = [
   }
   .pp-sessions--hl {
     background: rgba(0,188,212,.11);
-    color: var(--brand-text);
+    color: var(--brand-strong);
     font-weight: 700;
     padding: 3px 10px;
     border-radius: 6px;
@@ -350,7 +353,7 @@ const campFeatures = [
   /* Accent feature — highlighted like a selection */
   .pp-feat--accent {
     background: rgba(0,188,212,.09);
-    color: var(--brand-text);
+    color: var(--brand-strong);
     font-weight: 600;
     padding: 6px 10px;
     border-radius: 8px;
@@ -398,13 +401,13 @@ const campFeatures = [
   }
 
   .pp-cta--primary {
-    background: var(--coral);
+    background: var(--coral-cta);
     color: #fff;
-    box-shadow: 0 4px 16px -4px rgba(255,106,77,.40);
+    box-shadow: 0 4px 16px -4px rgba(194,65,12,.40);
   }
   .pp-cta--primary:hover {
-    background: #e8583c;
-    box-shadow: 0 8px 24px -6px rgba(255,106,77,.50);
+    background: #9f3409;
+    box-shadow: 0 8px 24px -6px rgba(194,65,12,.50);
   }
 
   /* ════ SURF CAMP ════════════════════════════════════════ */
@@ -429,7 +432,7 @@ const campFeatures = [
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .22em;
-    color: var(--coral);
+    color: var(--coral-on-dark);
     margin-bottom: 14px;
   }
   .sc-title {
@@ -478,7 +481,7 @@ const campFeatures = [
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .22em;
-    color: rgba(255,255,255,.45);
+    color: rgba(255,255,255,.7);
     margin-bottom: 24px;
   }
 
@@ -504,7 +507,7 @@ const campFeatures = [
   }
   .sc-rate-sub {
     font-size: .83rem;
-    color: rgba(255,255,255,.45);
+    color: rgba(255,255,255,.72);
   }
   .sc-rate-price {
     font-family: 'Fraunces', Georgia, serif;
@@ -525,16 +528,16 @@ const campFeatures = [
     margin-top: 28px;
     padding: 14px 20px;
     border-radius: 50px;
-    background: var(--coral);
+    background: var(--coral-cta);
     color: #fff;
     font-size: .93rem;
     font-weight: 700;
     text-decoration: none;
-    box-shadow: 0 4px 20px -4px rgba(255,106,77,.45);
+    box-shadow: 0 4px 20px -4px rgba(194,65,12,.45);
     transition: transform .15s ease-out, box-shadow .2s ease-out, background .18s ease;
   }
   .sc-cta:hover {
-    background: #e8583c;
+    background: #9f3409;
     transform: translateY(-2px);
     box-shadow: 0 8px 28px -4px rgba(255,106,77,.55);
   }

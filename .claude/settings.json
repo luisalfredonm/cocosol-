@@ -53,7 +53,10 @@
       "Bash(pkill -f \"node.*4321\")",
       "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'{len\\(d[\\\\\"classTypes\\\\\"]\\)} servicios cargados'\\)\")",
       "Bash(curl -s -L -o /dev/null -w \"%{http_code}\" http://localhost:4321/contact)",
-      "Bash(curl -s -L -o /dev/null -w \"%{http_code} %{url_effective}\" http://localhost:4321/contact)"
+      "Bash(curl -s -L -o /dev/null -w \"%{http_code} %{url_effective}\" http://localhost:4321/contact)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(git remote *)"
     ]
   },
   "autoMemoryEnabled": true
