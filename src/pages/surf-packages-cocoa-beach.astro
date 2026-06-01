@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import TrustBar from '../components/sections/TrustBar.astro'
@@ -10,8 +11,8 @@ import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg  from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
-import ctaBgImg from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
+import heroImg  from '../assets/images/surf-school-cocoa-beach-surf-instructor-student.webp'
+import ctaBgImg from '../assets/images/surf-school-cocoa-beach-beach-lesson.webp'
 
 const seo = seoData.surfPrices
 
@@ -314,7 +315,7 @@ const faqs = [
   <!-- SEO INTERNAL LINKS -->
   <section class="sp-links">
     <div class="sp-links-wrap">
-      <h2 class="sp-links-title">All Lesson Types at Cocoa Sol Surf</h2>
+      <h2 class="sp-links-title">All Lesson Types at Cocosol Surf Lessons</h2>
       <div class="sp-links-list">
         {[
           { l: 'Private Surf Lessons',  h: '/private-surf-lessons-cocoa-beach' },

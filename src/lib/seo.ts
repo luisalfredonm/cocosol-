@@ -1,4 +1,4 @@
-// SEO configuration for Cocoa Sol Surf (Cocoa Beach, FL).
+// SEO configuration for Cocosol Surf Lessons (Cocoa Beach, FL).
 // One canonical keyword intent per route to avoid cannibalization:
 // - "surf lessons" + "surf school cocoa beach" live on the home page.
 // - "surf camp" + "summer surf camp" live on /surf-camp-cocoa-beach.
@@ -21,7 +21,7 @@ export interface PageSEOWithRoute extends PageSEO {
 
 export const SEO: Record<string, PageSEO> = {
   '/': {
-    title: 'Surf Lessons in Cocoa Beach | Cocoa Sol Surf School',
+    title: 'Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
     description:
       'Learn to surf in Cocoa Beach with certified local instructors. Small groups, all gear included & real progression. Book your surf lesson today!',
     keyfocus: 'surf lessons cocoa beach',
@@ -42,23 +42,23 @@ export const SEO: Record<string, PageSEO> = {
   },
 
   '/private-surf-lessons-cocoa-beach': {
-    title: 'Private Surf Lessons in Cocoa Beach | Cocoa Sol Surf',
+    title: 'Private Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
     description:
       '1-on-1 private surf lessons in Cocoa Beach with a dedicated certified instructor. Fastest progression, all gear included. Book your private lesson.',
     keyfocus: 'private surf lessons cocoa beach',
     synonyms: ['1 on 1 surf lessons cocoa beach', 'private surf instructor cocoa beach'],
     related: ['couples surf lessons cocoa beach', 'family surf lessons cocoa beach'],
-    ogImage: '/images/private-surf-lessons-tamarindo-one-on-one.webp',
+    ogImage: '/images/private-surf-lessons-cocoa-beach-one-on-one.webp',
   },
 
   '/group-surf-lessons-cocoa-beach': {
-    title: 'Group Surf Lessons in Cocoa Beach | Cocoa Sol Surf',
+    title: 'Group Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
     description:
       'Fun group surf lessons in Cocoa Beach with small classes and certified local instructors. All gear included -- great for friends and solo travelers.',
     keyfocus: 'group surf lessons cocoa beach',
     synonyms: ['beginner group surf lessons cocoa beach'],
     related: ['surf lessons for friends cocoa beach', 'solo traveler surf lessons cocoa beach'],
-    ogImage: '/images/group-surf-lessons-tamarindo-students-beach.webp',
+    ogImage: '/images/group-surf-lessons-cocoa-beach-students-beach.webp',
   },
 
   '/surf-coaching-cocoa-beach': {
@@ -68,11 +68,11 @@ export const SEO: Record<string, PageSEO> = {
     keyfocus: 'surf coaching cocoa beach',
     synonyms: ['advanced surf lessons cocoa beach', 'surf coach cocoa beach'],
     related: ['intermediate surf lessons cocoa beach', 'improve surfing technique florida'],
-    ogImage: '/images/semi-private-surf-tamarindo-wave-riding.webp',
+    ogImage: '/images/semi-private-surf-cocoa-beach-wave-riding.webp',
   },
 
   '/surf-camp-cocoa-beach': {
-    title: 'Surf Camp in Cocoa Beach (Ages 6-16) | Cocoa Sol Surf',
+    title: 'Surf Camp in Cocoa Beach (Ages 6-16) | Cocosol Surf Lessons',
     description:
       'Kids surf camp in Cocoa Beach for ages 6-16. Daily lessons, 3:1 ratio, all gear and safety briefing included. Book your summer surf camp week.',
     keyfocus: 'surf camp cocoa beach',
@@ -82,17 +82,17 @@ export const SEO: Record<string, PageSEO> = {
       'kids surf camp florida',
     ],
     related: ['family surf camp cocoa beach', 'teen surf camp florida', 'surf camp near orlando'],
-    ogImage: '/images/7-days-surf-lessons-tamarindo-green-wave.webp',
+    ogImage: '/images/7-days-surf-lessons-cocoa-beach-green-wave.webp',
   },
 
   '/best-surf-school-cocoa-beach': {
-    title: 'Best Surf School in Cocoa Beach | About Cocoa Sol',
+    title: 'Best Surf School in Cocoa Beach | About Cocosol',
     description:
-      'Cocoa Sol is a local surf school in Cocoa Beach, FL with 25+ years teaching. Certified, bilingual instructors and small groups. Meet the team.',
+      'Cocosol is a local surf school in Cocoa Beach, FL with 25+ years teaching. Certified, bilingual instructors and small groups. Meet the team.',
     keyfocus: 'best surf school cocoa beach',
     synonyms: ['surf schools cocoa beach', 'top surf school cocoa beach'],
     related: ['certified surf instructors cocoa beach', 'bilingual surf instructors florida'],
-    ogImage: '/images/surf-school-tamarindo-surf-instructor-student.webp',
+    ogImage: '/images/surf-school-cocoa-beach-surf-instructor-student.webp',
   },
 
   '/surf-lessons-near-orlando': {
@@ -120,24 +120,24 @@ export const SEO: Record<string, PageSEO> = {
   },
 
   '/book-now': {
-    title: 'Book Surf Lessons in Cocoa Beach | Cocoa Sol Surf',
+    title: 'Book Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
     description:
       'Book your surf lesson, package or camp in Cocoa Beach online. Pick your date and time and secure your spot in seconds. All gear included.',
     keyfocus: 'book surf lessons cocoa beach',
     synonyms: ['surf lesson booking cocoa beach'],
     related: ['surf lesson prices cocoa beach', 'surf packages cocoa beach'],
-    ogImage: '/images/surf-school-tamarindo-beginner-lesson.webp',
+    ogImage: '/images/surf-school-cocoa-beach-beginner-lesson.webp',
   },
 }
 
 const FALLBACK_SEO: PageSEO = {
-  title: 'Cocoa Sol Surf School | Surf Lessons in Cocoa Beach',
+  title: 'Cocosol Surf Lessons | Surf Lessons in Cocoa Beach',
   description:
     'Certified local surf instructors in Cocoa Beach, FL. Small groups, all gear included and real progression for every level.',
   keyfocus: 'surf lessons cocoa beach',
   synonyms: [],
   related: [],
-  ogImage: '/images/surf-school-tamarindo-surf-instructor-student.webp',
+  ogImage: '/images/surf-school-cocoa-beach-surf-instructor-student.webp',
 }
 
 const withRoute = (path: string, overrides: Partial<PageSEO> = {}): PageSEOWithRoute => {
@@ -162,27 +162,27 @@ export const seoData: Record<string, PageSEOWithRoute> = {
 
   surfLessons: withRoute('/'),
   surfPrices: withRoute('/surf-packages-cocoa-beach', {
-    title: 'Surf Lesson Prices & Packages in Cocoa Beach | Cocoa Sol Surf',
+    title: 'Surf Lesson Prices & Packages in Cocoa Beach | Cocosol',
     description:
       'Transparent surf lesson prices in Cocoa Beach. Private, group and multi-session packages available. All gear included with no hidden fees.',
     keyfocus: 'surf lesson prices cocoa beach',
     synonyms: ['surf packages cocoa beach', 'surf lesson cost cocoa beach'],
     related: ['private surf lessons cocoa beach', 'group surf lessons cocoa beach'],
-    ogImage: '/images/surf-school-tamarindo-beginner-lesson.webp',
+    ogImage: '/images/surf-school-cocoa-beach-beginner-lesson.webp',
   }),
   kidsSurfLessons: withRoute('/kids-surf-lessons-cocoa-beach', {
-    title: 'Kids Surf Lessons in Cocoa Beach | Cocoa Sol Surf',
+    title: 'Kids Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
     description:
       'Safe kids surf lessons in Cocoa Beach with certified instructors, small ratios and all gear included. Beginner-friendly for young surfers.',
     keyfocus: 'kids surf lessons cocoa beach',
     synonyms: ['children surf lessons cocoa beach', 'surf lessons for kids cocoa beach'],
     related: ['kids surf camp cocoa beach', 'beginner surf lessons cocoa beach'],
-    ogImage: '/images/7-days-surf-lessons-tamarindo-green-wave.webp',
+    ogImage: '/images/7-days-surf-lessons-cocoa-beach-green-wave.webp',
   }),
   blog: withRoute('/blog', {
-    title: 'Cocoa Beach Surf Blog | Cocoa Sol Surf School',
+    title: 'Cocoa Beach Surf Blog | Cocosol Surf Lessons',
     description:
-      'Read Cocoa Beach surf tips, beginner guides, family surfing advice and local planning resources from Cocoa Sol Surf School.',
+      'Read Cocoa Beach surf tips, beginner guides, family surfing advice and local planning resources from Cocosol Surf Lessons.',
     keyfocus: 'cocoa beach surf blog',
     synonyms: ['cocoa beach surfing guide', 'surf tips cocoa beach'],
     related: ['surf lessons cocoa beach', 'surf camp cocoa beach'],
@@ -195,7 +195,7 @@ export const seoData: Record<string, PageSEOWithRoute> = {
     keyfocus: 'is cocoa beach good for surfing',
     synonyms: ['cocoa beach surf conditions', 'surfing in cocoa beach', 'cocoa beach waves for beginners'],
     related: ['surf lessons cocoa beach', 'best time to surf cocoa beach'],
-    ogImage: '/images/surf-school-tamarindo-surf-instructor-student.webp',
+    ogImage: '/images/surf-school-cocoa-beach-surf-instructor-student.webp',
   }),
   beginnersGuideToSurfing: withRoute('/blog/beginners-guide-to-surfing', {
     title: "The Complete Beginner's Guide to Surfing",
@@ -204,7 +204,7 @@ export const seoData: Record<string, PageSEOWithRoute> = {
     keyfocus: 'beginners guide to surfing',
     synonyms: ['how to start surfing', 'learn to surf guide', 'surfing for beginners'],
     related: ['surf lessons cocoa beach', 'private surf lessons cocoa beach'],
-    ogImage: '/images/surf-school-tamarindo-beginner-lesson.webp',
+    ogImage: '/images/surf-school-cocoa-beach-beginner-lesson.webp',
   }),
   surfingNearOrlando: withRoute('/blog/surfing-near-orlando', {
     title: 'Surfing Near Orlando — Best Spots & How to Get There',
@@ -213,7 +213,7 @@ export const seoData: Record<string, PageSEOWithRoute> = {
     keyfocus: 'surfing near orlando',
     synonyms: ['surf lessons near orlando', 'surf near orlando florida', 'cocoa beach from orlando'],
     related: ['surf lessons cocoa beach', 'things to do near orlando'],
-    ogImage: '/images/surf-school-tamarindo-students.webp',
+    ogImage: '/images/surf-school-cocoa-beach-students.webp',
   }),
 }
 

@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
@@ -9,7 +10,7 @@ const seo = seoData.aboutUs
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
   <BreadcrumbSchema slot="head" items={[
     { name: 'Home', href: '/' },
-    { name: 'About Cocoa Sol', href: '/best-surf-school-cocoa-beach' },
+    { name: 'About Cocosol', href: '/best-surf-school-cocoa-beach' },
   ]} />
 
   <!-- HERO -->
@@ -42,10 +43,10 @@ const seo = seoData.aboutUs
 
       <div class="ab-story-text ab-reveal">
         <span class="ab-eyebrow">Meet the founder</span>
-        <h2>From a boy with a board in Costa Rica to founding Cocoa Sol Surf</h2>
-        <p class="ab-lead-p">Cocoa Sol Surf was founded by Victor Nuñez — a lifelong surfer and trained lifeguard whose passion for the ocean started on the beaches of Costa Rica.</p>
+        <h2>From a boy with a board in Costa Rica to founding Cocosol Surf Lessons</h2>
+        <p class="ab-lead-p">Cocosol Surf Lessons was founded by Victor Nuñez — a lifelong surfer and trained lifeguard whose passion for the ocean started on the beaches of Costa Rica.</p>
         <p>Victor's journey began at fifteen, when he started lifeguarding and surfing on Costa Rica's Pacific coast. Over 25+ years in the water, he built up the one thing you can't shortcut in this sport: a deep, instinctive read of the ocean and a relentless focus on safety.</p>
-        <p>In 2022 he brought that experience to Florida's Space Coast and founded Cocoa Sol Surf — a school built around two simple ideas: nobody should ever feel unsafe in the water, and everybody, from a three-year-old to a grandparent, deserves the chance to feel the joy of standing up on their first wave.</p>
+        <p>In 2022 he brought that experience to Florida's Space Coast and founded Cocosol Surf Lessons — a school built around two simple ideas: nobody should ever feel unsafe in the water, and everybody, from a three-year-old to a grandparent, deserves the chance to feel the joy of standing up on their first wave.</p>
         <p>Today Victor and his team teach kids and adults of all levels at the beach breaks of Cocoa Beach and Cape Canaveral.</p>
         <div class="ab-signature">Pura vida, from Cocoa Beach.</div>
         <div class="ab-story-stats">

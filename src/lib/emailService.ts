@@ -101,7 +101,7 @@ function clientShell(params: {
               <table role="presentation" style="width:100%;border-collapse:collapse;">
                 <tr>
                   <td>
-                    <p style="margin:0 0 14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.65);font-family:Arial,sans-serif;">Cocoa Sol Surf School · Cocoa Beach, FL</p>
+                    <p style="margin:0 0 14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.65);font-family:Arial,sans-serif;">Cocosol Surf Lessons · Cocoa Beach, FL</p>
                     <h1 style="margin:0 0 8px;font-size:32px;line-height:1.15;font-family:Georgia,'Times New Roman',serif;color:#ffffff;font-weight:normal;">${title}</h1>
                     <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.8);font-family:Arial,sans-serif;">${subtitle}</p>
                   </td>
@@ -136,7 +136,7 @@ function clientShell(params: {
               <table role="presentation" style="width:100%;border-collapse:collapse;">
                 <tr>
                   <td style="vertical-align:top;">
-                    <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#e2e8f0;font-family:Arial,sans-serif;">Cocoa Sol Surf School</p>
+                    <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#e2e8f0;font-family:Arial,sans-serif;">Cocosol Surf Lessons</p>
                     <p style="margin:0 0 10px;font-size:12px;color:#94a3b8;font-family:Arial,sans-serif;">Cocoa Beach, Florida, USA</p>
                     <a href="mailto:info@cocosolsurf.com" style="font-size:12px;color:#5eead4;text-decoration:none;font-family:Arial,sans-serif;">info@cocosolsurf.com</a>
                   </td>
@@ -146,7 +146,7 @@ function clientShell(params: {
                 </tr>
                 <tr>
                   <td colspan="2" style="padding-top:16px;border-top:1px solid rgba(255,255,255,.08);">
-                    <p style="margin:0;font-size:11px;color:#64748b;font-family:Arial,sans-serif;">You received this email because you made a booking with Cocoa Sol Surf School. Questions? Reply to this email or message us on WhatsApp.</p>
+                    <p style="margin:0;font-size:11px;color:#64748b;font-family:Arial,sans-serif;">You received this email because you made a booking with Cocosol Surf Lessons. Questions? Reply to this email or message us on WhatsApp.</p>
                   </td>
                 </tr>
               </table>
@@ -418,8 +418,8 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
   await sendEmail({
     to: data.customerEmail,
     subject: isOnSite
-      ? `✅ Reservation Confirmed — Pay ${formatCurrency(total)} on Arrival · Cocoa Sol Surf`
-      : `🏄 Booking Confirmed — ${data.items.length} Session${data.items.length > 1 ? 's' : ''} at Cocoa Sol Surf`,
+      ? `✅ Reservation Confirmed — Pay ${formatCurrency(total)} on Arrival · Cocosol Surf Lessons`
+      : `🏄 Booking Confirmed — ${data.items.length} Session${data.items.length > 1 ? 's' : ''} at Cocosol Surf Lessons`,
     html,
   })
 }

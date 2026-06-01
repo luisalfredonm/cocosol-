@@ -9,7 +9,7 @@ export interface Props {
   type?: string
   synonyms?: string[]
 }
-const { title, description, slug, keyfocus, image = '/images/surf-school-tamarindo-students.webp', noindex = false, type = 'website', synonyms = [] } = Astro.props
+const { title, description, slug, keyfocus, image = '/images/surf-school-cocoa-beach-students.webp', noindex = false, type = 'website', synonyms = [] } = Astro.props
 const site = 'https://cocosolsurf.com'
 const canonical = slug === '/' ? site : `${site}${slug}`
 const ogImage = `${site}${image}`
@@ -20,24 +20,46 @@ const jsonLd = {
       '@type': ['LocalBusiness', 'SportsActivityLocation'],
       sport: 'Surfing',
       '@id': `${site}/#business`,
-      name: 'Cocoa Sol Surf',
+      name: 'Cocosol Surf Lessons',
       description: 'Surf school in Cocoa Beach, Florida offering private, group and coaching surf lessons, kids lessons, surf camps and packages.',
       url: site,
       telephone: '+13213869993',
       email: 'info@cocosolsurf.com',
       image: ogImage,
+      logo: `${site}/images/logo-schema.png`,
       priceRange: '$65-$900',
       currenciesAccepted: 'USD',
-      address: { '@type': 'PostalAddress', streetAddress: '400 Jetty Park Rd', addressLocality: 'Port Canaveral', addressRegion: 'FL', postalCode: '32920', addressCountry: 'US' },
-      geo: { '@type': 'GeoCoordinates', latitude: 28.3200, longitude: -80.6076 },
+      address: { '@type': 'PostalAddress', streetAddress: '632 Adams Ave', addressLocality: 'Cape Canaveral', addressRegion: 'FL', postalCode: '32920', addressCountry: 'US' },
+      geo: { '@type': 'GeoCoordinates', latitude: 28.3907408, longitude: -80.5971515 },
+      sameAs: [
+        'https://www.facebook.com/profile.php?id=61578460115625',
+        'https://www.instagram.com/cocosolsurf',
+      ],
       openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '09:00', closes: '17:00' }],
+      aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '88', bestRating: '5', worstRating: '1' },
+      review: [
+        {
+          '@type': 'Review',
+          author: { '@type': 'Person', name: 'Katherine Martinez' },
+          datePublished: '2025-07',
+          reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+          reviewBody: "An Outstanding Surfing Experience at CocoSol! For the last 9 months, we had the pleasure of taking lessons at CocoSol in Cocoa Beach, Florida, and I can't recommend it enough! As someone with mixed experience levels, I was impressed by how well they catered to everyone in the group, from complete beginners to those looking to refine their skills.",
+        },
+        {
+          '@type': 'Review',
+          author: { '@type': 'Person', name: 'Ashton Cooke' },
+          datePublished: '2025-11',
+          reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+          reviewBody: 'We have had a great experience with CocoSol. Our daughter has been with them for a little over a year now and she has learned so much from the coaches Victor and Josh. Victor is a very experienced lifeguard and the comfort level I have is unmatched.',
+        },
+      ],
     },
     { '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: title, description, ...(keyfocus || synonyms.length > 0 ? { keywords: [keyfocus, ...synonyms].filter(Boolean).join(', ') } : {}), isPartOf: { '@id': `${site}/#website` }, inLanguage: 'en-US' },
     {
       '@type': 'WebSite',
       '@id': `${site}/#website`,
       url: site,
-      name: 'Cocoa Sol Surf School',
+      name: 'Cocosol Surf Lessons',
       inLanguage: 'en-US',
     },
   ],
@@ -56,7 +78,7 @@ const jsonLd = {
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content={title} />
 <meta property="og:locale" content="en_US" />
-<meta property="og:site_name" content="Cocoa Sol Surf School" />
+<meta property="og:site_name" content="Cocosol Surf Lessons" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />

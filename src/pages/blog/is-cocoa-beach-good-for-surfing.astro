@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import NeedHelp from '../../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
@@ -11,7 +12,7 @@ const seo = {
   slug: '/blog/is-cocoa-beach-good-for-surfing',
   keyfocus: 'is cocoa beach good for surfing',
   synonyms: ['cocoa beach surfing', 'surfing in cocoa beach', 'cocoa beach surf conditions'],
-  image: '/images/surf-school-tamarindo-surf-instructor-student.webp',
+  image: '/images/surf-school-cocoa-beach-surf-instructor-student.webp',
 }
 
 const faqs = [
@@ -19,7 +20,7 @@ const faqs = [
   { q: 'What are surf conditions like in Cocoa Beach?', a: 'Cocoa Beach has consistent, small-to-medium Atlantic swells year-round. Wave height typically ranges from 1 to 4 feet, with bigger surf possible in fall and winter when Atlantic storm swells arrive. Summer is gentler and ideal for learning; fall and winter offer more shape for intermediate and advanced surfers.' },
   { q: 'When is the best time to surf in Cocoa Beach?', a: 'Fall (September–November) is the best overall window — warm water, clean swells from Atlantic systems, and fewer crowds than summer. Summer (June–August) has the warmest water and the most consistent gentle waves, making it the best time for beginners. Winter brings the biggest and most powerful surf, best for experienced surfers.' },
   { q: 'What is the water temperature in Cocoa Beach?', a: 'Water temperature in Cocoa Beach ranges from around 62°F (17°C) in winter to 85°F (29°C) in summer. Most of the year the water is comfortable without a wetsuit — a rash guard is usually enough from spring through fall. A shorty wetsuit is useful in December through February.' },
-  { q: 'Are there surf schools in Cocoa Beach?', a: 'Yes — Cocoa Sol Surf School is a local surf school in Cocoa Beach with certified, bilingual instructors. We offer private lessons, group lessons, surf coaching for intermediate and advanced surfers, and a kids surf camp. All gear is included in every lesson.' },
+  { q: 'Are there surf schools in Cocoa Beach?', a: 'Yes — Cocosol Surf Lessons is a local surf school in Cocoa Beach with certified, bilingual instructors. We offer private lessons, group lessons, surf coaching for intermediate and advanced surfers, and a kids surf camp. All gear is included in every lesson.' },
   { q: 'Is Cocoa Beach safe for surfing?', a: 'Cocoa Beach is one of the safest places to surf in Florida. The sandy bottom and gentle wave break make it low-risk for beginners. There are lifeguarded areas near the pier, and the beach has good rip current awareness infrastructure. A surf lesson with certified instructors includes a full ocean safety briefing.' },
 ]
 ---
@@ -31,7 +32,7 @@ const faqs = [
 
   <!-- HERO -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-tamarindo-surf-instructor-student.webp'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-cocoa-beach-surf-instructor-student.webp'); background-size: cover; background-position: center;"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
     <div class="relative z-10 container mx-auto px-4">
       <div class="max-w-3xl">
@@ -130,7 +131,7 @@ const faqs = [
           If you've never surfed, yes — take a lesson. Not because surfing is impossibly difficult, but because a 90-minute lesson compresses what would otherwise take a full season of trial-and-error into one morning. You'll stand up faster, avoid bad habits, and come away with an understanding of the ocean that makes every session after safer and more fun.
         </p>
         <p>
-          At Cocoa Sol Surf, our certified instructors have surfed these breaks for years. We know where the waves are best on a given swell direction, how to read the conditions that day, and how to match the right wave to the right surfer. That local knowledge makes a real difference.
+          At Cocosol Surf Lessons, our certified instructors have surfed these breaks for years. We know where the waves are best on a given swell direction, how to read the conditions that day, and how to match the right wave to the right surfer. That local knowledge makes a real difference.
         </p>
 
         <div class="not-prose bg-[#EFF9FB] rounded-2xl p-8 border border-[#00BCD4]/20 my-10">
@@ -177,7 +178,7 @@ const faqs = [
   <!-- INTERNAL LINKS -->
   <section class="py-12 bg-white border-t border-gray-100">
     <div class="container mx-auto px-4 max-w-2xl">
-      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocoa Sol Surf</h2>
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocosol Surf Lessons</h2>
       <div class="flex flex-wrap gap-3">
         {[
           { l: 'Private Surf Lessons', h: '/private-surf-lessons-cocoa-beach' },

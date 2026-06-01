@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import TrustBar from '../components/sections/TrustBar.astro'
@@ -17,11 +18,11 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg       from '../assets/images/surf-camp-costa-rica-tamarindo-students.webp'
-import groupKidsImg  from '../assets/images/group-surf-lessons-tamarindo-students-beach.webp'
-import instructorImg from '../assets/images/tamarindo-surf-lessons-instructor-teaching-beginner.webp'
-import locationImg   from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
-import ctaBgImg      from '../assets/images/week-surf-camp-tamarindo-students-beach.webp'
+import heroImg       from '../assets/images/surf-camp-costa-rica-cocoa-beach-students.webp'
+import groupKidsImg  from '../assets/images/group-surf-lessons-cocoa-beach-students-beach.webp'
+import instructorImg from '../assets/images/cocoa-beach-surf-lessons-instructor-teaching-beginner.webp'
+import locationImg   from '../assets/images/surf-school-cocoa-beach-beach-lesson.webp'
+import ctaBgImg      from '../assets/images/week-surf-camp-cocoa-beach-students-beach.webp'
 
 const seo = seoData.kidsSurfLessons
 
@@ -160,10 +161,10 @@ const faqs = [
   <ProductSchema
     slot="head"
     name="Kids Surf Lessons Cocoa Beach"
-    description="Certified kids surf lessons in Cocoa Beach, Florida for ages 6–16. Strict 3:1 instructor ratio, all gear included, private and group options available at Cocoa Sol Surf."
+    description="Certified kids surf lessons in Cocoa Beach, Florida for ages 6–16. Strict 3:1 instructor ratio, all gear included, private and group options available at Cocosol Surf Lessons."
     price="65"
     url="/kids-surf-lessons-cocoa-beach"
-    image="/images/surf-school-tamarindo-beginner-lesson.webp"
+    image="/images/surf-school-cocoa-beach-beginner-lesson.webp"
   />
   <FAQSchema slot="head" items={faqs} />
 
@@ -320,7 +321,7 @@ const faqs = [
   <!-- SEO INTERNAL LINKS -->
   <section class="ksl-links">
     <div class="ksl-links-wrap">
-      <h2 class="ksl-links-title">Also Available at Cocoa Sol Surf</h2>
+      <h2 class="ksl-links-title">Also Available at Cocosol Surf Lessons</h2>
       <div class="ksl-links-list">
         {[
           { l: 'Surf Camp Cocoa Beach',   h: '/surf-camp-cocoa-beach' },

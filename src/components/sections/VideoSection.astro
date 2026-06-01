@@ -11,7 +11,7 @@ export interface Props {
   bgImageAlt?: string
   cta?: { label: string; href: string }
 }
-const { title, subtitle, bullets, videoId, bgImage = '/images/video-bg.jpg', bgImageAlt = 'Surf experience Tamarindo', cta } = Astro.props
+const { title, subtitle, bullets, videoId, bgImage = '/images/video-bg.jpg', bgImageAlt = 'Surf experience Cocoa Beach', cta } = Astro.props
 const isLocalBg = typeof bgImage !== 'string'
 const videoHref = videoId ? `https://www.youtube.com/watch?v=${videoId}` : 'https://www.youtube.com/@puravidasurfschool'
 ---

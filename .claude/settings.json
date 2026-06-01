@@ -56,7 +56,15 @@
       "Bash(curl -s -L -o /dev/null -w \"%{http_code} %{url_effective}\" http://localhost:4321/contact)",
       "Bash(git pull *)",
       "Bash(git stash *)",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(sed -n '44,50p' src/components/ui/Hero.astro)",
+      "Bash(sed -n '32,38p' src/components/sections/VideoSection.astro)",
+      "Bash(xargs -n1 basename)",
+      "Bash(npm install *)",
+      "Bash(python -m json.tool)",
+      "Bash(node -e \"const fs=require\\('fs'\\),path=require\\('path'\\);function walk\\(d\\){for\\(const f of fs.readdirSync\\(d,{withFileTypes:true}\\)\\){const p=path.join\\(d,f.name\\);if\\(f.isDirectory\\(\\)\\)walk\\(p\\);else if\\(/\\\\.\\(astro|ts\\)$/.test\\(f.name\\)\\){const o=fs.readFileSync\\(p,'utf8'\\);let c=o.split\\('Cocoa Sol Surf School'\\).join\\('Cocosol Surf Lessons'\\).split\\('Cocoa Sol Surf'\\).join\\('Cocosol Surf Lessons'\\).split\\('Cocoa Sol'\\).join\\('Cocosol'\\);if\\(c!==o\\){fs.writeFileSync\\(p,c\\);console.log\\('updated '+p\\);}}}}walk\\('src'\\);\")",
+      "Bash(node -e \"const fs=require\\('fs'\\),path=require\\('path'\\);const reps=[['Pura Vida Surf School tent on Tamarindo Beach','Cocosol Surf Lessons truck on Cocoa Beach'],['Pura Vida Surf School','Cocosol Surf Lessons'],['400 Jetty Park Rd, Port Canaveral, FL 32920','632 Adams Ave, Cape Canaveral, FL 32920'],['Surf experience Tamarindo','Surf experience Cocoa Beach']];function walk\\(d\\){for\\(const f of fs.readdirSync\\(d,{withFileTypes:true}\\)\\){const p=path.join\\(d,f.name\\);if\\(f.isDirectory\\(\\)\\)walk\\(p\\);else if\\(/\\\\.\\(astro|ts|tsx\\)$/.test\\(f.name\\)\\){const o=fs.readFileSync\\(p,'utf8'\\);let c=o;for\\(const[a,b]of reps\\)c=c.split\\(a\\).join\\(b\\);if\\(c!==o\\){fs.writeFileSync\\(p,c\\);console.log\\('updated '+p\\);}}}}walk\\('src'\\);\")",
+      "Bash([ -f \"public/images/$f\" ])"
     ]
   },
   "autoMemoryEnabled": true

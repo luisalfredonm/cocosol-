@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import TrustBar from '../components/sections/TrustBar.astro'
@@ -17,11 +18,11 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg       from '../assets/images/semi-private-surf-tamarindo-wave-riding.webp'
-import instructorImg from '../assets/images/semi-private-surf-instructor-tamarindo.webp'
-import coachingImg   from '../assets/images/semi-private-surf-tamarindo-2-person.webp'
+import heroImg       from '../assets/images/semi-private-surf-cocoa-beach-wave-riding.webp'
+import instructorImg from '../assets/images/semi-private-surf-instructor-cocoa-beach.webp'
+import coachingImg   from '../assets/images/semi-private-surf-cocoa-beach-2-person.webp'
 import boardImg      from '../assets/images/semi-private-surf-costa-rica-beginner-board.webp'
-import ctaBgImg      from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
+import ctaBgImg      from '../assets/images/surf-school-cocoa-beach-surf-instructor-student.webp'
 
 const seo = seoData.semiPrivateLessons
 
@@ -139,10 +140,10 @@ const steps = [
 ]
 
 const faqs = [
-  { question: 'Is surf coaching worth it if I can already surf but feel stuck?', answer: 'Honestly, yes — that "stuck" feeling is exactly what coaching fixes. Most surfers plateau because they repeat the same small mistakes with no one to point them out. At Cocoa Sol Surf, your coach watches every wave and gives specific corrections, so you stop guessing and start improving with a plan. One focused session often shows you more than months of surfing alone.' },
+  { question: 'Is surf coaching worth it if I can already surf but feel stuck?', answer: 'Honestly, yes — that "stuck" feeling is exactly what coaching fixes. Most surfers plateau because they repeat the same small mistakes with no one to point them out. At Cocosol Surf Lessons, your coach watches every wave and gives specific corrections, so you stop guessing and start improving with a plan. One focused session often shows you more than months of surfing alone.' },
   { question: 'How do I know if I\'m ready for surf coaching instead of a beginner lesson?', answer: 'Quick test: if you can paddle out and catch waves on your own, you\'re ready for coaching. If you\'re still working on standing up or riding whitewater, a beginner lesson will get you further, faster. Not sure? Message us on WhatsApp at +1 (321) 386-9993 and we\'ll tell you straight.' },
   { question: 'What\'s the difference between surf lessons and surf coaching in Cocoa Beach?', answer: 'Both put a certified instructor in the water with you — the difference is the goal. A lesson teaches a first-timer to stand up and ride safely. Coaching takes someone who already surfs and refines how they ride: positioning, timing, wave selection, and maneuvers. Our coaching is built specifically for intermediate and advanced surfers.' },
-  { question: 'How much does surf coaching cost in Cocoa Beach?', answer: 'A single coaching session at Cocoa Sol Surf is $95 per person and runs 1.5 to 2 hours, with all professional gear included. Multi-session packages start at $260 for four sessions and include a professional photo session. Many surfers book one session first, then move to a package once they feel the difference.' },
+  { question: 'How much does surf coaching cost in Cocoa Beach?', answer: 'A single coaching session at Cocosol Surf Lessons is $95 per person and runs 1.5 to 2 hours, with all professional gear included. Multi-session packages start at $260 for four sessions and include a professional photo session. Many surfers book one session first, then move to a package once they feel the difference.' },
   { question: 'What actually happens during a surf coaching session?', answer: 'You start with a short beach briefing on the day\'s conditions and what you\'ll focus on. Then you\'re in the water with your coach close by, getting feedback right after your waves — where to sit, when to paddle, how to weight a turn. Every session adapts to that day\'s surf, and you walk out knowing exactly what to work on next time.' },
   { question: 'Do I need to bring my own surfboard?', answer: 'No. Every coaching session includes a premium board matched to your height, weight, and level, plus a leash, wax, UV-protection rash guard, and reef-friendly sunscreen. If you\'d rather train on your own board — say, you\'re dialing in new equipment — that\'s fine too, just let us know when you book.' },
   { question: 'Can a surf coach really help me read waves and position better?', answer: 'That\'s one of the biggest things coaching fixes. Reading the set and sitting in the right spot is the hardest skill to learn on your own, and it improves your sessions more than any single maneuver. Our coaches have surfed Cocoa Beach for 25+ years, so they know where the wave stands up on a given swell and can put you in the right place that day.' },
@@ -161,10 +162,10 @@ const faqs = [
   <ProductSchema
     slot="head"
     name="Surf Coaching Cocoa Beach"
-    description="Professional surf coaching in Cocoa Beach, Florida for intermediate and advanced surfers. Improve technique, positioning and wave selection with local coaches at Cocoa Sol Surf."
+    description="Professional surf coaching in Cocoa Beach, Florida for intermediate and advanced surfers. Improve technique, positioning and wave selection with local coaches at Cocosol Surf Lessons."
     price="95"
     url="/surf-coaching-cocoa-beach"
-    image="/images/semi-private-surf-tamarindo-wave-riding.webp"
+    image="/images/semi-private-surf-cocoa-beach-wave-riding.webp"
   />
   <FAQSchema slot="head" items={faqs} />
 
@@ -317,7 +318,7 @@ const faqs = [
   <!-- SEO INTERNAL LINKS -->
   <section class="sc-links">
     <div class="sc-links-wrap">
-      <h2 class="sc-links-title">Also Available at Cocoa Sol Surf</h2>
+      <h2 class="sc-links-title">Also Available at Cocosol Surf Lessons</h2>
       <div class="sc-links-list">
         {[
           { l: 'Private Surf Lessons',  h: '/private-surf-lessons-cocoa-beach' },

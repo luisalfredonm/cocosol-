@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets'
+export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import WhyChooseUs from '../components/sections/WhyChooseUs.astro'
@@ -10,22 +11,22 @@ import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
-import gallery1 from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
-import gallery2 from '../assets/images/surf-school-tamarindo-students.webp'
-import gallery3 from '../assets/images/surf-school-tamarindo-private-class.webp'
-import gallery4 from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import blogLessonImg from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import blogSeasonImg from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
+import heroImg from '../assets/images/surf-school-cocoa-beach-surf-instructor-student.webp'
+import gallery1 from '../assets/images/surf-school-cocoa-beach-beach-lesson.webp'
+import gallery2 from '../assets/images/surf-school-cocoa-beach-students.webp'
+import gallery3 from '../assets/images/surf-school-cocoa-beach-private-class.webp'
+import gallery4 from '../assets/images/surf-school-cocoa-beach-beginner-lesson.webp'
+import blogLessonImg from '../assets/images/surf-school-cocoa-beach-beginner-lesson.webp'
+import blogSeasonImg from '../assets/images/surf-school-cocoa-beach-surf-instructor-student.webp'
 
 const seo = seoData.home
 
 
 const gallery = [
-  { img: gallery1, alt: 'Cocoa Sol Surf School — certified instructor on Cocoa Beach' },
+  { img: gallery1, alt: 'Cocosol Surf Lessons — certified instructor on Cocoa Beach' },
   { img: gallery2, alt: 'Group surf lessons in Cocoa Beach, Florida' },
   { img: gallery3, alt: 'Surf instructor guiding student on a wave at Cocoa Beach' },
-  { img: gallery4, alt: 'Students catching their first waves at Cocoa Sol Surf School' },
+  { img: gallery4, alt: 'Students catching their first waves at Cocosol Surf Lessons' },
 ]
 
 
@@ -100,12 +101,12 @@ const faqs = [
 
         <!-- Text -->
         <div>
-          <span class="section-label mb-3 block">Welcome to CocoSol Surf</span>
+          <span class="section-label mb-3 block">Welcome to Cocosol</span>
           <h2 class="text-4xl font-extrabold text-gray-900 leading-tight mb-5">
             Learn to Surf in Cocoa Beach with Certified, Bilingual Instructors
           </h2>
           <p class="text-gray-600 leading-relaxed mb-5">
-Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-timers, families, and experienced surfers who want to level up — and we adapt every session to the real ocean conditions that day and to where you are in your learning.
+Cocosol Surf Lessons is a local surf school in Cocoa Beach, Florida. We teach first-timers, families, and experienced surfers who want to level up — and we adapt every session to the real ocean conditions that day and to where you are in your learning.
           </p>
           <ul class="space-y-3 mb-8">
             {['Bilingual & local — clear instruction whether you are from across the country or across the Atlantic', 'Safety-first method — every lesson is built around keeping you confident and in control.', 'You bring yourself. We bring everything else.'].map(i => (
@@ -137,7 +138,7 @@ Cocoa Sol Surf is a local surf school in Cocoa Beach, Florida. We teach first-ti
   <LessonsGrid />
 
   <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
-  <WhyChooseUs subtitle="Cocoa Beach is Florida's original surf town — and one of the best places on the U.S. East Coast to learn to surf. Gentle, consistent Atlantic waves break over a soft, sandy bottom, giving first-timers the perfect environment to stand up fast and build real confidence. At Cocoa Sol Surf, we go beyond the basics. Every session is built around safety, technique, and the progression that keeps you coming back for more." />
+  <WhyChooseUs subtitle="Cocoa Beach is Florida's original surf town — and one of the best places on the U.S. East Coast to learn to surf. Gentle, consistent Atlantic waves break over a soft, sandy bottom, giving first-timers the perfect environment to stand up fast and build real confidence. At Cocosol Surf Lessons, we go beyond the basics. Every session is built around safety, technique, and the progression that keeps you coming back for more." />
 
   <!-- ── PRICING & SURF CAMP ───────────────────────────────────────────────── -->
   <PricingPackages />

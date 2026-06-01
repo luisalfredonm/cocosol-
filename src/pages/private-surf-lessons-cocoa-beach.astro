@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import TrustBar from '../components/sections/TrustBar.astro'
@@ -17,11 +18,11 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg       from '../assets/images/private-surf-lessons-tamarindo-one-on-one.webp'
-import instructorImg from '../assets/images/tamarindo-private-surf-lesson-instructor.webp'
-import coachingImg   from '../assets/images/one-on-one-surf-lessons-tamarindo-coaching.webp'
-import techniqueImg  from '../assets/images/private-surf-classes-tamarindo-technique.webp'
-import ctaBgImg      from '../assets/images/tamarindo-private-surf-coaching-beginner.webp'
+import heroImg       from '../assets/images/private-surf-lessons-cocoa-beach-one-on-one.webp'
+import instructorImg from '../assets/images/cocoa-beach-private-surf-lesson-instructor.webp'
+import coachingImg   from '../assets/images/one-on-one-surf-lessons-cocoa-beach-coaching.webp'
+import techniqueImg  from '../assets/images/private-surf-classes-cocoa-beach-technique.webp'
+import ctaBgImg      from '../assets/images/cocoa-beach-private-surf-coaching-beginner.webp'
 
 const seo = seoData.privateLessons
 
@@ -156,10 +157,10 @@ const faqs = [
   <ProductSchema
     slot="head"
     name="Private Surf Lesson Cocoa Beach"
-    description="One-on-one private surf lesson in Cocoa Beach, Florida. Personalized coaching for all levels from certified instructors at Cocoa Sol Surf."
+    description="One-on-one private surf lesson in Cocoa Beach, Florida. Personalized coaching for all levels from certified instructors at Cocosol Surf Lessons."
     price="75"
     url="/private-surf-lessons-cocoa-beach"
-    image="/images/private-surf-lessons-tamarindo-one-on-one.webp"
+    image="/images/private-surf-lessons-cocoa-beach-one-on-one.webp"
   />
   <FAQSchema slot="head" items={faqs} />
 
@@ -243,7 +244,7 @@ const faqs = [
     eyebrow="Your instructor"
     title="Experienced Instructors Who Surf These Waves Every Day"
     body={[
-      'Every instructor at Cocoa Sol Surf is certified, CPR-trained, and has spent years teaching on the waves of Cocoa Beach. They know the breaks, the tides, and exactly how to read a student\'s technique from the first wave.',
+      'Every instructor at Cocosol Surf Lessons is certified, CPR-trained, and has spent years teaching on the waves of Cocoa Beach. They know the breaks, the tides, and exactly how to read a student\'s technique from the first wave.',
       'Your instructor doesn\'t just watch from the beach — they\'re in the water with you, positioning boards, timing waves, and delivering real-time corrections that make the difference between trying and actually surfing.',
     ]}
     image={instructorImg}
@@ -311,7 +312,7 @@ const faqs = [
   <!-- SEO INTERNAL LINKS -->
   <section class="psl-links">
     <div class="psl-links-wrap">
-      <h2 class="psl-links-title">Also Available at Cocoa Sol Surf</h2>
+      <h2 class="psl-links-title">Also Available at Cocosol Surf Lessons</h2>
       <div class="psl-links-list">
         {[
           { l: 'Group Surf Lessons',   h: '/group-surf-lessons-cocoa-beach' },

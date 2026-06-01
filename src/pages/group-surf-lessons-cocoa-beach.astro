@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import TrustBar from '../components/sections/TrustBar.astro'
@@ -17,11 +18,11 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg  from '../assets/images/group-surf-lessons-tamarindo-students-beach.webp'
-import groupImg from '../assets/images/beginner-surf-lessons-tamarindo-group-session.webp'
-import coachImg from '../assets/images/beginner-group-surf-lessons-tamarindo-wave.webp'
-import beachImg from '../assets/images/surf-school-tamarindo-beach-lesson.webp'
-import ctaBgImg from '../assets/images/surf-group-lessons-tamarindo-warm-water.webp'
+import heroImg  from '../assets/images/group-surf-lessons-cocoa-beach-students-beach.webp'
+import groupImg from '../assets/images/beginner-surf-lessons-cocoa-beach-group-session.webp'
+import coachImg from '../assets/images/beginner-group-surf-lessons-cocoa-beach-wave.webp'
+import beachImg from '../assets/images/surf-school-cocoa-beach-beach-lesson.webp'
+import ctaBgImg from '../assets/images/surf-group-lessons-cocoa-beach-warm-water.webp'
 
 const seo = seoData.groupLessons
 
@@ -138,16 +139,16 @@ const steps = [
 ]
 
 const faqs = [
-  { question: 'How much do group surf lessons cost in Cocoa Beach?', answer: 'Group lessons at Cocoa Sol Surf are $65 per person, per hour, with a minimum of 4 people to get the group rate. That price already covers everything — surfboard, leash, rash guard, wax, sunscreen, and your instructor — so there\'s nothing extra to rent or pay for once you show up.' },
+  { question: 'How much do group surf lessons cost in Cocoa Beach?', answer: 'Group lessons at Cocosol Surf Lessons are $65 per person, per hour, with a minimum of 4 people to get the group rate. That price already covers everything — surfboard, leash, rash guard, wax, sunscreen, and your instructor — so there\'s nothing extra to rent or pay for once you show up.' },
   { question: 'Are group surf lessons a good idea if I\'ve never surfed before?', answer: 'Yes. Cocoa Beach has gentle, rolling waves and a soft, sandy bottom — exactly the forgiving setup beginners want. Most first-timers in our group lessons are standing up and riding small waves within their first session, and learning next to friends takes most of the nerves away.' },
   { question: 'How many people can join one group surf lesson?', answer: 'We keep groups small for hands-on attention, and the group rate starts at 4 people. For bigger crews — family reunions, birthdays, work teams — we add instructors so nobody waits on the sand.' },
   { question: 'Do we need to bring our own surfboards or gear?', answer: 'No. Every spot in the lesson includes a surfboard sized to you, a leash, a UV rash guard, wax, and mineral sunscreen. You only need a swimsuit, a towel, and water.' },
   { question: 'Where is the best place to learn to surf near Orlando?', answer: 'Cocoa Beach is the best place to learn to surf near Orlando — about an hour\'s drive east and minutes from the Kennedy Space Center, with consistent, beginner-friendly waves. It\'s an easy add to any Central Florida trip.' },
-  { question: 'Can kids do a group surf lesson?', answer: 'Yes. Cocoa Sol Surf teaches surfers from age 6 and up. We size each board to the child, run a safety briefing before anyone enters the water, and our instructors are patient with first-timers, so families can learn together.' },
+  { question: 'Can kids do a group surf lesson?', answer: 'Yes. Cocosol Surf Lessons teaches surfers from age 6 and up. We size each board to the child, run a safety briefing before anyone enters the water, and our instructors are patient with first-timers, so families can learn together.' },
   { question: 'What actually happens during a group surf lesson?', answer: 'You start on the beach with a safety briefing and pop-up practice on the sand, then gear up and head into the water where your instructor helps you paddle, time the wave, and stand. The full session runs about 1.5 to 2 hours depending on ocean conditions.' },
   { question: 'Should we do a group lesson or book private lessons?', answer: 'Group lessons ($65/person) are the social, budget-friendly choice for friends and family learning together. Private lessons ($75/person) give one-on-one focus and faster progress. Many groups start social and book a private later to level up.' },
   { question: 'What should we wear and bring to the lesson?', answer: 'Wear a swimsuit or board shorts under the rash guard we provide, and bring a towel, a change of clothes, and water. Sunscreen and all surf gear are included. Photo sessions are available if you\'d rather leave your phone dry.' },
-  { question: 'How do we book a group surf lesson in Cocoa Beach?', answer: 'Book online using the form below or message Cocoa Sol Surf on WhatsApp at +1 (321) 386-9993. We\'re open every day from 9 AM to 5 PM. Peak season fills fast, so book a few days ahead, especially for larger groups.' },
+  { question: 'How do we book a group surf lesson in Cocoa Beach?', answer: 'Book online using the form below or message Cocosol Surf Lessons on WhatsApp at +1 (321) 386-9993. We\'re open every day from 9 AM to 5 PM. Peak season fills fast, so book a few days ahead, especially for larger groups.' },
 ]
 ---
 
@@ -160,10 +161,10 @@ const faqs = [
   <ProductSchema
     slot="head"
     name="Group Surf Lesson Cocoa Beach"
-    description="Group surf lesson in Cocoa Beach, Florida. Learn to surf with friends and family from certified bilingual instructors at Cocoa Sol Surf. All gear included."
+    description="Group surf lesson in Cocoa Beach, Florida. Learn to surf with friends and family from certified bilingual instructors at Cocosol Surf Lessons. All gear included."
     price="65"
     url="/group-surf-lessons-cocoa-beach"
-    image="/images/group-surf-lessons-tamarindo-students-beach.webp"
+    image="/images/group-surf-lessons-cocoa-beach-students-beach.webp"
   />
   <FAQSchema slot="head" items={faqs} />
 
@@ -316,7 +317,7 @@ const faqs = [
   <!-- SEO INTERNAL LINKS -->
   <section class="gsl-links">
     <div class="gsl-links-wrap">
-      <h2 class="gsl-links-title">Also Available at Cocoa Sol Surf</h2>
+      <h2 class="gsl-links-title">Also Available at Cocosol Surf Lessons</h2>
       <div class="gsl-links-list">
         {[
           { l: 'Private Surf Lessons',  h: '/private-surf-lessons-cocoa-beach' },

@@ -15,7 +15,7 @@ const jsonLd = {
   name,
   description,
   ...(image ? { image: image.startsWith('http') ? image : `${site}${image}` } : {}),
-  provider: { '@type': 'LocalBusiness', name: 'Cocoa Sol Surf', url: site },
+  provider: { '@type': 'LocalBusiness', name: 'Cocosol Surf Lessons', url: site },
   areaServed: { '@type': 'Place', name: 'Cocoa Beach, Florida, USA' },
   offers: {
     '@type': 'Offer',
@@ -23,7 +23,7 @@ const jsonLd = {
     priceCurrency: currency,
     availability: 'https://schema.org/InStock',
     url: url.startsWith('http') ? url : `${site}${url}`,
-    seller: { '@type': 'Organization', name: 'Cocoa Sol Surf' },
+    seller: { '@type': 'Organization', name: 'Cocosol Surf Lessons' },
   },
 }
 ---

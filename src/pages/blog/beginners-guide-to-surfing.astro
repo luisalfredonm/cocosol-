@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import NeedHelp from '../../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
@@ -11,7 +12,7 @@ const seo = {
   slug: '/blog/beginners-guide-to-surfing',
   keyfocus: 'beginners guide to surfing',
   synonyms: ['how to start surfing', 'surfing for beginners', 'learn to surf guide', 'first time surfing tips'],
-  image: '/images/surf-school-tamarindo-beginner-lesson.webp',
+  image: '/images/surf-school-cocoa-beach-beginner-lesson.webp',
 }
 
 const faqs = [
@@ -20,7 +21,7 @@ const faqs = [
   { q: 'How long does it take to learn to surf?', a: 'Most beginners stand up and ride their first wave in their very first lesson. Getting comfortable on unbroken green waves takes a few sessions. Surfing with any real consistency and reading waves takes months to years. The curve is steep at first and then gradual — which is what makes surfing so addictive.' },
   { q: 'Is surfing hard to learn?', a: 'The basics — paddling out, catching a wave, and popping up — are learnable in a single lesson for most people. What takes time is the ocean knowledge: reading waves, positioning in the lineup, and timing. A certified instructor compresses the learning curve significantly by teaching you what actually matters from day one.' },
   { q: 'What should I wear to a surf lesson?', a: 'Wear a swimsuit or board shorts under the rash guard your instructor provides. Bring a towel and a change of dry clothes. Leave your phone in the car or with someone on the beach — you won\'t need it. Everything else (board, leash, rash guard, sunscreen) is included in your lesson.' },
-  { q: 'Private lesson or group lesson for a beginner?', a: 'Both work. Private lessons give you 100% of the instructor\'s attention and are faster for progression — ideal if you\'re short on time or want to progress quickly. Group lessons are more social, more fun if you\'re going with friends, and cost less. At Cocoa Sol Surf, we offer both — private from $75, group from $65 per person.' },
+  { q: 'Private lesson or group lesson for a beginner?', a: 'Both work. Private lessons give you 100% of the instructor\'s attention and are faster for progression — ideal if you\'re short on time or want to progress quickly. Group lessons are more social, more fun if you\'re going with friends, and cost less. At Cocosol Surf Lessons, we offer both — private from $75, group from $65 per person.' },
 ]
 ---
 
@@ -31,7 +32,7 @@ const faqs = [
 
   <!-- HERO -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-tamarindo-beginner-lesson.webp'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-cocoa-beach-beginner-lesson.webp'); background-size: cover; background-position: center;"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
     <div class="relative z-10 container mx-auto px-4">
       <div class="max-w-3xl">
@@ -224,7 +225,7 @@ const faqs = [
   <!-- INTERNAL LINKS -->
   <section class="py-12 bg-white border-t border-gray-100">
     <div class="container mx-auto px-4 max-w-2xl">
-      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocoa Sol Surf</h2>
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocosol Surf Lessons</h2>
       <div class="flex flex-wrap gap-3">
         {[
           { l: 'Private Surf Lessons', h: '/private-surf-lessons-cocoa-beach' },

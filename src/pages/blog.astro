@@ -1,14 +1,15 @@
 ---
 import { Image } from 'astro:assets'
+export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import NeedHelp from '../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
 import type { ImageMetadata } from 'astro'
 
-import imgSurf    from '../assets/images/surf-school-tamarindo-surf-instructor-student.webp'
-import imgBeginner from '../assets/images/surf-school-tamarindo-beginner-lesson.webp'
-import imgStudents from '../assets/images/surf-school-tamarindo-students.webp'
+import imgSurf    from '../assets/images/surf-school-cocoa-beach-surf-instructor-student.webp'
+import imgBeginner from '../assets/images/surf-school-cocoa-beach-beginner-lesson.webp'
+import imgStudents from '../assets/images/surf-school-cocoa-beach-students.webp'
 
 const seo = seoData.blog
 
@@ -76,7 +77,7 @@ const categoryColors: Record<string, string> = {
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-20" style="background-image: url('/images/surf-school-tamarindo-surf-instructor-student.webp'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 opacity-20" style="background-image: url('/images/surf-school-cocoa-beach-surf-instructor-student.webp'); background-size: cover; background-position: center;"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900/95"></div>
     <div class="relative z-10 container mx-auto px-4 text-center">
       <span class="inline-block bg-[#00BCD4]/20 text-[#4DD0E1] text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase border border-[#00BCD4]/30">
@@ -86,7 +87,7 @@ const categoryColors: Record<string, string> = {
         Surf Tips & Cocoa Beach Guides
       </h1>
       <p class="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed">
-        Learn how to surf faster, plan your Cocoa Beach trip, and get insider tips from our certified instructors at Cocoa Sol Surf School.
+        Learn how to surf faster, plan your Cocoa Beach trip, and get insider tips from our certified instructors at Cocosol Surf Lessons.
       </p>
     </div>
   </section>

@@ -91,7 +91,7 @@ export default function StepConfirmation({ bookingIds, totalAmount, items, conta
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 text-left mb-8">
           <h4 className="font-bold text-amber-900 mb-1">Meeting Point</h4>
           <p className="text-sm text-amber-800">
-            Meet your instructor at the <strong>Pura Vida Surf School tent on Tamarindo Beach</strong>,{' '}
+            Meet your instructor at the <strong>Cocosol Surf Lessons truck on Cocoa Beach</strong>,{' '}
             <strong>15 minutes before</strong> your session start time.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function StepConfirmation({ bookingIds, totalAmount, items, conta
         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-5 text-left mb-8">
           <h4 className="font-bold text-blue-900 mb-1">Meeting Point</h4>
           <p className="text-sm text-blue-800">
-            Meet your instructor at the <strong>Pura Vida Surf School tent on Tamarindo Beach</strong>,{' '}
+            Meet your instructor at the <strong>Cocosol Surf Lessons truck on Cocoa Beach</strong>,{' '}
             <strong>15 minutes before</strong> your session. Payment is collected there.
           </p>
         </div>

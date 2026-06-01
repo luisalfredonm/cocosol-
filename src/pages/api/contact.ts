@@ -47,7 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
       from: fromEmail,
       to:   adminEmail,
       reply_to: email,
-      subject: `[Cocoa Sol] Contact form — ${topic || 'General'} — ${fname} ${lname}`,
+      subject: `[Cocosol] Contact form — ${topic || 'General'} — ${fname} ${lname}`,
       html,
     }),
   })

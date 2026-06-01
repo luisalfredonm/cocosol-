@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config"; // ← quitar passthroughImageService
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
+import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 
 export default defineConfig({
@@ -8,6 +9,10 @@ export default defineConfig({
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
+    sitemap({
+      // admin is private; api are endpoints — both excluded from the sitemap
+      filter: (page) => !page.includes("/admin"),
+    }),
   ],
   output: "server",
   adapter: vercel({
@@ -21,7 +26,9 @@ export default defineConfig({
     },
   }),
   compressHTML: true,
-  build: { inlineStylesheets: "always" },
+  // URLs sin trailing slash — coincide con los canonical de SEOHead y los links internos
+  trailingSlash: "never",
+  build: { inlineStylesheets: "always", format: "file" },
   prefetch: {
     prefetchAll: false,
     defaultStrategy: "hover",
@@ -35,25 +42,9 @@ export default defineConfig({
       destination: "/sitemap-index.xml",
       status: 301,
     },
-    "/surf-lessons-tamarindo": {
-      destination: "/",
-      status: 301,
-    },
-    "/7-days-surf-camp-package": {
-      destination: "/7-days-surf-camp-tamarindo",
-      status: 301,
-    },
     "/about": { destination: "/best-surf-school-cocoa-beach", status: 301 },
     "/about-us": { destination: "/best-surf-school-cocoa-beach", status: 301 },
     "/book": { destination: "/book-now", status: 301 },
     "/booking": { destination: "/book-now", status: 301 },
-    "/blog/best-time-to-surf-tamarindo": { destination: "/blog", status: 301 },
-    "/blog/how-to-get-from-san-jose-to-tamarindo": { destination: "/blog", status: 301 },
-    "/blog/is-tamarindo-good-for-beginner-surfers": { destination: "/blog/is-cocoa-beach-good-for-surfing", status: 301 },
-    "/blog/surf-trip-costa-rica-packing-list": { destination: "/blog", status: 301 },
-    "/blog/surfing-with-kids-tamarindo": { destination: "/blog", status: 301 },
-    "/blog/tamarindo-vs-jaco-surf-beginners": { destination: "/blog", status: 301 },
-    "/blog/what-is-a-surf-camp": { destination: "/blog", status: 301 },
-    "/blog/what-to-expect-first-surf-lesson-tamarindo": { destination: "/blog/beginners-guide-to-surfing", status: 301 },
   },
 });

@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import TrustBar from '../components/sections/TrustBar.astro'
@@ -17,11 +18,11 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
 import { seoData } from '../lib/seo'
 
-import heroImg       from '../assets/images/best-surf-camp-tamarindo-costa-rica.webp'
-import kidsWaterImg  from '../assets/images/surf-camp-costa-rica-tamarindo-students.webp'
-import coachingImg   from '../assets/images/surf-camp-tamarindo-instructor-coaching.webp'
-import locationImg   from '../assets/images/surf-camp-tamarindo-guided-surf-trip.webp'
-import ctaBgImg      from '../assets/images/surf-camp-costa-rica-tamarindo-sunset.webp'
+import heroImg       from '../assets/images/best-surf-camp-cocoa-beach-costa-rica.webp'
+import kidsWaterImg  from '../assets/images/surf-camp-costa-rica-cocoa-beach-students.webp'
+import coachingImg   from '../assets/images/surf-camp-cocoa-beach-instructor-coaching.webp'
+import locationImg   from '../assets/images/surf-camp-cocoa-beach-guided-surf-trip.webp'
+import ctaBgImg      from '../assets/images/surf-camp-costa-rica-cocoa-beach-sunset.webp'
 
 const seo = seoData.surfCamp
 
@@ -102,7 +103,7 @@ const audienceCards = [
   {
     num:   '03',
     title: 'Certified & Bilingual',
-    body:  'Every coach at Cocoa Sol is certified in surf instruction and water safety. All are bilingual, so kids from across the U.S. and international visitors get the same clear, patient guidance — in the language that works best for them.',
+    body:  'Every coach at Cocosol is certified in surf instruction and water safety. All are bilingual, so kids from across the U.S. and international visitors get the same clear, patient guidance — in the language that works best for them.',
   },
   {
     num:   '04',
@@ -137,7 +138,7 @@ const faqs = [
   { question: 'What does the camp include?', answer: 'Every camp week includes daily surf coaching (Mon–Fri), a certified bilingual instructor assigned to your group for the full week, all surf gear (board, leash, rash guard, mineral sunscreen), a daily beach safety briefing, and one professional photo session of your child surfing.' },
   { question: 'What should my child bring?', answer: 'Just bring sunscreen, a towel, water, and a good breakfast. We provide the surfboard, leash, rash guard, and reef-friendly sunscreen. Comfortable swimwear or board shorts are fine. No flip-flops in the water.' },
   { question: 'What happens if there are bad waves or unsafe conditions?', answer: 'Safety is always the first call. If conditions are not suitable for kids — whether from storm swells, strong currents, or lightning — we adapt: shorten the water session, move to a protected area, or reschedule the session. We\'ve been reading these conditions for 25+ years. You\'re in good hands.' },
-  { question: 'Are the instructors certified?', answer: 'Yes. Every coach at Cocoa Sol Surf is certified in surf instruction and water safety. All coaches are also bilingual, so kids who are more comfortable in Spanish get the same quality of instruction.' },
+  { question: 'Are the instructors certified?', answer: 'Yes. Every coach at Cocosol Surf Lessons is certified in surf instruction and water safety. All coaches are also bilingual, so kids who are more comfortable in Spanish get the same quality of instruction.' },
   { question: 'Can siblings of different ages join the same group?', answer: 'Absolutely. Siblings are actually ideal — same drop-off, same schedule, and they push each other in the water. If there\'s a big age or skill gap, we may make small adjustments to how the session is structured, but they stay together.' },
   { question: 'Where exactly does the camp take place?', answer: 'All sessions are held at Cocoa Beach, Florida — one of the best beginner surf spots on the East Coast. We use sections of the beach that are specifically suited for kids: consistent whitewater, no rocks, and away from crowded areas.' },
   { question: 'How do I book and what is the payment policy?', answer: 'Book online through the form on this page or reach out on WhatsApp at +1 (321) 386-9993. We require a deposit to confirm your week. Full balance is due before the first session. If you need to reschedule, contact us at least 48 hours in advance.' },
@@ -155,7 +156,7 @@ const faqs = [
     description="Kids surf camp in Cocoa Beach, Florida. 5 days of progressive surf coaching with certified instructors, 3:1 max ratio, all gear included, and professional photo session."
     price="350"
     url="/surf-camp-cocoa-beach"
-    image="/images/best-surf-camp-tamarindo-costa-rica.webp"
+    image="/images/best-surf-camp-cocoa-beach-costa-rica.webp"
   />
   <FAQSchema slot="head" items={faqs} />
 
@@ -312,7 +313,7 @@ const faqs = [
   <!-- SEO INTERNAL LINKS -->
   <section class="scc-links">
     <div class="scc-links-wrap">
-      <h2 class="scc-links-title">Also Available at Cocoa Sol Surf</h2>
+      <h2 class="scc-links-title">Also Available at Cocosol Surf Lessons</h2>
       <div class="scc-links-list">
         {[
           { l: 'Private Surf Lessons',  h: '/private-surf-lessons-cocoa-beach' },

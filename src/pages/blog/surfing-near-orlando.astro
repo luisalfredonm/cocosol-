@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import NeedHelp from '../../components/sections/NeedHelp.astro'
 import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
@@ -11,7 +12,7 @@ const seo = {
   slug: '/blog/surfing-near-orlando',
   keyfocus: 'surfing near orlando',
   synonyms: ['surf lessons near orlando', 'surfing from orlando', 'surf near orlando florida', 'cocoa beach from orlando'],
-  image: '/images/surf-school-tamarindo-students.webp',
+  image: '/images/surf-school-cocoa-beach-students.webp',
 }
 
 const faqs = [
@@ -19,7 +20,7 @@ const faqs = [
   { q: 'Can I take a surf lesson as a day trip from Orlando?', a: 'Absolutely. A surf lesson takes 90 minutes to 2 hours, which means you can drive from Orlando in the morning, take your lesson, grab lunch on the beach, and be back by mid-afternoon. Many guests combine it with a visit to the Kennedy Space Center, which is minutes away.' },
   { q: 'Is Cocoa Beach a good place to learn to surf near Orlando?', a: 'Yes — it\'s the best option near Orlando. The waves at Cocoa Beach are gentle and consistent, the bottom is sandy (no sharp reef), and the area has established surf schools with certified instructors. You\'ll stand up on your first lesson at the same beach where Ron Jon\'s has been selling surf gear since 1963.' },
   { q: 'Is there surfing near Disney World?', a: 'Disney World is in Kissimmee, about 75 miles from the beach. The closest Atlantic surf is at Cocoa Beach (1 hr 15 min) or New Smyrna Beach (about 1.5 hours). For families visiting Disney who want to add a surf day, Cocoa Beach is the standard choice — it\'s the easiest route and has the most surf infrastructure.' },
-  { q: 'What is the best surf school near Orlando?', a: 'Cocoa Sol Surf School in Cocoa Beach is a certified local school about one hour from Orlando. We offer private lessons ($75/person), group lessons ($65/person), surf coaching for intermediate and advanced surfers, and a kids surf camp. All gear is included in every session.' },
+  { q: 'What is the best surf school near Orlando?', a: 'Cocosol Surf Lessons in Cocoa Beach is a certified local school about one hour from Orlando. We offer private lessons ($75/person), group lessons ($65/person), surf coaching for intermediate and advanced surfers, and a kids surf camp. All gear is included in every session.' },
   { q: 'How do I get from Orlando to Cocoa Beach?', a: 'Drive east on SR 528 (Beachline Expressway) directly to Cocoa Beach — about 60 miles, 1 hour without traffic. Public transit exists but is slow and impractical for a surf trip. Rideshare (Uber/Lyft) works but expensive for a day trip. Most guests drive their rental car or their own vehicle.' },
 ]
 ---
@@ -31,7 +32,7 @@ const faqs = [
 
   <!-- HERO -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-tamarindo-students.webp'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/surf-school-cocoa-beach-students.webp'); background-size: cover; background-position: center;"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
     <div class="relative z-10 container mx-auto px-4">
       <div class="max-w-3xl">
@@ -167,7 +168,7 @@ const faqs = [
 
         <h2>Practical Details</h2>
         <ul>
-          <li><strong>Location:</strong> 400 Jetty Park Rd, Port Canaveral, FL 32920</li>
+          <li><strong>Location:</strong> 632 Adams Ave, Cape Canaveral, FL 32920</li>
           <li><strong>Phone:</strong> (321) 386-9993</li>
           <li><strong>Hours:</strong> Open daily, 9 AM–5 PM</li>
           <li><strong>Booking:</strong> Online at cocosolsurf.com or by phone/WhatsApp</li>
@@ -197,7 +198,7 @@ const faqs = [
   <!-- INTERNAL LINKS -->
   <section class="py-12 bg-white border-t border-gray-100">
     <div class="container mx-auto px-4 max-w-2xl">
-      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocoa Sol Surf</h2>
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocosol Surf Lessons</h2>
       <div class="flex flex-wrap gap-3">
         {[
           { l: 'Private Surf Lessons — $75', h: '/private-surf-lessons-cocoa-beach' },
