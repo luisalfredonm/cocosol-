@@ -29,12 +29,12 @@ const seo = seoData.privateLessons
 const trustItems = [
   { value: '5★',      label: 'Google Rating' },
   { value: '100%',    label: 'Satisfaction' },
-  { value: '90 min',  label: 'Per Session' },
+  { value: '1–2 hr',  label: 'Per Session' },
   { value: 'All Levels', label: 'Welcome' },
 ]
 
 const priceRows = [
-  { name: 'Single Lesson',  note: '90 min · 1 instructor',      sessions: '1 session',  price: '$75',  popular: false },
+  { name: 'Single Lesson',  note: '1–2 hr · 1 instructor',      sessions: '1 session',  price: '$75',  popular: false },
   { name: '3-Lesson Pack',  note: 'Save $15 — valid 30 days',   sessions: '3 sessions', price: '$210', popular: true  },
   { name: '5-Lesson Pack',  note: 'Save $50 — best value',      sessions: '5 sessions', price: '$325', popular: false },
 ]
@@ -139,9 +139,9 @@ const steps = [
 ]
 
 const faqs = [
-  { question: 'What is included in a private surf lesson?', answer: 'Every private lesson includes a certified instructor, surfboard, foam guard, beach safety briefing, and 90 minutes of one-on-one instruction in the water. Photos are available on request.' },
+  { question: 'What is included in a private surf lesson?', answer: 'Every private lesson includes a certified instructor, surfboard, foam guard, beach safety briefing, and 1 to 2 hours of one-on-one instruction in the water. Photos are available on request.' },
   { question: 'Are private surf lessons suitable for complete beginners?', answer: "Absolutely. Private lessons are the best option for beginners because you get 100% of the instructor's attention. You'll progress much faster than in a group setting, and your instructor can prioritize your safety at every step." },
-  { question: 'How long does each private surf lesson last?', answer: 'Each session is 90 minutes total, including a land safety briefing and active time in the water with your instructor.' },
+  { question: 'How long does each private surf lesson last?', answer: 'Each session runs 1 to 2 hours total, including a land safety briefing and active time in the water with your instructor.' },
   { question: 'Do I need to bring my own surfboard or equipment?', answer: 'No — a surfboard and all necessary gear are included with every lesson. We provide the right board for your level and body size.' },
   { question: 'What should I bring to my surf lesson?', answer: 'Wear or bring a swimsuit. We recommend reef-safe sunscreen, a towel, and a water bottle. Everything else is provided by us.' },
   { question: 'Can I cancel or reschedule my lesson?', answer: 'Yes. We offer flexible rescheduling up to 24 hours before your session at no extra charge. Contact us via WhatsApp for any last-minute changes.' },
@@ -181,7 +181,7 @@ const faqs = [
   <LessonPricing
     eyebrow="Pricing"
     title="Simple, All-Inclusive Pricing"
-    lead1="One-on-one coaching from a certified instructor. Everything you need is included — board, gear, and full attention for 90 minutes."
+    lead1="One-on-one coaching from a certified instructor. Everything you need is included — board, gear, and full attention for 1 to 2 hours."
     lead2="Book a single session or save with a multi-lesson pack. All sessions are valid for 30 days from purchase."
     rows={priceRows}
     altLinks={[
@@ -193,7 +193,7 @@ const faqs = [
     cardUnit="/ session · 1 person"
     cardIncludes={[
       'Certified instructor (1-on-1)',
-      '90-minute session',
+      '1-to-2-hour session',
       'Surfboard & foam guard',
       'Beach safety briefing',
       'Photos available on request',
@@ -266,7 +266,7 @@ const faqs = [
       {
         name: 'Jess Armijo',
         role: 'Intermediate surfer',
-        text: "I've spent years underwater as a diver but surfing was a completely different challenge. My instructor broke everything down perfectly — pop-up, reading the wave, weight distribution. By the end of the 90 minutes I was standing. Worth every penny.",
+        text: "I've spent years underwater as a diver but surfing was a completely different challenge. My instructor broke everything down perfectly — pop-up, reading the wave, weight distribution. By the end of the session I was standing. Worth every penny.",
       },
     ]}
   />
@@ -344,7 +344,7 @@ const faqs = [
     font-family: 'Fraunces', Georgia, serif;
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 600;
-    color: #0A3A40;
+    color: var(--c-heading);
     margin-bottom: 36px;
     line-height: 1.1;
   }
@@ -377,13 +377,13 @@ const faqs = [
     font-family: 'Fraunces', Georgia, serif;
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 600;
-    color: #0A3A40;
+    color: var(--c-heading);
     margin-bottom: 10px;
     line-height: 1.1;
   }
   .psl-book-sub {
     font-size: 1rem;
-    color: #5A7270;
+    color: var(--c-muted);
     max-width: 480px;
     margin: 0 auto;
     line-height: 1.65;
@@ -422,7 +422,7 @@ const faqs = [
     border: 1px solid #e5e7eb;
     border-radius: 999px;
     font-size: .88rem;
-    color: #5A7270;
+    color: var(--c-muted);
     font-weight: 500;
     text-decoration: none;
     transition: border-color .2s, color .2s;

@@ -100,7 +100,7 @@ const {
             {cardIncludes.map(item => (
               <li>
                 <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                  <path d="M4 10l4 4 8-8" stroke="#FFD079" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4 10l4 4 8-8" stroke="#FFD79A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 {item}
               </li>
@@ -124,14 +124,14 @@ const {
 
 <style>
   .lp-section {
-    --deep:       #0A3A40;
-    --brand:      #00BCD4;
-    --brand-dark: #0097A7;
-    --brand-text: #00838F;
-    --coral:      #FF6A4D;
-    --gold:       #FFD079;
-    --sand:       #FCF8F0;
-    --muted:      #5A7270;
+    --deep:       var(--c-ink);
+    --brand:      var(--teal-primary);
+    --brand-dark: var(--teal-dark);
+    --brand-text: var(--teal-text);
+    --coral:      var(--c-sunrise);
+    --gold:       var(--c-gold-soft);
+    --sand:       var(--c-paper-cool);
+    --muted:      var(--c-muted);
     --line:       rgba(10,58,64,.10);
     --maxw:       1180px;
     padding: 88px 0 96px;

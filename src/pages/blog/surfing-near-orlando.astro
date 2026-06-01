@@ -17,7 +17,7 @@ const seo = {
 
 const faqs = [
   { q: 'How far is Cocoa Beach from Orlando?', a: 'Cocoa Beach is about 60 miles east of Orlando — roughly a one-hour drive on the Beachline Expressway (SR 528), depending on traffic. It\'s the closest ocean beach to Orlando and the most accessible surf destination in Central Florida.' },
-  { q: 'Can I take a surf lesson as a day trip from Orlando?', a: 'Absolutely. A surf lesson takes 90 minutes to 2 hours, which means you can drive from Orlando in the morning, take your lesson, grab lunch on the beach, and be back by mid-afternoon. Many guests combine it with a visit to the Kennedy Space Center, which is minutes away.' },
+  { q: 'Can I take a surf lesson as a day trip from Orlando?', a: 'Absolutely. A surf lesson takes 1 to 2 hours, which means you can drive from Orlando in the morning, take your lesson, grab lunch on the beach, and be back by mid-afternoon. Many guests combine it with a visit to the Kennedy Space Center, which is minutes away.' },
   { q: 'Is Cocoa Beach a good place to learn to surf near Orlando?', a: 'Yes — it\'s the best option near Orlando. The waves at Cocoa Beach are gentle and consistent, the bottom is sandy (no sharp reef), and the area has established surf schools with certified instructors. You\'ll stand up on your first lesson at the same beach where Ron Jon\'s has been selling surf gear since 1963.' },
   { q: 'Is there surfing near Disney World?', a: 'Disney World is in Kissimmee, about 75 miles from the beach. The closest Atlantic surf is at Cocoa Beach (1 hr 15 min) or New Smyrna Beach (about 1.5 hours). For families visiting Disney who want to add a surf day, Cocoa Beach is the standard choice — it\'s the easiest route and has the most surf infrastructure.' },
   { q: 'What is the best surf school near Orlando?', a: 'Cocosol Surf Lessons in Cocoa Beach is a certified local school about one hour from Orlando. We offer private lessons ($75/person), group lessons ($65/person), surf coaching for intermediate and advanced surfers, and a kids surf camp. All gear is included in every session.' },
@@ -64,7 +64,7 @@ const faqs = [
   </section>
 
   <!-- KEY FACTS BAR -->
-  <section class="bg-[#0A3A40] py-10">
+  <section class="bg-[#0C2128] py-10">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto text-center">
         {[
@@ -74,7 +74,7 @@ const faqs = [
           { value: '$75', label: 'lesson from' },
         ].map(s => (
           <div>
-            <p class="text-2xl font-extrabold text-[#FFD079] mb-1">{s.value}</p>
+            <p class="text-2xl font-extrabold text-[#FFD79A] mb-1">{s.value}</p>
             <p class="text-sm text-white/60 font-medium">{s.label}</p>
           </div>
         ))}
@@ -123,7 +123,7 @@ const faqs = [
 
         <h2>How to Fit a Surf Lesson Into an Orlando Trip</h2>
         <p>
-          A surf lesson runs 90 minutes to 2 hours. Add the drive from Orlando (1 hour each way) and you're looking at a 4–5 hour commitment for a half-day. This means you can realistically:
+          A surf lesson runs 1 to 2 hours. Add the drive from Orlando (1 hour each way) and you're looking at a 4–5 hour commitment for a half-day. This means you can realistically:
         </p>
         <ul>
           <li><strong>Leave Orlando at 8 AM</strong> → arrive Cocoa Beach 9 AM → lesson 9:30–11:30 AM → lunch on the beach → back in Orlando by 2–3 PM</li>
@@ -135,7 +135,7 @@ const faqs = [
         </p>
 
         <div class="not-prose bg-[#EFF9FB] rounded-2xl p-8 border border-[#00BCD4]/20 my-10">
-          <h3 class="text-xl font-bold text-[#0A3A40] mb-3">Book your Cocoa Beach surf lesson</h3>
+          <h3 class="text-xl font-bold text-[#0E2A33] mb-3">Book your Cocoa Beach surf lesson</h3>
           <p class="text-gray-600 mb-5">60 minutes from Orlando. All gear included. Most first-timers stand up on their very first wave.</p>
           <div class="flex flex-wrap gap-3">
             <a href="/book-now" class="inline-flex items-center px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-xl hover:bg-[#0097A7] transition-colors">
@@ -217,8 +217,8 @@ const faqs = [
 </BaseLayout>
 
 <style>
-  .prose h2 { font-family: 'Fraunces', Georgia, serif; color: #0A3A40; margin-top: 2.5rem; margin-bottom: 1rem; }
-  .prose h3 { color: #0A3A40; margin-top: 1.75rem; }
+  .prose h2 { font-family: 'Fraunces', Georgia, serif; color: var(--c-heading); margin-top: 2.5rem; margin-bottom: 1rem; }
+  .prose h3 { color: var(--c-heading); margin-top: 1.75rem; }
   .prose a { color: #00838F; }
   .prose a:hover { color: #0097A7; }
 </style>

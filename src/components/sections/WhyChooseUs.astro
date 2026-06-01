@@ -130,16 +130,16 @@ const {
 <style>
   /* ── Variables ────────────────────────────────────────────────────── */
   .wcu-section {
-    --deep:      #0A3A40;
-    --brand:     #00BCD4;
-    --brand-dark:#0097A7;
-    --brand-text:#00838F;
-    --brand-strong:#006064;   /* teal text on tinted/sand bg — AA 7:1 */
+    --deep:      var(--c-ink);
+    --brand:     var(--teal-primary);
+    --brand-dark:var(--teal-dark);
+    --brand-text:var(--teal-text);
+    --brand-strong:var(--teal-text-strong);   /* teal text on tinted bg — AA 7:1 */
     --aqua:      #26C6DA;
-    --cream:     #FFFDF8;
-    --sand-2:    #FCF8F0;
-    --sun:       #F2A93B;
-    --coral:     #FF6A4D;
+    --cream:     var(--c-cream-cool);
+    --sand-2:    var(--c-paper-cool);
+    --sun:       var(--c-gold);
+    --coral:     var(--c-sunrise);
     --line:      rgba(0,188,212,.12);
     --shadow-sm: 0 8px 22px -12px rgba(0,188,212,.15);
     --shadow:    0 18px 40px -18px rgba(0,188,212,.20);
@@ -184,7 +184,7 @@ const {
     margin-bottom: 16px;
   }
   .wcu-subtitle {
-    color: #3c5654;
+    color: var(--c-muted-soft);
     font-size: 1.08rem;
     margin: 0;
   }
@@ -254,7 +254,7 @@ const {
     color: var(--deep);
     margin-bottom: 4px;
   }
-  .wcu-steps span { color: #3c5654; font-size: .96rem; }
+  .wcu-steps span { color: var(--c-muted-soft); font-size: .96rem; }
 
   /* ── Aside ────────────────────────────────────────────────────────── */
   .wcu-aside {
@@ -323,7 +323,7 @@ const {
     color: var(--deep);
     margin-bottom: 10px;
   }
-  .wcu-card p { color: #3c5654; font-size: .97rem; margin: 0; }
+  .wcu-card p { color: var(--c-muted-soft); font-size: .97rem; margin: 0; }
 
   /* ── Gear extras ──────────────────────────────────────────────────── */
   .wcu-gear {

@@ -25,13 +25,47 @@
 
 @layer base {
   :root {
+    /* ── Brand — electric Atlantic teal (the signature, unchanged) ───────── */
     --teal-primary:      #00BCD4;  /* Brand accent — buttons, icons, decorative */
     --teal-dark:         #0097A7;  /* Hover / darker accent */
     --teal-text:         #00838F;  /* Text on white — 4.8:1 contrast ✓ AA */
     --teal-text-strong:  #006064;  /* High-emphasis text — 6.5:1 contrast ✓ AAA */
     --teal-tint:         rgba(0,188,212,.08);  /* Subtle background tint */
     --teal-border:       rgba(0,188,212,.20);  /* Border / divider accent */
-    --navy:              #0A1628;
+
+    /* ═══ ATLANTIC SPACE COAST — palette system ═══════════════════════════
+       Same teal brand, but the surroundings cool down from warm-tropical
+       (Costa Rica) toward cool Atlantic morning light. One source of truth:
+       tweak these to retheme the whole site.                               */
+
+    /* Ink — cool Atlantic night: dark sections + deepest headings */
+    --c-ink:          #0C2128;
+    --c-ink-soft:     #10303A;     /* lifted ink for gradients */
+    --c-heading:      #0E2A33;     /* headings on light surfaces */
+
+    /* Paper — cool morning light (replaces warm cream/sand) */
+    --c-paper:        #FFFFFF;
+    --c-paper-cool:   #F4F8F9;     /* cool off-white section background */
+    --c-cream-cool:   #FBFDFE;     /* cool card surface */
+    --c-mist:         #EFF8FA;     /* faint teal-tinted section */
+
+    /* Text — cool neutrals (replace warm greys) */
+    --c-text:         #14272E;
+    --c-muted:        #586F76;     /* cool blue-grey body copy */
+    --c-muted-soft:   #3D565C;     /* stronger muted on light */
+
+    /* Sunrise — Space Coast accent (replaces tropical coral) */
+    --c-sunrise:      #FF7A45;     /* decorative: borders, icons, glows */
+    --c-sunrise-cta:  #C2410C;     /* white text sits on it — AA 5.2:1 */
+    --c-sunrise-ink:  #C2410C;     /* sunrise text on light — AA */
+    --c-sunrise-dark: #9F3409;     /* hover */
+    --c-sunrise-glow: #FF8A5C;     /* sunrise text on dark navy — AA */
+
+    /* Gold — value spark (prices, rating stars) */
+    --c-gold:         #FFC24B;
+    --c-gold-soft:    #FFD79A;     /* gold on dark surfaces */
+
+    --navy:           #0C2128;
   }
 
   html { scroll-behavior: smooth; }

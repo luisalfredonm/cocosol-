@@ -29,7 +29,7 @@ const seo = seoData.groupLessons
 const trustItems = [
   { value: '5★',       label: 'Google Rating' },
   { value: '$65',      label: 'Per Person' },
-  { value: '1.5–2 hr', label: 'Per Session' },
+  { value: '1–2 hr', label: 'Per Session' },
   { value: 'Bilingual', label: 'Certified Pros' },
 ]
 
@@ -145,7 +145,7 @@ const faqs = [
   { question: 'Do we need to bring our own surfboards or gear?', answer: 'No. Every spot in the lesson includes a surfboard sized to you, a leash, a UV rash guard, wax, and mineral sunscreen. You only need a swimsuit, a towel, and water.' },
   { question: 'Where is the best place to learn to surf near Orlando?', answer: 'Cocoa Beach is the best place to learn to surf near Orlando — about an hour\'s drive east and minutes from the Kennedy Space Center, with consistent, beginner-friendly waves. It\'s an easy add to any Central Florida trip.' },
   { question: 'Can kids do a group surf lesson?', answer: 'Yes. Cocosol Surf Lessons teaches surfers from age 6 and up. We size each board to the child, run a safety briefing before anyone enters the water, and our instructors are patient with first-timers, so families can learn together.' },
-  { question: 'What actually happens during a group surf lesson?', answer: 'You start on the beach with a safety briefing and pop-up practice on the sand, then gear up and head into the water where your instructor helps you paddle, time the wave, and stand. The full session runs about 1.5 to 2 hours depending on ocean conditions.' },
+  { question: 'What actually happens during a group surf lesson?', answer: 'You start on the beach with a safety briefing and pop-up practice on the sand, then gear up and head into the water where your instructor helps you paddle, time the wave, and stand. The full session runs about 1 to 2 hours depending on ocean conditions.' },
   { question: 'Should we do a group lesson or book private lessons?', answer: 'Group lessons ($65/person) are the social, budget-friendly choice for friends and family learning together. Private lessons ($75/person) give one-on-one focus and faster progress. Many groups start social and book a private later to level up.' },
   { question: 'What should we wear and bring to the lesson?', answer: 'Wear a swimsuit or board shorts under the rash guard we provide, and bring a towel, a change of clothes, and water. Sunscreen and all surf gear are included. Photo sessions are available if you\'d rather leave your phone dry.' },
   { question: 'How do we book a group surf lesson in Cocoa Beach?', answer: 'Book online using the form below or message Cocosol Surf Lessons on WhatsApp at +1 (321) 386-9993. We\'re open every day from 9 AM to 5 PM. Peak season fills fast, so book a few days ahead, especially for larger groups.' },
@@ -197,7 +197,7 @@ const faqs = [
     cardUnit="/ person · min. 4 people"
     cardIncludes={[
       'Premium surfboard (sized to you)',
-      '1.5–2 hour guided session',
+      '1–2 hour guided session',
       'Leash, rash guard & sunscreen',
       'Beach safety briefing',
       'Certified bilingual instructor',
@@ -349,7 +349,7 @@ const faqs = [
     font-family: 'Fraunces', Georgia, serif;
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 600;
-    color: #0A3A40;
+    color: var(--c-heading);
     margin-bottom: 36px;
     line-height: 1.1;
   }
@@ -382,13 +382,13 @@ const faqs = [
     font-family: 'Fraunces', Georgia, serif;
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 600;
-    color: #0A3A40;
+    color: var(--c-heading);
     margin-bottom: 10px;
     line-height: 1.1;
   }
   .gsl-book-sub {
     font-size: 1rem;
-    color: #5A7270;
+    color: var(--c-muted);
     max-width: 480px;
     margin: 0 auto;
     line-height: 1.65;
@@ -427,7 +427,7 @@ const faqs = [
     border: 1px solid #e5e7eb;
     border-radius: 999px;
     font-size: .88rem;
-    color: #5A7270;
+    color: var(--c-muted);
     font-weight: 500;
     text-decoration: none;
     transition: border-color .2s, color .2s;

@@ -24,7 +24,11 @@ const {
 } = Astro.props
 
 const heightClass = { full: 'h-screen min-h-[600px]', large: 'h-[65vh] min-h-[480px]', medium: 'h-[50vh] min-h-[380px]' }[height]
-const overlayClass = { dark: 'bg-black/55', medium: 'bg-black/40', light: 'bg-black/25' }[overlay]
+const overlayClass = {
+  dark:   'bg-gradient-to-t from-[#0C2128]/85 via-[#0C2128]/45 to-[#0C2128]/25',
+  medium: 'bg-gradient-to-t from-[#0C2128]/75 via-[#0C2128]/35 to-[#0C2128]/15',
+  light:  'bg-gradient-to-t from-[#0C2128]/60 via-[#0C2128]/25 to-transparent',
+}[overlay]
 const isLocal = typeof image !== 'string'
 ---
 

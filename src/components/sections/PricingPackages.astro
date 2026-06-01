@@ -185,18 +185,18 @@ const campFeatures = [
 <style>
   /* ── Tokens ────────────────────────────────────────────── */
   .pp-section, .sc-section {
-    --deep:       #0A3A40;
-    --brand:      #00BCD4;
-    --brand-dark: #0097A7;
-    --brand-text: #00838F;
-    --brand-strong:#006064;       /* teal text on tinted bg — AA 7:1 */
-    --coral:      #FF6A4D;         /* decorative only (borders, shadows) */
-    --coral-cta:  #C2410C;         /* white text on coral — AA 5.2:1 */
-    --coral-on-dark:#FF8466;       /* coral text on navy — AA 5.2:1 */
-    --gold:       #FFD079;
-    --sand:       #FCF8F0;
-    --cream:      #FFFDF8;
-    --muted:      #5A7270;
+    --deep:       var(--c-ink);
+    --brand:      var(--teal-primary);
+    --brand-dark: var(--teal-dark);
+    --brand-text: var(--teal-text);
+    --brand-strong:var(--teal-text-strong);   /* teal text on tinted bg — AA 7:1 */
+    --coral:      var(--c-sunrise);            /* decorative only (borders, shadows) */
+    --coral-cta:  var(--c-sunrise-cta);        /* white text on sunrise — AA 5.2:1 */
+    --coral-on-dark:var(--c-sunrise-glow);     /* sunrise text on navy — AA 5.2:1 */
+    --gold:       var(--c-gold-soft);
+    --sand:       var(--c-paper-cool);
+    --cream:      var(--c-cream-cool);
+    --muted:      var(--c-muted);
     --line:       rgba(0,188,212,.12);
     --line-w:     rgba(255,255,255,.12);
     --maxw:       1180px;
@@ -207,7 +207,7 @@ const campFeatures = [
   /* ════ PRICING ══════════════════════════════════════════ */
   .pp-section {
     padding: 88px 0 96px;
-    background: #EFF9FB;
+    background: var(--c-mist);
   }
   .pp-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
 

@@ -34,8 +34,8 @@ const trustItems = [
 ]
 
 const priceRows = [
-  { name: 'Private kids lesson',  note: '1-on-1 · fastest progression',               sessions: '1.5–2 hr',  price: '$75 / child',  popular: false },
-  { name: 'Group kids lesson',    note: '3:1 ratio · min. 4 kids',                    sessions: '1.5–2 hr',  price: '$65 / child',  popular: false },
+  { name: 'Private kids lesson',  note: '1-on-1 · fastest progression',               sessions: '1–2 hr',  price: '$75 / child',  popular: false },
+  { name: 'Group kids lesson',    note: '3:1 ratio · min. 4 kids',                    sessions: '1–2 hr',  price: '$65 / child',  popular: false },
   { name: 'Starter Pack',         note: 'Lowest per-lesson cost',                      sessions: '4 sessions', price: '$260',         popular: false },
   { name: 'Progression Pack',     note: 'Includes 1 professional photo session',       sessions: '6 sessions', price: '$475',         popular: true  },
   { name: 'Elite Pack',           note: 'Includes 2 professional photo sessions',      sessions: '16 sessions', price: '$1,280',      popular: false },
@@ -143,7 +143,7 @@ const faqs = [
   { question: 'Is surfing safe for kids?', answer: 'Surfing has real risks, and we don\'t pretend otherwise. What we control: a strict 3:1 student-to-instructor ratio in groups (1:1 in private lessons), trained instructors in the water with your child at all times, gear matched to your child\'s size and skill, and Cocoa Beach\'s sandy, beginner-friendly conditions. With those things in place, kids surf lessons are no more dangerous than learning to swim or ride a bike.' },
   { question: 'Does my child need to know how to swim?', answer: 'Yes. Your child should be comfortable in water over their head and able to swim at least 25 yards unassisted. Surfing happens in moving water, and even with an instructor right there, basic swimming ability is non-negotiable for safety.' },
   { question: 'What if my child is nervous or afraid of the ocean?', answer: 'Nervous kids are normal — probably half the kids we teach show some hesitation on Day 1, and almost all of them are smiling by the end. We recommend booking a private lesson for any child who\'s anxious: one-on-one, your child sets the pace. The instructor stays with them on the sand longer if needed, walks them slowly into shallow water, and only paddles out as far as they\'re comfortable.' },
-  { question: 'How long is a kids surf lesson?', answer: 'Lessons run 1.5 to 2 hours, depending on ocean conditions and your child\'s energy. We don\'t rush kids out of the water if they\'re catching waves, and we don\'t drag the lesson past the point where they\'re getting tired.' },
+  { question: 'How long is a kids surf lesson?', answer: 'Lessons run 1 to 2 hours, depending on ocean conditions and your child\'s energy. We don\'t rush kids out of the water if they\'re catching waves, and we don\'t drag the lesson past the point where they\'re getting tired.' },
   { question: 'How many lessons until my child can stand up on a wave?', answer: 'Most kids stand up during their first lesson — even if just briefly. Riding a wave smoothly, turning, and choosing their own waves usually takes 4 to 6 sessions of consistent practice. Our Starter and Progression Packs are built around that exact learning curve.' },
   { question: 'Can I watch my child\'s surf lesson from the beach?', answer: 'Absolutely, and we encourage it. The beach is wide, there\'s plenty of room for a chair and umbrella, and you\'ll have a clear view of every wave your child catches. Bring a camera — first-wave photos are worth keeping.' },
   { question: 'Can two or three siblings take a surf lesson at the same time?', answer: 'Yes — siblings can absolutely surf together. A group session ($65/hr per child) fits up to three siblings under our 3:1 ratio. For families spending a full week, our Cocoa Beach Surf Camp has family pricing: $350 for one child, $650 for two, $900 for three — under $60 per child per day.' },
@@ -195,7 +195,7 @@ const faqs = [
     ]}
     cardLabel="Kids Lessons · from"
     cardFrom="$65"
-    cardUnit="per child · per hour · 1.5–2 hr session"
+    cardUnit="per child · per hour · 1–2 hr session"
     cardIncludes={[
       'Certified, bilingual local instructor',
       'Premium board sized for your child',
@@ -353,7 +353,7 @@ const faqs = [
     font-family: 'Fraunces', Georgia, serif;
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 600;
-    color: #0A3A40;
+    color: var(--c-heading);
     margin-bottom: 36px;
     line-height: 1.1;
   }
@@ -386,13 +386,13 @@ const faqs = [
     font-family: 'Fraunces', Georgia, serif;
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 600;
-    color: #0A3A40;
+    color: var(--c-heading);
     margin-bottom: 10px;
     line-height: 1.1;
   }
   .ksl-book-sub {
     font-size: 1rem;
-    color: #5A7270;
+    color: var(--c-muted);
     max-width: 480px;
     margin: 0 auto;
     line-height: 1.65;
@@ -431,7 +431,7 @@ const faqs = [
     border: 1px solid #e5e7eb;
     border-radius: 999px;
     font-size: .88rem;
-    color: #5A7270;
+    color: var(--c-muted);
     font-weight: 500;
     text-decoration: none;
     transition: border-color .2s, color .2s;
