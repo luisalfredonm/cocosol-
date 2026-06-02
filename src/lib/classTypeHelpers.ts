@@ -10,6 +10,8 @@ export interface DbClassType {
   min_participants_per_booking?: number | null
   max_participants_per_booking?: number | null
   duration_minutes: number
+  /** Rows sharing the same slug render as one card with a duration step (e.g. 1h/2h). */
+  variant_group?: string | null
   description: string
   included: string[]
   badge: string | null
@@ -136,6 +138,17 @@ export function getStartingPriceInfo(classType: DbClassType): { amount: number; 
 
 export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)
+}
+
+export function formatDuration(minutes: number): string {
+  const m = Number(minutes) || 0
+  if (m <= 0) return ''
+  if (m % 60 === 0) {
+    const h = m / 60
+    return `${h} hour${h === 1 ? '' : 's'}`
+  }
+  if (m < 60) return `${m} min`
+  return `${Math.floor(m / 60)}h ${m % 60}m`
 }
 
 export function formatTime(time: string): string {

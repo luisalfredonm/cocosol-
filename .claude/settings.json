@@ -64,7 +64,23 @@
       "Bash(python -m json.tool)",
       "Bash(node -e \"const fs=require\\('fs'\\),path=require\\('path'\\);function walk\\(d\\){for\\(const f of fs.readdirSync\\(d,{withFileTypes:true}\\)\\){const p=path.join\\(d,f.name\\);if\\(f.isDirectory\\(\\)\\)walk\\(p\\);else if\\(/\\\\.\\(astro|ts\\)$/.test\\(f.name\\)\\){const o=fs.readFileSync\\(p,'utf8'\\);let c=o.split\\('Cocoa Sol Surf School'\\).join\\('Cocosol Surf Lessons'\\).split\\('Cocoa Sol Surf'\\).join\\('Cocosol Surf Lessons'\\).split\\('Cocoa Sol'\\).join\\('Cocosol'\\);if\\(c!==o\\){fs.writeFileSync\\(p,c\\);console.log\\('updated '+p\\);}}}}walk\\('src'\\);\")",
       "Bash(node -e \"const fs=require\\('fs'\\),path=require\\('path'\\);const reps=[['Pura Vida Surf School tent on Tamarindo Beach','Cocosol Surf Lessons truck on Cocoa Beach'],['Pura Vida Surf School','Cocosol Surf Lessons'],['400 Jetty Park Rd, Port Canaveral, FL 32920','632 Adams Ave, Cape Canaveral, FL 32920'],['Surf experience Tamarindo','Surf experience Cocoa Beach']];function walk\\(d\\){for\\(const f of fs.readdirSync\\(d,{withFileTypes:true}\\)\\){const p=path.join\\(d,f.name\\);if\\(f.isDirectory\\(\\)\\)walk\\(p\\);else if\\(/\\\\.\\(astro|ts|tsx\\)$/.test\\(f.name\\)\\){const o=fs.readFileSync\\(p,'utf8'\\);let c=o;for\\(const[a,b]of reps\\)c=c.split\\(a\\).join\\(b\\);if\\(c!==o\\){fs.writeFileSync\\(p,c\\);console.log\\('updated '+p\\);}}}}walk\\('src'\\);\")",
-      "Bash([ -f \"public/images/$f\" ])"
+      "Bash([ -f \"public/images/$f\" ])",
+      "Read(//c/Users/LuisN/.claude/projects/c--Users-LuisN-Desktop-Project-2026-cocosol/memory/**)",
+      "Bash(node tmp_fixdur.mjs)",
+      "Bash(git -c core.quotepath=false status --short --untracked-files=all)",
+      "Bash(curl -s \"http://localhost:4321/api/class-types\")",
+      "Bash(curl -s \"http://localhost:4322/api/class-types\")",
+      "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{const j=JSON.parse\\(s\\);const lessons=j.classTypes.filter\\(c=>c.category==='lesson'\\);console.log\\('LESSON ROWS:',lessons.length\\);for\\(const l of lessons\\){console.log\\('---'\\);console.log\\('id:',l.id,'| name:',l.name,'| dur:',l.duration_minutes,'| variant_group:',JSON.stringify\\(l.variant_group\\),'| included:',JSON.stringify\\(l.included\\),'| price_tiers:',JSON.stringify\\(l.price_tiers\\)\\);}}\\)\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:4321/book-now\")",
+      "Bash(curl -s \"http://localhost:4321/book-now\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:4321/api/availability?classTypeId=two%27hour&date=2026-06-15&participants=1\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:4321/api/availability?classTypeId=private-1-hour&date=2026-06-15&participants=1\")",
+      "Bash(node -e ' *)",
+      "Bash(node tmp_db_inspect.mjs)",
+      "Bash(node tmp_db_fix.mjs)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\LuisN\\.claude\\projects\\c--Users-LuisN-Desktop-Project-2026-cocosol\\memory"
     ]
   },
   "autoMemoryEnabled": true
