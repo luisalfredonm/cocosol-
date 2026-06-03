@@ -34,7 +34,7 @@ const trustItems = [
 ]
 
 const priceRows = [
-  { name: 'Single Coaching Session', note: '1–2h · all pro gear included',         sessions: '/ person',   price: '$95',   popular: true  },
+  { name: 'Single Coaching Session', note: '1–2h · all pro gear included',         sessions: '/ person',   price: '$75',   popular: true  },
   { name: 'Starter Pack',            note: 'Same coach · flexible scheduling',         sessions: '4 sessions', price: '$260',  popular: false },
   { name: 'Progression Pack',        note: '1 professional photo session included',    sessions: '6 sessions', price: '$475',  popular: false },
   { name: 'Elite Pack',              note: '2 photo sessions · for committed surfers', sessions: '16 sessions', price: '$1,280', popular: false },
@@ -66,7 +66,7 @@ const subblocks = [
 
 const compareLeft = {
   title:   'Surf Coaching',
-  price:   'From $95 / person',
+  price:   'From $75 / person',
   badge:   'For Intermediate & Advanced',
   items: [
     'For surfers who already catch and ride waves',
@@ -143,7 +143,7 @@ const faqs = [
   { question: 'Is surf coaching worth it if I can already surf but feel stuck?', answer: 'Honestly, yes — that "stuck" feeling is exactly what coaching fixes. Most surfers plateau because they repeat the same small mistakes with no one to point them out. At Cocosol Surf Lessons, your coach watches every wave and gives specific corrections, so you stop guessing and start improving with a plan. One focused session often shows you more than months of surfing alone.' },
   { question: 'How do I know if I\'m ready for surf coaching instead of a beginner lesson?', answer: 'Quick test: if you can paddle out and catch waves on your own, you\'re ready for coaching. If you\'re still working on standing up or riding whitewater, a beginner lesson will get you further, faster. Not sure? Message us on WhatsApp at +1 (321) 386-9993 and we\'ll tell you straight.' },
   { question: 'What\'s the difference between surf lessons and surf coaching in Cocoa Beach?', answer: 'Both put a certified instructor in the water with you — the difference is the goal. A lesson teaches a first-timer to stand up and ride safely. Coaching takes someone who already surfs and refines how they ride: positioning, timing, wave selection, and maneuvers. Our coaching is built specifically for intermediate and advanced surfers.' },
-  { question: 'How much does surf coaching cost in Cocoa Beach?', answer: 'A single coaching session at Cocosol Surf Lessons is $95 per person and runs 1 to 2 hours, with all professional gear included. Multi-session packages start at $260 for four sessions and include a professional photo session. Many surfers book one session first, then move to a package once they feel the difference.' },
+  { question: 'How much does surf coaching cost in Cocoa Beach?', answer: 'A single coaching session at Cocosol Surf Lessons is $75 per person and runs 1 to 2 hours, with all professional gear included. Multi-session packages start at $260 for four sessions and include a professional photo session. Many surfers book one session first, then move to a package once they feel the difference.' },
   { question: 'What actually happens during a surf coaching session?', answer: 'You start with a short beach briefing on the day\'s conditions and what you\'ll focus on. Then you\'re in the water with your coach close by, getting feedback right after your waves — where to sit, when to paddle, how to weight a turn. Every session adapts to that day\'s surf, and you walk out knowing exactly what to work on next time.' },
   { question: 'Do I need to bring my own surfboard?', answer: 'No. Every coaching session includes a premium board matched to your height, weight, and level, plus a leash, wax, UV-protection rash guard, and reef-friendly sunscreen. If you\'d rather train on your own board — say, you\'re dialing in new equipment — that\'s fine too, just let us know when you book.' },
   { question: 'Can a surf coach really help me read waves and position better?', answer: 'That\'s one of the biggest things coaching fixes. Reading the set and sitting in the right spot is the hardest skill to learn on your own, and it improves your sessions more than any single maneuver. Our coaches have surfed Cocoa Beach for 25+ years, so they know where the wave stands up on a given swell and can put you in the right place that day.' },
@@ -194,7 +194,7 @@ const faqs = [
       { label: 'Group Lessons from $65',   href: '/group-surf-lessons-cocoa-beach' },
     ]}
     cardLabel="Surf Coaching"
-    cardFrom="$95"
+    cardFrom="$75"
     cardUnit="/ person · 1–2 hours"
     cardIncludes={[
       'Premium board matched to your level',
@@ -294,7 +294,7 @@ const faqs = [
         <p class="sc-book-sub">Start working on what's actually holding your surfing back. Spots fill fast around the best swell windows — secure yours.</p>
       </div>
       <div class="sc-book-wizard">
-        <BookingWizard preselectedType="coaching" client:idle />
+        <BookingWizard filterIds={['surf-coaching']} client:idle />
       </div>
       <p class="sc-book-note">Certified coaches · All pro gear included · Open daily 9 AM–5 PM</p>
     </div>

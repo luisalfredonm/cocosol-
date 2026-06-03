@@ -36,7 +36,7 @@ const trustItems = [
 const priceRows = [
   { name: 'Group Surf Lesson', note: 'Min. 4 participants · all gear included',           sessions: '/ person / hour', price: '$65', popular: true  },
   { name: 'Private Lesson',    note: 'One-on-one · fastest progression',                  sessions: '/ person / hour', price: '$75', popular: false },
-  { name: 'Surf Coaching',     note: 'Intermediate & advanced · technique & performance', sessions: '/ person / hour', price: '$95', popular: false },
+  { name: 'Surf Coaching',     note: 'Intermediate & advanced · technique & performance', sessions: '/ person / hour', price: '$75', popular: false },
 ]
 
 const gear = [
@@ -190,7 +190,7 @@ const faqs = [
     rows={priceRows}
     altLinks={[
       { label: 'Private Lessons from $75', href: '/private-surf-lessons-cocoa-beach' },
-      { label: 'Surf Coaching from $95',   href: '/surf-coaching-cocoa-beach' },
+      { label: 'Surf Coaching from $75',   href: '/surf-coaching-cocoa-beach' },
     ]}
     cardLabel="Group Lesson"
     cardFrom="$65"
@@ -293,7 +293,7 @@ const faqs = [
         <p class="gsl-book-sub">Get your group in the water together. Spots fill quickly in peak season — secure yours before they're gone.</p>
       </div>
       <div class="gsl-book-wizard">
-        <BookingWizard preselectedType="group" client:idle />
+        <BookingWizard filterGroup="surf-lessons" client:idle />
       </div>
       <p class="gsl-book-note">Secure payments · Certified instructors · Open 7 days · 9 AM–5 PM</p>
     </div>

@@ -34,9 +34,9 @@ const trustItems = [
 ]
 
 const priceRows = [
-  { name: 'Single Lesson',  note: '1–2 hr · 1 instructor',      sessions: '1 session',  price: '$75',  popular: false },
-  { name: '3-Lesson Pack',  note: 'Save $15 — valid 30 days',   sessions: '3 sessions', price: '$210', popular: true  },
-  { name: '5-Lesson Pack',  note: 'Save $50 — best value',      sessions: '5 sessions', price: '$325', popular: false },
+  { name: 'Single Lesson',    note: '1 hr $75 · 2 hr $140',              sessions: '1 session',  price: '$75',  popular: false },
+  { name: 'Starter Pack',     note: '4 lessons · flexible scheduling',   sessions: '4 sessions', price: '$260', popular: true  },
+  { name: 'Progression Pack', note: '6 lessons · 1 photo session',       sessions: '6 sessions', price: '$475', popular: false },
 ]
 
 const gear = [
@@ -78,7 +78,7 @@ const compareLeft = {
 
 const compareRight = {
   title:   'Group Lesson',
-  price:   'From $45 / person',
+  price:   'From $65 / person',
   items: [
     'Shared instructor across 4–8 students',
     'Fixed curriculum and scheduled times',
@@ -185,8 +185,8 @@ const faqs = [
     lead2="Book a single session or save with a multi-lesson pack. All sessions are valid for 30 days from purchase."
     rows={priceRows}
     altLinks={[
-      { label: 'Group Lessons from $45', href: '/group-surf-lessons-cocoa-beach' },
-      { label: 'Surf Coaching from $95', href: '/surf-coaching-cocoa-beach' },
+      { label: 'Group Lessons from $65', href: '/group-surf-lessons-cocoa-beach' },
+      { label: 'Surf Coaching from $75', href: '/surf-coaching-cocoa-beach' },
     ]}
     cardLabel="Private Lesson"
     cardFrom="$75"
@@ -285,10 +285,10 @@ const faqs = [
       <div class="psl-book-head">
         <span class="psl-book-eyebrow">Ready to Ride?</span>
         <h2 class="psl-book-title">Book Your Private Lesson</h2>
-        <p class="psl-book-sub">Select your date and time below. Your private lesson is pre-selected — just pick when you want to surf.</p>
+        <p class="psl-book-sub">Choose your session length, pick a date and time, and you're set. All gear and a certified instructor included.</p>
       </div>
       <div class="psl-book-wizard">
-        <BookingWizard preselectedType="private" client:idle />
+        <BookingWizard filterGroup="surf-lessons" client:idle />
       </div>
       <p class="psl-book-note">Secure payments · Certified instructors · Flexible rescheduling</p>
     </div>
