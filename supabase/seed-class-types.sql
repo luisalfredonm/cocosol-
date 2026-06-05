@@ -23,7 +23,7 @@ on conflict (id) do update set
   sort_order = excluded.sort_order;
 
 insert into class_types (id, name, category, price_per_person, price_tiers, min_participants_per_booking, max_participants_per_booking, max_capacity, duration_minutes, variant_group, description, included, badge, active, sort_order)
-values ('private-1-hour', '1 Hour Surf Lessons', 'lesson', 75, '[{"label":"Private","price_type":"per_person","max_participants":1,"min_participants":1,"price_per_person":75},{"label":"Semi-private","price_type":"per_person","max_participants":2,"min_participants":2,"price_per_person":70},{"label":"3 people","price_type":"per_person","max_participants":3,"min_participants":3,"price_per_person":65}]'::jsonb, 1, 3, 12, 60, 'surf-lessons', 'Surf lesson with pricing that adjusts by group size.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 10)
+values ('private-1-hour', '1 Hour Surf Lessons', 'lesson', 75, '[{"label":"Private","price_type":"per_person","max_participants":1,"min_participants":1,"price_per_person":75},{"label":"Semi-private","price_type":"per_person","max_participants":2,"min_participants":2,"price_per_person":70},{"label":"3 people","price_type":"per_person","max_participants":3,"min_participants":3,"price_per_person":65}]'::jsonb, 1, 3, 12, 60, 'private-lessons', 'One-on-one, or share the session with 2–3 people — the more you bring, the lower the per-person price.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 10)
 on conflict (id) do update set
   name = excluded.name,
   category = excluded.category,
@@ -41,7 +41,7 @@ on conflict (id) do update set
   sort_order = excluded.sort_order;
 
 insert into class_types (id, name, category, price_per_person, price_tiers, min_participants_per_booking, max_participants_per_booking, max_capacity, duration_minutes, variant_group, description, included, badge, active, sort_order)
-values ('surf-coaching', 'Surf Coaching ', 'lesson', 75, null, 1, 12, 12, 60, null, 'Surf lesson with pricing that adjusts by group size.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 10)
+values ('surf-coaching', 'Surf Coaching ', 'lesson', 75, null, 1, 12, 12, 60, null, 'For surfers who already ride — sharpen your technique, positioning and wave selection with wave-by-wave feedback.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 10)
 on conflict (id) do update set
   name = excluded.name,
   category = excluded.category,
@@ -59,7 +59,7 @@ on conflict (id) do update set
   sort_order = excluded.sort_order;
 
 insert into class_types (id, name, category, price_per_person, price_tiers, min_participants_per_booking, max_participants_per_booking, max_capacity, duration_minutes, variant_group, description, included, badge, active, sort_order)
-values ('surf-lessons-2h', '2 Hour Surf lessons', 'lesson', 140, '[{"label":"Private","price_type":"per_person","max_participants":1,"min_participants":1,"price_per_person":140},{"label":"Semi-private","price_type":"per_person","max_participants":2,"min_participants":2,"price_per_person":130},{"label":"3 people","price_type":"per_person","max_participants":3,"min_participants":3,"price_per_person":120}]'::jsonb, 1, 3, 12, 120, 'surf-lessons', 'Surf lesson with pricing that adjusts by group size.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 10)
+values ('surf-lessons-2h', '2 Hour Surf lessons', 'lesson', 140, '[{"label":"Private","price_type":"per_person","max_participants":1,"min_participants":1,"price_per_person":140},{"label":"Semi-private","price_type":"per_person","max_participants":2,"min_participants":2,"price_per_person":130},{"label":"3 people","price_type":"per_person","max_participants":3,"min_participants":3,"price_per_person":120}]'::jsonb, 1, 3, 12, 120, 'private-lessons', 'One-on-one, or share the session with 2–3 people — the more you bring, the lower the per-person price.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 10)
 on conflict (id) do update set
   name = excluded.name,
   category = excluded.category,
