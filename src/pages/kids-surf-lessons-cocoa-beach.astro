@@ -29,13 +29,13 @@ const seo = seoData.kidsSurfLessons
 const trustItems = [
   { value: 'Ages 6–16', label: 'Built for kids' },
   { value: '3:1',       label: 'Students per instructor' },
-  { value: '$65',       label: 'From / child / hr' },
+  { value: '$60',       label: 'From / child / hr' },
   { value: 'All Gear',  label: 'Included, no extras' },
 ]
 
 const priceRows = [
   { name: 'Private kids lesson',  note: '1-on-1 · fastest progression',               sessions: '1–2 hr',  price: '$75 / child',  popular: false },
-  { name: 'Group kids lesson',    note: '3:1 ratio · min. 4 kids',                    sessions: '1–2 hr',  price: '$65 / child',  popular: false },
+  { name: 'Group kids lesson',    note: '3:1 ratio · min. 4 kids',                    sessions: '1–2 hr',  price: '$60 / child',  popular: false },
   { name: 'Starter Pack',         note: 'Lowest per-lesson cost',                      sessions: '4 sessions', price: '$260',         popular: false },
   { name: 'Progression Pack',     note: 'Includes 1 professional photo session',       sessions: '6 sessions', price: '$475',         popular: true  },
   { name: 'Elite Pack',           note: 'Includes 2 professional photo sessions',      sessions: '16 sessions', price: '$1,280',      popular: false },
@@ -79,7 +79,7 @@ const compareLeft = {
 
 const compareRight = {
   title:   'Group Kids Lesson',
-  price:   'From $65 / child · min. 4 kids',
+  price:   'From $60 / child · min. 4 kids',
   items: [
     '3:1 ratio (max 3 kids per instructor)',
     'Great for siblings & family vacations',
@@ -194,7 +194,7 @@ const faqs = [
       { label: 'Surf Camp (full week from $350)', href: '/surf-camp-cocoa-beach' },
     ]}
     cardLabel="Kids Lessons · from"
-    cardFrom="$65"
+    cardFrom="$60"
     cardUnit="per child · per hour · 1–2 hr session"
     cardIncludes={[
       'Certified, bilingual local instructor',
@@ -297,7 +297,7 @@ const faqs = [
         <p class="ksl-book-sub">Spots fill fastest around spring break, summer weekends, and Florida school holidays. Secure your date now.</p>
       </div>
       <div class="ksl-book-wizard">
-        <BookingWizard filterGroup="surf-lessons" client:idle />
+        <BookingWizard filterGroups={['surf-lessons', 'group-lessons']} client:idle />
       </div>
       <p class="ksl-book-note">Certified coaches · All gear included · Ages 6–16 · Open daily 9 AM–5 PM</p>
     </div>

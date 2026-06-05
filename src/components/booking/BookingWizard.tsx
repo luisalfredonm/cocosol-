@@ -203,11 +203,12 @@ interface Props {
   filterIds?: string[]
   filterCategory?: 'lesson' | 'package' | 'camp'
   filterGroup?: string
+  filterGroups?: string[]
 }
 
 const STEP_LABELS = ['Service', 'Guests', 'Date', 'Time', 'Cart', 'Contact', 'Payment', 'Done']
 
-export default function BookingWizard({ preselectedType, filterIds, filterCategory, filterGroup }: Props) {
+export default function BookingWizard({ preselectedType, filterIds, filterCategory, filterGroup, filterGroups }: Props) {
   const [classTypes, setClassTypes] = useState<DbClassType[]>([])
   const [loadingTypes, setLoadingTypes] = useState(true)
 
@@ -247,11 +248,13 @@ export default function BookingWizard({ preselectedType, filterIds, filterCatego
 
   const visibleClassTypes = filterIds
     ? classTypes.filter(ct => filterIds.includes(ct.id))
-    : filterGroup
-      ? classTypes.filter(ct => ct.variant_group === filterGroup)
-      : filterCategory
-        ? classTypes.filter(ct => ct.category === filterCategory)
-        : classTypes
+    : filterGroups
+      ? classTypes.filter(ct => ct.variant_group != null && filterGroups.includes(ct.variant_group))
+      : filterGroup
+        ? classTypes.filter(ct => ct.variant_group === filterGroup)
+        : filterCategory
+          ? classTypes.filter(ct => ct.category === filterCategory)
+          : classTypes
   const classType = classTypes.find(ct => ct.id === state.classTypeId) ?? null
   const totalAmount = classType ? calculateTotal(classType, state.participants) : 0
 

@@ -28,13 +28,13 @@ const seo = seoData.groupLessons
 
 const trustItems = [
   { value: '5★',       label: 'Google Rating' },
-  { value: '$65',      label: 'Per Person' },
+  { value: '$60',      label: 'Per Person' },
   { value: '1–2 hr', label: 'Per Session' },
   { value: 'Bilingual', label: 'Certified Pros' },
 ]
 
 const priceRows = [
-  { name: 'Group Surf Lesson', note: 'Min. 4 participants · all gear included',           sessions: '/ person / hour', price: '$65', popular: true  },
+  { name: 'Group Surf Lesson', note: 'Min. 4 participants · all gear included',           sessions: '/ person / hour', price: '$60', popular: true  },
   { name: 'Private Lesson',    note: 'One-on-one · fastest progression',                  sessions: '/ person / hour', price: '$75', popular: false },
   { name: 'Surf Coaching',     note: 'Intermediate & advanced · technique & performance', sessions: '/ person / hour', price: '$75', popular: false },
 ]
@@ -65,7 +65,7 @@ const subblocks = [
 
 const compareLeft = {
   title:   'Group Lesson',
-  price:   'From $65 / person',
+  price:   'From $60 / person',
   badge:   'Best for Groups',
   items: [
     'The social, shared experience with friends & family',
@@ -139,14 +139,14 @@ const steps = [
 ]
 
 const faqs = [
-  { question: 'How much do group surf lessons cost in Cocoa Beach?', answer: 'Group lessons at Cocosol Surf Lessons are $65 per person, per hour, with a minimum of 4 people to get the group rate. That price already covers everything — surfboard, leash, rash guard, wax, sunscreen, and your instructor — so there\'s nothing extra to rent or pay for once you show up.' },
+  { question: 'How much do group surf lessons cost in Cocoa Beach?', answer: 'Group lessons at Cocosol Surf Lessons are $60 per person, per hour, with a minimum of 4 people to get the group rate. That price already covers everything — surfboard, leash, rash guard, wax, sunscreen, and your instructor — so there\'s nothing extra to rent or pay for once you show up.' },
   { question: 'Are group surf lessons a good idea if I\'ve never surfed before?', answer: 'Yes. Cocoa Beach has gentle, rolling waves and a soft, sandy bottom — exactly the forgiving setup beginners want. Most first-timers in our group lessons are standing up and riding small waves within their first session, and learning next to friends takes most of the nerves away.' },
   { question: 'How many people can join one group surf lesson?', answer: 'We keep groups small for hands-on attention, and the group rate starts at 4 people. For bigger crews — family reunions, birthdays, work teams — we add instructors so nobody waits on the sand.' },
   { question: 'Do we need to bring our own surfboards or gear?', answer: 'No. Every spot in the lesson includes a surfboard sized to you, a leash, a UV rash guard, wax, and mineral sunscreen. You only need a swimsuit, a towel, and water.' },
   { question: 'Where is the best place to learn to surf near Orlando?', answer: 'Cocoa Beach is the best place to learn to surf near Orlando — about an hour\'s drive east and minutes from the Kennedy Space Center, with consistent, beginner-friendly waves. It\'s an easy add to any Central Florida trip.' },
   { question: 'Can kids do a group surf lesson?', answer: 'Yes. Cocosol Surf Lessons teaches surfers from age 6 and up. We size each board to the child, run a safety briefing before anyone enters the water, and our instructors are patient with first-timers, so families can learn together.' },
   { question: 'What actually happens during a group surf lesson?', answer: 'You start on the beach with a safety briefing and pop-up practice on the sand, then gear up and head into the water where your instructor helps you paddle, time the wave, and stand. The full session runs about 1 to 2 hours depending on ocean conditions.' },
-  { question: 'Should we do a group lesson or book private lessons?', answer: 'Group lessons ($65/person) are the social, budget-friendly choice for friends and family learning together. Private lessons ($75/person) give one-on-one focus and faster progress. Many groups start social and book a private later to level up.' },
+  { question: 'Should we do a group lesson or book private lessons?', answer: 'Group lessons ($60/person) are the social, budget-friendly choice for friends and family learning together. Private lessons ($75/person) give one-on-one focus and faster progress. Many groups start social and book a private later to level up.' },
   { question: 'What should we wear and bring to the lesson?', answer: 'Wear a swimsuit or board shorts under the rash guard we provide, and bring a towel, a change of clothes, and water. Sunscreen and all surf gear are included. Photo sessions are available if you\'d rather leave your phone dry.' },
   { question: 'How do we book a group surf lesson in Cocoa Beach?', answer: 'Book online using the form below or message Cocosol Surf Lessons on WhatsApp at +1 (321) 386-9993. We\'re open every day from 9 AM to 5 PM. Peak season fills fast, so book a few days ahead, especially for larger groups.' },
 ]
@@ -193,7 +193,7 @@ const faqs = [
       { label: 'Surf Coaching from $75',   href: '/surf-coaching-cocoa-beach' },
     ]}
     cardLabel="Group Lesson"
-    cardFrom="$65"
+    cardFrom="$60"
     cardUnit="/ person · min. 4 people"
     cardIncludes={[
       'Premium surfboard (sized to you)',
@@ -293,7 +293,7 @@ const faqs = [
         <p class="gsl-book-sub">Get your group in the water together. Spots fill quickly in peak season — secure yours before they're gone.</p>
       </div>
       <div class="gsl-book-wizard">
-        <BookingWizard filterGroup="surf-lessons" client:idle />
+        <BookingWizard filterGroup="group-lessons" client:idle />
       </div>
       <p class="gsl-book-note">Secure payments · Certified instructors · Open 7 days · 9 AM–5 PM</p>
     </div>
