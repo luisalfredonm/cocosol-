@@ -41,24 +41,6 @@ on conflict (id) do update set
   sort_order = excluded.sort_order;
 
 insert into class_types (id, name, category, price_per_person, price_tiers, min_participants_per_booking, max_participants_per_booking, max_capacity, duration_minutes, variant_group, description, included, badge, active, sort_order)
-values ('surf-coaching', 'Surf Coaching ', 'lesson', 75, null, 1, 12, 12, 60, null, 'For surfers who already ride — sharpen your technique, positioning and wave selection with wave-by-wave feedback.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 10)
-on conflict (id) do update set
-  name = excluded.name,
-  category = excluded.category,
-  price_per_person = excluded.price_per_person,
-  price_tiers = excluded.price_tiers,
-  min_participants_per_booking = excluded.min_participants_per_booking,
-  max_participants_per_booking = excluded.max_participants_per_booking,
-  max_capacity = excluded.max_capacity,
-  duration_minutes = excluded.duration_minutes,
-  variant_group = excluded.variant_group,
-  description = excluded.description,
-  included = excluded.included,
-  badge = excluded.badge,
-  active = excluded.active,
-  sort_order = excluded.sort_order;
-
-insert into class_types (id, name, category, price_per_person, price_tiers, min_participants_per_booking, max_participants_per_booking, max_capacity, duration_minutes, variant_group, description, included, badge, active, sort_order)
 values ('surf-lessons-2h', '2 Hour Surf lessons', 'lesson', 140, '[{"label":"Private","price_type":"per_person","max_participants":1,"min_participants":1,"price_per_person":140},{"label":"Semi-private","price_type":"per_person","max_participants":2,"min_participants":2,"price_per_person":130},{"label":"3 people","price_type":"per_person","max_participants":3,"min_participants":3,"price_per_person":120}]'::jsonb, 1, 3, 12, 120, 'private-lessons', 'One-on-one, or share the session with 2–3 people — the more you bring, the lower the per-person price.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 10)
 on conflict (id) do update set
   name = excluded.name,
@@ -77,7 +59,7 @@ on conflict (id) do update set
   sort_order = excluded.sort_order;
 
 insert into class_types (id, name, category, price_per_person, price_tiers, min_participants_per_booking, max_participants_per_booking, max_capacity, duration_minutes, variant_group, description, included, badge, active, sort_order)
-values ('group-lessons-1h', '1 Hour Group Lesson', 'lesson', 60, null, 4, 12, 12, 60, 'group-lessons', 'Fun group surf lesson for 4 or more — the social, budget-friendly way to learn, with hands-on attention for everyone.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 11)
+values ('group-lessons-1h', '1 Hour Group Lesson', 'lesson', 60, null, 4, 12, 12, 60, 'group-lessons', 'Fun group surf lesson for 4 or more — the social, budget-friendly way to learn, with hands-on attention for everyone.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 20)
 on conflict (id) do update set
   name = excluded.name,
   category = excluded.category,
@@ -95,7 +77,25 @@ on conflict (id) do update set
   sort_order = excluded.sort_order;
 
 insert into class_types (id, name, category, price_per_person, price_tiers, min_participants_per_booking, max_participants_per_booking, max_capacity, duration_minutes, variant_group, description, included, badge, active, sort_order)
-values ('group-lessons-2h', '2 Hour Group Lesson', 'lesson', 120, null, 4, 12, 12, 120, 'group-lessons', 'Fun group surf lesson for 4 or more — the social, budget-friendly way to learn, with hands-on attention for everyone.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 11)
+values ('group-lessons-2h', '2 Hour Group Lesson', 'lesson', 120, null, 4, 12, 12, 120, 'group-lessons', 'Fun group surf lesson for 4 or more — the social, budget-friendly way to learn, with hands-on attention for everyone.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 20)
+on conflict (id) do update set
+  name = excluded.name,
+  category = excluded.category,
+  price_per_person = excluded.price_per_person,
+  price_tiers = excluded.price_tiers,
+  min_participants_per_booking = excluded.min_participants_per_booking,
+  max_participants_per_booking = excluded.max_participants_per_booking,
+  max_capacity = excluded.max_capacity,
+  duration_minutes = excluded.duration_minutes,
+  variant_group = excluded.variant_group,
+  description = excluded.description,
+  included = excluded.included,
+  badge = excluded.badge,
+  active = excluded.active,
+  sort_order = excluded.sort_order;
+
+insert into class_types (id, name, category, price_per_person, price_tiers, min_participants_per_booking, max_participants_per_booking, max_capacity, duration_minutes, variant_group, description, included, badge, active, sort_order)
+values ('surf-coaching', 'Surf Coaching ', 'lesson', 75, null, 1, 12, 12, 60, null, 'For surfers who already ride — sharpen your technique, positioning and wave selection with wave-by-wave feedback.', ARRAY['Surfboard', 'Leash', 'Rash guard', 'Certified instructor']::text[], null, true, 30)
 on conflict (id) do update set
   name = excluded.name,
   category = excluded.category,
@@ -166,7 +166,7 @@ on conflict (id) do update set
   active = excluded.active,
   sort_order = excluded.sort_order;
 
--- ── Weekly slots ──────────────────────────────────────────────────────────
+-- ── Weekly slots ──────────────────────────────────────
 insert into weekly_slots (class_type_id, day_of_week, start_time, capacity, booking_mode) values ('elite-pack', 1, '07:00:00', 8, 'shared')
   on conflict (class_type_id, day_of_week, start_time) do update set capacity = excluded.capacity, booking_mode = excluded.booking_mode;
 insert into weekly_slots (class_type_id, day_of_week, start_time, capacity, booking_mode) values ('elite-pack', 1, '08:00:00', 8, 'shared')
