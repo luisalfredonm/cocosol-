@@ -1,8 +1,10 @@
 ---
 export const prerender = true
+import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import { seoData } from '../lib/seo'
+import victorImg from '../assets/images/Victor.png'
 
 const seo = seoData.aboutUs
 ---
@@ -30,7 +32,14 @@ const seo = seoData.aboutUs
   <section class="ab-section ab-story-section">
     <div class="ab-wrap ab-story-grid">
 
-      <div class="ab-portrait ab-reveal" aria-hidden="true">
+      <div class="ab-portrait ab-reveal">
+        <Image
+          src={victorImg}
+          alt="Victor Nuñez, founder and head instructor at Cocosol Surf Lessons"
+          class="ab-portrait-img"
+          loading="eager"
+          decoding="async"
+        />
         <span class="ab-pflag">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
           Costa Rica · Cocoa Beach
@@ -129,7 +138,13 @@ const seo = seoData.aboutUs
       <div class="ab-inst-grid">
 
         <article class="ab-inst ab-inst--lead ab-reveal">
-          <div class="ab-avatar ab-av">VN</div>
+          <Image
+            src={victorImg}
+            alt="Victor Nuñez, Founder & Head Instructor"
+            class="ab-avatar ab-avatar-img"
+            loading="lazy"
+            decoding="async"
+          />
           <h3>Victor Nuñez</h3>
           <div class="ab-role">Founder & Head Instructor</div>
           <p>Costa Rican by birth, lifeguard since fifteen, surf instructor for over two decades. The one who started it all.</p>
@@ -405,28 +420,21 @@ const seo = seoData.aboutUs
     color: #fff;
     box-shadow: var(--ab-shadow);
   }
+  .ab-portrait-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
   .ab-portrait::before {
     content: "";
     position: absolute;
-    top: 0;
-    right: -30px;
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(233,165,63,.65), rgba(233,165,63,0) 60%);
+    inset: 0;
+    background: linear-gradient(180deg, rgba(8,47,60,.08) 0%, rgba(8,47,60,.16) 46%, rgba(8,47,60,.82) 100%);
     pointer-events: none;
-  }
-  .ab-portrait::after {
-    content: "VN";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -58%);
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 600;
-    font-size: 7rem;
-    color: rgba(255,255,255,.14);
-    letter-spacing: -.05em;
     z-index: 1;
   }
   .ab-pcaption { position: relative; z-index: 2; }
@@ -638,6 +646,13 @@ const seo = seoData.aboutUs
     font-size: 2.4rem;
     color: #fff;
     letter-spacing: -.02em;
+  }
+  .ab-avatar-img {
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    border: 3px solid rgba(255,255,255,.72);
+    box-shadow: 0 12px 28px -14px rgba(0,0,0,.55);
   }
   .ab-av  { background: linear-gradient(135deg, #E9A53F, #E2553A); }
   .ab-an  { background: linear-gradient(135deg, #14808F, #082F3C); }

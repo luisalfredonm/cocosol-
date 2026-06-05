@@ -77,7 +77,9 @@
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://localhost:4321/api/availability?classTypeId=private-1-hour&date=2026-06-15&participants=1\")",
       "Bash(node -e ' *)",
       "Bash(node tmp_db_inspect.mjs)",
-      "Bash(node tmp_db_fix.mjs)"
+      "Bash(node tmp_db_fix.mjs)",
+      "Bash(grep -n '\\\\$65\\\\|\\\\$60' src/pages/kids-surf-lessons-cocoa-beach.astro)",
+      "Bash(node tmp_gen_seed.mjs)"
     ],
     "additionalDirectories": [
       "c:\\Users\\LuisN\\.claude\\projects\\c--Users-LuisN-Desktop-Project-2026-cocosol\\memory"
