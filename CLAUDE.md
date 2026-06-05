@@ -260,6 +260,7 @@ Vercel auto-deploys. Verify:
 - **No testing framework:** Unit tests not currently configured; rely on manual testing and TypeScript for correctness
 - **Astro integration notes:** React components must be explicitly marked with `client:load` or similar directives in Astro pages to hydrate client-side
 - **Supabase migrations:** Schema changes in `schema.sql` must be applied manually in Supabase dashboard (no migration runner configured)
+- **Booking catalog seed:** The booking products (`class_types`) and availability (`weekly_slots`) live only in Supabase, not in git. `supabase/seed-class-types.sql` is an idempotent (`on conflict do update`) seed generated from the live DB — run it in the SQL editor to reproduce the full catalog (Surf Lessons 1–3, Group Lessons 4+, coaching, packages, camp + slots). Regenerate it after changing products so it stays current.
 - **SEO redirects:** Old WordPress URLs have 301 redirects configured in `astro.config.mjs`; check there before renaming routes
 
 ---
