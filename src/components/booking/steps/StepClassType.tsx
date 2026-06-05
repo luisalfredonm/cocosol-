@@ -3,6 +3,8 @@ import {
   formatCurrency,
   formatDuration,
   formatPricingTiers,
+  getMinParticipants,
+  getPriceBreakdown,
   getPricingTiers,
   getStartingPriceInfo,
 } from '../../../lib/classTypeHelpers'
@@ -92,8 +94,8 @@ export default function StepClassType({ classTypes, onSelect }: Props) {
 
         <div className="grid sm:grid-cols-2 gap-4">
           {variants.map((v, i) => {
-            const start = getStartingPriceInfo(v)
             const hasTiers = getPricingTiers(v).length > 0
+            const vAnchor = getPriceBreakdown(v, getMinParticipants(v)).unitPrice
             const recommended = i === variants.length - 1 && variants.length > 1
             return (
               <button
@@ -113,8 +115,8 @@ export default function StepClassType({ classTypes, onSelect }: Props) {
                   {formatDuration(v.duration_minutes)}
                 </p>
                 <p className="text-3xl font-extrabold text-gray-900 mb-1 group-hover:text-teal-700">
-                  {hasTiers ? `From ${formatCurrency(start.amount)}` : formatCurrency(start.amount)}
-                  <span className="text-sm font-normal text-gray-500">{start.suffix}</span>
+                  {formatCurrency(vAnchor)}
+                  <span className="text-sm font-normal text-gray-500"> / person</span>
                 </p>
                 {hasTiers && (
                   <p className="text-xs font-semibold text-teal-700 bg-teal-50 border border-teal-100 rounded-lg px-2 py-1 mb-3 mt-1 inline-block">
@@ -160,12 +162,21 @@ export default function StepClassType({ classTypes, onSelect }: Props) {
               // ── Grouped card (e.g. 1h / 2h) → opens duration chooser ──
               if (entry.kind === 'group') {
                 const variants = [...entry.types].sort((a, b) => a.duration_minutes - b.duration_minutes)
-                const lowest = variants.reduce(
-                  (lo, v) => (getStartingPriceInfo(v).amount < getStartingPriceInfo(lo).amount ? v : lo),
-                  variants[0],
-                )
-                const start = getStartingPriceInfo(lowest)
                 const base = variants[0]
+                // Anchor on the price at the minimum group size (e.g. 1 person = the
+                // private rate), then show the per-tier discounts as a note.
+                const baseTiers = getPricingTiers(base)
+                const baseMin = getMinParticipants(base)
+                const anchor = getPriceBreakdown(base, baseMin).unitPrice
+                const discountNote = baseTiers
+                  .filter(t => t.min_participants > baseMin)
+                  .map(t => {
+                    const n = t.max_participants && t.max_participants !== t.min_participants
+                      ? `${t.min_participants}–${t.max_participants}`
+                      : t.max_participants == null ? `${t.min_participants}+` : `${t.min_participants}`
+                    return `${formatCurrency(t.price_per_person)} for ${n}`
+                  })
+                  .join(' · ')
                 return (
                   <button
                     key={entry.group}
@@ -175,10 +186,11 @@ export default function StepClassType({ classTypes, onSelect }: Props) {
                     <p className="font-bold text-gray-900 group-hover:text-teal-700 mb-1 pr-16 leading-tight">
                       {prettyGroup(entry.group)}
                     </p>
-                    <p className="text-2xl font-extrabold text-teal-600 mb-2">
-                      From {formatCurrency(start.amount)}
-                      <span className="text-sm font-normal text-gray-500">{start.suffix}</span>
+                    <p className="text-2xl font-extrabold text-teal-600 mb-0.5">
+                      {formatCurrency(anchor)}
+                      <span className="text-sm font-normal text-gray-500"> / person</span>
                     </p>
+                    {discountNote && <p className="text-xs text-gray-500 mb-2.5">{discountNote}</p>}
                     <div className="flex flex-wrap gap-1.5 mb-3">
                       {variants.map(v => (
                         <span key={v.id} className="text-xs font-semibold text-teal-700 bg-teal-50 border border-teal-100 rounded-full px-2 py-0.5">
