@@ -223,16 +223,19 @@ function adminShell(params: {
 }
 
 // ─── SEND ────────────────────────────────────────────────────────────────────
-async function sendEmail(payload: { to: string; subject: string; html: string; from?: string }): Promise<void> {
+async function sendEmail(payload: { to: string; subject: string; html: string; from?: string; replyTo?: string }): Promise<void> {
   const resendApiKey = import.meta.env.RESEND_API_KEY
   if (!resendApiKey) throw new Error('Missing RESEND_API_KEY')
   const defaultFrom = (import.meta.env.FROM_EMAIL ?? '').toString().trim() || 'onboarding@resend.dev'
   const from = payload.from ?? defaultFrom
 
+  const body: Record<string, unknown> = { from, to: payload.to, subject: payload.subject, html: payload.html }
+  if (payload.replyTo) body.reply_to = payload.replyTo
+
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${resendApiKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from, to: payload.to, subject: payload.subject, html: payload.html }),
+    body: JSON.stringify(body),
   })
 
   if (!response.ok) {
@@ -417,6 +420,7 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
 
   await sendEmail({
     to: data.customerEmail,
+    replyTo: import.meta.env.REPLY_TO_EMAIL || import.meta.env.ADMIN_EMAIL || undefined,
     subject: isOnSite
       ? `✅ Reservation Confirmed — Pay ${formatCurrency(total)} on Arrival · Cocosol Surf Lessons`
       : `🏄 Booking Confirmed — ${data.items.length} Session${data.items.length > 1 ? 's' : ''} at Cocosol Surf Lessons`,
@@ -555,6 +559,7 @@ export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Pro
 
   await sendEmail({
     to: adminEmail,
+    replyTo: data.customerEmail,
     subject: isOnSite
       ? `📍 New Booking: ${data.customerName} · ${data.items.length} session${data.items.length > 1 ? 's' : ''} · Collect ${formatCurrency(total)}`
       : `💳 Paid: ${data.customerName} · ${data.items.length} session${data.items.length > 1 ? 's' : ''} · ${formatCurrency(total)}`,
