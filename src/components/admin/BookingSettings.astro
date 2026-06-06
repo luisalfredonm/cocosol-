@@ -1,5 +1,6 @@
 ---
 export const prerender = false
+import { supabase } from '../../lib/supabase'
 
 interface Props {
   authToken: string
@@ -11,15 +12,16 @@ let minAdvanceHours = 48
 let error = ''
 
 try {
-  const url = new URL('/api/admin/booking-settings', Astro.url)
-  const res = await fetch(url.toString(), {
-    headers: { 'Authorization': `Bearer ${authToken}` },
-  })
-  if (res.ok) {
-    const data = await res.json()
-    minAdvanceHours = data.min_advance_hours ?? 48
-  } else {
-    error = `Failed to load settings (${res.status})`
+  const { data, error: dbError } = await supabase
+    .from('booking_settings')
+    .select('min_advance_hours')
+    .eq('id', 1)
+    .limit(1)
+
+  if (dbError) {
+    console.error('Supabase booking_settings error:', dbError)
+  } else if (data && data.length > 0) {
+    minAdvanceHours = data[0].min_advance_hours ?? 48
   }
 } catch (e) {
   error = 'Failed to load settings: ' + (e instanceof Error ? e.message : 'Unknown error')
