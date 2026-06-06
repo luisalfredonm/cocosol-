@@ -79,7 +79,17 @@
       "Bash(node tmp_db_inspect.mjs)",
       "Bash(node tmp_db_fix.mjs)",
       "Bash(grep -n '\\\\$65\\\\|\\\\$60' src/pages/kids-surf-lessons-cocoa-beach.astro)",
-      "Bash(node tmp_gen_seed.mjs)"
+      "Bash(node tmp_gen_seed.mjs)",
+      "Bash(git fetch *)",
+      "Bash(nslookup -type=ns cocosolsurf.com 8.8.8.8)",
+      "Bash(nslookup cocosolsurf.com 8.8.8.8)",
+      "Bash(nslookup www.cocosolsurf.com 8.8.8.8)",
+      "Bash(nslookup -type=ns cocosolsurf.com 1.1.1.1)",
+      "Bash(curl -sI --max-time 20 https://cocosolsurf.com)",
+      "Bash(curl -s --max-time 20 https://cocosolsurf.com)",
+      "Bash(curl -sI --max-time 20 --resolve cocosolsurf.com:443:216.198.79.65 https://cocosolsurf.com)",
+      "Bash(curl -s --max-time 20 --resolve cocosolsurf.com:443:216.198.79.65 https://cocosolsurf.com)",
+      "Bash(curl -sI --max-time 15 --resolve cocosolsurf.com:443:198.12.241.102 https://cocosolsurf.com)"
     ],
     "additionalDirectories": [
       "c:\\Users\\LuisN\\.claude\\projects\\c--Users-LuisN-Desktop-Project-2026-cocosol\\memory"

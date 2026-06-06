@@ -1,5 +1,6 @@
 ---
 export const prerender = false
+import { supabase } from '../../lib/supabase'
 
 interface Props {
   authToken: string
@@ -7,19 +8,33 @@ interface Props {
 
 const { authToken } = Astro.props
 
-let config: any = { provider: 'on-site', paypal_client_id: '', paypal_secret: '', paypal_sandbox: true, square_access_token: '', square_application_id: '', square_location_id: '', square_sandbox: true }
+const defaultConfig = {
+  provider: 'on-site',
+  paypal_client_id: '',
+  paypal_secret: '',
+  paypal_sandbox: true,
+  square_access_token: '',
+  square_application_id: '',
+  square_location_id: '',
+  square_sandbox: true,
+}
+
+let config: any = { ...defaultConfig }
 let error = ''
 
-// Fetch current config
+// Load directly from Supabase during SSR. Self-fetching this API can fail on Vercel serverless.
 try {
-  const url = new URL('/api/admin/payment-config', Astro.url)
-  const res = await fetch(url.toString(), {
-    headers: { 'Authorization': `Bearer ${authToken}` },
-  })
-  if (res.ok) {
-    config = await res.json()
-  } else {
-    error = `Failed to load payment config (${res.status})`
+  const { data, error: dbError } = await supabase
+    .from('payment_config')
+    .select('*')
+    .eq('is_active', true)
+    .limit(1)
+
+  if (dbError) {
+    console.error('Supabase payment_config error:', dbError)
+    error = 'Failed to load payment config: ' + dbError.message
+  } else if (data && data.length > 0) {
+    config = { ...defaultConfig, ...data[0] }
   }
 } catch (e) {
   error = 'Failed to load payment config: ' + (e instanceof Error ? e.message : 'Unknown error')
