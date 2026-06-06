@@ -223,7 +223,29 @@ function adminShell(params: {
 }
 
 // ─── SEND ────────────────────────────────────────────────────────────────────
-async function sendEmail(payload: { to: string; subject: string; html: string; from?: string; replyTo?: string }): Promise<void> {
+function parseEmailList(value: unknown): string[] {
+  return (value ?? '')
+    .toString()
+    .split(/[,\s;]+/)
+    .map(email => email.trim())
+    .filter(email => email.includes('@'))
+}
+
+function uniqueEmails(emails: string[]): string[] {
+  return Array.from(new Set(emails.map(email => email.toLowerCase())))
+}
+
+function getAdminEmailRecipients(): string[] {
+  const recipients = [
+    ...parseEmailList(import.meta.env.RESERVATIONS_EMAIL),
+    ...parseEmailList(import.meta.env.ADMIN_EMAIL),
+    ...parseEmailList(import.meta.env.REPLY_TO_EMAIL),
+  ]
+
+  return uniqueEmails(recipients)
+}
+
+async function sendEmail(payload: { to: string | string[]; subject: string; html: string; from?: string; replyTo?: string }): Promise<void> {
   const resendApiKey = import.meta.env.RESEND_API_KEY
   if (!resendApiKey) throw new Error('Missing RESEND_API_KEY')
   const defaultFrom = (import.meta.env.FROM_EMAIL ?? '').toString().trim() || 'onboarding@resend.dev'
@@ -420,7 +442,7 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
 
   await sendEmail({
     to: data.customerEmail,
-    replyTo: import.meta.env.REPLY_TO_EMAIL || import.meta.env.ADMIN_EMAIL || undefined,
+    replyTo: import.meta.env.REPLY_TO_EMAIL || import.meta.env.RESERVATIONS_EMAIL || import.meta.env.ADMIN_EMAIL || undefined,
     subject: isOnSite
       ? `✅ Reservation Confirmed — Pay ${formatCurrency(total)} on Arrival · Cocosol Surf Lessons`
       : `🏄 Booking Confirmed — ${data.items.length} Session${data.items.length > 1 ? 's' : ''} at Cocosol Surf Lessons`,
@@ -430,8 +452,10 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
 
 // ─── ADMIN: CART SUMMARY ─────────────────────────────────────────────────────
 export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Promise<void> {
-  const adminEmail = import.meta.env.ADMIN_EMAIL
-  if (!adminEmail) return
+  const adminEmails = getAdminEmailRecipients()
+  if (adminEmails.length === 0) {
+    throw new Error('Missing admin email recipient. Set RESERVATIONS_EMAIL or ADMIN_EMAIL.')
+  }
 
   const isOnSite = data.mode === 'on-site'
   const total = data.items.reduce((sum, item) => sum + item.totalAmount, 0)
@@ -558,7 +582,7 @@ export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Pro
   })
 
   await sendEmail({
-    to: adminEmail,
+    to: adminEmails,
     replyTo: data.customerEmail,
     subject: isOnSite
       ? `📍 New Booking: ${data.customerName} · ${data.items.length} session${data.items.length > 1 ? 's' : ''} · Collect ${formatCurrency(total)}`
