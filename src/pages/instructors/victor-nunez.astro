@@ -1,0 +1,191 @@
+---
+export const prerender = true
+import { Image } from 'astro:assets'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
+import victorImg from '../../assets/images/Victor.png'
+
+const site = 'https://cocosolsurf.com'
+
+const seo = {
+  title: 'Victor Nuñez — Head Surf Instructor | Cocosol Surf Lessons',
+  description: 'Meet Victor Nuñez, founder and head instructor of Cocosol Surf Lessons in Cocoa Beach — ISA-certified, lifeguard and CPR trained, 30 years in the water and 25 teaching.',
+  slug: '/instructors/victor-nunez',
+  keyfocus: 'victor nunez surf instructor cocoa beach',
+  image: '/images/victor-nunez.png',
+}
+
+const credentials = [
+  { label: 'ISA-Certified Surf Instructor', sub: 'International Surfing Association' },
+  { label: 'Certified Lifeguard', sub: 'Ocean & water rescue' },
+  { label: 'CPR Certified', sub: 'Emergency response trained' },
+  { label: '30 years in the water', sub: 'Surfing & lifeguarding, Costa Rica & Florida' },
+  { label: '25 years teaching', sub: 'Beginners to advanced, all ages' },
+]
+
+const expertise = [
+  'Beginner surf instruction & first-wave coaching',
+  'Ocean safety, currents & water rescue',
+  'Technique refinement for intermediate surfers',
+  'Kids & family surf lessons',
+  'Reading Cocoa Beach & Cape Canaveral conditions',
+]
+
+const articles = [
+  { title: 'The Complete Beginner’s Guide to Surfing', href: '/blog/beginners-guide-to-surfing' },
+  { title: 'Is Cocoa Beach Good for Surfing?', href: '/blog/is-cocoa-beach-good-for-surfing' },
+  { title: 'Surfing Near Orlando', href: '/blog/surfing-near-orlando' },
+]
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${site}/instructors/victor-nunez#person`,
+  name: 'Victor Nuñez',
+  url: `${site}/instructors/victor-nunez`,
+  image: `${site}/images/victor-nunez.png`,
+  jobTitle: 'Founder & Head Surf Instructor',
+  worksFor: {
+    '@type': ['LocalBusiness', 'SportsActivityLocation'],
+    '@id': `${site}/#business`,
+    name: 'Cocosol Surf Lessons',
+  },
+  nationality: { '@type': 'Country', name: 'Costa Rica' },
+  knowsAbout: [
+    'Surfing', 'Surf coaching', 'Ocean safety', 'Water rescue',
+    'Beginner surf instruction', 'Cocoa Beach surf conditions',
+  ],
+  hasCredential: [
+    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'certification', name: 'ISA-Certified Surf Instructor' },
+    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'certification', name: 'Certified Lifeguard' },
+    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'certification', name: 'CPR Certified' },
+  ],
+  description: 'Costa Rican surfer, certified lifeguard and founder of Cocosol Surf Lessons in Cocoa Beach, Florida, with three decades in the water and 25 years teaching surfers of all levels.',
+}
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} type="profile">
+  <BreadcrumbSchema slot="head" items={[
+    { name: 'Home', href: '/' },
+    { name: 'About Cocosol', href: '/best-surf-school-cocoa-beach' },
+    { name: 'Victor Nuñez', href: '/instructors/victor-nunez' },
+  ]} />
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
+
+  <!-- HERO -->
+  <section class="in-hero">
+    <div class="in-wrap in-hero-grid">
+      <div class="in-portrait">
+        <Image src={victorImg} alt="Victor Nuñez, founder and head surf instructor at Cocosol Surf Lessons" class="in-portrait-img" loading="eager" decoding="async" width={520} height={520} />
+        <span class="in-flag">Costa Rica · Cocoa Beach</span>
+      </div>
+      <div class="in-intro">
+        <span class="in-eyebrow">Meet your instructor</span>
+        <h1>Victor Nuñez</h1>
+        <p class="in-role">Founder &amp; Head Surf Instructor</p>
+        <p class="in-lede">A lifelong Costa Rican surfer and certified lifeguard who has spent three decades in the ocean — and the last 25 years teaching people of every age and level how to stand up, stay safe, and fall in love with surfing.</p>
+        <div class="in-cta-row">
+          <a class="in-btn in-btn-primary" href="/book-now">Book a lesson with Victor</a>
+          <a class="in-btn in-btn-ghost" href="/best-surf-school-cocoa-beach">Read the full story →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section class="in-section">
+    <div class="in-wrap">
+      <h2 class="in-h2">Credentials &amp; experience</h2>
+      <ul class="in-creds">
+        {credentials.map((c) => (
+          <li class="in-cred">
+            <span class="in-cred-label">{c.label}</span>
+            <span class="in-cred-sub">{c.sub}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- EXPERTISE -->
+  <section class="in-section in-section-soft">
+    <div class="in-wrap in-two">
+      <div>
+        <h2 class="in-h2">Areas of expertise</h2>
+        <ul class="in-list">
+          {expertise.map((e) => <li>{e}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2 class="in-h2">Articles by Victor</h2>
+        <ul class="in-articles">
+          {articles.map((a) => (
+            <li><a href={a.href}>{a.title}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="in-section in-cta">
+    <div class="in-wrap in-cta-inner">
+      <h2>Learn from someone who reads the ocean for a living</h2>
+      <p>Private, group, kids and coaching lessons in Cocoa Beach — all gear included, safety first.</p>
+      <a class="in-btn in-btn-primary" href="/book-now">Book your surf lesson</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .in-wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+  .in-section { padding: 3.5rem 0; }
+  .in-section-soft { background: #EFF9FB; }
+  .in-h2 { font-size: 1.6rem; font-weight: 800; color: #0E2A33; margin-bottom: 1.25rem; }
+
+  /* Hero */
+  .in-hero { background: linear-gradient(180deg, #0E2A33 0%, #14414f 100%); color: #fff; padding: 3.5rem 0 4rem; }
+  .in-hero-grid { display: grid; grid-template-columns: 280px 1fr; gap: 2.5rem; align-items: center; }
+  .in-portrait { position: relative; }
+  .in-portrait-img { width: 100%; height: auto; border-radius: 1.25rem; object-fit: cover; box-shadow: 0 20px 40px rgba(0,0,0,.35); }
+  .in-flag { position: absolute; bottom: .75rem; left: .75rem; background: rgba(0,188,212,.92); color: #04222a; font-size: .72rem; font-weight: 700; padding: .35rem .65rem; border-radius: 999px; }
+  .in-eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 700; color: #59D6E6; }
+  .in-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin: .35rem 0 .25rem; }
+  .in-role { color: #9fe3ee; font-weight: 600; margin-bottom: 1rem; }
+  .in-lede { color: rgba(255,255,255,.82); font-size: 1.05rem; line-height: 1.65; max-width: 46ch; }
+  .in-cta-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+
+  .in-btn { display: inline-flex; align-items: center; font-weight: 700; padding: .8rem 1.4rem; border-radius: 999px; transition: all .2s; font-size: .95rem; }
+  .in-btn-primary { background: #00BCD4; color: #04222a; }
+  .in-btn-primary:hover { background: #00a5bb; }
+  .in-btn-ghost { color: #fff; border: 1px solid rgba(255,255,255,.35); }
+  .in-btn-ghost:hover { background: rgba(255,255,255,.1); }
+
+  /* Credentials */
+  .in-creds { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; list-style: none; padding: 0; }
+  .in-cred { background: #fff; border: 1px solid #e2eef1; border-left: 4px solid #00BCD4; border-radius: .75rem; padding: 1rem 1.1rem; }
+  .in-cred-label { display: block; font-weight: 700; color: #0E2A33; }
+  .in-cred-sub { display: block; font-size: .85rem; color: #5b7079; margin-top: .2rem; }
+
+  /* Lists */
+  .in-two { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .in-list { list-style: none; padding: 0; display: grid; gap: .6rem; }
+  .in-list li { padding-left: 1.5rem; position: relative; color: #2b414a; line-height: 1.5; }
+  .in-list li::before { content: '🌊'; position: absolute; left: 0; font-size: .9rem; }
+  .in-articles { list-style: none; padding: 0; display: grid; gap: .55rem; }
+  .in-articles a { color: #0E7C90; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+  .in-articles a:hover { color: #00BCD4; }
+
+  /* CTA */
+  .in-cta { background: #0E2A33; color: #fff; text-align: center; }
+  .in-cta-inner h2 { font-size: 1.7rem; font-weight: 800; margin-bottom: .6rem; }
+  .in-cta-inner p { color: rgba(255,255,255,.8); margin-bottom: 1.5rem; }
+
+  @media (max-width: 760px) {
+    .in-hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .in-portrait { max-width: 240px; margin: 0 auto; }
+    .in-lede { margin-inline: auto; }
+    .in-cta-row { justify-content: center; }
+    .in-two { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

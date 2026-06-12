@@ -7,11 +7,13 @@ export interface Props {
   dateModified?: string
   image: string
   authorName?: string
+  authorUrl?: string
 }
 
-const { title, description, slug, datePublished, dateModified, image, authorName } = Astro.props
+const { title, description, slug, datePublished, dateModified, image, authorName, authorUrl } = Astro.props
 const site = 'https://cocosolsurf.com'
 const url = `${site}${slug}`
+const authorPage = authorUrl ?? `${site}/instructors/victor-nunez`
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -29,7 +31,7 @@ const jsonLd = {
     height: 630,
   },
   author: authorName
-    ? { '@type': 'Person', name: authorName, url: site }
+    ? { '@type': 'Person', '@id': `${authorPage}#person`, name: authorName, url: authorPage }
     : { '@type': 'Organization', name: 'Cocosol Surf Lessons', url: site },
   publisher: {
     '@type': 'Organization',
