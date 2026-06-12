@@ -1,8 +1,29 @@
 import { defineConfig } from "astro/config"; // ← quitar passthroughImageService
+import { execSync } from "node:child_process";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
+
+// lastmod por página = fecha del último commit de git que tocó su archivo fuente.
+// Routing plano: "/" → src/pages/index.astro, "/x" → src/pages/x.astro, etc.
+// Si git no tiene la fecha (clone shallow en CI), se omite lastmod en vez de inventarla.
+function gitLastmod(url) {
+  const path = new URL(url).pathname.replace(/^\/+|\/+$/g, "");
+  const rel = path === "" ? "index" : path;
+  for (const file of [`src/pages/${rel}.astro`, `src/pages/${rel}/index.astro`]) {
+    try {
+      const out = execSync(`git log -1 --format=%cI -- "${file}"`, {
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "ignore"],
+      }).trim();
+      if (out) return out;
+    } catch {
+      /* archivo no encontrado en el historial: continuar */
+    }
+  }
+  return undefined;
+}
 
 export default defineConfig({
   site: "https://cocosolsurf.com",
@@ -12,6 +33,11 @@ export default defineConfig({
     sitemap({
       // admin is private; api are endpoints — both excluded from the sitemap
       filter: (page) => !page.includes("/admin"),
+      serialize(item) {
+        const lastmod = gitLastmod(item.url);
+        if (lastmod) item.lastmod = lastmod;
+        return item;
+      },
     }),
   ],
   output: "server",
