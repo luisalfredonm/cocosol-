@@ -106,5 +106,8 @@
       "c:\\Users\\LuisN\\.claude\\projects\\c--Users-LuisN-Desktop-Project-2026-cocosol\\memory"
     ]
   },
-  "autoMemoryEnabled": true
+  "autoMemoryEnabled": true,
+  "enabledPlugins": {
+    "claude-seo-ai@claude-seo-ai": true
+  }
 }
