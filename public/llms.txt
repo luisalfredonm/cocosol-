@@ -1,0 +1,28 @@
+# Cocosol Surf Lessons
+
+> Surf school in Cocoa Beach, Florida offering private, group, kids and coaching
+> surf lessons, plus multi-day surf camps and packages. Certified local
+> instructors, small groups, all gear included, beginner-friendly waves near
+> Cocoa Beach Pier. Rated 4.9/5 from 88 reviews. Open daily 9:00-17:00.
+
+## Lessons & Services
+- [Private Surf Lessons](https://cocosolsurf.com/private-surf-lessons-cocoa-beach): 1-on-1 coaching with a dedicated certified instructor, all levels. From $75.
+- [Group Surf Lessons](https://cocosolsurf.com/group-surf-lessons-cocoa-beach): Small-group lessons, social and lower-cost, all gear included.
+- [Kids Surf Lessons](https://cocosolsurf.com/kids-surf-lessons-cocoa-beach): Ocean-safety-first lessons for children with experienced instructors.
+- [Surf Coaching](https://cocosolsurf.com/surf-coaching-cocoa-beach): Ongoing coaching to refine technique for intermediate and advanced surfers.
+- [Surf Camp](https://cocosolsurf.com/surf-camp-cocoa-beach): Multi-session surf camp in Cocoa Beach.
+- [Surf Packages](https://cocosolsurf.com/surf-packages-cocoa-beach): Multi-day lesson packages for faster progression.
+
+## Blog
+- [Beginner's Guide to Surfing](https://cocosolsurf.com/blog/beginners-guide-to-surfing): What to expect, how to stand up, what to wear, choosing a lesson type.
+- [Is Cocoa Beach Good for Surfing?](https://cocosolsurf.com/blog/is-cocoa-beach-good-for-surfing): Conditions, seasons and what to expect for surfers.
+- [Surfing Near Orlando](https://cocosolsurf.com/blog/surfing-near-orlando): Planning a surf trip to the coast from Orlando.
+
+## Company
+- [About / Best Surf School in Cocoa Beach](https://cocosolsurf.com/best-surf-school-cocoa-beach)
+- [Book Now](https://cocosolsurf.com/book-now): Reserve a lesson, package or camp online.
+- [Contact](https://cocosolsurf.com/contact): info@cocosolsurf.com - +1 321-386-9993
+
+## Optional
+- [Privacy Policy](https://cocosolsurf.com/privacy-policy)
+- [Terms of Use](https://cocosolsurf.com/terms-of-use)
