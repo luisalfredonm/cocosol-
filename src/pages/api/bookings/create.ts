@@ -2,28 +2,12 @@ export const prerender = false
 
 import type { APIRoute } from 'astro'
 import { isSupabaseConfigured, supabase } from '../../../lib/supabase'
-import { getClassTypes, calculateTotal } from '../../../lib/classTypes'
-import { getMinParticipants, getMaxParticipants } from '../../../lib/classTypeHelpers'
+import { validateBooking } from '../../../lib/bookingValidation'
 import { createPayPalOrder } from '../../../lib/paypalService'
 import {
   sendAdminCartSummaryEmail,
   sendCartSummaryEmail,
 } from '../../../lib/emailService'
-
-interface RawBookingItem {
-  classTypeId?: unknown
-  date?: unknown
-  timeSlot?: unknown
-  participants?: unknown
-}
-
-interface NormalizedBookingItem {
-  classTypeId: string
-  date: string
-  timeSlot: string
-  participants: number
-  totalAmount: number
-}
 
 interface BookingInsertRow {
   class_type_id: string
@@ -59,98 +43,10 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ error: 'Invalid JSON' }, 400)
   }
 
-  const contact = body?.contact
-  if (!contact?.name || !contact?.email) return json({ error: 'Missing contact info' }, 400)
+  const validation = await validateBooking(body)
+  if (!validation.ok) return json({ error: validation.error }, validation.status)
 
-  const rawItems = getRawItems(body)
-  if (rawItems.length === 0) return json({ error: 'At least one booking item is required' }, 400)
-  if (rawItems.length > 12) return json({ error: 'Too many booking items in one checkout' }, 400)
-
-  const classTypes = await getClassTypes()
-  const classTypeMap = new Map(classTypes.map(ct => [ct.id, ct]))
-  const normalizedItems: NormalizedBookingItem[] = []
-
-  for (const raw of rawItems) {
-    const classTypeId = String(raw.classTypeId ?? '')
-    const date = String(raw.date ?? '')
-    const timeSlot = String(raw.timeSlot ?? '')
-    const participants = Number(raw.participants)
-
-    if (!classTypeId || !date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return json({ error: 'Invalid booking item date' }, 400)
-    if (!timeSlot || !/^\d{2}:\d{2}$/.test(timeSlot)) return json({ error: 'Invalid booking item time' }, 400)
-    if (!Number.isInteger(participants) || participants < 1) return json({ error: 'Invalid booking item participants' }, 400)
-
-    const classType = classTypeMap.get(classTypeId)
-    if (!classType) return json({ error: `Invalid class type: ${classTypeId}` }, 400)
-
-    const minParticipants = getMinParticipants(classType)
-    const maxParticipants = getMaxParticipants(classType)
-    if (participants < minParticipants) {
-      return json({ error: `Minimum ${minParticipants} participants required for ${classType.name}` }, 400)
-    }
-    if (participants > maxParticipants) {
-      return json({ error: `Maximum ${maxParticipants} participants allowed for ${classType.name}` }, 400)
-    }
-
-    const dow = new Date(date + 'T12:00:00').getDay()
-    const isoDow = dow === 0 ? 7 : dow
-
-    const [
-      { data: dateSlots, error: dateSlotsError },
-      { data: weeklySlots, error: weeklySlotsError },
-      { data: existingBookings, error: bookingsError },
-    ] = await Promise.all([
-      supabase.from('tour_slots').select('*').eq('class_type_id', classTypeId).eq('slot_date', date),
-      supabase.from('weekly_slots').select('*').eq('class_type_id', classTypeId).eq('day_of_week', isoDow),
-      supabase.from('bookings').select('participants, start_time, status')
-        .eq('class_type_id', classTypeId)
-        .eq('booking_date', date)
-        .eq('start_time', timeSlot)
-        .in('status', ['pending', 'confirmed']),
-    ])
-
-    if (dateSlotsError || weeklySlotsError || bookingsError) {
-      return json({ error: 'Database error while validating booking item' }, 500)
-    }
-
-    const slotRows =
-      dateSlots && dateSlots.length > 0 ? dateSlots
-      : weeklySlots && weeklySlots.length > 0 ? weeklySlots
-      : []
-    const validSlots = slotRows.map(r => r.start_time.slice(0, 5))
-
-    if (validSlots.length > 0 && !validSlots.includes(timeSlot)) {
-      return json({ error: `Invalid time slot for ${classType.name} on ${date}` }, 400)
-    }
-
-    const selectedSlot = slotRows.find(slot => slot.start_time.slice(0, 5) === timeSlot) ?? null
-    if (selectedSlot) {
-      const capacity = Math.max(0, Number(selectedSlot.capacity ?? classType.max_capacity ?? 1))
-      const bookingMode = selectedSlot.booking_mode === 'exclusive' ? 'exclusive' : 'shared'
-      const alreadyBooked = (existingBookings ?? []).reduce((sum, booking) => sum + Number(booking.participants ?? 0), 0)
-      const sameRequestParticipants = normalizedItems
-        .filter(item => item.classTypeId === classTypeId && item.date === date && item.timeSlot === timeSlot)
-        .reduce((sum, item) => sum + item.participants, 0)
-      const remaining = Math.max(0, capacity - alreadyBooked - sameRequestParticipants)
-
-      if (bookingMode === 'exclusive' && (alreadyBooked > 0 || sameRequestParticipants > 0)) {
-        return json({ error: `${classType.name} at ${timeSlot} is already reserved.` }, 400)
-      }
-      if (participants > capacity || participants > remaining) {
-        return json({ error: `Only ${remaining} spot${remaining === 1 ? '' : 's'} left for ${classType.name} at ${timeSlot}.` }, 400)
-      }
-    }
-
-    normalizedItems.push({
-      classTypeId,
-      date,
-      timeSlot,
-      participants,
-      totalAmount: calculateTotal(classType, participants),
-    })
-  }
-
-  const totalAmount = normalizedItems.reduce((sum, item) => sum + item.totalAmount, 0)
+  const { contact, normalizedItems, totalAmount, classTypeMap } = validation
   const checkoutId = crypto.randomUUID()
   const baseBookingRows: BookingInsertRow[] = normalizedItems.map(item => ({
     class_type_id: item.classTypeId,
@@ -399,16 +295,6 @@ export const POST: APIRoute = async ({ request }) => {
   return json({
     error: 'Invalid or unconfigured payment provider',
   }, 400)
-}
-
-function getRawItems(body: any): RawBookingItem[] {
-  if (Array.isArray(body?.items)) return body.items
-  return [{
-    classTypeId: body?.classTypeId,
-    date: body?.date,
-    timeSlot: body?.timeSlot,
-    participants: body?.participants,
-  }]
 }
 
 async function insertBookings(rows: BookingInsertRow[], externalPaymentId: string | null) {

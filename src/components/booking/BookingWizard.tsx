@@ -64,7 +64,8 @@ export type Action =
   | { type: 'GO_TO_CONTACT' }
   | { type: 'SET_CONTACT'; contact: ContactInfo }
   | { type: 'SET_BOOKINGS'; bookingIds: string[]; clientSecret: string; totalAmount: number; provider: string; paypalOrderId?: string; paypalSandbox?: boolean; paypalClientId?: string; squareApplicationId?: string; squareLocationId?: string; squareSandbox?: boolean }
-  | { type: 'SET_CONFIRMED' }
+  | { type: 'SET_SQUARE_PAYMENT'; squareApplicationId: string; squareLocationId: string; squareSandbox: boolean }
+  | { type: 'SET_CONFIRMED'; bookingIds?: string[] }
   | { type: 'SET_LOADING'; value: boolean }
   | { type: 'SET_ERROR'; msg: string | null }
   | { type: 'PREV_STEP' }
@@ -190,7 +191,26 @@ function reducer(state: WizardState, action: Action): WizardState {
       squareSandbox: action.squareSandbox !== false,
       isLoading: false
     }
-    case 'SET_CONFIRMED': return { ...state, step: 8, clientSecret: null, paypalOrderId: null, isLoading: false, error: null }
+    case 'SET_SQUARE_PAYMENT': return {
+      ...state,
+      step: 7,
+      bookingIds: [],
+      paymentProvider: 'square',
+      squareApplicationId: action.squareApplicationId,
+      squareLocationId: action.squareLocationId,
+      squareSandbox: action.squareSandbox,
+      isLoading: false,
+      error: null,
+    }
+    case 'SET_CONFIRMED': return {
+      ...state,
+      step: 8,
+      bookingIds: action.bookingIds && action.bookingIds.length > 0 ? action.bookingIds : state.bookingIds,
+      clientSecret: null,
+      paypalOrderId: null,
+      isLoading: false,
+      error: null,
+    }
     case 'SET_LOADING': return { ...state, isLoading: action.value, error: null }
     case 'SET_ERROR': return { ...state, error: action.msg, isLoading: false }
     case 'PREV_STEP': return { ...state, step: Math.max(1, state.step - 1) as Step, error: null }
@@ -298,6 +318,21 @@ export default function BookingWizard({ preselectedType, filterIds, filterCatego
     dispatch({ type: 'SET_CONTACT', contact })
     dispatch({ type: 'SET_LOADING', value: true })
     try {
+      // Check the active provider first. Square uses a "pay-first" flow: no
+      // booking is created until the card is charged, so we just move to the
+      // payment step with the Square config and skip /api/bookings/create.
+      const cfgRes = await fetch('/api/payment-config')
+      const cfg = await cfgRes.json().catch(() => ({}))
+      if ((cfg?.provider || '').toLowerCase() === 'square') {
+        dispatch({
+          type: 'SET_SQUARE_PAYMENT',
+          squareApplicationId: cfg.square_application_id || '',
+          squareLocationId: cfg.square_location_id || '',
+          squareSandbox: cfg.square_sandbox !== false,
+        })
+        return
+      }
+
       const res = await fetch('/api/bookings/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -446,10 +481,12 @@ export default function BookingWizard({ preselectedType, filterIds, filterCatego
         {state.step === 6 && (
           <StepContact contact={state.contact} isLoading={state.isLoading} onSubmit={handleContactSubmit} onBack={() => dispatch({ type: 'PREV_STEP' })} />
         )}
-        {state.step === 7 && state.bookingIds.length > 0 && (
+        {state.step === 7 && (state.bookingIds.length > 0 || state.paymentProvider === 'square') && (
           <StepPayment
             clientSecret={state.clientSecret}
             bookingIds={state.bookingIds}
+            bookingItems={state.cartItems}
+            contact={state.contact}
             totalAmount={state.totalAmount || cartTotal}
             items={cartDisplayItems}
             provider={state.paymentProvider || 'on-site'}
@@ -459,7 +496,7 @@ export default function BookingWizard({ preselectedType, filterIds, filterCatego
             squareApplicationId={state.squareApplicationId}
             squareLocationId={state.squareLocationId}
             squareSandbox={state.squareSandbox}
-            onSuccess={() => dispatch({ type: 'SET_CONFIRMED' })}
+            onSuccess={(bookingIds) => dispatch({ type: 'SET_CONFIRMED', bookingIds })}
             onError={msg => dispatch({ type: 'SET_ERROR', msg })}
             onBack={() => dispatch({ type: 'PREV_STEP' })}
           />

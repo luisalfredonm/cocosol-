@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { formatCurrency, formatTime } from '../../../lib/classTypeHelpers'
+import type { CartItem, ContactInfo } from '../BookingWizard'
 
 declare global {
   interface Window {
@@ -20,6 +21,8 @@ interface CheckoutItem {
 interface Props {
   clientSecret: string | null
   bookingIds: string[]
+  bookingItems?: CartItem[]
+  contact?: ContactInfo
   totalAmount: number
   items: CheckoutItem[]
   provider: 'on-site' | 'paypal' | 'square'
@@ -29,7 +32,7 @@ interface Props {
   squareApplicationId?: string
   squareLocationId?: string
   squareSandbox?: boolean
-  onSuccess: () => void
+  onSuccess: (bookingIds?: string[]) => void
   onError: (msg: string) => void
   onBack: () => void
 }
@@ -90,7 +93,7 @@ function OrderSummary({ items, totalAmount }: { items: CheckoutItem[]; totalAmou
 }
 
 export default function StepPayment({
-  clientSecret, bookingIds, totalAmount, items, provider,
+  clientSecret, bookingIds, bookingItems = [], contact, totalAmount, items, provider,
   paypalOrderId, paypalSandbox = true, paypalClientId = '',
   squareApplicationId = '', squareLocationId = '', squareSandbox = true,
   onSuccess, onError, onBack,
@@ -119,7 +122,7 @@ export default function StepPayment({
         </div>
         <div className="flex gap-3 justify-between">
           <button type="button" onClick={onBack} className="btn-outline px-6 py-2.5 text-sm">← Back</button>
-          <button type="button" onClick={onSuccess} className="btn-primary px-8 py-2.5 text-sm flex items-center gap-2">
+          <button type="button" onClick={() => onSuccess()} className="btn-primary px-8 py-2.5 text-sm flex items-center gap-2">
             Confirm Reservation
           </button>
         </div>
@@ -145,7 +148,8 @@ export default function StepPayment({
   // ── SQUARE ───────────────────────────────────────────────────────────────────
   if (provider === 'square') {
     return <SquareSection
-      bookingIds={bookingIds}
+      bookingItems={bookingItems}
+      contact={contact}
       totalAmount={totalAmount}
       items={items}
       applicationId={squareApplicationId}
@@ -249,10 +253,10 @@ function PayPalSection({ bookingIds, totalAmount, items, paypalOrderId, paypalSa
 }
 
 // ── Square sub-component ─────────────────────────────────────────────────────
-function SquareSection({ bookingIds, totalAmount, items, applicationId, locationId, sandbox, onSuccess, onError, onBack }: {
-  bookingIds: string[]; totalAmount: number; items: CheckoutItem[]
+function SquareSection({ bookingItems, contact, totalAmount, items, applicationId, locationId, sandbox, onSuccess, onError, onBack }: {
+  bookingItems: CartItem[]; contact?: ContactInfo; totalAmount: number; items: CheckoutItem[]
   applicationId: string; locationId: string; sandbox: boolean
-  onSuccess: () => void; onError: (msg: string) => void; onBack: () => void
+  onSuccess: (bookingIds?: string[]) => void; onError: (msg: string) => void; onBack: () => void
 }) {
   const cardContainerRef = useRef<HTMLDivElement>(null)
   const cardRef = useRef<any>(null)
@@ -308,16 +312,18 @@ function SquareSection({ bookingIds, totalAmount, items, applicationId, location
         throw new Error(msg)
       }
 
-      const res = await fetch('/api/bookings/capture-square', {
+      // Pay-first: this single call charges the card AND creates the booking
+      // (as confirmed) only if the payment succeeds. No pending row is created.
+      const res = await fetch('/api/bookings/checkout-square', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bookingIds, sourceId: result.token }),
+        body: JSON.stringify({ items: bookingItems, contact, sourceId: result.token }),
       })
 
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Payment failed')
 
-      onSuccess()
+      onSuccess(Array.isArray(data.bookingIds) ? data.bookingIds : undefined)
     } catch (err: any) {
       onError(err.message)
     } finally {

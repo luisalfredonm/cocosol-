@@ -3,6 +3,7 @@ export const prerender = false
 import type { APIRoute } from 'astro'
 import { isSupabaseConfigured, missingSupabaseEnv, supabase } from '../../lib/supabase'
 import { getClassTypeById } from '../../lib/classTypes'
+import { holdsCapacity } from '../../lib/bookingValidation'
 
 export const GET: APIRoute = async ({ url }) => {
   const classTypeId = url.searchParams.get('classTypeId') ?? ''
@@ -38,7 +39,7 @@ export const GET: APIRoute = async ({ url }) => {
       .eq('class_type_id', classTypeId).eq('slot_date', date).order('start_time'),
     supabase.from('weekly_slots').select('*')
       .eq('class_type_id', classTypeId).eq('day_of_week', isoDow).order('start_time'),
-    supabase.from('bookings').select('start_time, participants, status')
+    supabase.from('bookings').select('start_time, participants, status, created_at')
       .eq('class_type_id', classTypeId)
       .eq('booking_date', date)
       .in('status', ['pending', 'confirmed']),
@@ -64,6 +65,7 @@ export const GET: APIRoute = async ({ url }) => {
 
   const bookedByTime = new Map<string, number>()
   for (const booking of existingBookings ?? []) {
+    if (!holdsCapacity(booking)) continue // abandoned pending no longer holds the slot
     const time = booking.start_time.slice(0, 5)
     bookedByTime.set(time, (bookedByTime.get(time) ?? 0) + Number(booking.participants ?? 0))
   }
