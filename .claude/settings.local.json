@@ -2,7 +2,19 @@
   "permissions": {
     "allow": [
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\LuisN\\\\Desktop\\\\Project 2026\\\\pvss-full\\\\src\" -Recurse -Directory)",
-      "Bash(Select-Object FullName)"
+      "Bash(Select-Object FullName)",
+      "Bash(cd /tmp)",
+      "Bash(curl -sS -o /dev/null -w \"%{http_code} -> %{redirect_url}\\\\n\" --max-time 25 \"https://share.google/14aWM7mDnXwCq56t5\")",
+      "Bash(curl -sSL -o /dev/null -w \"%{url_effective}\\\\n\" --max-time 30 \"https://share.google/14aWM7mDnXwCq56t5\")",
+      "Bash(git commit *)",
+      "Bash(ls public/images/)",
+      "Bash(ls src/assets/)",
+      "Bash(ls src/assets/images/)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('src/assets/images/Victor.png'\\);const w=b.readUInt32BE\\(16\\),h=b.readUInt32BE\\(20\\);console.log\\('Victor.png',w+'x'+h, \\(b.length/1024\\).toFixed\\(0\\)+'KB'\\);\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const h=fs.readFileSync\\('dist/client/instructors/victor-nunez/index.html','utf8'\\);const b=[...h.matchAll\\(/<script type=\\\\\"application\\\\/ld\\\\+json\\\\\"[^>]*>\\([\\\\s\\\\S]*?\\)<\\\\/script>/g\\)].map\\(m=>m[1]\\);for\\(const x of b\\){const j=JSON.parse\\(x\\);if\\(j['@type']==='Person'\\){console.log\\('jobTitle:',j.jobTitle\\);console.log\\('@id:',j['@id']\\);console.log\\('worksFor @id:',j.worksFor['@id']\\);console.log\\('hasCredential:',j.hasCredential.map\\(c=>c.name\\).join\\(', '\\)\\);console.log\\('image:',j.image\\);}}\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const h=fs.readFileSync\\('dist/client/blog/beginners-guide-to-surfing/index.html','utf8'\\);const b=[...h.matchAll\\(/<script type=\\\\\"application\\\\/ld\\\\+json\\\\\"[^>]*>\\([\\\\s\\\\S]*?\\)<\\\\/script>/g\\)].map\\(m=>m[1]\\);for\\(const x of b\\){const j=JSON.parse\\(x\\);if\\(j['@type']==='BlogPosting'\\){console.log\\('author:',JSON.stringify\\(j.author\\)\\);}}\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const h=fs.readFileSync\\('dist/client/blog/beginners-guide-to-surfing/index.html','utf8'\\);console.log\\(h.includes\\('href=\\\\\"/instructors/victor-nunez\\\\\"'\\)?'YES byline links to author page':'NO'\\);\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const x=fs.readFileSync\\('dist/client/sitemap-0.xml','utf8'\\);const m=x.match\\(/<url><loc>https:\\\\/\\\\/cocosolsurf.com\\\\/instructors\\\\/victor-nunez<\\\\/loc>\\(<lastmod>[^<]*<\\\\/lastmod>\\)?/\\);console.log\\(m?\\('FOUND '+\\(m[1]||'\\(no lastmod yet — uncommitted\\)'\\)\\):'NOT in sitemap'\\);console.log\\('total urls:',[...x.matchAll\\(/<loc>/g\\)].length\\);\")"
     ]
   }
 }

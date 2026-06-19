@@ -100,14 +100,17 @@
       "Bash(curl -A \"Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" -sI --max-time 25 https://cocosolsurf.com/sitemap-index.xml)",
       "Bash(curl -sIL --max-time 25 https://cocosolsurf.com/sitemap-index.xml)",
       "Bash(curl -sI --max-time 20 https://cocosolsurf.com/robots.txt)",
-      "Bash(curl -s --max-time 20 https://cocosolsurf.com/robots.txt)"
+      "Bash(curl -s --max-time 20 https://cocosolsurf.com/robots.txt)",
+      "PowerShell($p = \"C:\\\\Users\\\\LuisN\\\\Desktop\\\\Project 2026\\\\nuevo-sitio\\\\src\\\\pages\"; $old = @\\(\"best-surf-school-cocoa-beach.astro\",\"group-surf-lessons-cocoa-beach.astro\",\"private-surf-lessons-cocoa-beach.astro\",\"kids-surf-lessons-cocoa-beach.astro\",\"surf-coaching-cocoa-beach.astro\",\"surf-camp-cocoa-beach.astro\",\"surf-packages-cocoa-beach.astro\"\\); foreach \\($f in $old\\) { $fp = Join-Path $p $f; if \\(Test-Path $fp\\) { Remove-Item $fp -Force; Write-Output \"deleted $f\" } })",
+      "PowerShell($base = \"C:\\\\Users\\\\LuisN\\\\Desktop\\\\Project 2026\\\\nuevo-sitio\\\\src\\\\pages\"; Remove-Item \"$base\\\\blog\\\\is-cocoa-beach-good-for-surfing.astro\",\"$base\\\\blog\\\\beginners-guide-to-surfing.astro\",\"$base\\\\blog\\\\surfing-near-orlando.astro\" -Force; Remove-Item \"$base\\\\instructors\" -Recurse -Force; Write-Output \"removed cocoa blog posts + instructors dir\"; Get-ChildItem \"$base\\\\blog\")"
     ],
     "additionalDirectories": [
-      "c:\\Users\\LuisN\\.claude\\projects\\c--Users-LuisN-Desktop-Project-2026-cocosol\\memory"
+      "c:\\Users\\LuisN\\.claude\\projects\\c--Users-LuisN-Desktop-Project-2026-cocosol\\memory",
+      "C:\\Users\\LuisN\\Desktop\\Project 2026\\nuevo-sitio"
     ]
   },
-  "autoMemoryEnabled": true,
   "enabledPlugins": {
     "claude-seo-ai@claude-seo-ai": true
-  }
+  },
+  "autoMemoryEnabled": true
 }
