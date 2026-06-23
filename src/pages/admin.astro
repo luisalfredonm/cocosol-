@@ -376,12 +376,29 @@ let campSettings: any = { payment_mode: 'full', deposit_percentage: 30 }
 const activeTab = Astro.url.searchParams.get('tab') ?? 'bookings'
 const statusFilter = Astro.url.searchParams.get('status') ?? ''
 const dateFilter = Astro.url.searchParams.get('date') ?? ''
+const rangeFilter = Astro.url.searchParams.get('range') ?? 'upcoming'
+// Today's date in Costa Rica time, as YYYY-MM-DD to compare against booking_date
+const todayCR = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Costa_Rica' })
+// When viewing past bookings, show the most recent first; ignore range if a specific date is set
+const pastFirst = rangeFilter === 'past' && !dateFilter
 
 if (isAuthenticated && DISABLED_CAMP_TABS.includes(activeTab)) {
   return Astro.redirect('/admin?tab=class-types')
 }
 
 if (isAuthenticated && isSupabaseConfigured) {
+  // Bookings query — apply the temporal range (unless a specific date is requested)
+  let bookingsQuery = supabase.from('bookings').select('*')
+  if (!dateFilter) {
+    if (rangeFilter === 'upcoming') bookingsQuery = bookingsQuery.gte('booking_date', todayCR)
+    else if (rangeFilter === 'past') bookingsQuery = bookingsQuery.lt('booking_date', todayCR)
+  }
+  bookingsQuery = bookingsQuery
+    .order('booking_date', { ascending: !pastFirst })
+    .order('start_time', { ascending: true })
+    .order('created_at', { ascending: true })
+    .limit(200)
+
   const [
     { data: allBookings },
     { data: ctData },
@@ -390,11 +407,7 @@ if (isAuthenticated && isSupabaseConfigured) {
     { data: dsData },
     { data: statsData },
   ] = await Promise.all([
-    supabase.from('bookings').select('*')
-      .order('booking_date', { ascending: true })
-      .order('start_time', { ascending: true })
-      .order('created_at', { ascending: true })
-      .limit(200),
+    bookingsQuery,
     supabase.from('class_types').select('*').order('sort_order'),
     supabase.from('weekly_slots').select('*, class_types(name)').order('class_type_id').order('day_of_week').order('start_time'),
     supabase.from('tour_capacity').select('*, class_types(name)').order('capacity_date', { ascending: true }),
@@ -432,7 +445,10 @@ for (const s of weeklySlots) {
 }
 
 const sortedBookings = [...bookings].sort((a, b) => {
-  if (a.booking_date !== b.booking_date) return a.booking_date < b.booking_date ? -1 : 1
+  if (a.booking_date !== b.booking_date) {
+    const cmp = a.booking_date < b.booking_date ? -1 : 1
+    return pastFirst ? -cmp : cmp
+  }
   return (a.start_time || '').localeCompare(b.start_time || '')
 })
 
@@ -1065,6 +1081,14 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
             <form method="GET" class="adm-filter">
               <input type="hidden" name="tab" value="bookings" />
               <div>
+                <label class="adm-label">Range</label>
+                <select name="range" class="adm-input" style="width:140px">
+                  <option value="upcoming" selected={rangeFilter === 'upcoming'}>Upcoming</option>
+                  <option value="past" selected={rangeFilter === 'past'}>Past</option>
+                  <option value="all" selected={rangeFilter === 'all'}>All</option>
+                </select>
+              </div>
+              <div>
                 <label class="adm-label">Status</label>
                 <select name="status" class="adm-input" style="width:148px">
                   <option value="">All statuses</option>
@@ -1083,7 +1107,7 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                 </svg>
                 Filter
               </button>
-              {(statusFilter || dateFilter) && (
+              {(statusFilter || dateFilter || rangeFilter !== 'upcoming') && (
                 <a href="/admin?tab=bookings" class="adm-btn-link">Clear filters</a>
               )}
               <div style="margin-left:auto;font-size:12.5px;color:#94A3B8;font-weight:500;align-self:center">
@@ -1101,7 +1125,7 @@ const currentTab = TABS.find(t => t.id === activeTab || (activeTab === '' && t.i
                     </svg>
                   </div>
                   <p class="adm-empty-title">No bookings found</p>
-                  <p class="adm-empty-sub">{statusFilter || dateFilter ? 'Try clearing your filters to see all bookings' : 'New bookings will appear here'}</p>
+                  <p class="adm-empty-sub">{statusFilter || dateFilter || rangeFilter !== 'upcoming' ? 'Try clearing your filters to see all bookings' : 'No upcoming bookings — new ones will appear here'}</p>
                 </div>
               </div>
             )}
