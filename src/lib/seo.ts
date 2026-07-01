@@ -85,6 +85,25 @@ export const SEO: Record<string, PageSEO> = {
     ogImage: '/images/7-days-surf-lessons-cocoa-beach-green-wave.webp',
   },
 
+  '/surf-training-schedule-cocoa-beach': {
+    title: 'Weekly Surf Training Schedule in Cocoa Beach | Cocosol',
+    description:
+      'See the Cocosol weekly surf training schedule in Cocoa Beach: daily surf, surfskate and Indo Board sessions, plus Saturday competition and video analysis.',
+    keyfocus: 'surf training schedule cocoa beach',
+    synonyms: [
+      'surf coaching schedule cocoa beach',
+      'weekly surf training cocoa beach',
+      'surfskate training cocoa beach',
+      'indo board training cocoa beach',
+    ],
+    related: [
+      'surf coaching cocoa beach',
+      'advanced surf training florida',
+      'surf competition training cocoa beach',
+    ],
+    ogImage: '/images/semi-private-surf-cocoa-beach-wave-riding.webp',
+  },
+
   '/best-surf-school-cocoa-beach': {
     title: 'Best Surf School in Cocoa Beach | About Cocosol',
     description:
@@ -156,6 +175,7 @@ export const seoData: Record<string, PageSEOWithRoute> = {
   privateLessons: withRoute('/private-surf-lessons-cocoa-beach'),
   groupLessons: withRoute('/group-surf-lessons-cocoa-beach'),
   semiPrivateLessons: withRoute('/surf-coaching-cocoa-beach'),
+  trainingSchedule: withRoute('/surf-training-schedule-cocoa-beach'),
   surfCamp: withRoute('/surf-camp-cocoa-beach'),
   aboutUs: withRoute('/best-surf-school-cocoa-beach'),
   bookNow: withRoute('/book-now'),
@@ -222,6 +242,7 @@ export const ROUTES = {
   SURF_LESSONS: '/',
   PRIVATE: '/private-surf-lessons-cocoa-beach',
   SEMI_PRIVATE: '/surf-coaching-cocoa-beach',
+  TRAINING_SCHEDULE: '/surf-training-schedule-cocoa-beach',
   GROUP: '/group-surf-lessons-cocoa-beach',
   PACKAGES: '/surf-packages-cocoa-beach',
   CAMP: '/surf-camp-cocoa-beach',

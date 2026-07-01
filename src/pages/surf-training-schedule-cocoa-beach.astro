@@ -1,0 +1,423 @@
+---
+export const prerender = true
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/ui/Hero.astro'
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
+import { seoData } from '../lib/seo'
+
+import heroImg from '../assets/images/semi-private-surf-cocoa-beach-wave-riding.webp'
+
+const seo = seoData.trainingSchedule
+
+// Weekly training schedule (informational). Sessions may shift with surf
+// conditions and season. Keep this in sync with the coaching program.
+const week = [
+  {
+    day: 'Monday',
+    tag: 'Surf Training',
+    times: ['9:00 AM – 10:30 AM'],
+    items: [
+      'Advanced technique work',
+      'Dry-land maneuver practice',
+      'In-water application of advanced surfing skills',
+    ],
+  },
+  {
+    day: 'Tuesday',
+    tag: 'Surfskate + Surf',
+    times: ['8:00 AM – 9:30 AM', '4:00 PM – 5:30 PM'],
+    timesNote: 'choose one',
+    items: [
+      'Surfskate training before surfing',
+      'Technique development',
+      'Surf session — transferring surfskate skills to the water',
+    ],
+  },
+  {
+    day: 'Wednesday',
+    tag: 'Balance & Stability',
+    times: ['8:00 AM – 9:00 AM', '9:00 AM – 10:30 AM', '4:00 PM – 5:30 PM'],
+    timesNote: 'available sessions',
+    items: [
+      'Indo Board balance training',
+      'Surf technique drills',
+      'Coordination and stability exercises',
+    ],
+  },
+  {
+    day: 'Thursday',
+    tag: 'Surfskate + Surf',
+    times: ['8:00 AM – 9:30 AM'],
+    items: [
+      'Surfskate training',
+      'Surf session',
+      'Focus on improving turns, balance and flow',
+    ],
+  },
+  {
+    day: 'Friday',
+    tag: 'Skill Refinement',
+    times: ['Training session'],
+    items: [
+      'Technical drills out of the water',
+      'In-water maneuver practice',
+      'Performance improvement and skill refinement',
+    ],
+  },
+  {
+    day: 'Saturday',
+    tag: 'Free Surf & Competition',
+    times: ['Competition day'],
+    items: [
+      'Supervised free surf',
+      'Friendly competitions',
+      'Video recording',
+      'Video review and performance analysis',
+    ],
+  },
+]
+
+const sunday = {
+  day: 'Sunday',
+  tag: 'Rest Day',
+  note: 'Recovery day. If the surf is good, an optional free surf session may be added.',
+}
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
+  <BreadcrumbSchema slot="head" items={[
+    { name: 'Home',             href: '/' },
+    { name: 'Surf Coaching',    href: '/surf-coaching-cocoa-beach' },
+    { name: 'Training Schedule', href: '/surf-training-schedule-cocoa-beach' },
+  ]} />
+
+  <!-- HERO -->
+  <Hero
+    title="Cocosol Surf Coaching — Weekly Training Schedule"
+    subtitle="Cocoa Beach, Florida"
+    image={heroImg}
+    imageAlt="Surf coach guiding a training session on a green wave at Cocoa Beach, Florida"
+    breadcrumb={{ label: 'Surf Coaching', href: '/surf-coaching-cocoa-beach' }}
+    height="medium"
+  />
+
+  <!-- INTRO -->
+  <section class="ts-intro">
+    <div class="ts-intro-wrap">
+      <span class="ts-eyebrow">Weekly Training Schedule</span>
+      <h2 class="ts-intro-title">A structured week, built around real progression</h2>
+      <p class="ts-intro-lead">
+        Our coaching program runs on a full weekly plan — surf technique, surfskate,
+        Indo Board balance work, dry-land drills, and Saturday competition days with
+        video review. Each day has a focus, so every session builds on the last.
+      </p>
+      <p class="ts-intro-note">
+        Times can shift slightly with the day's surf and the season. Questions about a
+        specific day? <a href="https://wa.me/13213869993" class="ts-inline-link">Message us on WhatsApp</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- SCHEDULE GRID -->
+  <section class="ts-grid-sec">
+    <div class="ts-grid-wrap">
+      <div class="ts-grid">
+        {week.map(d => (
+          <article class="ts-card">
+            <header class="ts-card-head">
+              <h3 class="ts-day">{d.day}</h3>
+              <span class="ts-tag">{d.tag}</span>
+            </header>
+
+            <div class="ts-times">
+              {d.timesNote && <span class="ts-times-note">{d.timesNote}</span>}
+              <ul class="ts-times-list">
+                {d.times.map(t => <li class="ts-time">{t}</li>)}
+              </ul>
+            </div>
+
+            <ul class="ts-items">
+              {d.items.map(i => (
+                <li class="ts-item">{i}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+
+        <!-- Sunday — rest -->
+        <article class="ts-card ts-card--rest">
+          <header class="ts-card-head">
+            <h3 class="ts-day">{sunday.day}</h3>
+            <span class="ts-tag ts-tag--rest">{sunday.tag}</span>
+          </header>
+          <p class="ts-rest-note">{sunday.note}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="ts-cta">
+    <div class="ts-cta-wrap">
+      <h2 class="ts-cta-title">Want to join the training program?</h2>
+      <p class="ts-cta-sub">
+        Coaching is for intermediate and advanced surfers ready to train with structure.
+        See how sessions and packages work, or reach out with any questions.
+      </p>
+      <div class="ts-cta-btns">
+        <a href="/surf-coaching-cocoa-beach" class="btn-primary">See Coaching &amp; Pricing</a>
+        <a href="https://wa.me/13213869993" target="_blank" rel="noopener noreferrer" class="ts-cta-wa">WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO INTERNAL LINKS -->
+  <section class="ts-links">
+    <div class="ts-links-wrap">
+      <h2 class="ts-links-title">Explore More at Cocosol Surf Lessons</h2>
+      <div class="ts-links-list">
+        {[
+          { l: 'Surf Coaching',        h: '/surf-coaching-cocoa-beach' },
+          { l: 'Private Surf Lessons', h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Group Surf Lessons',   h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Surf Camp Cocoa Beach', h: '/surf-camp-cocoa-beach' },
+        ].map(x => (
+          <a href={x.h} data-astro-prefetch="viewport" class="ts-link">{x.l}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Intro ───────────────────────────────────────────────────────────── */
+  .ts-intro {
+    background: #fff;
+    padding: 64px 0 32px;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .ts-intro-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+    text-align: center;
+  }
+  .ts-eyebrow {
+    display: inline-block;
+    background: rgba(0,188,212,.10);
+    color: #00838F;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .ts-intro-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: var(--c-heading);
+    line-height: 1.12;
+    margin-bottom: 16px;
+  }
+  .ts-intro-lead {
+    font-size: 1.05rem;
+    color: var(--c-muted);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .ts-intro-note {
+    font-size: .92rem;
+    color: #7c9299;
+    line-height: 1.6;
+  }
+  .ts-inline-link { color: #00838F; font-weight: 600; text-decoration: underline; }
+
+  /* ── Grid ────────────────────────────────────────────────────────────── */
+  .ts-grid-sec {
+    background: #EFF9FB;
+    padding: 48px 0 72px;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .ts-grid-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .ts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .ts-card {
+    background: #fff;
+    border: 1px solid #dceff2;
+    border-radius: 18px;
+    padding: 24px 22px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 20px rgba(12,33,40,.04);
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .ts-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(12,33,40,.09);
+    border-color: rgba(0,188,212,.4);
+  }
+  .ts-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #eef4f5;
+  }
+  .ts-day {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--c-heading);
+  }
+  .ts-tag {
+    font-size: .66rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #00838F;
+    background: rgba(0,188,212,.10);
+    padding: 5px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .ts-times { margin-bottom: 16px; }
+  .ts-times-note {
+    display: block;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #9ab;
+    margin-bottom: 6px;
+  }
+  .ts-times-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ts-time {
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--c-heading);
+    background: #F1FAFC;
+    border: 1px solid #d8eef2;
+    padding: 6px 12px;
+    border-radius: 10px;
+  }
+  .ts-items { display: flex; flex-direction: column; gap: 9px; margin-top: auto; }
+  .ts-item {
+    position: relative;
+    padding-left: 20px;
+    font-size: .92rem;
+    color: var(--c-muted);
+    line-height: 1.5;
+  }
+  .ts-item::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: .55em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00BCD4;
+  }
+
+  /* Rest card */
+  .ts-card--rest {
+    background: linear-gradient(160deg, #F7FAFB 0%, #eef4f5 100%);
+    justify-content: flex-start;
+  }
+  .ts-tag--rest { color: #64748b; background: #e7edef; }
+  .ts-rest-note {
+    font-size: .95rem;
+    color: var(--c-muted);
+    line-height: 1.6;
+  }
+
+  /* ── CTA ─────────────────────────────────────────────────────────────── */
+  .ts-cta {
+    background: #fff;
+    padding: 72px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .ts-cta-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 28px;
+    text-align: center;
+  }
+  .ts-cta-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.7rem, 3vw, 2.2rem);
+    font-weight: 600;
+    color: var(--c-heading);
+    margin-bottom: 12px;
+    line-height: 1.15;
+  }
+  .ts-cta-sub {
+    font-size: 1rem;
+    color: var(--c-muted);
+    line-height: 1.65;
+    margin-bottom: 26px;
+  }
+  .ts-cta-btns { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .ts-cta-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #25D366;
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .ts-cta-wa:hover { background: #20BA5A; }
+
+  /* ── SEO links ───────────────────────────────────────────────────────── */
+  .ts-links {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    padding: 40px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .ts-links-wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  .ts-links-title {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 16px;
+  }
+  .ts-links-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ts-link {
+    padding: 8px 18px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    font-size: .88rem;
+    color: var(--c-muted);
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .ts-link:hover { border-color: rgba(0,188,212,.4); color: #00838F; }
+
+  @media (max-width: 600px) {
+    .ts-intro { padding: 48px 0 24px; }
+    .ts-cta { padding: 56px 0; }
+    .ts-intro-wrap, .ts-grid-wrap, .ts-cta-wrap, .ts-links-wrap { padding: 0 20px; }
+  }
+</style>

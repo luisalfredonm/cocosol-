@@ -15,6 +15,7 @@ const pages: SitemapEntry[] = [
   { loc: "/", changefreq: "weekly", priority: "1.0", lastmod: TODAY },
   { loc: "/private-surf-lessons-cocoa-beach", changefreq: "monthly", priority: "0.9" },
   { loc: "/surf-coaching-cocoa-beach", changefreq: "monthly", priority: "0.9" },
+  { loc: "/surf-training-schedule-cocoa-beach", changefreq: "weekly", priority: "0.8" },
   { loc: "/group-surf-lessons-cocoa-beach", changefreq: "monthly", priority: "0.9" },
   { loc: "/surf-camp-cocoa-beach", changefreq: "monthly", priority: "0.9" },
   { loc: "/kids-surf-lessons-cocoa-beach", changefreq: "monthly", priority: "0.9" },
