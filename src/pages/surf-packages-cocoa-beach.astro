@@ -16,6 +16,48 @@ import ctaBgImg from '../assets/images/surf-school-cocoa-beach-beach-lesson.webp
 
 const seo = seoData.surfPrices
 
+// Full price list for this page, exposed as an OfferCatalog so search engines
+// and AI answer engines can extract every option and its price directly.
+const site = 'https://cocosolsurf.com'
+const priceOffers = [
+  { name: 'Private Surf Lesson',   price: '75',   url: '/private-surf-lessons-cocoa-beach', desc: 'One-on-one 1 hr private surf lesson, all gear included.' },
+  { name: 'Group Surf Lesson',     price: '60',   url: '/group-surf-lessons-cocoa-beach',   desc: 'Small-group 1 hr surf lesson (min. 4), all gear included.' },
+  { name: 'Surf Coaching',         price: '75',   url: '/surf-coaching-cocoa-beach',        desc: 'Performance coaching for intermediate and advanced surfers.' },
+  { name: 'Kids Surf Camp',        price: '350',  url: '/surf-camp-cocoa-beach',            desc: '5-day kids surf camp (ages 6–16), 3:1 ratio, gear and photos included.' },
+  { name: 'Starter Pack',          price: '260',  url: '/surf-packages-cocoa-beach',        desc: '4 × 1 hr lessons with the same instructor, all gear included.' },
+  { name: 'Progression Pack',      price: '475',  url: '/surf-packages-cocoa-beach',        desc: '6 × 1 hr lessons plus 1 professional photography session.' },
+  { name: 'Elite Pack',            price: '1280', url: '/surf-packages-cocoa-beach',        desc: '16 × 1 hr lessons plus 2 professional photography sessions.' },
+]
+const prices = priceOffers.map((o) => Number(o.price))
+const offerCatalogJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Surf Lessons & Packages in Cocoa Beach',
+  serviceType: 'Surf lessons',
+  provider: { '@type': 'LocalBusiness', '@id': `${site}/#business`, name: 'Cocosol Surf Lessons', url: site },
+  areaServed: { '@type': 'Place', name: 'Cocoa Beach, Florida, USA' },
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'USD',
+    lowPrice: String(Math.min(...prices)),
+    highPrice: String(Math.max(...prices)),
+    offerCount: String(priceOffers.length),
+    availability: 'https://schema.org/InStock',
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Surf Lesson Prices & Packages',
+    itemListElement: priceOffers.map((o) => ({
+      '@type': 'Offer',
+      price: o.price,
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: `${site}${o.url}`,
+      itemOffered: { '@type': 'Service', name: o.name, description: o.desc },
+    })),
+  },
+}
+
 const trustItems = [
   { value: 'All Gear', label: 'Included in every lesson' },
   { value: '$0',       label: 'Hidden fees' },
@@ -39,6 +81,7 @@ const faqs = [
     { name: 'Prices & Packages',  href: '/surf-packages-cocoa-beach' },
   ]} />
   <FAQSchema slot="head" items={faqs} />
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(offerCatalogJsonLd)} />
 
   <!-- HERO -->
   <Hero
@@ -258,15 +301,14 @@ const faqs = [
     bg="gray"
     items={[
       {
-        name: 'Thomas R.',
-        role: 'Progression Pack · Google Review',
-        country: 'Toronto, Canada',
-        text: 'We did the Progression Pack on our family trip. The photos they gave us at the end are now framed in our living room — best money we spent on the whole vacation.',
+        name: 'Katherine Martinez',
+        role: 'Google Review · Returning student',
+        text: 'An outstanding surfing experience at CocoSol! For the last 9 months we had the pleasure of taking lessons, and I can\'t recommend it enough. As someone with mixed experience levels, I was impressed by how well they catered to everyone, from complete beginners to those looking to refine their skills.',
       },
       {
-        name: 'Guest Name',
-        role: 'Google Review',
-        text: 'Add a real review here — ideally someone who did a package and noticed clear progression across sessions.',
+        name: 'Stephanie Smith',
+        role: 'First-time surfer · Google Review',
+        text: 'Best experience on our whole vacation! My instructor was awesome — kind and patient. He prepared us fully on land, so when we hit the ocean, everyone stood up. Highly recommend!',
       },
     ]}
   />

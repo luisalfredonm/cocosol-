@@ -181,6 +181,7 @@ export const seoData: Record<string, PageSEOWithRoute> = {
   bookNow: withRoute('/book-now'),
 
   surfLessons: withRoute('/'),
+  surfLessonsNearOrlando: withRoute('/surf-lessons-near-orlando'),
   surfPrices: withRoute('/surf-packages-cocoa-beach', {
     title: 'Surf Lesson Prices & Packages in Cocoa Beach | Cocosol',
     description:
@@ -244,6 +245,7 @@ export const ROUTES = {
   SEMI_PRIVATE: '/surf-coaching-cocoa-beach',
   TRAINING_SCHEDULE: '/surf-training-schedule-cocoa-beach',
   GROUP: '/group-surf-lessons-cocoa-beach',
+  NEAR_ORLANDO: '/surf-lessons-near-orlando',
   PACKAGES: '/surf-packages-cocoa-beach',
   CAMP: '/surf-camp-cocoa-beach',
   KIDS: '/kids-surf-lessons-cocoa-beach',
