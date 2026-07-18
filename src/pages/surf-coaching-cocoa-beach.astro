@@ -320,11 +320,14 @@ const faqs = [
       <h2 class="sc-links-title">Also Available at Cocosol Surf Lessons</h2>
       <div class="sc-links-list">
         {[
+          { l: 'Cocoa Beach Surf Lessons', h: '/' },
           { l: 'Weekly Training Schedule', h: '/surf-training-schedule-cocoa-beach' },
           { l: 'Private Surf Lessons',  h: '/private-surf-lessons-cocoa-beach' },
           { l: 'Group Surf Lessons',    h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Kids Surf Lessons',     h: '/kids-surf-lessons-cocoa-beach' },
           { l: 'Surf Packages',         h: '/surf-packages-cocoa-beach' },
           { l: 'Surf Camp Cocoa Beach', h: '/surf-camp-cocoa-beach' },
+          { l: 'Surf Lessons Near Orlando', h: '/surf-lessons-near-orlando' },
         ].map(x => (
           <a href={x.h} data-astro-prefetch="viewport" class="sc-link">{x.l}</a>
         ))}
