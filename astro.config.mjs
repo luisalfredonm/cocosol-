@@ -72,5 +72,10 @@ export default defineConfig({
     "/about-us": { destination: "/best-surf-school-cocoa-beach", status: 301 },
     "/book": { destination: "/book-now", status: 301 },
     "/booking": { destination: "/book-now", status: 301 },
+    // Legacy URLs still indexed by Google (from SEMrush organic report) — 301 to
+    // their current canonical pages to recover ranking equity instead of 404ing.
+    "/surf-lessons-cocoa-beach": { destination: "/", status: 301 },
+    "/book-surf-lessons-cocoa-beach": { destination: "/book-now", status: 301 },
+    "/surf-packages": { destination: "/surf-packages-cocoa-beach", status: 301 },
   },
 });
