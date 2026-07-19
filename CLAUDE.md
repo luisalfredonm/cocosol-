@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Stack
 - **Frontend:** Astro (con islas React donde se necesite interactividad)
 - **Base de datos / Auth / Storage:** Supabase
-- **Pagos:** on site, paypal o credomatic costa rica 
+- **Pagos:** on site, paypal o square
 - **Styling:** Tailwind CSS
 - **Deploy:** Por definir (Vercel o VPS)
 
@@ -82,9 +82,10 @@ React wizard (8 steps): service → date → time → participants → contact �
 POST /api/bookings/create
     ├─ Validates data
     ├─ Creates payment record in Supabase (status: pending)
-    ├─ Redirects to payment provider (on-site, PayPal, or Credomatic)
-    └─ On-site and Credomatic: admin confirms manually
+    ├─ Redirects to payment provider (on-site, PayPal, or Square)
+    └─ On-site: admin confirms manually
     └─ PayPal: webhook confirms automatically
+    └─ Square: "pay-first" — booking is only persisted as confirmed after the card charge completes
 
 Admin dashboard (/admin) displays all bookings, controls scheduling
 ```
@@ -126,7 +127,7 @@ pvss-full/
 │   │   │   │   ├── StepService.tsx
 │   │   │   │   ├── StepDate.tsx
 │   │   │   │   ├── StepTime.tsx
-│   │   │   │   ├── StepPayment.tsx  ← Handles on-site/PayPal/Credomatic UI
+│   │   │   │   ├── StepPayment.tsx  ← Handles on-site/PayPal/Square UI
 │   │   │   │   └── StepConfirmation.tsx
 │   │   │   └── BookingCart.tsx
 │   │   ├── admin/                   ← Admin dashboard components
@@ -167,19 +168,19 @@ Key tables:
 - **tour_slots** — Date-specific overrides for availability (e.g., "closed on X date")
 - **weekly_slots** — Repeating schedule by weekday (e.g., "Mondays always 8am, 10am")
 - **availability_blocks** — Soft blocks that hide slots
-- **payment_config** — Configuration table that drives which payment provider is active (on-site, PayPal, Credomatic) and stores credentials for the active payment gateway.
+- **payment_config** — Configuration table that drives which payment provider is active (on-site, PayPal, Square) and stores credentials for the active payment gateway (e.g. `square_access_token`, `square_location_id`).
 
 TypeScript types are in `src/lib/supabase.ts` — these are auto-generated from the DB and should be kept in sync.
 
 ---
 
-## Payment Methods (Costa Rica-Specific)
+## Payment Methods
 
-⚠️ **April 2026 Status:** The system now uses PayPal, on-site, and Credomatic only.
+The system uses **PayPal, on-site, and Square** only. (Credomatic was evaluated but is not used.)
 
 - **On-site:** Customer pays at location; booking auto-confirms immediately (for testing/demos)
 - **PayPal:** Uses PayPal REST API; webhook confirms booking when payment captured
-- **Credomatic:** Costa Rica-specific gateway; currently placeholder (admin confirms manually)
+- **Square:** Uses Square Payments API. "Pay-first" atomic checkout (`checkout-square.ts` → `squareService.ts`): the card is charged first and the booking is only persisted as `confirmed` once the charge returns COMPLETED — no `pending` row is created if the customer abandons the card form. Credentials (`square_access_token`, `square_location_id`, sandbox flag) live in the `payment_config` table.
 
 Payment method is determined by `payment_config` table in Supabase. The UI in `StepPayment.tsx` renders conditionally based on active provider. Routing logic in `src/pages/api/bookings/create.ts` dispatches to the appropriate handler.
 
@@ -200,8 +201,8 @@ PAYPAL_CLIENT_ID=...
 PAYPAL_SECRET=...
 PAYPAL_SANDBOX=true  # or false for live
 
-# Credomatic (if active; currently placeholder)
-CREDOMATIC_API_KEY=...  # stored in payment_config instead
+# Square (if active) — credentials stored in payment_config, not env:
+#   square_access_token, square_location_id, sandbox flag
 
 # On-site needs no env vars
 ```
@@ -272,3 +273,12 @@ Vercel auto-deploys. Verify:
 - **[DOCUMENTACION_TECNICA.md](../DOCUMENTACION_TECNICA.md)** — Deep technical reference (90+ min read)
 - **[INDICE_MAESTRO.md](../INDICE_MAESTRO.md)** — Search index by topic
 
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+Rules:
+- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
