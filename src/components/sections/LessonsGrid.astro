@@ -20,6 +20,7 @@ const lessons = [
     priceUnit: '/ person',
     priceNote: null,
     detailHref: '/private-surf-lessons-cocoa-beach',
+    detailLabel: 'Private surf lessons',
     cta: { label: 'Book now', href: bookHref },
   },
   {
@@ -32,6 +33,7 @@ const lessons = [
     priceUnit: '/ person',
     priceNote: 'min. 4 people',
     detailHref: '/group-surf-lessons-cocoa-beach',
+    detailLabel: 'Group surf lessons',
     cta: { label: 'Book now', href: bookHref },
   },
   {
@@ -44,6 +46,7 @@ const lessons = [
     priceUnit: '/ person',
     priceNote: null,
     detailHref: '/surf-coaching-cocoa-beach',
+    detailLabel: 'Surf coaching',
     cta: { label: 'Book now', href: bookHref },
   },
 ]
@@ -104,8 +107,8 @@ const lessons = [
                 <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
-            <a href={l.detailHref} class="lg-cta-secondary">
-              See details
+            <a href={l.detailHref} class="lg-cta-secondary" aria-label={`${l.detailLabel} in Cocoa Beach — see details`}>
+              {l.detailLabel} <span aria-hidden="true">→</span>
             </a>
           </div>
 
