@@ -21,9 +21,13 @@ export interface PageSEOWithRoute extends PageSEO {
 
 export const SEO: Record<string, PageSEO> = {
   '/': {
-    title: 'Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
+    // "Florida" y el gerundio "surfing lessons" cubren 3 keywords cada uno
+    // (2.290 y 2.490 de volumen) que la home ya rankeaba en pos. 18-28 sin
+    // contener ninguna de las dos frases. Ver H1 en index.astro y H2 en
+    // LessonsGrid.astro, que sostienen las mismas variantes.
+    title: 'Surf Lessons in Cocoa Beach, Florida | Cocosol Surf Lessons',
     description:
-      'Learn to surf in Cocoa Beach with certified local instructors. Small groups, all gear included & real progression. Book your surf lesson today!',
+      'Learn to surf in Cocoa Beach, Florida with certified local instructors. Small-group surfing lessons, all gear included and real progression. Book today!',
     keyfocus: 'surf lessons cocoa beach',
     synonyms: [
       'surf school cocoa beach',
