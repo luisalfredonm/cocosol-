@@ -298,6 +298,7 @@ const faqs = [
   <!-- TESTIMONIALS -->
   <Testimonials
     title="What Our Students Say"
+    intro="Students who booked a multi-session pack rather than a single lesson — the ones who stuck with it long enough to see real progression."
     bg="gray"
     items={[
       {
@@ -360,13 +361,10 @@ const faqs = [
       <h2 class="sp-links-title">All Lesson Types at Cocosol Surf Lessons</h2>
       <div class="sp-links-list">
         {[
-          { l: 'Cocoa Beach Surf Lessons', h: '/' },
+          { l: 'Cocoa Beach Surf Lessons',         h: '/' },
           { l: 'Private Surf Lessons Cocoa Beach', h: '/private-surf-lessons-cocoa-beach' },
-          { l: 'Group Surf Lessons Cocoa Beach',   h: '/group-surf-lessons-cocoa-beach' },
           { l: 'Surf Coaching Cocoa Beach',        h: '/surf-coaching-cocoa-beach' },
-          { l: 'Kids Surf Lessons Cocoa Beach',    h: '/kids-surf-lessons-cocoa-beach' },
-          { l: 'Surf Camp Cocoa Beach', h: '/surf-camp-cocoa-beach' },
-          { l: 'Surf Lessons Near Orlando', h: '/surf-lessons-near-orlando' },
+          { l: 'Surf School in Cocoa Beach',       h: '/best-surf-school-cocoa-beach' },
         ].map(x => (
           <a href={x.h} data-astro-prefetch="viewport" class="sp-link">{x.l}</a>
         ))}

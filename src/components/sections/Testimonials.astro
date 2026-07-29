@@ -8,10 +8,18 @@ export interface Testimonial {
 }
 export interface Props {
   title?: string
+  // Cada página pasa su propio intro: el texto compartido salía idéntico en las
+  // 8 páginas de servicio y era el bloque duplicado más grande del sitio.
+  intro?: string
   items: Testimonial[]
   bg?: 'white' | 'gray'
 }
-const { title = 'What Our Surfers Say', items, bg = 'white' } = Astro.props
+const {
+  title = 'What Our Surfers Say',
+  intro = 'Many of our students say their first lesson in Cocoa Beach was the highlight of their trip. Some even return for more lessons or continue surfing long after they go home.',
+  items,
+  bg = 'white',
+} = Astro.props
 ---
 <section class={`py-20 defer-section ${bg === 'gray' ? 'bg-gray-50' : 'bg-white'}`}>
   <div class="container mx-auto px-4">
@@ -19,7 +27,7 @@ const { title = 'What Our Surfers Say', items, bg = 'white' } = Astro.props
       <div class="md:col-span-1 flex flex-col justify-center">
         <span class="section-label mb-2">Testimonials</span>
         <h2 class="text-3xl font-bold text-gray-900">{title}</h2>
-        <p class="text-gray-600 mt-3 text-sm">Many of our students say their first lesson in Cocoa Beach was the highlight of their trip. Some even return for more lessons or continue surfing long after they go home.</p>
+        <p class="text-gray-600 mt-3 text-sm">{intro}</p>
         <a href="/book-now" class="mt-6 btn-outline self-start">All Reviews</a>
       </div>
       <div class="md:col-span-2 grid sm:grid-cols-2 gap-4">

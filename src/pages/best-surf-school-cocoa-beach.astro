@@ -259,6 +259,23 @@ const seo = seoData.aboutUs
     </div>
   </section>
 
+  <!-- SEO INTERNAL LINKS -->
+  <section class="ab-links">
+    <div class="ab-links-wrap">
+      <h2 class="ab-links-title">Lessons We Teach in Cocoa Beach</h2>
+      <div class="ab-links-list">
+        {[
+          { l: 'Surf Lessons in Cocoa Beach',      h: '/' },
+          { l: 'Private Surf Lessons Cocoa Beach', h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Group Surf Lessons Cocoa Beach',   h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Surf Camp Cocoa Beach',            h: '/surf-camp-cocoa-beach' },
+        ].map(x => (
+          <a href={x.h} data-astro-prefetch="viewport" class="ab-link">{x.l}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
 
 <style>
@@ -786,6 +803,40 @@ const seo = seoData.aboutUs
 
   @media (prefers-reduced-motion: reduce) {
     .ab-reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ── Enlaces internos SEO ──────────────────────────────── */
+  .ab-links {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    padding: 40px 0;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .ab-links-wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  .ab-links-title {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 16px;
+  }
+  .ab-links-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ab-link {
+    padding: 8px 18px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    font-size: .88rem;
+    color: #4b5563;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .ab-link:hover { border-color: rgba(0,188,212,.4); color: #00838F; }
+
+  @media (max-width: 600px) {
+    .ab-links-wrap { padding: 0 20px; }
   }
 </style>
 
