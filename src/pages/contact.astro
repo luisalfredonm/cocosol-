@@ -70,6 +70,15 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
               <textarea id="msg" name="msg" placeholder="Tell us your dates, skill level, how many people — anything that helps us get back to you faster." required></textarea>
             </div>
 
+            <!-- Anti-spam: honeypot. Off-screen rather than display:none, which
+                 the better bots know to skip. Humans never reach it; bots fill it. -->
+            <div class="ct-hp" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            <!-- Anti-spam: signed token, populated by JS from /api/contact-token -->
+            <input type="hidden" id="formToken" name="_t" value="">
+
             <!-- Status messages -->
             <div id="formError"   class="ct-form-status ct-form-error"   aria-live="polite" hidden>Something went wrong. Please try again or WhatsApp us directly.</div>
             <div id="formSuccess" class="ct-form-status ct-form-success" aria-live="polite" hidden>Message sent! We'll get back to you soon. ✓</div>
@@ -371,6 +380,15 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 
   .ct-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
+  /* Honeypot: out of sight for people, still in the DOM for bots to trip over. */
+  .ct-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
   .ct-form-status {
     border-radius: 10px;
     padding: 12px 16px;
@@ -669,6 +687,20 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   const btnSpinner = document.getElementById('btnSpinner')  as HTMLElement
   const errBox     = document.getElementById('formError')   as HTMLElement
   const okBox      = document.getElementById('formSuccess') as HTMLElement
+  const tokenField = document.getElementById('formToken')   as HTMLInputElement
+
+  /* Anti-spam token. Fetched on load so the server can also measure how long
+     the form took to fill — a submission under 3 seconds is not a human. */
+  async function loadFormToken() {
+    try {
+      const res = await fetch('/api/contact-token', { cache: 'no-store' })
+      const data = await res.json()
+      tokenField.value = data.token ?? ''
+    } catch {
+      tokenField.value = ''
+    }
+  }
+  loadFormToken()
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -682,11 +714,24 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
     okBox.hidden  = true
 
     try {
-      const res = await fetch('/api/contact', { method: 'POST', body: new FormData(form) })
-      const data = await res.json()
+      let res  = await fetch('/api/contact', { method: 'POST', body: new FormData(form) })
+      let data = await res.json()
+
+      // Token aged out (tab left open for hours). Refresh it and resend once,
+      // so a real message is never lost to an expired token. The pause is not
+      // optional: a token issued a moment ago would trip the server's 3-second
+      // "filled in too fast" check and the message would be dropped silently.
+      if (data.retry) {
+        await loadFormToken()
+        await new Promise(resolve => setTimeout(resolve, 3400))
+        res  = await fetch('/api/contact', { method: 'POST', body: new FormData(form) })
+        data = await res.json()
+      }
+
       if (data.ok) {
         okBox.hidden = false
         form.reset()
+        loadFormToken()   // reset() clears the token; issue a fresh one
       } else {
         errBox.hidden = false
       }
