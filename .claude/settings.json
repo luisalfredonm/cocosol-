@@ -123,7 +123,9 @@
       "Bash(taskkill //F //IM git.exe)",
       "Bash(taskkill //F //IM git-credential-manager.exe)",
       "Bash(cmdkey //delete:LegacyGeneric:target=git:https://github.com)",
-      "Bash(echo \"2\\) cmdkey delete: hecho \\(exit $?\\)\")"
+      "Bash(echo \"2\\) cmdkey delete: hecho \\(exit $?\\)\")",
+      "PowerShell(git add -A)",
+      "PowerShell(git push origin master 2>&1)"
     ],
     "additionalDirectories": [
       "c:\\Users\\LuisN\\.claude\\projects\\c--Users-LuisN-Desktop-Project-2026-cocosol\\memory",
@@ -133,5 +135,27 @@
   "enabledPlugins": {
     "claude-seo-ai@claude-seo-ai": true
   },
-  "autoMemoryEnabled": true
+  "autoMemoryEnabled": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "graphify hook-guard search"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "graphify hook-guard read"
+          }
+        ]
+      }
+    ]
+  }
 }

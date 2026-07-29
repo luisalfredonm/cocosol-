@@ -14,7 +14,30 @@
       "Bash(node -e \"const fs=require\\('fs'\\);const h=fs.readFileSync\\('dist/client/instructors/victor-nunez/index.html','utf8'\\);const b=[...h.matchAll\\(/<script type=\\\\\"application\\\\/ld\\\\+json\\\\\"[^>]*>\\([\\\\s\\\\S]*?\\)<\\\\/script>/g\\)].map\\(m=>m[1]\\);for\\(const x of b\\){const j=JSON.parse\\(x\\);if\\(j['@type']==='Person'\\){console.log\\('jobTitle:',j.jobTitle\\);console.log\\('@id:',j['@id']\\);console.log\\('worksFor @id:',j.worksFor['@id']\\);console.log\\('hasCredential:',j.hasCredential.map\\(c=>c.name\\).join\\(', '\\)\\);console.log\\('image:',j.image\\);}}\")",
       "Bash(node -e \"const fs=require\\('fs'\\);const h=fs.readFileSync\\('dist/client/blog/beginners-guide-to-surfing/index.html','utf8'\\);const b=[...h.matchAll\\(/<script type=\\\\\"application\\\\/ld\\\\+json\\\\\"[^>]*>\\([\\\\s\\\\S]*?\\)<\\\\/script>/g\\)].map\\(m=>m[1]\\);for\\(const x of b\\){const j=JSON.parse\\(x\\);if\\(j['@type']==='BlogPosting'\\){console.log\\('author:',JSON.stringify\\(j.author\\)\\);}}\")",
       "Bash(node -e \"const fs=require\\('fs'\\);const h=fs.readFileSync\\('dist/client/blog/beginners-guide-to-surfing/index.html','utf8'\\);console.log\\(h.includes\\('href=\\\\\"/instructors/victor-nunez\\\\\"'\\)?'YES byline links to author page':'NO'\\);\")",
-      "Bash(node -e \"const fs=require\\('fs'\\);const x=fs.readFileSync\\('dist/client/sitemap-0.xml','utf8'\\);const m=x.match\\(/<url><loc>https:\\\\/\\\\/cocosolsurf.com\\\\/instructors\\\\/victor-nunez<\\\\/loc>\\(<lastmod>[^<]*<\\\\/lastmod>\\)?/\\);console.log\\(m?\\('FOUND '+\\(m[1]||'\\(no lastmod yet — uncommitted\\)'\\)\\):'NOT in sitemap'\\);console.log\\('total urls:',[...x.matchAll\\(/<loc>/g\\)].length\\);\")"
+      "Bash(node -e \"const fs=require\\('fs'\\);const x=fs.readFileSync\\('dist/client/sitemap-0.xml','utf8'\\);const m=x.match\\(/<url><loc>https:\\\\/\\\\/cocosolsurf.com\\\\/instructors\\\\/victor-nunez<\\\\/loc>\\(<lastmod>[^<]*<\\\\/lastmod>\\)?/\\);console.log\\(m?\\('FOUND '+\\(m[1]||'\\(no lastmod yet — uncommitted\\)'\\)\\):'NOT in sitemap'\\);console.log\\('total urls:',[...x.matchAll\\(/<loc>/g\\)].length\\);\")",
+      "Bash(gh auth *)",
+      "Bash(GIT_TERMINAL_PROMPT=0 GCM_INTERACTIVE=never git -c credential.interactive=never push origin master)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(grep -nA2 \"redirects:\" astro.config.mjs)",
+      "Bash(node -e \"const c=require\\('./.vercel/output/config.json'\\); const rs=\\(c.routes||[]\\).filter\\(r=>JSON.stringify\\(r\\).match\\(/surf-lessons-cocoa-beach|book-surf-lessons|surf-packages\\(?![-]\\)|cocoa-beach-surf|trailingSlash|\\\\.html|301|308/i\\)\\); console.log\\(JSON.stringify\\(rs,null,1\\).slice\\(0,1600\\)\\)\")",
+      "Bash(GIT_TERMINAL_PROMPT=0 git -c credential.interactive=never push origin master)",
+      "Bash(grep -noE '\\\\$[0-9]+ per person|cardFrom=\"\\\\$[0-9]+\"' src/pages/group-surf-lessons-cocoa-beach.astro)",
+      "Bash(npm run *)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('trailingSlash:', d.get\\('trailingSlash'\\)\\); print\\('--- routes touching slash/redirect ---'\\); [print\\(json.dumps\\(r\\)\\) for r in d.get\\('routes',[]\\) if 'redirect' in r or r.get\\('status'\\) in \\(301,308,307,302\\) or 'surf-camp' in json.dumps\\(r\\) or r.get\\('src',''\\).find\\('\\(.*\\)/$'\\)>=0 or 'headers' in r and False][:0]\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Skill(artifact-design)",
+      "Skill(artifact-design:*)",
+      "PowerShell($gp = \"C:\\\\Users\\\\LuisN\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\graphify.exe\"; & $gp --version; \"---\"; & $gp --help)",
+      "PowerShell($gp = \"C:\\\\Users\\\\LuisN\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\graphify.exe\"; & $gp claude install)",
+      "PowerShell($dir = \"C:\\\\Users\\\\LuisN\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\"; $cur = [Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); if \\($cur -split ';' -notcontains $dir\\) { [Environment]::SetEnvironmentVariable\\(\"Path\", \\($cur.TrimEnd\\(';'\\) + ';' + $dir\\), \"User\"\\); \"PATH actualizado \\(User\\). Reinicia la terminal para que tome efecto.\" } else { \"El directorio ya estaba en el PATH.\" }; $env:Path += \";$dir\"; \"Verificacion en esta sesion:\"; \\(Get-Command graphify\\).Source)",
+      "PowerShell(graphify extract *)",
+      "PowerShell(& \"C:\\\\Users\\\\LuisN\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\graphify.exe\" extract . --code-only)",
+      "PowerShell(& \"C:\\\\Users\\\\LuisN\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\graphify.exe\" cluster-only \"C:\\\\Users\\\\LuisN\\\\Desktop\\\\Project 2026\\\\cocosol\")",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\LuisN\\\\Desktop\\\\Project 2026\\\\cocosol\\\\graphify-out\\\\\" | Select-Object Name, @{N='KB';E={[math]::Round\\($_.Length/1KB,1\\)}} | Format-Table -AutoSize)",
+      "PowerShell(& \"C:\\\\Users\\\\LuisN\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\graphify.exe\" query \"how does the booking flow connect to payments and availability?\" --graph \"C:\\\\Users\\\\LuisN\\\\Desktop\\\\Project 2026\\\\cocosol\\\\graphify-out\\\\graph.json\")",
+      "PowerShell(git *)"
     ]
   }
 }
