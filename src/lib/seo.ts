@@ -225,16 +225,16 @@ export const seoData: Record<string, PageSEOWithRoute> = {
   beginnersGuideToSurfing: withRoute('/blog/beginners-guide-to-surfing', {
     title: "The Complete Beginner's Guide to Surfing",
     description:
-      'Everything you need to know before you get in the water — the pop-up, gear, the 5 mistakes beginners make, and why a lesson beats trying it alone every time.',
+      'Everything you need to know before you get in the water, the pop-up, gear, the 5 mistakes beginners make, and why a lesson beats trying it alone every time.',
     keyfocus: 'beginners guide to surfing',
     synonyms: ['how to start surfing', 'learn to surf guide', 'surfing for beginners'],
     related: ['surf lessons cocoa beach', 'private surf lessons cocoa beach'],
     ogImage: '/images/surf-school-cocoa-beach-beginner-lesson.webp',
   }),
   surfingNearOrlando: withRoute('/blog/surfing-near-orlando', {
-    title: 'Surfing Near Orlando — Best Spots & How to Get There',
+    title: 'Surfing Near Orlando, Best Spots & How to Get There',
     description:
-      'Cocoa Beach is just 60 minutes from Orlando. Here\'s how to add a surf lesson to your Central Florida trip — without losing a full day to travel.',
+      'Cocoa Beach is just 60 minutes from Orlando. Here\'s how to add a surf lesson to your Central Florida trip, without losing a full day to travel.',
     keyfocus: 'surfing near orlando',
     synonyms: ['surf lessons near orlando', 'surf near orlando florida', 'cocoa beach from orlando'],
     related: ['surf lessons cocoa beach', 'things to do near orlando'],
@@ -262,11 +262,31 @@ export const ROUTES = {
 // Perfiles externos. Se centralizan aquí porque Testimonials se monta en 8+
 // páginas: hardcodear la URL en el componente la volvería imposible de
 // actualizar si cambia el listado de Google Business Profile.
-//
-// Pendiente: el número de WhatsApp sigue repetido en ~12 sitios del código.
-// Debería vivir aquí también, pero migrarlo es un refactor aparte.
 export const EXTERNAL = {
   GOOGLE_REVIEWS: 'https://maps.app.goo.gl/aqtghU2a2YSEFjf96',
+}
+
+// ── Contacto ────────────────────────────────────────────────────────────────
+// El teléfono aparecía literal en 47 sitios y en seis formatos distintos
+// (wa.me, tel:, texto visible, schema, prop de componente, plantillas de
+// email). Cambiar de número obligaba a encontrarlos todos a mano.
+//
+// DIGITS es la única fuente de verdad; el resto se deriva. DISPLAY se escribe
+// aparte porque formatear un E.164 a formato local requiere un formateador, y
+// no vale la pena arrastrar uno solo para esto.
+const PHONE_DIGITS = '13213869993'
+
+export const CONTACT = {
+  /** Solo dígitos, sin '+'. Para props que construyen su propia URL. */
+  DIGITS: PHONE_DIGITS,
+  /** E.164, el formato que espera schema.org telephone. */
+  E164: `+${PHONE_DIGITS}`,
+  TEL_HREF: `tel:+${PHONE_DIGITS}`,
+  WHATSAPP_URL: `https://wa.me/${PHONE_DIGITS}`,
+  /** Texto visible, formato local US. */
+  DISPLAY: '(321) 386-9993',
+  /** Texto visible con prefijo de país. */
+  DISPLAY_INTL: '+1 (321) 386-9993',
 }
 
 export function getSEO(path: string): PageSEO {

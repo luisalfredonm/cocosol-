@@ -16,7 +16,7 @@ import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 
 import heroImg       from '../assets/images/best-surf-camp-cocoa-beach-costa-rica.webp'
 import kidsWaterImg  from '../assets/images/surf-camp-costa-rica-cocoa-beach-students.webp'
@@ -51,15 +51,15 @@ const gear = [
 const subblocks = [
   {
     image:    kidsWaterImg,
-    imageAlt: 'Kids surf camp at Cocoa Beach — small group in the water with their certified coach',
+    imageAlt: 'Kids surf camp at Cocoa Beach, small group in the water with their certified coach',
     title:    'Small Groups, Real Attention',
-    body:     'With a maximum of 3 kids per instructor, every child gets personalized coaching — not just a turn in the waves. Your coach knows each kid\'s progress day by day and adjusts the plan accordingly. No one gets lost in a crowd.',
+    body:     'With a maximum of 3 kids per instructor, every child gets personalized coaching, not just a turn in the waves. Your coach knows each kid\'s progress day by day and adjusts the plan accordingly. No one gets lost in a crowd.',
   },
   {
     image:    coachingImg,
     imageAlt: 'Surf camp instructor coaching a young surfer on the beach at Cocoa Beach Florida',
     title:    'Pro Photography Included',
-    body:     'Every camp week includes a professional photo session so you leave with images of your kid\'s first real waves. Real memories, not just phone snapshots. Included at no extra cost — because that moment deserves to be captured properly.',
+    body:     'Every camp week includes a professional photo session so you leave with images of your kid\'s first real waves. Real memories, not just phone snapshots. Included at no extra cost, because that moment deserves to be captured properly.',
   },
 ]
 
@@ -93,7 +93,7 @@ const audienceCards = [
   {
     num:   '01',
     title: '3 Kids per Instructor',
-    body:  'We cap every camp group at 3 kids per coach. That\'s not a selling point — it\'s the only way real progression happens. Your child gets eyes on every wave, corrections right after each ride, and a coach who knows their strengths by Day 2.',
+    body:  'We cap every camp group at 3 kids per coach. That\'s not a selling point. It\'s the only way real progression happens. Your child gets eyes on every wave, corrections right after each ride, and a coach who knows their strengths by Day 2.',
   },
   {
     num:   '02',
@@ -103,23 +103,23 @@ const audienceCards = [
   {
     num:   '03',
     title: 'Certified & Bilingual',
-    body:  'Every coach at Cocosol is certified in surf instruction and water safety. All are bilingual, so kids from across the U.S. and international visitors get the same clear, patient guidance — in the language that works best for them.',
+    body:  'Every coach at Cocosol is certified in surf instruction and water safety. All are bilingual, so kids from across the U.S. and international visitors get the same clear, patient guidance, in the language that works best for them.',
   },
   {
     num:   '04',
     title: '25+ Years on This Beach',
-    body:  'Our coaches know every sandbar, current, and swell pattern at Cocoa Beach. That local knowledge means we know exactly where to position kids for the safest, most wave-rich experience — not just a safe one.',
+    body:  'Our coaches know every sandbar, current, and swell pattern at Cocoa Beach. That local knowledge means we know exactly where to position kids for the safest, most wave-rich experience, not just a safe one.',
   },
 ]
 
 const steps = [
   {
     title: 'Drop-off & beach briefing',
-    body:  'Every morning starts with a quick safety and conditions briefing on the sand. Kids learn about ocean awareness, current, and wave etiquette — the habits that make them safer surfers for life.',
+    body:  'Every morning starts with a quick safety and conditions briefing on the sand. Kids learn about ocean awareness, current, and wave etiquette, the habits that make them safer surfers for life.',
   },
   {
     title: 'Sand warm-up & technique',
-    body:  'Before entering the water, we practice on the sand. Pop-up timing, board position, foot placement — the mechanics that make water sessions productive instead of frustrating.',
+    body:  'Before entering the water, we practice on the sand. Pop-up timing, board position, foot placement, the mechanics that make water sessions productive instead of frustrating.',
   },
   {
     title: 'Water session with your coach',
@@ -127,21 +127,21 @@ const steps = [
   },
   {
     title: 'Wrap-up & what\'s next',
-    body:  'Each session ends with a brief debrief — what each kid did well, what to focus on tomorrow, and a quick celebration of wins. Kids leave energized, not exhausted.',
+    body:  'Each session ends with a brief debrief, what each kid did well, what to focus on tomorrow, and a quick celebration of wins. Kids leave energized, not exhausted.',
   },
 ]
 
 const faqs = [
-  { question: 'What ages is the surf camp designed for?', answer: 'Our Cocoa Beach surf camp is designed for kids ages 6 to 16. We adapt the coaching style and board choice to each child\'s size, confidence, and experience level — beginners and kids who have surfed before are both welcome.' },
+  { question: 'What ages is the surf camp designed for?', answer: 'Our Cocoa Beach surf camp is designed for kids ages 6 to 16. We adapt the coaching style and board choice to each child\'s size, confidence, and experience level, beginners and kids who have surfed before are both welcome.' },
   { question: 'Does my child need surf experience to join the camp?', answer: 'No experience is needed. Most kids who join the camp have never surfed before. By Day 3, the majority are riding waves on their own. Kids who already surf a little progress faster and we adjust the curriculum to match.' },
-  { question: 'What is the maximum number of kids per instructor?', answer: 'We keep a strict 3:1 ratio — a maximum of 3 kids per certified coach. This is non-negotiable for us. Real supervision, real feedback, and real safety require small groups. We never exceed this.' },
+  { question: 'What is the maximum number of kids per instructor?', answer: 'We keep a strict 3:1 ratio, a maximum of 3 kids per certified coach. This is non-negotiable for us. Real supervision, real feedback, and real safety require small groups. We never exceed this.' },
   { question: 'What does the camp include?', answer: 'Every camp week includes daily surf coaching (Mon–Fri), a certified bilingual instructor assigned to your group for the full week, all surf gear (board, leash, rash guard, mineral sunscreen), a daily beach safety briefing, and one professional photo session of your child surfing.' },
   { question: 'What should my child bring?', answer: 'Just bring sunscreen, a towel, water, and a good breakfast. We provide the surfboard, leash, rash guard, and reef-friendly sunscreen. Comfortable swimwear or board shorts are fine. No flip-flops in the water.' },
-  { question: 'What happens if there are bad waves or unsafe conditions?', answer: 'Safety is always the first call. If conditions are not suitable for kids — whether from storm swells, strong currents, or lightning — we adapt: shorten the water session, move to a protected area, or reschedule the session. We\'ve been reading these conditions for 25+ years. You\'re in good hands.' },
+  { question: 'What happens if there are bad waves or unsafe conditions?', answer: 'Safety is always the first call. If conditions are not suitable for kids, whether from storm swells, strong currents, or lightning. We adapt: shorten the water session, move to a protected area, or reschedule the session. We\'ve been reading these conditions for 25+ years. You\'re in good hands.' },
   { question: 'Are the instructors certified?', answer: 'Yes. Every coach at Cocosol Surf Lessons is certified in surf instruction and water safety. All coaches are also bilingual, so kids who are more comfortable in Spanish get the same quality of instruction.' },
-  { question: 'Can siblings of different ages join the same group?', answer: 'Absolutely. Siblings are actually ideal — same drop-off, same schedule, and they push each other in the water. If there\'s a big age or skill gap, we may make small adjustments to how the session is structured, but they stay together.' },
-  { question: 'Where exactly does the camp take place?', answer: 'All sessions are held at Cocoa Beach, Florida — one of the best beginner surf spots on the East Coast. We use sections of the beach that are specifically suited for kids: consistent whitewater, no rocks, and away from crowded areas.' },
-  { question: 'How do I book and what is the payment policy?', answer: 'Book online through the form on this page or reach out on WhatsApp at +1 (321) 386-9993. We require a deposit to confirm your week. Full balance is due before the first session. If you need to reschedule, contact us at least 48 hours in advance.' },
+  { question: 'Can siblings of different ages join the same group?', answer: 'Absolutely. Siblings are actually ideal, same drop-off, same schedule, and they push each other in the water. If there\'s a big age or skill gap, we may make small adjustments to how the session is structured, but they stay together.' },
+  { question: 'Where exactly does the camp take place?', answer: 'All sessions are held at Cocoa Beach, Florida, one of the best beginner surf spots on the East Coast. We use sections of the beach that are specifically suited for kids: consistent whitewater, no rocks, and away from crowded areas.' },
+  { question: 'How do I book and what is the payment policy?', answer: `Book online through the form on this page or reach out on WhatsApp at ${CONTACT.DISPLAY_INTL}. We require a deposit to confirm your week. Full balance is due before the first session. If you need to reschedule, contact us at least 48 hours in advance.` },
 ]
 ---
 
@@ -162,13 +162,13 @@ const faqs = [
 
   <!-- HERO -->
   <Hero
-    title="Cocoa Beach Surf Camp — 5-Day Kids Surf Program with Certified Coaches"
+    title="Cocoa Beach Surf Camp, 5-Day Kids Surf Program with Certified Coaches"
     subtitle="Small groups · same coach all week · all gear included · professional photos"
     image={heroImg}
-    imageAlt="Kids surf camp at Cocoa Beach Florida — small group session with certified instructor in the ocean"
+    imageAlt="Kids surf camp at Cocoa Beach Florida, small group session with certified instructor in the ocean"
     breadcrumb={{ label: 'Surf Lessons', href: '/' }}
     cta={{ label: 'Book Your Camp Week', href: '#book' }}
-    ctaSecondary={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    ctaSecondary={{ label: 'WhatsApp Us', href: CONTACT.WHATSAPP_URL }}
     height="large"
   />
 
@@ -179,8 +179,8 @@ const faqs = [
   <LessonPricing
     eyebrow="Pricing"
     title="Surf Camp Prices at Cocoa Beach"
-    lead1="One flat weekly rate covers everything — coaching, all surf gear, and the professional photo session. No add-ons, no surprises at drop-off."
-    lead2="We keep groups at a maximum of 3 kids per instructor, so each option below is a focused, personalized experience — not a camp where kids wait their turn."
+    lead1="One flat weekly rate covers everything, coaching, all surf gear, and the professional photo session. No add-ons, no surprises at drop-off."
+    lead2="We keep groups at a maximum of 3 kids per instructor, so each option below is a focused, personalized experience, not a camp where kids wait their turn."
     rows={priceRows}
     altLinks={[
       { label: 'Private Lessons from $75',   href: '/private-surf-lessons-cocoa-beach' },
@@ -198,14 +198,14 @@ const faqs = [
     ]}
     ctaLabel="Book Your Camp Week"
     ctaHref="#book"
-    whatsapp="13213869993"
+    whatsapp={CONTACT.DIGITS}
   />
 
   <!-- GEAR INCLUDED -->
   <GearIncluded
     eyebrow="What's included"
     title="Everything Included in Every Camp Week"
-    subtitle="Drop your kids off with a towel and a smile. We handle the rest — gear, coaching, safety, and photos. Nothing to rent, buy, or figure out."
+    subtitle="Drop your kids off with a towel and a smile. We handle the rest, gear, coaching, safety, and photos. Nothing to rent, buy, or figure out."
     gear={gear}
     subblocks={subblocks}
   />
@@ -233,22 +233,22 @@ const faqs = [
   <HowItWorks
     eyebrow="A typical camp day"
     title="What Happens Each Day at Camp"
-    subtitle="Every day follows a clear rhythm — safe, progressive, and designed to keep kids excited to come back tomorrow."
+    subtitle="Every day follows a clear rhythm, safe, progressive, and designed to keep kids excited to come back tomorrow."
     steps={steps}
-    footer="Exact timing adapts to that day's tide and conditions — that's what 25 years of local knowledge looks like."
+    footer="Exact timing adapts to that day's tide and conditions. That's what 25 years of local knowledge looks like."
   />
 
-  <!-- SPLIT CONTENT — why Cocoa Beach -->
+  <!-- SPLIT CONTENT - why Cocoa Beach -->
   <SplitContent
     eyebrow="The location"
     title="Why Cocoa Beach Is the Best Place for Kids to Learn to Surf"
     body={[
       'Cocoa Beach has one of the most consistent, beginner-friendly beach breaks on the East Coast. The waves break wide and gently, giving kids plenty of time to practice without the chaos of a crowded or powerful surf spot.',
       'Our coaches have surfed and taught these exact breaks for over 25 years. They know where the sandbars shift, how the tide affects the break, and exactly which section of beach is safest and most productive for kids on any given day.',
-      '<strong>Warm water, relaxed vibe, and a true surf-town atmosphere</strong> make Cocoa Beach the kind of place kids want to return to — and many do, year after year.',
+      '<strong>Warm water, relaxed vibe, and a true surf-town atmosphere</strong> make Cocoa Beach the kind of place kids want to return to, and many do, year after year.',
     ]}
     image={locationImg}
-    imageAlt="Cocoa Beach surf camp location — gentle Florida beach break perfect for kids learning to surf"
+    imageAlt="Cocoa Beach surf camp location, gentle Florida beach break perfect for kids learning to surf"
     reverse={true}
     bg="white"
     ctaLabel="Book Your Camp Week"
@@ -276,7 +276,7 @@ const faqs = [
   <!-- FAQ -->
   <section class="scc-faq">
     <div class="scc-faq-wrap">
-      <h2 class="scc-faq-title">Cocoa Beach Surf Camp — Frequently Asked Questions</h2>
+      <h2 class="scc-faq-title">Cocoa Beach Surf Camp, Frequently Asked Questions</h2>
       <FAQ items={faqs} columns={1} />
     </div>
   </section>
@@ -299,11 +299,11 @@ const faqs = [
   <!-- FINAL CTA -->
   <FinalCTA
     bgImage={ctaBgImg}
-    bgImageAlt="Cocoa Beach surf camp sunset — kids finishing their last session of the week"
+    bgImageAlt="Cocoa Beach surf camp sunset, kids finishing their last session of the week"
     title="Your Kid's Best Week of Summer Starts Here"
     subtitle="5 days, the same coach, real waves, and memories that last. Book your camp week and let's get your kids surfing."
     primaryCta={{ label: 'Book Your Camp Week', href: '#book' }}
-    secondaryCta={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    secondaryCta={{ label: 'WhatsApp Us', href: CONTACT.WHATSAPP_URL }}
     meta={[
       { icon: '✓', text: 'Ages 6–16 · All levels welcome' },
       { icon: '✓', text: '3:1 max ratio · certified coaches' },

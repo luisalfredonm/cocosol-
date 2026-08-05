@@ -1,4 +1,5 @@
 ---
+import { CONTACT } from '../../lib/seo'
 export interface Props {
   title: string
   description: string
@@ -23,7 +24,7 @@ const jsonLd = {
       name: 'Cocosol Surf Lessons',
       description: 'Surf school in Cocoa Beach, Florida offering private, group and coaching surf lessons, kids lessons, surf camps and packages.',
       url: site,
-      telephone: '+13213869993',
+      telephone: CONTACT.E164,
       email: 'info@cocosolsurf.com',
       image: ogImage,
       logo: `${site}/images/logo-schema.png`,
@@ -34,7 +35,7 @@ const jsonLd = {
       hasMap: 'https://www.google.com/maps/search/?api=1&query=Cocosol+Surf+Lessons+632+Adams+Ave+Cape+Canaveral+FL',
       // Debe reflejar exactamente el "Service area" del Google Business Profile:
       // solo municipios costeros donde realmente damos clase. Los @id de Wikidata
-      // desambiguan la entidad para el Knowledge Graph — verificar cualquier ID
+      // desambiguan la entidad para el Knowledge Graph - verificar cualquier ID
       // nuevo contra wbgetentities antes de añadirlo.
       areaServed: [
         { '@type': 'City', name: 'Cocoa Beach',          '@id': 'https://www.wikidata.org/wiki/Q852653' },

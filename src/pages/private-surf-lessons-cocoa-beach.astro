@@ -16,7 +16,7 @@ import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 
 import heroImg       from '../assets/images/private-surf-lessons-cocoa-beach-one-on-one.webp'
 import instructorImg from '../assets/images/cocoa-beach-private-surf-lesson-instructor.webp'
@@ -53,7 +53,7 @@ const subblocks = [
     image:    coachingImg,
     imageAlt: 'One-on-one surf coaching session on Cocoa Beach',
     title:    'Personalized Instruction',
-    body:     'Your instructor adapts every drill to your level — from your first pop-up to linking turns. No waiting, no group pace. Every correction is yours.',
+    body:     'Your instructor adapts every drill to your level, from your first pop-up to linking turns. No waiting, no group pace. Every correction is yours.',
   },
   {
     image:    techniqueImg,
@@ -68,7 +68,7 @@ const compareLeft = {
   price:   'From $75 / person',
   badge:   'Best for Progress',
   items: [
-    '100% instructor attention — only you',
+    '100% instructor attention, only you',
     'Lesson adapts to your real-time feedback',
     'Flexible start times around your schedule',
     'Fastest path to standing and turning',
@@ -106,14 +106,14 @@ const audienceCards = [
   {
     num:       '03',
     title:     'Families & Kids',
-    body:      'Traveling with kids? Private lessons let every member progress at their own pace under dedicated instructor supervision — safe and fun.',
+    body:      'Traveling with kids? Private lessons let every member progress at their own pace under dedicated instructor supervision, safe and fun.',
     linkLabel: 'Book a family session',
     linkHref:  '#book',
   },
   {
     num:       '04',
     title:     'Couples & Friends',
-    body:      'Want to share the experience but still get personal attention? Book a session for two — progression together without the compromise of a group.',
+    body:      'Want to share the experience but still get personal attention? Book a session for two, progression together without the compromise of a group.',
     linkLabel: 'Book for two',
     linkHref:  '#book',
   },
@@ -122,7 +122,7 @@ const audienceCards = [
 const steps = [
   {
     title: 'Choose your date',
-    body:  'Use our booking wizard to pick your preferred date and time. Morning slots fill fastest — book early to secure the best conditions.',
+    body:  'Use our booking wizard to pick your preferred date and time. Morning slots fill fastest, book early to secure the best conditions.',
   },
   {
     title: 'Beach safety briefing',
@@ -134,7 +134,7 @@ const steps = [
   },
   {
     title: 'Post-session debrief',
-    body:  'At the end, your instructor reviews what you nailed and what to focus on next — leaving you with a clear roadmap for your next session.',
+    body:  'At the end, your instructor reviews what you nailed and what to focus on next, leaving you with a clear roadmap for your next session.',
   },
 ]
 
@@ -142,7 +142,7 @@ const faqs = [
   { question: 'What is included in a private surf lesson?', answer: 'Every private lesson includes a certified instructor, surfboard, foam guard, beach safety briefing, and 1 to 2 hours of one-on-one instruction in the water. Photos are available on request.' },
   { question: 'Are private surf lessons suitable for complete beginners?', answer: "Absolutely. Private lessons are the best option for beginners because you get 100% of the instructor's attention. You'll progress much faster than in a group setting, and your instructor can prioritize your safety at every step." },
   { question: 'How long does each private surf lesson last?', answer: 'Each session runs 1 to 2 hours total, including a land safety briefing and active time in the water with your instructor.' },
-  { question: 'Do I need to bring my own surfboard or equipment?', answer: 'No — a surfboard and all necessary gear are included with every lesson. We provide the right board for your level and body size.' },
+  { question: 'Do I need to bring my own surfboard or equipment?', answer: 'No, a surfboard and all necessary gear are included with every lesson. We provide the right board for your level and body size.' },
   { question: 'What should I bring to my surf lesson?', answer: 'Wear or bring a swimsuit. We recommend reef-safe sunscreen, a towel, and a water bottle. Everything else is provided by us.' },
   { question: 'Can I cancel or reschedule my lesson?', answer: 'Yes. We offer flexible rescheduling up to 24 hours before your session at no extra charge. Contact us via WhatsApp for any last-minute changes.' },
 ]
@@ -165,7 +165,7 @@ const faqs = [
 
   <!-- HERO -->
   <Hero
-    title="Private Surf Lessons Cocoa Beach — One-on-One Coaching for Every Level"
+    title="Private Surf Lessons Cocoa Beach, One-on-One Coaching for Every Level"
     image={heroImg}
     imageAlt="Private surf lessons Cocoa Beach one-on-one coaching on the beach"
     breadcrumb={{ label: 'Surf Lessons', href: '/' }}
@@ -180,7 +180,7 @@ const faqs = [
   <LessonPricing
     eyebrow="Pricing"
     title="Simple, All-Inclusive Pricing"
-    lead1="One-on-one coaching from a certified instructor. Everything you need is included — board, gear, and full attention for 1 to 2 hours."
+    lead1="One-on-one coaching from a certified instructor. Everything you need is included, board, gear, and full attention for 1 to 2 hours."
     lead2="Book a single session or save with a multi-lesson pack. All sessions are valid for 30 days from purchase."
     rows={priceRows}
     altLinks={[
@@ -205,7 +205,7 @@ const faqs = [
   <GearIncluded
     eyebrow="All-inclusive"
     title="Everything You Need Is Included"
-    subtitle="No rental fees. No extra charges. Show up ready to surf — we handle the rest."
+    subtitle="No rental fees. No extra charges. Show up ready to surf. We handle the rest."
     gear={gear}
     subblocks={subblocks}
   />
@@ -218,14 +218,14 @@ const faqs = [
     left={compareLeft}
     right={compareRight}
     note="Not sure which is right for you?"
-    noteLink={{ label: 'Talk to us on WhatsApp', href: 'https://wa.me/13213869993' }}
+    noteLink={{ label: 'Talk to us on WhatsApp', href: CONTACT.WHATSAPP_URL }}
   />
 
   <!-- AUDIENCE CARDS -->
   <AudienceCards
     eyebrow="Who it's for"
     title="Who Are Private Lessons For?"
-    subtitle="Our instructors adapt to whoever shows up — complete first-timers to frustrated intermediates."
+    subtitle="Our instructors adapt to whoever shows up: complete first-timers to frustrated intermediates."
     cards={audienceCards}
   />
 
@@ -238,13 +238,13 @@ const faqs = [
     footer="Most first-time surfers stand up on their board within the first session."
   />
 
-  <!-- SPLIT CONTENT — instructor story -->
+  <!-- SPLIT CONTENT - instructor story -->
   <SplitContent
     eyebrow="Your instructor"
     title="Experienced Instructors Who Surf These Waves Every Day"
     body={[
       'Every instructor at Cocosol Surf Lessons is certified, CPR-trained, and has spent years teaching on the waves of Cocoa Beach. They know the breaks, the tides, and exactly how to read a student\'s technique from the first wave.',
-      'Your instructor doesn\'t just watch from the beach — they\'re in the water with you, positioning boards, timing waves, and delivering real-time corrections that make the difference between trying and actually surfing.',
+      'Your instructor doesn\'t just watch from the beach. They\'re in the water with you, positioning boards, timing waves, and delivering real-time corrections that make the difference between trying and actually surfing.',
     ]}
     image={instructorImg}
     imageAlt="Certified surf instructor coaching a student during a private lesson in Cocoa Beach"
@@ -266,7 +266,7 @@ const faqs = [
       {
         name: 'Jess Armijo',
         role: 'Intermediate surfer',
-        text: "I've spent years underwater as a diver but surfing was a completely different challenge. My instructor broke everything down perfectly — pop-up, reading the wave, weight distribution. By the end of the session I was standing. Worth every penny.",
+        text: "I've spent years underwater as a diver but surfing was a completely different challenge. My instructor broke everything down perfectly, pop-up, reading the wave, weight distribution. By the end of the session I was standing. Worth every penny.",
       },
     ]}
   />
@@ -299,9 +299,9 @@ const faqs = [
     bgImage={ctaBgImg}
     bgImageAlt="Surfer catching a wave at Cocoa Beach Florida"
     title="Your First Wave Is Closer Than You Think"
-    subtitle="Book a private lesson and stand up on a surfboard today. Spots fill fast — secure yours before they're gone."
+    subtitle="Book a private lesson and stand up on a surfboard today. Spots fill fast, secure yours before they're gone."
     primaryCta={{ label: 'Book Now', href: '#book' }}
-    secondaryCta={{ label: 'Ask a Question', href: 'https://wa.me/13213869993' }}
+    secondaryCta={{ label: 'Ask a Question', href: CONTACT.WHATSAPP_URL }}
     meta={[
       { icon: '✓', text: 'Certified instructors' },
       { icon: '✓', text: 'All equipment included' },

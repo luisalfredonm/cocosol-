@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
-import { ROUTES } from '../../lib/seo'
+import { ROUTES, CONTACT } from '../../lib/seo'
 import logoImg from '../../assets/images/Surf-Lessons-Cocoa-Beach.png'
 
 const year = new Date().getFullYear()
@@ -34,12 +34,12 @@ const year = new Date().getFullYear()
 
         <!-- Contact pills -->
         <div class="flex flex-col gap-3 mb-6">
-          <a href="https://wa.me/13213869993" target="_blank" rel="noopener"
+          <a href={CONTACT.WHATSAPP_URL} target="_blank" rel="noopener"
             class="inline-flex items-center gap-2.5 text-sm font-semibold text-white/80 hover:text-[#25D366] transition-colors group">
             <span class="w-8 h-8 rounded-xl bg-[#25D366]/15 group-hover:bg-[#25D366]/25 flex items-center justify-center transition-colors shrink-0">
               <Icon name="ph:whatsapp-logo-fill" class="w-4 h-4 text-[#25D366]" aria-hidden="true"/>
             </span>
-            WhatsApp: +1 (321) 386-9993
+            WhatsApp: {CONTACT.DISPLAY_INTL}
           </a>
           <a href="mailto:info@cocosolsurf.com"
             class="inline-flex items-center gap-2.5 text-sm font-semibold text-white/80 hover:text-teal-400 transition-colors group">
@@ -132,7 +132,7 @@ const year = new Date().getFullYear()
           <span class="text-white/10 hidden md:inline">|</span>
           <a href="/sitemap-index.xml" class="text-gray-300 hover:text-teal-300 text-xs transition-colors">Sitemap</a>
           <span class="text-white/10 hidden md:inline">|</span>
-          <a href="https://wa.me/13213869993" target="_blank" rel="noopener" class="text-gray-300 hover:text-teal-300 text-xs transition-colors">WhatsApp Support</a>
+          <a href={CONTACT.WHATSAPP_URL} target="_blank" rel="noopener" class="text-gray-300 hover:text-teal-300 text-xs transition-colors">WhatsApp Support</a>
         </div>
       </div>
     </div>

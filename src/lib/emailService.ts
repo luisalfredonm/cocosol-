@@ -1,3 +1,4 @@
+import { CONTACT } from './seo'
 import { formatCurrency, formatTime } from './classTypeHelpers'
 
 interface BookingEmailData {
@@ -141,7 +142,7 @@ function clientShell(params: {
                     <a href="mailto:info@cocosolsurf.com" style="font-size:12px;color:#5eead4;text-decoration:none;font-family:Arial,sans-serif;">info@cocosolsurf.com</a>
                   </td>
                   <td style="text-align:right;vertical-align:top;">
-                    <a href="https://wa.me/13213869993" style="display:inline-block;background:#25d366;color:#ffffff;font-size:12px;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:8px 14px;border-radius:8px;">💬 WhatsApp Us</a>
+                    <a href=CONTACT.WHATSAPP_URL style="display:inline-block;background:#25d366;color:#ffffff;font-size:12px;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:8px 14px;border-radius:8px;">💬 WhatsApp Us</a>
                   </td>
                 </tr>
                 <tr>
@@ -348,7 +349,7 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
               <td style="padding:12px 16px;">
                 <p style="margin:0 0 4px;font-size:14px;font-weight:600;color:#1e293b;font-family:Arial,sans-serif;">Cocoa Beach, Florida</p>
                 <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-family:Arial,sans-serif;">Your instructor will confirm the exact meetup spot via WhatsApp before your session.</p>
-                <a href="https://wa.me/13213869993" style="font-size:12px;color:#0f766e;text-decoration:none;font-weight:600;font-family:Arial,sans-serif;">📲 Message us on WhatsApp →</a>
+                <a href=CONTACT.WHATSAPP_URL style="font-size:12px;color:#0f766e;text-decoration:none;font-weight:600;font-family:Arial,sans-serif;">📲 Message us on WhatsApp →</a>
               </td>
             </tr>
           </table>
@@ -363,9 +364,9 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
                 <table role="presentation" style="border-collapse:collapse;width:100%;">
                   ${[
                     ['🧴', 'Reef-safe sunscreen (we recommend SPF 50+)'],
-                    ['👕', 'Swimwear — rash guard is provided by us'],
+                    ['👕', 'Swimwear, rash guard is provided by us'],
                     ['🏖️', 'Towel and change of clothes'],
-                    ['💧', 'Water bottle — stay hydrated!'],
+                    ['💧', 'Water bottle, stay hydrated!'],
                   ].map(([icon, text]) => `
                     <tr>
                       <td style="padding:4px 10px 4px 0;font-size:16px;vertical-align:top;">${icon}</td>
@@ -418,18 +419,18 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
     <p style="margin:0 0 6px;font-size:15px;color:#374151;font-family:Arial,sans-serif;line-height:1.7;">Hi <strong>${data.customerName}</strong>,</p>
     <p style="margin:0 0 20px;font-size:15px;color:#374151;font-family:Arial,sans-serif;line-height:1.7;">
       ${isOnSite
-        ? 'Your reservation is <strong>confirmed</strong>. Your spot is held — payment is collected at the beach on the day of your session.'
+        ? 'Your reservation is <strong>confirmed</strong>. Your spot is held, payment is collected at the beach on the day of your session.'
         : 'Your payment was <strong>successful</strong> and your surf session is officially booked. We can\'t wait to see you in the water! 🌊'}
     </p>
     ${sessionCards}
     ${totalBox}
     ${prepareSection}
-    <p style="margin:20px 0 0;font-size:13px;color:#94a3b8;font-family:Arial,sans-serif;">Questions? Reply to this email or message us on WhatsApp at +1 (321) 386-9993. We reply fast.</p>
+    <p style="margin:20px 0 0;font-size:13px;color:#94a3b8;font-family:Arial,sans-serif;">Questions? Reply to this email or message us on WhatsApp at ${CONTACT.DISPLAY_INTL}. We reply fast.</p>
   `
 
   const html = clientShell({
     preheader: isOnSite
-      ? `Reservation confirmed — ${data.items.length} session${data.items.length > 1 ? 's' : ''} · Pay ${formatCurrency(total)} on arrival`
+      ? `Reservation confirmed, ${data.items.length} session${data.items.length > 1 ? 's' : ''} · Pay ${formatCurrency(total)} on arrival`
       : `Booking confirmed! ${data.items.length} session${data.items.length > 1 ? 's' : ''} · ${formatCurrency(total)} paid`,
     refNumber,
     title: isOnSite ? 'Reservation Confirmed!' : 'Booking Confirmed! 🏄',
@@ -444,8 +445,8 @@ export async function sendCartSummaryEmail(data: CartSummaryEmailData): Promise<
     to: data.customerEmail,
     replyTo: import.meta.env.REPLY_TO_EMAIL || import.meta.env.RESERVATIONS_EMAIL || import.meta.env.ADMIN_EMAIL || undefined,
     subject: isOnSite
-      ? `✅ Reservation Confirmed — Pay ${formatCurrency(total)} on Arrival · Cocosol Surf Lessons`
-      : `🏄 Booking Confirmed — ${data.items.length} Session${data.items.length > 1 ? 's' : ''} at Cocosol Surf Lessons`,
+      ? `✅ Reservation Confirmed, Pay ${formatCurrency(total)} on Arrival · Cocosol Surf Lessons`
+      : `🏄 Booking Confirmed, ${data.items.length} Session${data.items.length > 1 ? 's' : ''} at Cocosol Surf Lessons`,
     html,
   })
 }
@@ -545,7 +546,7 @@ export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Pro
             <p style="margin:0 0 8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#475569;font-family:'Courier New',monospace;">Action Checklist</p>
             <table role="presentation" style="border-collapse:collapse;">
               ${[
-                isOnSite ? '💵 Collect <strong style="color:#fbbf24">' + formatCurrency(total) + '</strong> from customer at the beach' : '✅ Payment received — no collection needed',
+                isOnSite ? '💵 Collect <strong style="color:#fbbf24">' + formatCurrency(total) + '</strong> from customer at the beach' : '✅ Payment received, no collection needed',
                 '📋 Assign instructor for ' + data.items.map(i => formatDateShort(i.bookingDate)).join(', '),
                 '🏄 Confirm equipment availability (' + data.items.reduce((s, i) => s + i.participants, 0) + ' boards needed)',
                 '📲 Send WhatsApp confirmation with meetup details',
@@ -576,7 +577,7 @@ export async function sendAdminCartSummaryEmail(data: CartSummaryEmailData): Pro
     preheader: isOnSite
       ? `NEW BOOKING · ${data.customerName} · ${data.items.length} session${data.items.length > 1 ? 's' : ''} · Collect ${formatCurrency(total)}`
       : `CHECKOUT PAID · ${data.customerName} · ${data.items.length} session${data.items.length > 1 ? 's' : ''} · ${formatCurrency(total)}`,
-    title: isOnSite ? `New Reservation — #${refNumber}` : `Checkout Paid — #${refNumber}`,
+    title: isOnSite ? `New Reservation, #${refNumber}` : `Checkout Paid, #${refNumber}`,
     badge,
     body,
   })

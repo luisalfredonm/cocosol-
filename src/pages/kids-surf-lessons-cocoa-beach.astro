@@ -16,7 +16,7 @@ import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 
 import heroImg       from '../assets/images/surf-camp-costa-rica-cocoa-beach-students.webp'
 import groupKidsImg  from '../assets/images/group-surf-lessons-cocoa-beach-students-beach.webp'
@@ -54,14 +54,14 @@ const subblocks = [
   {
     image:    groupKidsImg,
     imageAlt: 'Small group of kids in a surf lesson at Cocoa Beach with certified instructor',
-    title:    '3:1 Ratio — Always',
-    body:     'Three students per instructor is our hard cap in group lessons — never more. Your child is always within arm\'s reach of a trained adult in the water. No crowded lineup, no waiting for a turn. Just focused coaching from the first wave to the last.',
+    title:    '3:1 Ratio, Always',
+    body:     'Three students per instructor is our hard cap in group lessons, never more. Your child is always within arm\'s reach of a trained adult in the water. No crowded lineup, no waiting for a turn. Just focused coaching from the first wave to the last.',
   },
   {
     image:    instructorImg,
     imageAlt: 'Certified bilingual surf instructor teaching a child on the beach at Cocoa Beach',
     title:    'Certified, Bilingual & Local',
-    body:     'Our instructors grew up surfing this coast. They know the sandbars, the tides, and how to read a child\'s body language — when to push and when to ease off. Certified in surf instruction and water safety, bilingual in English and Spanish.',
+    body:     'Our instructors grew up surfing this coast. They know the sandbars, the tides, and how to read a child\'s body language, when to push and when to ease off. Certified in surf instruction and water safety, bilingual in English and Spanish.',
   },
 ]
 
@@ -84,7 +84,7 @@ const compareRight = {
     '3:1 ratio (max 3 kids per instructor)',
     'Great for siblings & family vacations',
     'Social energy of peer learners',
-    'Same gear, same safety — lower per-hour rate',
+    'Same gear, same safety, lower per-hour rate',
   ],
 }
 
@@ -99,14 +99,14 @@ const audienceCards = [
   {
     num:       '02',
     title:     'Nervous or Hesitant',
-    body:      'Nervous kids are normal — probably half the kids we teach show hesitation on Day 1. We recommend private for any child who\'s anxious: one instructor, your child\'s pace, as long as they need on the sand before entering the water. We work through fear, not past it.',
+    body:      'Nervous kids are normal, probably half the kids we teach show hesitation on Day 1. We recommend private for any child who\'s anxious: one instructor, your child\'s pace, as long as they need on the sand before entering the water. We work through fear, not past it.',
     linkLabel: 'Private lesson for nervous kids',
     linkHref:  '/private-surf-lessons-cocoa-beach',
   },
   {
     num:       '03',
     title:     'Siblings & Family Groups',
-    body:      'Siblings can surf together in a shared lesson — up to 3 kids with one instructor (3:1 ratio); for 4 or more, our Group lessons add instructors so everyone surfs. One drop-off, one pick-up, all the same fun. For families staying a full week, our Surf Camp has family pricing built in.',
+    body:      'Siblings can surf together in a shared lesson, up to 3 kids with one instructor (3:1 ratio); for 4 or more, our Group lessons add instructors so everyone surfs. One drop-off, one pick-up, all the same fun. For families staying a full week, our Surf Camp has family pricing built in.',
     linkLabel: 'See the surf camp',
     linkHref:  '/surf-camp-cocoa-beach',
   },
@@ -122,7 +122,7 @@ const audienceCards = [
 const steps = [
   {
     title: 'Beach safety briefing',
-    body:  'Ocean awareness, how to fall safely, how to handle the board, and what the instructor\'s signals mean — before any water contact. Kids finish this knowing the rules of the ocean.',
+    body:  'Ocean awareness, how to fall safely, how to handle the board, and what the instructor\'s signals mean, before any water contact. Kids finish this knowing the rules of the ocean.',
   },
   {
     title: 'Sand practice',
@@ -134,21 +134,21 @@ const steps = [
   },
   {
     title: 'Feedback & cool-down',
-    body:  'What worked, what to focus on next, and a quick reset on the beach. Most kids stand up on a wave during their first session — and immediately want to go again.',
+    body:  'What worked, what to focus on next, and a quick reset on the beach. Most kids stand up on a wave during their first session, and immediately want to go again.',
   },
 ]
 
 const faqs = [
-  { question: 'What age can my child start surfing?', answer: 'We teach kids from age 6 and up. Younger than 6, we usually recommend waiting — lessons require enough focus and physical coordination that earlier starts can feel frustrating rather than fun. By age 7 or 8, most kids are catching their first wave on Day 1.' },
+  { question: 'What age can my child start surfing?', answer: 'We teach kids from age 6 and up. Younger than 6, we usually recommend waiting, lessons require enough focus and physical coordination that earlier starts can feel frustrating rather than fun. By age 7 or 8, most kids are catching their first wave on Day 1.' },
   { question: 'Is surfing safe for kids?', answer: 'Surfing has real risks, and we don\'t pretend otherwise. What we control: a strict 3:1 student-to-instructor ratio in groups (1:1 in private lessons), trained instructors in the water with your child at all times, gear matched to your child\'s size and skill, and Cocoa Beach\'s sandy, beginner-friendly conditions. With those things in place, kids surf lessons are no more dangerous than learning to swim or ride a bike.' },
   { question: 'Does my child need to know how to swim?', answer: 'Yes. Your child should be comfortable in water over their head and able to swim at least 25 yards unassisted. Surfing happens in moving water, and even with an instructor right there, basic swimming ability is non-negotiable for safety.' },
-  { question: 'What if my child is nervous or afraid of the ocean?', answer: 'Nervous kids are normal — probably half the kids we teach show some hesitation on Day 1, and almost all of them are smiling by the end. We recommend booking a private lesson for any child who\'s anxious: one-on-one, your child sets the pace. The instructor stays with them on the sand longer if needed, walks them slowly into shallow water, and only paddles out as far as they\'re comfortable.' },
+  { question: 'What if my child is nervous or afraid of the ocean?', answer: 'Nervous kids are normal, probably half the kids we teach show some hesitation on Day 1, and almost all of them are smiling by the end. We recommend booking a private lesson for any child who\'s anxious: one-on-one, your child sets the pace. The instructor stays with them on the sand longer if needed, walks them slowly into shallow water, and only paddles out as far as they\'re comfortable.' },
   { question: 'How long is a kids surf lesson?', answer: 'Lessons run 1 to 2 hours, depending on ocean conditions and your child\'s energy. We don\'t rush kids out of the water if they\'re catching waves, and we don\'t drag the lesson past the point where they\'re getting tired.' },
-  { question: 'How many lessons until my child can stand up on a wave?', answer: 'Most kids stand up during their first lesson — even if just briefly. Riding a wave smoothly, turning, and choosing their own waves usually takes 4 to 6 sessions of consistent practice. Our Starter and Progression Packs are built around that exact learning curve.' },
-  { question: 'Can I watch my child\'s surf lesson from the beach?', answer: 'Absolutely, and we encourage it. The beach is wide, there\'s plenty of room for a chair and umbrella, and you\'ll have a clear view of every wave your child catches. Bring a camera — first-wave photos are worth keeping.' },
-  { question: 'Can two or three siblings take a surf lesson at the same time?', answer: 'Yes — siblings can absolutely surf together. A shared lesson ($65/hr per child) fits up to three siblings under our 3:1 ratio. For families spending a full week, our Cocoa Beach Surf Camp has family pricing: $350 for one child, $650 for two, $900 for three — under $60 per child per day.' },
-  { question: 'What happens if the weather is bad?', answer: 'If conditions are unsafe — lightning, strong rip currents, dangerous swell — we reschedule at no charge. Rain alone is usually not an issue; surfing in light rain is a non-event. We make the call the morning of, in direct contact with you.' },
-  { question: 'How far in advance should I book a kids surf lesson?', answer: 'For a single lesson, 3 to 5 days ahead is usually enough during the off-season. For weekends, spring break, or summer (June–August), book at least 2 weeks ahead — spots fill fast under our 3:1 ratio. If you\'re traveling from out of state, reach out as early as you can at +1 (321) 386-9993.' },
+  { question: 'How many lessons until my child can stand up on a wave?', answer: 'Most kids stand up during their first lesson, even if just briefly. Riding a wave smoothly, turning, and choosing their own waves usually takes 4 to 6 sessions of consistent practice. Our Starter and Progression Packs are built around that exact learning curve.' },
+  { question: 'Can I watch my child\'s surf lesson from the beach?', answer: 'Absolutely, and we encourage it. The beach is wide, there\'s plenty of room for a chair and umbrella, and you\'ll have a clear view of every wave your child catches. Bring a camera, first-wave photos are worth keeping.' },
+  { question: 'Can two or three siblings take a surf lesson at the same time?', answer: 'Yes, siblings can absolutely surf together. A shared lesson ($65/hr per child) fits up to three siblings under our 3:1 ratio. For families spending a full week, our Cocoa Beach Surf Camp has family pricing: $350 for one child, $650 for two, $900 for three, under $60 per child per day.' },
+  { question: 'What happens if the weather is bad?', answer: 'If conditions are unsafe, lightning, strong rip currents, dangerous swell. We reschedule at no charge. Rain alone is usually not an issue; surfing in light rain is a non-event. We make the call the morning of, in direct contact with you.' },
+  { question: 'How far in advance should I book a kids surf lesson?', answer: `For a single lesson, 3 to 5 days ahead is usually enough during the off-season. For weekends, spring break, or summer (June–August), book at least 2 weeks ahead, spots fill fast under our 3:1 ratio. If you're traveling from out of state, reach out as early as you can at ${CONTACT.DISPLAY_INTL}.` },
 ]
 ---
 
@@ -170,13 +170,13 @@ const faqs = [
 
   <!-- HERO -->
   <Hero
-    title="Kids Surf Lessons in Cocoa Beach — Safe, Certified Instructors for Ages 6–16"
+    title="Kids Surf Lessons in Cocoa Beach, Safe, Certified Instructors for Ages 6–16"
     subtitle="Strict 3:1 ratio · certified bilingual instructors · all gear included · private & group options"
     image={heroImg}
-    imageAlt="Kids surf lesson at Cocoa Beach Florida — small group with certified instructor in the water"
+    imageAlt="Kids surf lesson at Cocoa Beach Florida, small group with certified instructor in the water"
     breadcrumb={{ label: 'Kids & Camps', href: '/surf-camp-cocoa-beach' }}
     cta={{ label: 'Book a Kids Lesson', href: '#book' }}
-    ctaSecondary={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    ctaSecondary={{ label: 'WhatsApp Us', href: CONTACT.WHATSAPP_URL }}
     height="large"
   />
 
@@ -187,8 +187,8 @@ const faqs = [
   <LessonPricing
     eyebrow="Pricing"
     title="Kids Surf Lesson Prices in Cocoa Beach"
-    lead1="We price by the hour with no hidden fees. Boards, leashes, rash guards, sunscreen, and the safety briefing are included in every lesson. You show up with your child and a towel — we handle the rest."
-    lead2="Booking more than one session? Packages lock in the same instructor across every lesson — the single biggest factor in how fast kids progress."
+    lead1="We price by the hour with no hidden fees. Boards, leashes, rash guards, sunscreen, and the safety briefing are included in every lesson. You show up with your child and a towel. We handle the rest."
+    lead2="Booking more than one session? Packages lock in the same instructor across every lesson, the single biggest factor in how fast kids progress."
     rows={priceRows}
     altLinks={[
       { label: 'Surf Camp (full week from $350)', href: '/surf-camp-cocoa-beach' },
@@ -206,14 +206,14 @@ const faqs = [
     ]}
     ctaLabel="Book a Kids Lesson"
     ctaHref="#book"
-    whatsapp="13213869993"
+    whatsapp={CONTACT.DIGITS}
   />
 
   <!-- GEAR INCLUDED -->
   <GearIncluded
     eyebrow="What's included"
     title="Everything Included in Every Kids Surf Lesson"
-    subtitle="Nothing to rent, buy, or figure out beforehand. Show up with your child and a towel — we handle every piece of gear and every safety detail."
+    subtitle="Nothing to rent, buy, or figure out beforehand. Show up with your child and a towel. We handle every piece of gear and every safety detail."
     gear={gear}
     subblocks={subblocks}
   />
@@ -233,7 +233,7 @@ const faqs = [
   <AudienceCards
     eyebrow="Who it's for"
     title="Is This the Right Lesson for Your Child?"
-    subtitle="We teach kids of all comfort levels — first-timers, nervous beginners, sibling groups, and Orlando visitors. Here's how we handle each."
+    subtitle="We teach kids of all comfort levels, first-timers, nervous beginners, sibling groups, and Orlando visitors. Here's how we handle each."
     cards={audienceCards}
   />
 
@@ -241,21 +241,21 @@ const faqs = [
   <HowItWorks
     eyebrow="What to expect"
     title="What Happens During a Kids Surf Lesson"
-    subtitle="No guesswork. Here's exactly how every lesson unfolds — from the parking lot to the wave."
+    subtitle="No guesswork. Here's exactly how every lesson unfolds, from the parking lot to the wave."
     steps={steps}
     footer="That first-wave moment is what they'll talk about for the rest of the trip."
   />
 
-  <!-- SPLIT CONTENT — why Cocoa Beach -->
+  <!-- SPLIT CONTENT - why Cocoa Beach -->
   <SplitContent
     eyebrow="The location"
     title="Why Cocoa Beach Is Perfect for Kids Learning to Surf"
     body={[
-      '<strong>Beginner-friendly waves and a sandy bottom.</strong> The waves at Cocoa Beach roll in consistently and gently — small enough for a 6-year-old, real enough to be exciting. The ocean floor is soft sand all the way past the breakers. No coral, no rocks, no reef. If your child falls — and they will, that\'s how surfing works — they land on sand. Every time.',
+      '<strong>Beginner-friendly waves and a sandy bottom.</strong> The waves at Cocoa Beach roll in consistently and gently, small enough for a 6-year-old, real enough to be exciting. The ocean floor is soft sand all the way past the breakers. No coral, no rocks, no reef. If your child falls, and they will, that\'s how surfing works. They land on sand. Every time.',
       '<strong>Close to Orlando and the Kennedy Space Center.</strong> About an hour east of Orlando and 15 minutes from the Space Center, Cocoa Beach is the natural pick for families visiting Disney, Universal, a launch, or boarding a cruise from Port Canaveral. Book a morning lesson, be back at the parks by lunch.',
     ]}
     image={locationImg}
-    imageAlt="Beginner-friendly surf conditions at Cocoa Beach Florida — ideal for kids learning to surf"
+    imageAlt="Beginner-friendly surf conditions at Cocoa Beach Florida, ideal for kids learning to surf"
     reverse={true}
     bg="white"
     stat={{ value: '1 hr', label: 'from Orlando · 15 min from Kennedy Space Center' }}
@@ -284,7 +284,7 @@ const faqs = [
   <!-- FAQ -->
   <section class="ksl-faq">
     <div class="ksl-faq-wrap">
-      <h2 class="ksl-faq-title">Kids Surf Lessons Cocoa Beach — Frequently Asked Questions</h2>
+      <h2 class="ksl-faq-title">Kids Surf Lessons Cocoa Beach, Frequently Asked Questions</h2>
       <FAQ items={faqs} columns={1} />
     </div>
   </section>
@@ -309,9 +309,9 @@ const faqs = [
     bgImage={ctaBgImg}
     bgImageAlt="Kids surf lesson at Cocoa Beach Florida at sunset"
     title="Book Your Child's Surf Lesson in Cocoa Beach"
-    subtitle="Spots fill fastest in spring break, summer, and around holiday weekends. Reach out today — we'll match your dates, your child's age, and the right lesson format."
+    subtitle="Spots fill fastest in spring break, summer, and around holiday weekends. Reach out today. We'll match your dates, your child's age, and the right lesson format."
     primaryCta={{ label: 'Book Online', href: '#book' }}
-    secondaryCta={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    secondaryCta={{ label: 'WhatsApp Us', href: CONTACT.WHATSAPP_URL }}
     meta={[
       { icon: '✓', text: 'Ages 6–16 · all levels welcome' },
       { icon: '✓', text: '3:1 max ratio · certified coaches' },

@@ -3,7 +3,7 @@ export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 
 import heroImg from '../assets/images/semi-private-surf-cocoa-beach-wave-riding.webp'
 
@@ -30,7 +30,7 @@ const week = [
     items: [
       'Surfskate training before surfing',
       'Technique development',
-      'Surf session — transferring surfskate skills to the water',
+      'Surf session, transferring surfskate skills to the water',
     ],
   },
   {
@@ -93,7 +93,7 @@ const sunday = {
 
   <!-- HERO -->
   <Hero
-    title="Cocosol Surf Coaching — Weekly Training Schedule"
+    title="Cocosol Surf Coaching, Weekly Training Schedule"
     subtitle="Cocoa Beach, Florida"
     image={heroImg}
     imageAlt="Surf coach guiding a training session on a green wave at Cocoa Beach, Florida"
@@ -107,13 +107,13 @@ const sunday = {
       <span class="ts-eyebrow">Weekly Training Schedule</span>
       <h2 class="ts-intro-title">A structured week, built around real progression</h2>
       <p class="ts-intro-lead">
-        Our coaching program runs on a full weekly plan — surf technique, surfskate,
+        Our coaching program runs on a full weekly plan, surf technique, surfskate,
         Indo Board balance work, dry-land drills, and Saturday competition days with
         video review. Each day has a focus, so every session builds on the last.
       </p>
       <p class="ts-intro-note">
         Times can shift slightly with the day's surf and the season. Questions about a
-        specific day? <a href="https://wa.me/13213869993" class="ts-inline-link">Message us on WhatsApp</a>.
+        specific day? <a href={CONTACT.WHATSAPP_URL} class="ts-inline-link">Message us on WhatsApp</a>.
       </p>
     </div>
   </section>
@@ -144,7 +144,7 @@ const sunday = {
           </article>
         ))}
 
-        <!-- Sunday — rest -->
+        <!-- Sunday - rest -->
         <article class="ts-card ts-card--rest">
           <header class="ts-card-head">
             <h3 class="ts-day">{sunday.day}</h3>
@@ -166,7 +166,7 @@ const sunday = {
       </p>
       <div class="ts-cta-btns">
         <a href="/surf-coaching-cocoa-beach" class="btn-primary">See Coaching &amp; Pricing</a>
-        <a href="https://wa.me/13213869993" target="_blank" rel="noopener noreferrer" class="ts-cta-wa">WhatsApp Us</a>
+        <a href={CONTACT.WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="ts-cta-wa">WhatsApp Us</a>
       </div>
     </div>
   </section>

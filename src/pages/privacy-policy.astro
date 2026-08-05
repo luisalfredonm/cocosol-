@@ -1,4 +1,5 @@
 ---
+import { CONTACT } from '../lib/seo'
 export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 ---
@@ -68,10 +69,10 @@ import BaseLayout from '../layouts/BaseLayout.astro'
           <h2 class="text-2xl font-bold text-gray-900 mb-3">6. Third-Party Services</h2>
           <p>We may share your data with trusted third parties only as necessary to operate our business:</p>
           <ul class="list-disc pl-6 mt-2 space-y-1">
-            <li><strong>Payment processor</strong> — payment processing</li>
-            <li><strong>Supabase</strong> — booking database</li>
-            <li><strong>Google Analytics</strong> — website analytics (anonymized)</li>
-            <li><strong>WhatsApp / Meta</strong> — customer communication</li>
+            <li><strong>Payment processor</strong>, payment processing</li>
+            <li><strong>Supabase</strong>, booking database</li>
+            <li><strong>Google Analytics</strong>, website analytics (anonymized)</li>
+            <li><strong>WhatsApp / Meta</strong>, customer communication</li>
           </ul>
           <p class="mt-3">We do not sell your personal data to third parties.</p>
         </section>
@@ -117,7 +118,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
           <p>If you have any questions about this Privacy Policy, please contact us:</p>
           <ul class="list-none mt-2 space-y-1">
             <li>Email: <a href="mailto:info@cocosolsurf.com" class="text-teal-600 hover:underline">info@cocosolsurf.com</a></li>
-            <li>Phone: <a href="tel:+13213869993" class="text-teal-600 hover:underline">(321) 386-9993</a></li>
+            <li>Phone: <a href={CONTACT.TEL_HREF} class="text-teal-600 hover:underline">{CONTACT.DISPLAY}</a></li>
             <li>Address: 632 Adams Ave, Cape Canaveral, FL 32920</li>
           </ul>
         </section>

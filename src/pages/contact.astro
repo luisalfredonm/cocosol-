@@ -1,11 +1,12 @@
 ---
+import { CONTACT } from '../lib/seo'
 export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 ---
 
 <BaseLayout
-  title="Contact Cocosol Surf Lessons — Surf Lessons Cocoa Beach"
+  title="Contact Cocosol Surf Lessons, Surf Lessons Cocoa Beach"
   description="Get in touch with Cocosol Surf Lessons in Cocoa Beach, FL. Questions about our surf lessons, camps or packages? Call, WhatsApp, or send us a message. Open 7 days, 9 AM–5 PM."
   slug="/contact"
   keyfocus="contact cocoa sol surf"
@@ -36,7 +37,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
         <!-- FORM -->
         <div class="ct-form-card ct-reveal">
           <h2>Send us a message</h2>
-          <p class="ct-sub">Fill in the form and we'll get back to you by the next business day — usually much faster.</p>
+          <p class="ct-sub">Fill in the form and we'll get back to you by the next business day, usually much faster.</p>
 
           <form id="contactForm" novalidate>
             <div class="ct-form-row">
@@ -67,7 +68,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
             </div>
             <div class="ct-fg">
               <label for="msg">Your message</label>
-              <textarea id="msg" name="msg" placeholder="Tell us your dates, skill level, how many people — anything that helps us get back to you faster." required></textarea>
+              <textarea id="msg" name="msg" placeholder="Tell us your dates, skill level, how many people, anything that helps us get back to you faster." required></textarea>
             </div>
 
             <!-- Anti-spam: honeypot. Off-screen rather than display:none, which
@@ -92,7 +93,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
             </div>
             <p class="ct-form-note">
               Need to reach us today?
-              <a href="https://wa.me/13213869993">WhatsApp is faster →</a>
+              <a href={CONTACT.WHATSAPP_URL}>WhatsApp is faster →</a>
             </p>
           </form>
         </div>
@@ -107,25 +108,25 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
               <span>Fastest response</span>
             </div>
             <h3>Chat with us on WhatsApp</h3>
-            <p>Questions, bookings, or last-minute scheduling — we're on WhatsApp and usually respond within minutes.</p>
+            <p>Questions, bookings, or last-minute scheduling. We're on WhatsApp and usually respond within minutes.</p>
             <div class="ct-wnum">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              +1 (321) 386-9993
+              {CONTACT.DISPLAY_INTL}
             </div>
-            <a class="ct-wa-btn" href="https://wa.me/13213869993" target="_blank" rel="noopener noreferrer">
+            <a class="ct-wa-btn" href={CONTACT.WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.12 1.532 5.852L.07 23.497a.5.5 0 0 0 .612.612l5.645-1.462A11.928 11.928 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.883 0-3.638-.518-5.13-1.418l-.367-.218-3.804.985.985-3.804-.218-.367A9.942 9.942 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
               Open WhatsApp
             </a>
           </div>
 
           <!-- Phone -->
-          <a class="ct-method ct-reveal" href="tel:+13213869993">
+          <a class="ct-method ct-reveal" href={CONTACT.TEL_HREF}>
             <div class="ct-mic">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </div>
             <div>
               <div class="ct-mlabel">Call us</div>
-              <div class="ct-mvalue">(321) 386-9993</div>
+              <div class="ct-mvalue">{CONTACT.DISPLAY}</div>
             </div>
           </a>
 
@@ -176,7 +177,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
         <div class="ct-reveal">
           <span class="ct-eyebrow">Where to Find Us</span>
           <h2>Finding your surf lesson on the day</h2>
-          <p class="ct-loc-body">We conduct lessons at multiple beach access points between Cape Canaveral and South Cocoa Beach — the daily location is chosen based on the best wave conditions and wind direction for your skill level.</p>
+          <p class="ct-loc-body">We conduct lessons at multiple beach access points between Cape Canaveral and South Cocoa Beach, the daily location is chosen based on the best wave conditions and wind direction for your skill level.</p>
 
           <div class="ct-truck">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
@@ -196,7 +197,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
             </div>
             <div class="ct-addr-item">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <a href="tel:+13213869993">(321) 386-9993</a>
+              <a href={CONTACT.TEL_HREF}>{CONTACT.DISPLAY}</a>
             </div>
             <div class="ct-addr-item">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7L22 6"/></svg>
@@ -208,7 +209,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
         <div class="ct-reveal">
           <div class="ct-map-wrap">
             <iframe
-              title="Cocosol Surf Lessons location — 632 Adams Ave, Cape Canaveral, FL"
+              title="Cocosol Surf Lessons location, 632 Adams Ave, Cape Canaveral, FL"
               src="https://maps.google.com/maps?q=632+Adams+Ave,+Cape+Canaveral,+FL+32920&t=m&z=14&output=embed&iwloc=near"
               allowfullscreen
               loading="lazy"
@@ -690,7 +691,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   const tokenField = document.getElementById('formToken')   as HTMLInputElement
 
   /* Anti-spam token. Fetched on load so the server can also measure how long
-     the form took to fill — a submission under 3 seconds is not a human. */
+     the form took to fill, a submission under 3 seconds is not a human. */
   async function loadFormToken() {
     try {
       const res = await fetch('/api/contact-token', { cache: 'no-store' })

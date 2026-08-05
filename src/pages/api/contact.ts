@@ -40,7 +40,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const emailNormalized = normalizeEmail(email)
 
   const drop = async (reason: string, reasons: string[] = [reason], score = 99) => {
-    console.warn(`[contact] blocked — ${reason}`)
+    console.warn(`[contact] blocked, ${reason}`)
     await logSubmission({
       ipHash, emailNormalized,
       firstName: fname, lastName: lname, email, topic, message: msg,
@@ -49,10 +49,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return silentlyDropped()
   }
 
-  /* Layer 2 — honeypot. Invisible to humans; bots fill every field they parse. */
+  /* Layer 2 - honeypot. Invisible to humans; bots fill every field they parse. */
   if (honeypot) return drop('honeypot filled')
 
-  /* Layer 1 — signed token + time trap. */
+  /* Layer 1 - signed token + time trap. */
   const tokenVerdict = await verifyFormToken(token)
   if (tokenVerdict === 'expired') {
     // The only case a real person hits: page left open for hours. Tell the
@@ -61,7 +61,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
   if (tokenVerdict !== 'valid') return drop(`token ${tokenVerdict}`)
 
-  /* Basic validity — after the bot layers, so bots learn nothing from a 400. */
+  /* Basic validity - after the bot layers, so bots learn nothing from a 400. */
   if (!fname || !email || !msg) {
     return json({ ok: false, error: 'Missing required fields' }, 400)
   }
@@ -72,11 +72,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return json({ ok: false, error: 'Field too long' }, 400)
   }
 
-  /* Layer 4 — rate limit by IP and by normalized email. */
+  /* Layer 4 - rate limit by IP and by normalized email. */
   const rateLimit = await checkRateLimit(ipHash, emailNormalized)
-  if (rateLimit.limited) return drop(`rate limited — ${rateLimit.reason}`)
+  if (rateLimit.limited) return drop(`rate limited, ${rateLimit.reason}`)
 
-  /* Layer 3 — content heuristics. Suspicious still gets delivered, but marked. */
+  /* Layer 3 - content heuristics. Suspicious still gets delivered, but marked. */
   const assessment = assessSubmission({ firstName: fname, lastName: lname, topic, message: msg })
   if (assessment.verdict === 'spam') {
     return drop(
@@ -98,12 +98,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   // Every interpolated value is escaped: these strings come from the open internet.
   const safeName = escapeHtml(`${fname} ${lname}`.trim())
   const safeEmail = escapeHtml(email)
-  const safeTopic = escapeHtml(topic) || '—'
+  const safeTopic = escapeHtml(topic) || '-'
   const safeMsg = escapeHtml(msg).replace(/\n/g, '<br>')
 
   const warning = flagged
     ? `<p style="background:#FEF3C7;border:1px solid #FCD34D;border-radius:8px;padding:12px 16px;color:#92400E">
-         <strong>Heads up:</strong> our spam filter scored this ${assessment.score}/6 —
+         <strong>Heads up:</strong> our spam filter scored this ${assessment.score}/6:
          ${escapeHtml(assessment.reasons.join(', '))}. It may not be a real enquiry.
        </p>`
     : ''
@@ -129,7 +129,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       from: fromEmail,
       to: adminEmail,
       reply_to: email,
-      subject: `${subjectPrefix}[Cocosol] Contact form — ${topic || 'General'} — ${fname} ${lname}`,
+      subject: `${subjectPrefix}[Cocosol] Contact form, ${topic || 'General'}, ${fname} ${lname}`,
       html,
     }),
   })

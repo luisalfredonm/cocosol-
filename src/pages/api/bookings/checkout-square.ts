@@ -15,7 +15,7 @@ function envFlag(name: string, fallback: boolean): boolean {
 /**
  * Atomic "pay-first" checkout for Square: validates availability, charges the
  * card, and ONLY persists the bookings (as `confirmed`) once the charge returns
- * COMPLETED. No `pending` row is ever created — if the customer abandons the
+ * COMPLETED. No `pending` row is ever created - if the customer abandons the
  * card form, nothing is written and no capacity is held.
  */
 export const POST: APIRoute = async ({ request }) => {

@@ -3,7 +3,7 @@ export const prerender = true
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 import victorImg from '../assets/images/Victor.png'
 
 const seo = seoData.aboutUs
@@ -21,7 +21,7 @@ const seo = seoData.aboutUs
     <div class="ab-hero-inner">
       <span class="ab-eyebrow">Our Story</span>
       <h1>More than a <em>surf school</em></h1>
-      <p class="ab-lede">A family-run surf school in Cocoa Beach, founded by a lifelong Costa Rican surfer and lifeguard — built on real safety, real progression, and a love for the ocean.</p>
+      <p class="ab-lede">A family-run surf school in Cocoa Beach, founded by a lifelong Costa Rican surfer and lifeguard, built on real safety, real progression, and a love for the ocean.</p>
     </div>
     <div class="ab-waves" aria-hidden="true">
       <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#FBF5EB" d="M0 50c200 36 380-8 600-12 240-4 420 36 640 30 80-2 160-14 200-22v66H0z"/></svg>
@@ -53,9 +53,9 @@ const seo = seoData.aboutUs
       <div class="ab-story-text ab-reveal">
         <span class="ab-eyebrow">Meet the founder</span>
         <h2>From a boy with a board in Costa Rica to founding Cocosol Surf Lessons</h2>
-        <p class="ab-lead-p">Cocosol Surf Lessons was founded by Victor Nuñez — a lifelong surfer and trained lifeguard whose passion for the ocean started on the beaches of Costa Rica.</p>
+        <p class="ab-lead-p">Cocosol Surf Lessons was founded by Victor Nuñez, a lifelong surfer and trained lifeguard whose passion for the ocean started on the beaches of Costa Rica.</p>
         <p>Victor's journey began at fifteen, when he started lifeguarding and surfing on Costa Rica's Pacific coast. Over 25+ years in the water, he built up the one thing you can't shortcut in this sport: a deep, instinctive read of the ocean and a relentless focus on safety.</p>
-        <p>In 2022 he brought that experience to Florida's Space Coast and founded Cocosol Surf Lessons — a school built around two simple ideas: nobody should ever feel unsafe in the water, and everybody, from a three-year-old to a grandparent, deserves the chance to feel the joy of standing up on their first wave.</p>
+        <p>In 2022 he brought that experience to Florida's Space Coast and founded Cocosol Surf Lessons, a school built around two simple ideas: nobody should ever feel unsafe in the water, and everybody, from a three-year-old to a grandparent, deserves the chance to feel the joy of standing up on their first wave.</p>
         <p>Today Victor and his team teach kids and adults of all levels at the beach breaks of Cocoa Beach and Cape Canaveral.</p>
         <div class="ab-signature">Pura vida, from Cocoa Beach.</div>
         <div class="ab-story-stats">
@@ -72,8 +72,8 @@ const seo = seoData.aboutUs
   <section class="ab-section ab-philosophy">
     <div class="ab-phil-inner ab-reveal">
       <span class="ab-phil-mark" aria-hidden="true">"</span>
-      <h2>We're more than a surf school — we're <em>stewards of the ocean</em> and champions for our Cocoa Beach community.</h2>
-      <p>That's not a slogan. It's why we cap our groups, train our instructors as lifeguards, and treat every first wave like it matters — because it does.</p>
+      <h2>We're more than a surf school. We're <em>stewards of the ocean</em> and champions for our Cocoa Beach community.</h2>
+      <p>That's not a slogan. It's why we cap our groups, train our instructors as lifeguards, and treat every first wave like it matters, because it does.</p>
     </div>
   </section>
 
@@ -83,7 +83,7 @@ const seo = seoData.aboutUs
       <div class="ab-section-head ab-center ab-reveal">
         <span class="ab-eyebrow">Safety First, Always</span>
         <h2>How we keep the water safe</h2>
-        <p>Safety isn't a checklist for us — it's how the school was built. Here's what that looks like in practice.</p>
+        <p>Safety isn't a checklist for us. It's how the school was built. Here's what that looks like in practice.</p>
       </div>
       <div class="ab-safety-grid">
 
@@ -102,7 +102,7 @@ const seo = seoData.aboutUs
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="M9 12l2 2 4-4"/></svg>
           </div>
           <h3>Lifeguard-trained instructors</h3>
-          <p>Our instructors are certified in lifeguard training, water rescue, CPR, and first aid. They're not just surfers — they're the people you'd want next to you if anything went wrong.</p>
+          <p>Our instructors are certified in lifeguard training, water rescue, CPR, and first aid. They're not just surfers. They're the people you'd want next to you if anything went wrong.</p>
         </div>
 
         <div class="ab-sf ab-reveal">
@@ -111,7 +111,7 @@ const seo = seoData.aboutUs
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
           </div>
           <h3>Professional equipment</h3>
-          <p>Every board, leash, and rash guard we use is selected for safety first and maintained constantly. Beginners get the right board for their size and level — not whatever's free.</p>
+          <p>Every board, leash, and rash guard we use is selected for safety first and maintained constantly. Beginners get the right board for their size and level, not whatever's free.</p>
         </div>
 
         <div class="ab-sf ab-reveal">
@@ -133,7 +133,7 @@ const seo = seoData.aboutUs
       <div class="ab-section-head ab-center ab-reveal">
         <span class="ab-eyebrow">The Experts</span>
         <h2>Meet your instructors</h2>
-        <p>The team behind every lesson — local, trained, and genuinely good at teaching people who've never touched a board.</p>
+        <p>The team behind every lesson, local, trained, and genuinely good at teaching people who've never touched a board.</p>
       </div>
       <div class="ab-inst-grid">
 
@@ -168,7 +168,7 @@ const seo = seoData.aboutUs
           <div class="ab-avatar ab-at">TC</div>
           <h3>Tyden Cheatham</h3>
           <div class="ab-role">Surf Instructor</div>
-          <p>Great with kids and family groups — calm, encouraging, safety-focused.</p>
+          <p>Great with kids and family groups, calm, encouraging, safety-focused.</p>
         </article>
 
         <article class="ab-inst ab-reveal">
@@ -182,7 +182,7 @@ const seo = seoData.aboutUs
           <div class="ab-avatar ab-atw">TW</div>
           <h3>Trey Wical</h3>
           <div class="ab-role">Surf Instructor</div>
-          <p>Strong on wave reading and positioning — a favorite for surfers chasing the next level.</p>
+          <p>Strong on wave reading and positioning, a favorite for surfers chasing the next level.</p>
         </article>
 
       </div>
@@ -195,10 +195,10 @@ const seo = seoData.aboutUs
 
       <div class="ab-reveal">
         <span class="ab-eyebrow ab-eyebrow--gold">A Bonus for Adventurers</span>
-        <h2 class="ab-cr-h2">Surf Costa Rica with Victor — <em>private trips</em> to his home country</h2>
+        <h2 class="ab-cr-h2">Surf Costa Rica with Victor, <em>private trips</em> to his home country</h2>
         <p>For students who want something deeper than a single lesson on Cocoa Beach, Victor opens his home country to a small number of guests each year.</p>
-        <p>You'll surf the breaks he learned on, eat where the locals eat, and get the kind of insider experience you can't book online. It's the trip he'd take with friends — because that's what you become.</p>
-        <a class="ab-btn ab-btn-primary" href="https://wa.me/13213869993">
+        <p>You'll surf the breaks he learned on, eat where the locals eat, and get the kind of insider experience you can't book online. It's the trip he'd take with friends, because that's what you become.</p>
+        <a class="ab-btn ab-btn-primary" href={CONTACT.WHATSAPP_URL}>
           Ask About a Costa Rica Trip
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -230,7 +230,7 @@ const seo = seoData.aboutUs
     <div class="ab-wrap ab-reveal" style="text-align:center">
       <span class="ab-eyebrow ab-eyebrow--gold">Ready to Get in the Water?</span>
       <h2 class="ab-final-h2">Start your journey with us</h2>
-      <p class="ab-final-lede">Pick a lesson, a package, or a summer camp — and we'll meet you on the beach with everything ready.</p>
+      <p class="ab-final-lede">Pick a lesson, a package, or a summer camp, and we'll meet you on the beach with everything ready.</p>
       <div class="ab-final-cta">
         <a class="ab-btn ab-btn-primary" href="/surf-packages-cocoa-beach">
           Explore Our Lessons
@@ -239,9 +239,9 @@ const seo = seoData.aboutUs
         <a class="ab-btn ab-btn-ghost" href="/book-now">Book a Lesson</a>
       </div>
       <div class="ab-nap">
-        <a href="tel:+13213869993">
+        <a href={CONTACT.TEL_HREF}>
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          +1 (321) 386-9993
+          {CONTACT.DISPLAY_INTL}
         </a>
         <a href="mailto:info@cocosolsurf.com">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7L22 6"/></svg>

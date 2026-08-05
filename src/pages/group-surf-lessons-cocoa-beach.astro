@@ -16,7 +16,7 @@ import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 
 import heroImg  from '../assets/images/group-surf-lessons-cocoa-beach-students-beach.webp'
 import groupImg from '../assets/images/beginner-surf-lessons-cocoa-beach-group-session.webp'
@@ -51,15 +51,15 @@ const gear = [
 const subblocks = [
   {
     image:    groupImg,
-    imageAlt: 'Group surf lesson on Cocoa Beach — friends learning together',
+    imageAlt: 'Group surf lesson on Cocoa Beach, friends learning together',
     title:    'Premium Gear, No Rentals',
-    body:     'We bring ready-to-ride boards matched to each surfer by height, weight, and skill. Beginners learn on stable boards — no one gets stuck on the wrong equipment.',
+    body:     'We bring ready-to-ride boards matched to each surfer by height, weight, and skill. Beginners learn on stable boards, no one gets stuck on the wrong equipment.',
   },
   {
     image:    coachImg,
     imageAlt: 'Certified instructor coaching beginners during a group surf lesson in Cocoa Beach',
     title:    'Small Groups, Real Attention',
-    body:     'We keep groups small so every surfer gets hands-on coaching — pop-up corrections, wave reading, and a real push into their first ride. Not just a crowd in the water.',
+    body:     'We keep groups small so every surfer gets hands-on coaching, pop-up corrections, wave reading, and a real push into their first ride. Not just a crowd in the water.',
   },
 ]
 
@@ -71,7 +71,7 @@ const compareLeft = {
     'The social, shared experience with friends & family',
     'Our most affordable way to get on a board',
     'Small groups with hands-on instructor attention',
-    'Beginner-friendly — most stand up the first session',
+    'Beginner-friendly, most stand up the first session',
     'Minimum 4 participants for the group rate',
   ],
 }
@@ -99,7 +99,7 @@ const audienceCards = [
   {
     num:       '02',
     title:     'Friends & Group Trips',
-    body:      'Visiting Cocoa Beach with your crew? A group lesson is the highlight of any trip — bachelor parties, birthdays, reunions, or just a great day out on the water.',
+    body:      'Visiting Cocoa Beach with your crew? A group lesson is the highlight of any trip, bachelor parties, birthdays, reunions, or just a great day out on the water.',
     linkLabel: 'Book for your group',
     linkHref:  '#book',
   },
@@ -113,7 +113,7 @@ const audienceCards = [
   {
     num:       '04',
     title:     'First-Timers & Tourists',
-    body:      'In town from Orlando or the Space Coast? Cocoa Beach\'s gentle waves make it the perfect place for total beginners to try surfing for the very first time — together.',
+    body:      'In town from Orlando or the Space Coast? Cocoa Beach\'s gentle waves make it the perfect place for total beginners to try surfing for the very first time, together.',
     linkLabel: 'Try your first wave',
     linkHref:  '#book',
   },
@@ -130,25 +130,25 @@ const steps = [
   },
   {
     title: 'Into the water & first wave',
-    body:  'Your instructor stays right beside you — help you paddle, time the wave, and stand. Most beginners stand up on their very first session. Your group cheers each other on.',
+    body:  'Your instructor stays right beside you, help you paddle, time the wave, and stand. Most beginners stand up on their very first session. Your group cheers each other on.',
   },
   {
     title: 'Ride, repeat & improve',
-    body:  'The rest of the session is live practice with coaching. Your instructor corrects your pop-up, wave selection, and positioning — every wave is better than the last.',
+    body:  'The rest of the session is live practice with coaching. Your instructor corrects your pop-up, wave selection, and positioning, every wave is better than the last.',
   },
 ]
 
 const faqs = [
-  { question: 'How much do group surf lessons cost in Cocoa Beach?', answer: 'Group lessons at Cocosol Surf Lessons are $60 per person, per hour, with a minimum of 4 people to get the group rate. That price already covers everything — surfboard, leash, rash guard, wax, sunscreen, and your instructor — so there\'s nothing extra to rent or pay for once you show up.' },
-  { question: 'Are group surf lessons a good idea if I\'ve never surfed before?', answer: 'Yes. Cocoa Beach has gentle, rolling waves and a soft, sandy bottom — exactly the forgiving setup beginners want. Most first-timers in our group lessons are standing up and riding small waves within their first session, and learning next to friends takes most of the nerves away.' },
-  { question: 'How many people can join one group surf lesson?', answer: 'We keep groups small for hands-on attention, and the group rate starts at 4 people. For bigger crews — family reunions, birthdays, work teams — we add instructors so nobody waits on the sand.' },
+  { question: 'How much do group surf lessons cost in Cocoa Beach?', answer: 'Group lessons at Cocosol Surf Lessons are $60 per person, per hour, with a minimum of 4 people to get the group rate. That price already covers everything, surfboard, leash, rash guard, wax, sunscreen, and your instructor, so there\'s nothing extra to rent or pay for once you show up.' },
+  { question: 'Are group surf lessons a good idea if I\'ve never surfed before?', answer: 'Yes. Cocoa Beach has gentle, rolling waves and a soft, sandy bottom, exactly the forgiving setup beginners want. Most first-timers in our group lessons are standing up and riding small waves within their first session, and learning next to friends takes most of the nerves away.' },
+  { question: 'How many people can join one group surf lesson?', answer: 'We keep groups small for hands-on attention, and the group rate starts at 4 people. For bigger crews, family reunions, birthdays, work teams. We add instructors so nobody waits on the sand.' },
   { question: 'Do we need to bring our own surfboards or gear?', answer: 'No. Every spot in the lesson includes a surfboard sized to you, a leash, a UV rash guard, wax, and mineral sunscreen. You only need a swimsuit, a towel, and water.' },
-  { question: 'Where is the best place to learn to surf near Orlando?', answer: 'Cocoa Beach is the best place to learn to surf near Orlando — about an hour\'s drive east and minutes from the Kennedy Space Center, with consistent, beginner-friendly waves. It\'s an easy add to any Central Florida trip.' },
+  { question: 'Where is the best place to learn to surf near Orlando?', answer: 'Cocoa Beach is the best place to learn to surf near Orlando, about an hour\'s drive east and minutes from the Kennedy Space Center, with consistent, beginner-friendly waves. It\'s an easy add to any Central Florida trip.' },
   { question: 'Can kids do a group surf lesson?', answer: 'Yes. Cocosol Surf Lessons teaches surfers from age 6 and up. We size each board to the child, run a safety briefing before anyone enters the water, and our instructors are patient with first-timers, so families can learn together.' },
   { question: 'What actually happens during a group surf lesson?', answer: 'You start on the beach with a safety briefing and pop-up practice on the sand, then gear up and head into the water where your instructor helps you paddle, time the wave, and stand. The full session runs about 1 to 2 hours depending on ocean conditions.' },
   { question: 'Should we do a group lesson or book private lessons?', answer: 'Group lessons ($60/person) are the social, budget-friendly choice for friends and family learning together. Private lessons ($75/person) give one-on-one focus and faster progress. Many groups start social and book a private later to level up.' },
   { question: 'What should we wear and bring to the lesson?', answer: 'Wear a swimsuit or board shorts under the rash guard we provide, and bring a towel, a change of clothes, and water. Sunscreen and all surf gear are included. Photo sessions are available if you\'d rather leave your phone dry.' },
-  { question: 'How do we book a group surf lesson in Cocoa Beach?', answer: 'Book online using the form below or message Cocosol Surf Lessons on WhatsApp at +1 (321) 386-9993. We\'re open every day from 9 AM to 5 PM. Peak season fills fast, so book a few days ahead, especially for larger groups.' },
+  { question: 'How do we book a group surf lesson in Cocoa Beach?', answer: `Book online using the form below or message Cocosol Surf Lessons on WhatsApp at ${CONTACT.DISPLAY_INTL}. We're open every day from 9 AM to 5 PM. Peak season fills fast, so book a few days ahead, especially for larger groups.` },
 ]
 ---
 
@@ -169,9 +169,9 @@ const faqs = [
 
   <!-- HERO -->
   <Hero
-    title="Group Surf Lessons in Cocoa Beach, FL — Learn to Surf With Friends"
+    title="Group Surf Lessons in Cocoa Beach, FL, Learn to Surf With Friends"
     image={heroImg}
-    imageAlt="Group surf lessons in Cocoa Beach Florida — friends learning to surf together on the beach"
+    imageAlt="Group surf lessons in Cocoa Beach Florida, friends learning to surf together on the beach"
     breadcrumb={{ label: 'Surf Lessons', href: '/' }}
     cta={{ label: 'Book Your Group', href: '#book' }}
     height="large"
@@ -184,7 +184,7 @@ const faqs = [
   <LessonPricing
     eyebrow="Pricing"
     title="Group Surf Lesson Prices in Cocoa Beach"
-    lead1="Simple and upfront — no packages required to get in the water, no fine print. Gear, safety briefing, and your instructor are always included in the price."
+    lead1="Simple and upfront, no packages required to get in the water, no fine print. Gear, safety briefing, and your instructor are always included in the price."
     lead2="Group rate applies from 4 participants. Larger groups get additional instructors so nobody waits on the sand."
     rows={priceRows}
     altLinks={[
@@ -209,7 +209,7 @@ const faqs = [
   <GearIncluded
     eyebrow="All-inclusive"
     title="What's Included in Every Group Surf Lesson"
-    subtitle="No rental fees. No surprise add-ons. One price covers your whole experience — show up and surf."
+    subtitle="No rental fees. No surprise add-ons. One price covers your whole experience, show up and surf."
     gear={gear}
     subblocks={subblocks}
   />
@@ -217,12 +217,12 @@ const faqs = [
   <!-- COMPARE COLUMNS -->
   <CompareColumns
     eyebrow="Make the right call"
-    title="Group vs. Private Surf Lessons — Which Is Right for You?"
-    subtitle="Both get you surfing. The difference is pace and attention — pick the experience you're after."
+    title="Group vs. Private Surf Lessons, Which Is Right for You?"
+    subtitle="Both get you surfing. The difference is pace and attention, pick the experience you're after."
     left={compareLeft}
     right={compareRight}
     note="Not sure which fits your group?"
-    noteLink={{ label: 'Talk to us on WhatsApp', href: 'https://wa.me/13213869993' }}
+    noteLink={{ label: 'Talk to us on WhatsApp', href: CONTACT.WHATSAPP_URL }}
   />
 
   <!-- AUDIENCE CARDS -->
@@ -237,21 +237,21 @@ const faqs = [
   <HowItWorks
     eyebrow="Step by step"
     title="What to Expect in Your First Surf Lesson"
-    subtitle="Never surfed before? Perfect — that's exactly who we teach. Here's how your group lesson unfolds, from the sand to your first wave."
+    subtitle="Never surfed before? Perfect. That's exactly who we teach. Here's how your group lesson unfolds, from the sand to your first wave."
     steps={steps}
     footer="Most first-time surfers stand up on their board within the very first session."
   />
 
-  <!-- SPLIT CONTENT — Why Cocoa Beach -->
+  <!-- SPLIT CONTENT - Why Cocoa Beach -->
   <SplitContent
     eyebrow="Why Cocoa Beach"
     title="One of the Best Places to Learn to Surf in Florida"
     body={[
-      'Cocoa Beach isn\'t just convenient — it\'s one of the best beginner surf spots on the U.S. Atlantic coast. Gentle, consistent waves break over a soft, sandy bottom, far safer for first-timers than rocky or reef breaks anywhere else in Florida.',
-      'About an hour east of Orlando and minutes from the Kennedy Space Center, Cocoa Beach is an easy add to any Central Florida trip. A true surf town with warm water most of the year — and the beginner-friendly waves to prove it.',
+      'Cocoa Beach isn\'t just convenient. It\'s one of the best beginner surf spots on the U.S. Atlantic coast. Gentle, consistent waves break over a soft, sandy bottom, far safer for first-timers than rocky or reef breaks anywhere else in Florida.',
+      'About an hour east of Orlando and minutes from the Kennedy Space Center, Cocoa Beach is an easy add to any Central Florida trip. A true surf town with warm water most of the year, and the beginner-friendly waves to prove it.',
     ]}
     image={beachImg}
-    imageAlt="Beginner-friendly surf waves at Cocoa Beach, Florida — ideal for group surf lessons"
+    imageAlt="Beginner-friendly surf waves at Cocoa Beach, Florida, ideal for group surf lessons"
     reverse={true}
     bg="white"
     ctaLabel="Book Your Group Lesson"
@@ -261,7 +261,7 @@ const faqs = [
   <!-- TESTIMONIALS -->
   <Testimonials
     title="What Our Surfers Say"
-    intro="Groups of friends, families and solo travelers who met on the sand — these are the sessions people tell us they still talk about months later."
+    intro="Groups of friends, families and solo travelers who met on the sand. These are the sessions people tell us they still talk about months later."
     items={[
       {
         name: 'Danielle Hodge',
@@ -279,7 +279,7 @@ const faqs = [
   <!-- FAQ -->
   <section class="gsl-faq">
     <div class="gsl-faq-wrap">
-      <h2 class="gsl-faq-title">Group Surf Lessons in Cocoa Beach — FAQ</h2>
+      <h2 class="gsl-faq-title">Group Surf Lessons in Cocoa Beach, FAQ</h2>
       <FAQ items={faqs} columns={1} />
     </div>
   </section>
@@ -290,7 +290,7 @@ const faqs = [
       <div class="gsl-book-head">
         <span class="gsl-book-eyebrow">Ready to Ride?</span>
         <h2 class="gsl-book-title">Book Your Group Surf Lesson</h2>
-        <p class="gsl-book-sub">Get your group in the water together. Spots fill quickly in peak season — secure yours before they're gone.</p>
+        <p class="gsl-book-sub">Get your group in the water together. Spots fill quickly in peak season, secure yours before they're gone.</p>
       </div>
       <div class="gsl-book-wizard">
         <BookingWizard filterGroup="group-lessons" client:idle />
@@ -306,7 +306,7 @@ const faqs = [
     title="Get Your Group in the Water Today"
     subtitle="Book a group lesson and share the stoke together. All gear included, certified instructors, beginner-friendly waves."
     primaryCta={{ label: 'Book Your Group', href: '#book' }}
-    secondaryCta={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    secondaryCta={{ label: 'WhatsApp Us', href: CONTACT.WHATSAPP_URL }}
     meta={[
       { icon: '✓', text: 'All gear included' },
       { icon: '✓', text: 'Bilingual instructors' },

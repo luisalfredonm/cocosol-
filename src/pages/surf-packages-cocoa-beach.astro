@@ -9,7 +9,7 @@ import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 
 import heroImg  from '../assets/images/surf-school-cocoa-beach-surf-instructor-student.webp'
 import ctaBgImg from '../assets/images/surf-school-cocoa-beach-beach-lesson.webp'
@@ -66,12 +66,12 @@ const trustItems = [
 ]
 
 const faqs = [
-  { question: "What's included in the price?", answer: "Every price includes a premium surfboard sized to you, a leash, a UV-protection rash guard, surf wax, reef-friendly mineral sunscreen, and a full beach safety briefing. The Progression and Elite packs also include one and two professional photography sessions respectively. All you bring is a swimsuit and a towel — we handle everything else." },
-  { question: 'Do you offer discounts for families or groups?', answer: 'Yes — group lessons start at $60 per person (vs. $75 for private), and our surf camp has multi-kid family rates ($350 for 1 child, $650 for 2 kids, $900 for 3 kids per week). For larger family bookings or corporate groups, message us on WhatsApp and we\'ll put together a tailored quote.' },
-  { question: "What's your cancellation and weather policy?", answer: "If the ocean isn't safe or suitable for learning, we'll always offer to reschedule — your lesson is never lost to bad weather. For personal cancellations, we ask for at least 24 hours' notice to reschedule without a fee. Message us as soon as plans change and we'll work it out." },
-  { question: 'How do I book and pay?', answer: "You can book online through the 'Book a Lesson' button, call us at (321) 386-9993, or send us a WhatsApp message. We'll confirm your time, send you the meeting point, and tell you exactly what to bring. Payment is handled at the time of booking or in person before the lesson — your call." },
-  { question: 'Can I use my package over multiple days or visits?', answer: "Absolutely — that's the whole point of the packages. You schedule your sessions whenever works for you, with the same instructor each time. Whether you spread them across a one-week vacation or come back over several months, we'll fit the schedule to you." },
-  { question: 'Are gratuities expected?', answer: "Never expected, always appreciated. Our instructors put their full energy into every lesson, and if you feel they made your experience special, a tip is a kind way to say thanks — but it's never built into the price or assumed." },
+  { question: "What's included in the price?", answer: "Every price includes a premium surfboard sized to you, a leash, a UV-protection rash guard, surf wax, reef-friendly mineral sunscreen, and a full beach safety briefing. The Progression and Elite packs also include one and two professional photography sessions respectively. All you bring is a swimsuit and a towel. We handle everything else." },
+  { question: 'Do you offer discounts for families or groups?', answer: 'Yes, group lessons start at $60 per person (vs. $75 for private), and our surf camp has multi-kid family rates ($350 for 1 child, $650 for 2 kids, $900 for 3 kids per week). For larger family bookings or corporate groups, message us on WhatsApp and we\'ll put together a tailored quote.' },
+  { question: "What's your cancellation and weather policy?", answer: "If the ocean isn't safe or suitable for learning, we'll always offer to reschedule. Your lesson is never lost to bad weather. For personal cancellations, we ask for at least 24 hours' notice to reschedule without a fee. Message us as soon as plans change and we'll work it out." },
+  { question: 'How do I book and pay?', answer: `You can book online through the 'Book a Lesson' button, call us at ${CONTACT.DISPLAY}, or send us a WhatsApp message. We'll confirm your time, send you the meeting point, and tell you exactly what to bring. Payment is handled at the time of booking or in person before the lesson. Your call.` },
+  { question: 'Can I use my package over multiple days or visits?', answer: "Absolutely. That's the whole point of the packages. You schedule your sessions whenever works for you, with the same instructor each time. Whether you spread them across a one-week vacation or come back over several months, we'll fit the schedule to you." },
+  { question: 'Are gratuities expected?', answer: "Never expected, always appreciated. Our instructors put their full energy into every lesson, and if you feel they made your experience special, a tip is a kind way to say thanks, but it's never built into the price or assumed." },
 ]
 ---
 
@@ -88,7 +88,7 @@ const faqs = [
     title="Surf Lesson Prices & Packages in Cocoa Beach"
     subtitle="Transparent pricing · all gear included · no hidden fees · pick a single lesson or a package"
     image={heroImg}
-    imageAlt="Surf instructor and student at Cocoa Beach Florida — professional surf lessons"
+    imageAlt="Surf instructor and student at Cocoa Beach Florida, professional surf lessons"
     cta={{ label: 'See Packages', href: '#packages' }}
     ctaSecondary={{ label: 'Book a Lesson', href: '#book' }}
     height="medium"
@@ -104,7 +104,7 @@ const faqs = [
       <div class="sp-head">
         <span class="sp-eyebrow">Single Lessons</span>
         <h2 class="sp-h2">Just want to try it once?</h2>
-        <p class="sp-lead">The easiest way to start — book one, see how it feels, no commitment. Every single lesson includes all the gear you need.</p>
+        <p class="sp-lead">The easiest way to start, book one, see how it feels, no commitment. Every single lesson includes all the gear you need.</p>
       </div>
 
       <div class="sp-list">
@@ -114,7 +114,7 @@ const faqs = [
             Private Lesson
           </div>
           <div class="sp-price">$75 <span>per person</span></div>
-          <p class="sp-desc">One instructor, one student. The fastest way to stand up — ideal for individuals, couples, and first-timers who want 100% focus.</p>
+          <p class="sp-desc">One instructor, one student. The fastest way to stand up, ideal for individuals, couples, and first-timers who want 100% focus.</p>
           <a href="/private-surf-lessons-cocoa-beach" class="sp-btn">See Private Lessons</a>
         </div>
 
@@ -157,7 +157,7 @@ const faqs = [
       <div class="sp-pkg-intro">
         <span class="sp-eyebrow">Multi-Session Packages</span>
         <h2 class="sp-h2">Want to actually get good?</h2>
-        <p class="sp-pkg-sub">The biggest factor in surf progress isn't talent — it's <strong>consistency</strong>. Our packages bundle multiple lessons with the same instructor, flexible scheduling, and professional photos in the bigger tiers.</p>
+        <p class="sp-pkg-sub">The biggest factor in surf progress isn't talent. It's <strong>consistency</strong>. Our packages bundle multiple lessons with the same instructor, flexible scheduling, and professional photos in the bigger tiers.</p>
       </div>
 
       <div class="sp-pkg-grid">
@@ -197,7 +197,7 @@ const faqs = [
           <div class="sp-pk-sessions">6 × 1 hr Lessons</div>
           <div class="sp-pk-price">$475</div>
           <p class="sp-pk-per">The sweet spot for real progress</p>
-          <p class="sp-pk-tagline">Enough sessions to truly progress — and leave with photos to prove it.</p>
+          <p class="sp-pk-tagline">Enough sessions to truly progress, and leave with photos to prove it.</p>
           <ul class="sp-pk-feat">
             <li>
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
@@ -225,11 +225,11 @@ const faqs = [
           <div class="sp-pk-sessions">16 × 1 hr Lessons</div>
           <div class="sp-pk-price">$1,280</div>
           <p class="sp-pk-per">For surfers fully committed to the journey</p>
-          <p class="sp-pk-tagline">The complete arc — from your first wave to riding clean and confident.</p>
+          <p class="sp-pk-tagline">The complete arc, from your first wave to riding clean and confident.</p>
           <ul class="sp-pk-feat">
             <li>
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-              16 full sessions — the full journey
+              16 full sessions, the full journey
             </li>
             <li>
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
@@ -256,11 +256,11 @@ const faqs = [
         </div>
         <div class="sp-helper-text">
           <h3 class="sp-helper-title">Not sure which option fits you?</h3>
-          <p>Tell us your level, your dates, and what you want to get out of it — we'll recommend the right option in a minute. No pressure, no hard sell.</p>
+          <p>Tell us your level, your dates, and what you want to get out of it. We'll recommend the right option in a minute. No pressure, no hard sell.</p>
         </div>
         <div class="sp-helper-cta">
-          <a href="https://wa.me/13213869993" class="sp-pk-btn sp-pk-btn--primary">WhatsApp us</a>
-          <a href="tel:+13213869993" class="sp-pk-btn sp-pk-btn--outline">Call (321) 386-9993</a>
+          <a href={CONTACT.WHATSAPP_URL} class="sp-pk-btn sp-pk-btn--primary">WhatsApp us</a>
+          <a href={CONTACT.TEL_HREF} class="sp-pk-btn sp-pk-btn--outline">Call {CONTACT.DISPLAY}</a>
         </div>
       </div>
 
@@ -274,7 +274,7 @@ const faqs = [
         <div class="sp-inc-left">
           <span class="sp-inc-label">In Every Price</span>
           <h2 class="sp-h2 sp-h2--sm">Everything you need, included</h2>
-          <p>No rental counter, no surprise add-ons, nothing for you to buy or carry. Arrive in a swimsuit — we handle the rest.</p>
+          <p>No rental counter, no surprise add-ons, nothing for you to buy or carry. Arrive in a swimsuit. We handle the rest.</p>
         </div>
         <div class="sp-inc-chips">
           {[
@@ -298,7 +298,7 @@ const faqs = [
   <!-- TESTIMONIALS -->
   <Testimonials
     title="What Our Students Say"
-    intro="Students who booked a multi-session pack rather than a single lesson — the ones who stuck with it long enough to see real progression."
+    intro="Students who booked a multi-session pack rather than a single lesson, the ones who stuck with it long enough to see real progression."
     bg="gray"
     items={[
       {
@@ -343,11 +343,11 @@ const faqs = [
   <!-- FINAL CTA -->
   <FinalCTA
     bgImage={ctaBgImg}
-    bgImageAlt="Surf lesson at Cocoa Beach Florida — instructor with students on the beach"
+    bgImageAlt="Surf lesson at Cocoa Beach Florida, instructor with students on the beach"
     title="Pick Your Surf Lesson Package"
-    subtitle="Spots fill fastest in spring break, summer, and holiday weekends. Secure your date — we'll handle the rest."
+    subtitle="Spots fill fastest in spring break, summer, and holiday weekends. Secure your date. We'll handle the rest."
     primaryCta={{ label: 'Book Now', href: '#book' }}
-    secondaryCta={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    secondaryCta={{ label: 'WhatsApp Us', href: CONTACT.WHATSAPP_URL }}
     meta={[
       { icon: '✓', text: 'All gear included' },
       { icon: '✓', text: 'No hidden fees' },

@@ -4,7 +4,7 @@ import Hero from '../components/ui/Hero.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 import { getClassTypes } from '../lib/classTypes'
 import heroImg from '../assets/images/surf-school-cocoa-beach-surf-instructor-student.webp'
 
@@ -83,7 +83,7 @@ const bookingGroups = [
           surf experience based on your level and travel plans.
         </p>
         <a
-          href="https://wa.me/13213869993"
+          href={CONTACT.WHATSAPP_URL}
           target="_blank"
           rel="noopener"
           class="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white font-bold px-5 py-2.5 rounded-xl transition-colors text-sm"

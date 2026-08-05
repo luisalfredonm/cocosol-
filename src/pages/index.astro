@@ -10,7 +10,7 @@ import PricingPackages from '../components/sections/PricingPackages.astro'
 import Testimonials from '../components/sections/Testimonials.astro'
 import FAQ from '../components/ui/FAQ.astro'
 import FAQSchema from '../components/seo/FAQSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 
 import heroImg from '../assets/images/surf-lessons-cocoa-beach-instructor-coaching.webp'
 import gallery1 from '../assets/images/surf-lessons-cocoa-beach-beginner-student.webp'
@@ -45,7 +45,7 @@ const stats = [
 
 // FAQ de la home = intención comercial (precio, logística, política).
 // Las preguntas informativas de "condiciones de surf" viven en el blog y las
-// específicas de cada servicio en su propia página — no duplicar aquí.
+// específicas de cada servicio en su propia página - no duplicar aquí.
 const faqs = [
   { question: 'How much do surf lessons cost in Cocoa Beach?', answer: 'Cocoa Beach surf lessons are $60 per person for a group lesson and $75 for a private lesson, both one hour with all equipment included. Multi-session packages start at $260 for four lessons, and the kids surf camp starts at $350 for the week.' },
   { question: 'Do I need to know how to swim to surf?', answer: 'Basic swimming ability is recommended for safety. Our instructors will assess your comfort level before entering the water.' },
@@ -208,7 +208,7 @@ const serviceLinks = [
             <p class="text-gray-500 text-sm leading-relaxed mb-7">
               These are the most common questions we get from students planning their first surf lesson in Cocoa Beach. Can't find your answer? We reply fast on WhatsApp.
             </p>
-            <a href="https://wa.me/13213869993"
+            <a href={CONTACT.WHATSAPP_URL}
               class="inline-flex items-center gap-2 px-5 py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-full hover:border-[var(--accent)] hover:text-[var(--accent-ink)] transition-colors text-sm">
               <Icon name="ph:whatsapp-logo-fill" class="w-4 h-4" aria-hidden="true"/>
               Contact Us on WhatsApp

@@ -6,13 +6,13 @@ import { issueFormToken, isTokenSigningConfigured } from '../../lib/antiSpam'
 /**
  * Hands the contact form a short-lived signed token.
  *
- * /contact is a static page, so the token cannot be baked into the HTML — it is
+ * /contact is a static page, so the token cannot be baked into the HTML - it is
  * fetched by the form's own JavaScript on load. That is the point: a bot POSTing
  * directly to /api/contact never asks for one, and cannot forge one without the
  * signing secret. The issue time inside it also powers the "filled in too fast"
  * check on the other side.
  *
- * Must never be cached — see the /api cache-header exclusion in vercel.json.
+ * Must never be cached - see the /api cache-header exclusion in vercel.json.
  */
 export const GET: APIRoute = async () => {
   const headers = {

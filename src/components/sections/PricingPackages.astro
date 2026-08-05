@@ -184,10 +184,10 @@ const campFeatures = [
     --brand:      var(--teal-primary);
     --brand-dark: var(--teal-dark);
     --brand-text: var(--teal-text);
-    --brand-strong:var(--teal-text-strong);   /* teal text on tinted bg — AA 7:1 */
+    --brand-strong:var(--teal-text-strong);   /* teal text on tinted bg, AA 7:1 */
     --accent-tint:  rgba(0,188,212,.08);
     --accent-border:rgba(0,188,212,.22);
-    --on-dark:    var(--accent-on-dark);       /* accent text on navy — AA */
+    --on-dark:    var(--accent-on-dark);       /* accent text on navy, AA */
     --price-dark: var(--c-price-on-dark);      /* prices pop by size, not hue */
     --sand:       var(--c-paper-cool);
     --cream:      var(--c-cream-cool);
@@ -234,7 +234,7 @@ const campFeatures = [
     margin: 0 auto;
   }
 
-  /* Grid — center if 3 cols can't be equal */
+  /* Grid - center if 3 cols can't be equal */
   .pp-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -348,7 +348,7 @@ const campFeatures = [
   .pp-check { width: 15px; height: 15px; flex-shrink: 0; color: var(--brand); margin-top: 2px; }
   .pp-badge-icon { width: 10px; height: 10px; flex-shrink: 0; }
 
-  /* Accent feature — highlighted like a selection */
+  /* Accent feature - highlighted like a selection */
   .pp-feat--accent {
     background: rgba(0,188,212,.09);
     color: var(--brand-strong);
@@ -367,7 +367,7 @@ const campFeatures = [
     margin-bottom: 28px;
   }
 
-  /* CTA — pill buttons, ≥48px height for touch target */
+  /* CTA - pill buttons, ≥48px height for touch target */
   .pp-cta {
     display: flex;
     align-items: center;

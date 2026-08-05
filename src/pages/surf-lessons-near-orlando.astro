@@ -14,7 +14,7 @@ import FAQSchema from '../components/seo/FAQSchema.astro'
 import BookingWizard from '../components/booking/BookingWizard'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
 import ProductSchema from '../components/seo/ProductSchema.astro'
-import { seoData } from '../lib/seo'
+import { seoData, CONTACT } from '../lib/seo'
 
 import heroImg  from '../assets/images/surf-school-cocoa-beach-students.webp'
 import driveImg from '../assets/images/surf-group-lessons-cocoa-beach-warm-water.webp'
@@ -32,15 +32,15 @@ const trustItems = [
 const steps = [
   {
     title: 'Book your time before you drive out',
-    body:  'Reserve online in under a minute and pick a start time that fits your Orlando itinerary. Morning slots have the calmest water and the easiest parking — ideal if you want to be back near the parks by afternoon.',
+    body:  'Reserve online in under a minute and pick a start time that fits your Orlando itinerary. Morning slots have the calmest water and the easiest parking, ideal if you want to be back near the parks by afternoon.',
   },
   {
-    title: 'Drive east — about an hour door to door',
+    title: 'Drive east, about an hour door to door',
     body:  'Cocoa Beach sits roughly 60 miles east of Orlando, a straight shot on the 528 (Beachline). From International Drive, Disney, or Universal you\'re looking at around an hour with normal traffic.',
   },
   {
     title: 'Meet your instructor on the sand',
-    body:  'We send you the exact meeting point and what to bring after you book. All the gear — board, leash, rash guard, wax, and sunscreen — is waiting for you. Just show up in a swimsuit with a towel.',
+    body:  'We send you the exact meeting point and what to bring after you book. All the gear, board, leash, rash guard, wax, and sunscreen, is waiting for you. Just show up in a swimsuit with a towel.',
   },
   {
     title: 'Surf, then get back to your trip',
@@ -72,7 +72,7 @@ const audienceCards = [
   {
     num:       '03',
     title:     'Cruise Passengers',
-    body:      'Sailing out of Port Canaveral? It\'s barely 15 minutes from Cocoa Beach. Catch a lesson before you board or on your way back to Orlando — an easy add to embarkation or disembarkation day.',
+    body:      'Sailing out of Port Canaveral? It\'s barely 15 minutes from Cocoa Beach. Catch a lesson before you board or on your way back to Orlando, an easy add to embarkation or disembarkation day.',
     linkLabel: 'Fit it in your itinerary',
     linkHref:  '#book',
   },
@@ -86,14 +86,14 @@ const audienceCards = [
 ]
 
 const faqs = [
-  { question: 'How far is Cocoa Beach from Orlando?', answer: 'Cocoa Beach is about 60 miles east of Orlando — roughly a one-hour drive on the 528 (Beachline Expressway). From Disney, Universal, or International Drive it\'s around 60 to 75 minutes with normal traffic, making it the closest real ocean surf to the Orlando theme parks.' },
-  { question: 'Can I take a surf lesson near Orlando as a day trip?', answer: 'Absolutely — that\'s how most of our Orlando visitors do it. A lesson runs about 1 to 2 hours, so you can drive out in the morning, surf, and be back near the parks by the afternoon. Booking a morning slot gives you the calmest water and the easiest parking.' },
-  { question: 'Where is the best place to surf near Orlando?', answer: 'Cocoa Beach is the best place to learn to surf near Orlando. Its gentle, consistent waves break over a soft, sandy bottom — far safer for beginners than rocky or reef breaks — and it\'s the closest surf beach to the theme parks and the Kennedy Space Center.' },
-  { question: 'Do I need to bring a surfboard or any gear?', answer: 'No. Every lesson includes a surfboard sized to you, a leash, a UV-protection rash guard, wax, and mineral sunscreen. You only need a swimsuit, a towel, and water — perfect if you\'re visiting from Orlando and traveling light.' },
-  { question: 'How much do surf lessons near Orlando cost?', answer: 'Group surf lessons at Cocosol Surf Lessons are $60 per person (minimum 4 people) and private one-on-one lessons are $75 per person, per hour. Gear, safety briefing, and your certified instructor are always included — there\'s nothing extra to rent or pay for once you arrive.' },
+  { question: 'How far is Cocoa Beach from Orlando?', answer: 'Cocoa Beach is about 60 miles east of Orlando, roughly a one-hour drive on the 528 (Beachline Expressway). From Disney, Universal, or International Drive it\'s around 60 to 75 minutes with normal traffic, making it the closest real ocean surf to the Orlando theme parks.' },
+  { question: 'Can I take a surf lesson near Orlando as a day trip?', answer: 'Absolutely. That\'s how most of our Orlando visitors do it. A lesson runs about 1 to 2 hours, so you can drive out in the morning, surf, and be back near the parks by the afternoon. Booking a morning slot gives you the calmest water and the easiest parking.' },
+  { question: 'Where is the best place to surf near Orlando?', answer: 'Cocoa Beach is the best place to learn to surf near Orlando. Its gentle, consistent waves break over a soft, sandy bottom, far safer for beginners than rocky or reef breaks, and it\'s the closest surf beach to the theme parks and the Kennedy Space Center.' },
+  { question: 'Do I need to bring a surfboard or any gear?', answer: 'No. Every lesson includes a surfboard sized to you, a leash, a UV-protection rash guard, wax, and mineral sunscreen. You only need a swimsuit, a towel, and water, perfect if you\'re visiting from Orlando and traveling light.' },
+  { question: 'How much do surf lessons near Orlando cost?', answer: 'Group surf lessons at Cocosol Surf Lessons are $60 per person (minimum 4 people) and private one-on-one lessons are $75 per person, per hour. Gear, safety briefing, and your certified instructor are always included. There\'s nothing extra to rent or pay for once you arrive.' },
   { question: 'Do you teach kids and complete beginners?', answer: 'Yes. We teach surfers from age 6 and up, and most of our students have never surfed before. Every lesson starts with a beach safety briefing and pop-up practice on the sand, and Cocoa Beach\'s forgiving waves mean most first-timers stand up on their very first session.' },
   { question: 'Is Cocoa Beach close to Port Canaveral and the Kennedy Space Center?', answer: 'Very. Cocoa Beach is about 15 minutes from both Port Canaveral cruise terminals and the Kennedy Space Center, so a surf lesson pairs perfectly with a cruise embarkation day or a rocket-launch trip on the Space Coast.' },
-  { question: 'How do I book a surf lesson from Orlando?', answer: 'Book online using the form below or message Cocosol Surf Lessons on WhatsApp at +1 (321) 386-9993. We\'re open every day from 9 AM to 5 PM. Since many visitors book around theme-park and cruise schedules, reserve a day or two ahead — especially in peak season.' },
+  { question: 'How do I book a surf lesson from Orlando?', answer: `Book online using the form below or message Cocosol Surf Lessons on WhatsApp at ${CONTACT.DISPLAY_INTL}. We're open every day from 9 AM to 5 PM. Since many visitors book around theme-park and cruise schedules, reserve a day or two ahead, especially in peak season.` },
 ]
 ---
 
@@ -114,8 +114,8 @@ const faqs = [
 
   <!-- HERO -->
   <Hero
-    title="Surf Lessons Near Orlando — Just an Hour Away in Cocoa Beach"
-    subtitle="Trade a theme-park day for the ocean. Certified instructors, beginner-friendly waves, and all gear included — the closest real surf to Orlando."
+    title="Surf Lessons Near Orlando, Just an Hour Away in Cocoa Beach"
+    subtitle="Trade a theme-park day for the ocean. Certified instructors, beginner-friendly waves, and all gear included, the closest real surf to Orlando."
     image={heroImg}
     imageAlt="Beginners taking a surf lesson near Orlando at Cocoa Beach, Florida"
     cta={{ label: 'Book Your Lesson', href: '#book' }}
@@ -126,12 +126,12 @@ const faqs = [
   <!-- TRUST BAR -->
   <TrustBar items={trustItems} />
 
-  <!-- SPLIT — Why Cocoa Beach is Orlando's surf -->
+  <!-- SPLIT - Why Cocoa Beach is Orlando's surf -->
   <SplitContent
     eyebrow="Orlando's closest surf"
     title="The Nearest Ocean Waves to the Theme Parks"
     body={[
-      'Orlando has world-class theme parks — but no waves. The closest place to actually learn to surf is Cocoa Beach, about 60 miles east on the 528 Beachline, roughly an hour from Disney, Universal, and International Drive.',
+      'Orlando has world-class theme parks, but no waves. The closest place to actually learn to surf is Cocoa Beach, about 60 miles east on the 528 Beachline, roughly an hour from Disney, Universal, and International Drive.',
       'It\'s worth the short drive. Cocoa Beach is one of the best beginner surf spots on the U.S. Atlantic coast: gentle, consistent waves over a soft, sandy bottom, warm water most of the year, and a genuine surf-town feel. It\'s also minutes from the Kennedy Space Center and Port Canaveral, so a lesson slots neatly into almost any Central Florida trip.',
     ]}
     image={driveImg}
@@ -142,7 +142,7 @@ const faqs = [
     ctaHref="#book"
   />
 
-  <!-- HOW IT WORKS — plan the day trip -->
+  <!-- HOW IT WORKS - plan the day trip -->
   <HowItWorks
     eyebrow="Plan your day"
     title="How a Surf Lesson From Orlando Works"
@@ -155,7 +155,7 @@ const faqs = [
   <LessonPricing
     eyebrow="Pricing"
     title="Surf Lesson Prices Near Orlando"
-    lead1="Simple, upfront pricing — no packages required to get in the water. Gear, safety briefing, and your certified instructor are always included."
+    lead1="Simple, upfront pricing, no packages required to get in the water. Gear, safety briefing, and your certified instructor are always included."
     lead2="Group rate applies from 4 participants. Traveling as a family or crew? Larger groups get additional instructors so nobody waits on the sand."
     rows={priceRows}
     altLinks={[
@@ -206,7 +206,7 @@ const faqs = [
   <!-- FAQ -->
   <section class="slno-faq">
     <div class="slno-faq-wrap">
-      <h2 class="slno-faq-title">Surf Lessons Near Orlando — FAQ</h2>
+      <h2 class="slno-faq-title">Surf Lessons Near Orlando, FAQ</h2>
       <FAQ items={faqs} columns={1} />
     </div>
   </section>
@@ -217,7 +217,7 @@ const faqs = [
       <div class="slno-book-head">
         <span class="slno-book-eyebrow">Ready to Ride?</span>
         <h2 class="slno-book-title">Book Your Surf Lesson</h2>
-        <p class="slno-book-sub">Pick a time, drive over from Orlando, and stand up on your first wave. Spots fill quickly in peak season — reserve yours ahead.</p>
+        <p class="slno-book-sub">Pick a time, drive over from Orlando, and stand up on your first wave. Spots fill quickly in peak season, reserve yours ahead.</p>
       </div>
       <div class="slno-book-wizard">
         <BookingWizard client:idle />
@@ -233,7 +233,7 @@ const faqs = [
     title="Make the Ocean Part of Your Orlando Trip"
     subtitle="An hour east, a first wave, and a memory that beats another day in line. Book your Cocoa Beach surf lesson today."
     primaryCta={{ label: 'Book Your Lesson', href: '#book' }}
-    secondaryCta={{ label: 'WhatsApp Us', href: 'https://wa.me/13213869993' }}
+    secondaryCta={{ label: 'WhatsApp Us', href: CONTACT.WHATSAPP_URL }}
     meta={[
       { icon: '✓', text: 'All gear included' },
       { icon: '✓', text: '~1 hour from Orlando' },

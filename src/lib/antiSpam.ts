@@ -3,14 +3,14 @@
  *
  * Four independent defenses, ordered by how much work it takes a bot to beat them:
  *
- *   1. Signed token — only handed out by GET /api/contact-token, so a bot that
+ *   1. Signed token - only handed out by GET /api/contact-token, so a bot that
  *      POSTs straight to /api/contact has nothing to send. Doubles as a time
  *      trap: the token carries its issue time, and a form filled in under three
  *      seconds was not filled in by a human.
- *   2. Honeypot — a field positioned off-screen. Humans never see it; most bots
+ *   2. Honeypot - a field positioned off-screen. Humans never see it; most bots
  *      fill every input they find.
- *   3. Heuristics — scores the payload (machine-generated names, links, gibberish).
- *   4. Rate limit — per-IP and per-email caps, backed by contact_submissions.
+ *   3. Heuristics - scores the payload (machine-generated names, links, gibberish).
+ *   4. Rate limit - per-IP and per-email caps, backed by contact_submissions.
  *
  * Spam is never told it was caught. Callers answer 200 {ok:true} and drop the
  * message: a bot that gets a 403 just iterates until something returns a 200.
@@ -205,7 +205,7 @@ const HOURLY_IP_LIMIT = 3
 const DAILY_IP_LIMIT = 8
 const DAILY_EMAIL_LIMIT = 5
 
-/** IPs are stored hashed — the log is for abuse control, not for tracking people. */
+/** IPs are stored hashed - the log is for abuse control, not for tracking people. */
 export async function hashIp(ip: string): Promise<string> {
   const digest = await crypto.subtle.digest('SHA-256', encoder.encode(`${ip}|${secret()}`))
   return toHex(digest).slice(0, 32)
@@ -272,7 +272,7 @@ export async function checkRateLimit(
   return { limited: false, reason: null }
 }
 
-/** Every attempt is logged, including blocked ones — that is what feeds the rate limit. */
+/** Every attempt is logged, including blocked ones - that is what feeds the rate limit. */
 export async function logSubmission(row: {
   ipHash: string
   emailNormalized: string

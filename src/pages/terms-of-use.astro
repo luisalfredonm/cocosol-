@@ -1,4 +1,5 @@
 ---
+import { CONTACT } from '../lib/seo'
 export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 ---
@@ -87,7 +88,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <section>
           <h2 class="text-2xl font-bold text-gray-900 mb-3">8. Intellectual Property</h2>
           <p>
-            All content on this website — including text, images, logos, and design — is the property of Cocosol Surf Lessons and protected by applicable copyright and intellectual property laws.
+            All content on this website, including text, images, logos, and design, is the property of Cocosol Surf Lessons and protected by applicable copyright and intellectual property laws.
             You may not reproduce, distribute, or use our content without prior written permission.
           </p>
         </section>
@@ -123,7 +124,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
           <p>Questions about these Terms? Contact us:</p>
           <ul class="list-none mt-2 space-y-1">
             <li>Email: <a href="mailto:info@cocosolsurf.com" class="text-teal-600 hover:underline">info@cocosolsurf.com</a></li>
-            <li>Phone: <a href="tel:+13213869993" class="text-teal-600 hover:underline">(321) 386-9993</a></li>
+            <li>Phone: <a href={CONTACT.TEL_HREF} class="text-teal-600 hover:underline">{CONTACT.DISPLAY}</a></li>
             <li>Address: 632 Adams Ave, Cape Canaveral, FL 32920</li>
           </ul>
         </section>

@@ -1,4 +1,4 @@
-// Pure client-safe helpers — no Supabase imports
+// Pure client-safe helpers - no Supabase imports
 
 export interface DbClassType {
   id: string

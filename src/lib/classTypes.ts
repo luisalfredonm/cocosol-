@@ -1,4 +1,4 @@
-// Server-only — imports Supabase, never import this from React components
+// Server-only - imports Supabase, never import this from React components
 import { isSupabaseConfigured, supabase } from './supabase'
 export type { DbClassType } from './classTypeHelpers'
 export { calculateTotal, formatCurrency, formatTime, formatPricingTiers } from './classTypeHelpers'
