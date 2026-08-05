@@ -319,7 +319,7 @@ const seo = seoData.aboutUs
   .ab-section-head p { font-size: 1.07rem; margin-top: 14px; color: var(--ab-muted); }
 
   h2 {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(1.9rem, 4vw, 2.7rem);
     font-weight: 600;
     line-height: 1.1;
@@ -328,7 +328,7 @@ const seo = seoData.aboutUs
     margin-bottom: 16px;
   }
   h3 {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--ab-ink);
@@ -340,11 +340,11 @@ const seo = seoData.aboutUs
     display: inline-flex;
     align-items: center;
     gap: 9px;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
     font-weight: 700;
     font-size: 1rem;
     padding: 15px 28px;
-    border-radius: 999px;
+    border-radius: var(--r-full);
     cursor: pointer;
     border: 2px solid transparent;
     transition: transform .2s, box-shadow .2s, background .2s;
@@ -392,7 +392,7 @@ const seo = seoData.aboutUs
   }
   .ab-hero-inner h1 {
     color: #fff;
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(2.3rem, 5.4vw, 3.9rem);
     font-weight: 600;
     letter-spacing: -.02em;
@@ -427,7 +427,7 @@ const seo = seoData.aboutUs
   }
   .ab-portrait {
     position: relative;
-    border-radius: 26px;
+    border-radius: var(--r-md);
     overflow: hidden;
     aspect-ratio: 4/5;
     background: linear-gradient(165deg, #1a8597 0%, var(--ab-ocean) 40%, var(--ab-deep) 100%);
@@ -456,7 +456,7 @@ const seo = seoData.aboutUs
   }
   .ab-pcaption { position: relative; z-index: 2; }
   .ab-pname {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.5rem;
     color: #fff;
@@ -485,7 +485,7 @@ const seo = seoData.aboutUs
     background: rgba(0,0,0,.22);
     backdrop-filter: blur(8px);
     padding: 7px 12px;
-    border-radius: 999px;
+    border-radius: var(--r-full);
   }
   .ab-pflag svg { color: #ffd9a0; flex-shrink: 0; }
 
@@ -505,7 +505,7 @@ const seo = seoData.aboutUs
     display: flex;
     align-items: center;
     gap: 12px;
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-style: italic;
     color: var(--ab-mid);
     font-size: 1.08rem;
@@ -526,7 +526,7 @@ const seo = seoData.aboutUs
     border-top: 1px solid var(--ab-line);
   }
   .ab-sst {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-weight: 600;
     font-size: 2rem;
     color: var(--ab-deep);
@@ -568,7 +568,7 @@ const seo = seoData.aboutUs
     padding: 0 24px;
   }
   .ab-phil-mark {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 5rem;
     color: #ffd9a0;
     line-height: .6;
@@ -603,7 +603,7 @@ const seo = seoData.aboutUs
   }
   .ab-sf:hover { transform: translateY(-5px); box-shadow: var(--ab-shadow); }
   .ab-num {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-weight: 600;
     font-size: .86rem;
     color: var(--ab-coral);
@@ -615,7 +615,7 @@ const seo = seoData.aboutUs
   .ab-ic {
     width: 48px;
     height: 48px;
-    border-radius: 13px;
+    border-radius: var(--r-sm);
     background: var(--ab-soft);
     display: grid;
     place-items: center;
@@ -658,7 +658,7 @@ const seo = seoData.aboutUs
     margin: 0 auto 18px;
     display: grid;
     place-items: center;
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-weight: 600;
     font-size: 2.4rem;
     color: #fff;
@@ -722,7 +722,7 @@ const seo = seoData.aboutUs
   .ab-cr-card {
     background: rgba(255,255,255,.06);
     border: 1px solid rgba(255,255,255,.14);
-    border-radius: 26px;
+    border-radius: var(--r-md);
     padding: 36px;
     backdrop-filter: blur(8px);
   }
@@ -810,7 +810,7 @@ const seo = seoData.aboutUs
     background: #f9fafb;
     border-top: 1px solid #e5e7eb;
     padding: 40px 0;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
   }
   .ab-links-wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
   .ab-links-title {
@@ -826,7 +826,7 @@ const seo = seoData.aboutUs
     padding: 8px 18px;
     background: #fff;
     border: 1px solid #e5e7eb;
-    border-radius: 999px;
+    border-radius: var(--r-full);
     font-size: .88rem;
     color: #4b5563;
     font-weight: 500;

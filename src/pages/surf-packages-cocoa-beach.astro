@@ -385,7 +385,7 @@ const faqs = [
     --muted:      var(--c-muted);
     --line:       rgba(10,58,64,.10);
     --maxw:       1180px;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
   }
   .sp-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
 
@@ -405,12 +405,12 @@ const faqs = [
     width: 24px;
     height: 2px;
     background: var(--gold);
-    border-radius: 2px;
+    border-radius: var(--r-full);
     flex-shrink: 0;
   }
 
   .sp-h2 {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(1.8rem, 3.6vw, 2.6rem);
     font-weight: 600;
     line-height: 1.1;
@@ -430,7 +430,7 @@ const faqs = [
 
   .sp-list {
     background: #fff;
-    border-radius: 18px;
+    border-radius: var(--r-md);
     border: 1.5px solid var(--line);
     box-shadow: 0 4px 24px -8px rgba(10,58,64,.10);
     overflow: hidden;
@@ -446,11 +446,11 @@ const faqs = [
   }
   .sp-row:last-child { border-bottom: none; }
   .sp-row:hover { background: #EFF9FB; }
-  .sp-row--camp { background: rgba(255,208,121,.06); }
-  .sp-row--camp:hover { background: rgba(255,208,121,.12); }
+  .sp-row--camp { background: rgba(0,188,212,.06); }
+  .sp-row--camp:hover { background: rgba(0,188,212,.12); }
 
   .sp-name {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--deep);
@@ -458,7 +458,7 @@ const faqs = [
   }
   .sp-name small {
     display: block;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
     font-size: .72rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -467,7 +467,7 @@ const faqs = [
     margin-bottom: 4px;
   }
   .sp-price {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.45rem;
     font-weight: 600;
     color: var(--deep);
@@ -475,7 +475,7 @@ const faqs = [
   }
   .sp-price span {
     display: block;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
     font-size: .82rem;
     color: var(--muted);
     font-weight: 500;
@@ -488,16 +488,16 @@ const faqs = [
     align-items: center;
     justify-content: center;
     padding: 10px 20px;
-    border-radius: 999px;
+    border-radius: var(--r-full);
     background: var(--gold);
-    color: #3a2400;
+    color: var(--c-gold-ink);
     font-size: .88rem;
     font-weight: 800;
     text-decoration: none;
     white-space: nowrap;
     transition: background .18s, transform .15s;
   }
-  .sp-btn:hover { background: #f5c84a; transform: translateY(-1px); }
+  .sp-btn:hover { background: #B2EBF2; transform: translateY(-1px); }
 
   /* ── Packages ────────────────────────────────────────────────────────── */
   .sp-pkg-section {
@@ -524,7 +524,7 @@ const faqs = [
 
   .sp-pkg {
     background: #fff;
-    border-radius: 22px;
+    border-radius: var(--r-md);
     padding: 36px 30px;
     border: 1.5px solid var(--line);
     box-shadow: 0 4px 20px -8px rgba(10,58,64,.10);
@@ -549,18 +549,18 @@ const faqs = [
     left: 50%;
     transform: translateX(-50%);
     background: var(--gold);
-    color: #3a2400;
+    color: var(--c-gold-ink);
     font-weight: 800;
     font-size: .72rem;
     letter-spacing: .1em;
     text-transform: uppercase;
     padding: 6px 18px;
-    border-radius: 999px;
+    border-radius: var(--r-full);
     white-space: nowrap;
   }
 
   .sp-pk-name {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.45rem;
     font-weight: 600;
     color: var(--deep);
@@ -579,7 +579,7 @@ const faqs = [
   .sp-pkg--featured .sp-pk-sessions { color: var(--gold); }
 
   .sp-pk-price {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 2.6rem;
     font-weight: 600;
     color: var(--deep);
@@ -634,7 +634,7 @@ const faqs = [
     width: 100%;
     min-height: 48px;
     padding: 13px 20px;
-    border-radius: 50px;
+    border-radius: var(--r-full);
     font-size: .93rem;
     font-weight: 800;
     text-decoration: none;
@@ -644,10 +644,10 @@ const faqs = [
 
   .sp-pk-btn--primary {
     background: var(--gold);
-    color: #3a2400;
-    box-shadow: 0 8px 24px -6px rgba(255,208,121,.50);
+    color: var(--c-gold-ink);
+    box-shadow: 0 8px 24px -6px rgba(0,188,212,.45);
   }
-  .sp-pk-btn--primary:hover { background: #f5c84a; }
+  .sp-pk-btn--primary:hover { background: #B2EBF2; }
 
   .sp-pk-btn--outline {
     background: transparent;
@@ -663,7 +663,7 @@ const faqs = [
   /* Helper */
   .sp-helper {
     background: #fff;
-    border-radius: 20px;
+    border-radius: var(--r-md);
     border: 1.5px solid var(--line);
     box-shadow: 0 4px 20px -8px rgba(10,58,64,.10);
     padding: 30px 36px;
@@ -675,7 +675,7 @@ const faqs = [
   .sp-helper-icon {
     width: 54px;
     height: 54px;
-    border-radius: 14px;
+    border-radius: var(--r-md);
     background: var(--deep);
     display: grid;
     place-items: center;
@@ -684,7 +684,7 @@ const faqs = [
   }
   .sp-helper-text { flex: 1; min-width: 220px; }
   .sp-helper-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--deep);
@@ -706,7 +706,7 @@ const faqs = [
   }
   .sp-inc-card {
     background: #EFF9FB;
-    border-radius: 22px;
+    border-radius: var(--r-md);
     border: 1.5px solid rgba(0,188,212,.15);
     padding: 48px;
     box-shadow: 0 4px 24px -8px rgba(0,188,212,.12);
@@ -772,11 +772,11 @@ const faqs = [
     letter-spacing: .18em;
     text-transform: uppercase;
     padding: 6px 16px;
-    border-radius: 999px;
+    border-radius: var(--r-full);
     margin-bottom: 12px;
   }
   .sp-book-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 600;
     color: var(--deep);
@@ -813,7 +813,7 @@ const faqs = [
     padding: 8px 18px;
     background: #fff;
     border: 1px solid #e5e7eb;
-    border-radius: 999px;
+    border-radius: var(--r-full);
     font-size: .88rem;
     color: var(--muted);
     font-weight: 500;

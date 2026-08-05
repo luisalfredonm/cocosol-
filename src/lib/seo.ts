@@ -259,6 +259,16 @@ export const ROUTES = {
   BOOK: '/book-now',
 }
 
+// Perfiles externos. Se centralizan aquí porque Testimonials se monta en 8+
+// páginas: hardcodear la URL en el componente la volvería imposible de
+// actualizar si cambia el listado de Google Business Profile.
+//
+// Pendiente: el número de WhatsApp sigue repetido en ~12 sitios del código.
+// Debería vivir aquí también, pero migrarlo es un refactor aparte.
+export const EXTERNAL = {
+  GOOGLE_REVIEWS: 'https://maps.app.goo.gl/aqtghU2a2YSEFjf96',
+}
+
 export function getSEO(path: string): PageSEO {
   return SEO[path] ?? FALLBACK_SEO
 }

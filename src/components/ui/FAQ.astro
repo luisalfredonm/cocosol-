@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components'
 export interface FAQItem {
   question: string
   answer: string
@@ -28,9 +29,7 @@ const half = Math.ceil(items.length / 2)
           <details class="group border border-gray-200 rounded-xl overflow-hidden" id={`faq-${i}`}>
             <summary class="flex items-center justify-between px-5 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50 transition-colors list-none">
               {item.question}
-              <svg class="w-5 h-5 text-teal-500 shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-              </svg>
+              <Icon name="ph:plus-bold" class="w-5 h-5 shrink-0 transition-transform group-open:rotate-45" style="color:var(--accent)" aria-hidden="true"/>
             </summary>
             <div class="px-5 pb-4 text-gray-600 text-sm leading-relaxed">{item.answer}</div>
           </details>
@@ -41,9 +40,7 @@ const half = Math.ceil(items.length / 2)
           <details class="group border border-gray-200 rounded-xl overflow-hidden" id={`faq-b-${i}`}>
             <summary class="flex items-center justify-between px-5 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50 transition-colors list-none">
               {item.question}
-              <svg class="w-5 h-5 text-teal-500 shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-              </svg>
+              <Icon name="ph:plus-bold" class="w-5 h-5 shrink-0 transition-transform group-open:rotate-45" style="color:var(--accent)" aria-hidden="true"/>
             </summary>
             <div class="px-5 pb-4 text-gray-600 text-sm leading-relaxed">{item.answer}</div>
           </details>
@@ -56,9 +53,7 @@ const half = Math.ceil(items.length / 2)
         <details class="group border border-gray-200 rounded-xl overflow-hidden" id={`faq-${i}`}>
           <summary class="flex items-center justify-between px-5 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50 transition-colors list-none">
             {item.question}
-            <svg class="w-5 h-5 text-teal-500 shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
+            <Icon name="ph:plus-bold" class="w-5 h-5 shrink-0 transition-transform group-open:rotate-45" style="color:var(--accent)" aria-hidden="true"/>
           </summary>
           <div class="px-5 pb-4 text-gray-600 text-sm leading-relaxed">{item.answer}</div>
         </details>

@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components'
 export interface Step {
   title: string
   description: string
@@ -10,16 +11,18 @@ export interface Card {
   extras?: { label: string }[]
 }
 
+// Phosphor names, resolved to inline SVG at build time. These used to be
+// three hand-drawn SVG strings injected with set:html, each at a slightly
+// different stroke weight.
 const iconMap: Record<string, string> = {
-  compass: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
-  shield:  `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-  package: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+  compass: 'ph:compass',
+  shield:  'ph:shield-check',
+  package: 'ph:package',
 }
 export interface Props {
   eyebrow?: string
   title?: string
   subtitle?: string
-  methodEyebrow?: string
   methodTitle?: string
   asideTitle?: string
   asideBody?: string
@@ -32,13 +35,12 @@ export interface Props {
 const {
   eyebrow        = 'Why Choose Us',
   title          = 'Why Choose Our Cocoa Beach Surf School',
-  subtitle       = 'At Cocosol Surf Lessons, we\'ve taught surf lessons in Cocoa Beach for more than 25 years — turning thousands of nervous first-timers into confident surfers. Here\'s what sets our school apart.',
-  methodEyebrow  = 'Safety First',
+  subtitle       = 'At Cocosol Surf Lessons, we\'ve taught surf lessons in Cocoa Beach for more than 25 years, turning thousands of nervous first-timers into confident surfers. Here\'s what sets our school apart.',
   methodTitle    = 'Our Step-by-Step Method',
   asideTitle     = 'Why beginners feel safe here',
   asideBody      = 'Cocoa Beach\'s sandy bottom and consistent, beginner-friendly waves make it one of the safest places in Florida to learn. We keep groups small, so you\'re never left to figure it out alone.',
   asideRatio     = '3:1',
-  asideRatioLabel = 'students to instructor — or fully private if you prefer',
+  asideRatioLabel = 'students to instructor, or fully private if you prefer',
   steps = [
     { title: 'Safety briefing on the sand',   description: 'Ocean awareness, how to fall safely, and what to expect from the day\'s conditions.' },
     { title: 'Paddling & positioning',         description: 'Getting comfortable on the board and learning to read incoming waves.' },
@@ -49,7 +51,7 @@ const {
     {
       icon: 'compass',
       title: 'Certified, Bilingual Local Instructors',
-      description: 'Our instructors are certified, fluent in English and Spanish, and — most importantly — local. They read Cocoa Beach\'s conditions every single day and shape each session around the real ocean in front of you, not a one-size-fits-all script.',
+      description: 'Our instructors are certified, fluent in English and Spanish, and, most importantly, local. They read Cocoa Beach\'s conditions every single day and shape each session around the real ocean in front of you, not a one-size-fits-all script.',
     },
     {
       icon: 'shield',
@@ -59,7 +61,7 @@ const {
     {
       icon: 'package',
       title: 'Premium Gear, Always Included',
-      description: 'No rentals, no surprise fees. We match your board to your height, weight, and skill level — because the right equipment is half of learning fast.',
+      description: 'No rentals, no surprise fees. We match your board to your height, weight, and skill level, because the right equipment is half of learning fast.',
       extras: [
         { label: '✓ Premium board' },
         { label: '✓ Quality leash' },
@@ -86,7 +88,8 @@ const {
     <!-- Method: steps + aside -->
     <div class="wcu-method">
       <div>
-        <span class="wcu-eyebrow">{methodEyebrow}</span>
+        <!-- No eyebrow here on purpose. The section already carries one above;
+             a label over every heading is what produces the templated rhythm. -->
         <h2 class="wcu-method-title">{methodTitle}</h2>
         <ol class="wcu-steps">
           {steps.map(s => (
@@ -111,8 +114,8 @@ const {
     <!-- Cards -->
     <div class="wcu-cards">
       {cards.map(c => (
-        <div class="wcu-card">
-          <div class="wcu-ico" set:html={iconMap[c.icon] ?? c.icon}></div>
+        <div class={`wcu-card${c.extras ? ' wcu-card--wide' : ''}`}>
+          <div class="wcu-ico"><Icon name={iconMap[c.icon] ?? c.icon} class="wcu-ico-svg" aria-hidden="true"/></div>
           <h3>{c.title}</h3>
           <p>{c.description}</p>
           {c.extras && (
@@ -148,7 +151,7 @@ const {
 
     padding: 84px 0;
     background: var(--sand-2);
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
     color: var(--deep);
     line-height: 1.65;
   }
@@ -159,7 +162,7 @@ const {
   /* ── Eyebrow ──────────────────────────────────────────────────────── */
   .wcu-eyebrow {
     display: inline-block;
-    font-family: 'Hanken Grotesk', sans-serif;
+    font-family: var(--font-body);
     text-transform: uppercase;
     letter-spacing: .18em;
     font-size: .74rem;
@@ -175,7 +178,7 @@ const {
     text-align: center;
   }
   .wcu-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(1.9rem, 4vw, 2.85rem);
     font-weight: 600;
     line-height: 1.12;
@@ -198,7 +201,7 @@ const {
     margin-bottom: 64px;
   }
   .wcu-method-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(1.6rem, 3.4vw, 2.2rem);
     font-weight: 600;
     line-height: 1.12;
@@ -229,7 +232,7 @@ const {
     border-radius: 50%;
     background: linear-gradient(140deg, var(--brand), var(--brand-dark));
     color: #fff;
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.15rem;
     display: grid;
@@ -248,7 +251,7 @@ const {
   .wcu-steps li:last-child::after { display: none; }
   .wcu-steps strong {
     display: block;
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.08rem;
     color: var(--deep);
@@ -265,7 +268,7 @@ const {
     box-shadow: var(--shadow);
   }
   .wcu-aside h3 {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.5rem;
     line-height: 1.2;
@@ -280,22 +283,26 @@ const {
     gap: 10px;
     background: rgba(255,255,255,.12);
     padding: 14px 22px;
-    border-radius: 14px;
+    border-radius: var(--r-md);
   }
   .wcu-ratio b {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 2rem;
-    color: #FFD79A;
+    color: var(--c-price-on-dark);
     font-weight: 600;
   }
   .wcu-ratio span { color: rgba(255,255,255,.85); font-size: .95rem; }
 
   /* ── Cards ────────────────────────────────────────────────────────── */
+  /* Two cells on the top row, the gear card spanning the full width below.
+     Three items, three cells, no empty tile. Previously this was a third
+     consecutive 3-column equal grid on the same page. */
   .wcu-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
+  .wcu-card--wide { grid-column: 1 / -1; }
   .wcu-card {
     background: var(--cream);
     border: 1px solid var(--line);
@@ -305,10 +312,11 @@ const {
     transition: transform .25s ease, box-shadow .25s ease;
   }
   .wcu-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .wcu-ico :global(.wcu-ico-svg) { width: 26px; height: 26px; }
   .wcu-ico {
     width: 52px;
     height: 52px;
-    border-radius: 14px;
+    border-radius: var(--r-md);
     display: grid;
     place-items: center;
     margin-bottom: 18px;
@@ -316,7 +324,7 @@ const {
     color: #fff;
   }
   .wcu-card h3 {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.22rem;
     line-height: 1.2;
@@ -335,7 +343,7 @@ const {
   .wcu-g {
     background: var(--sand-2);
     border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: var(--r-sm);
     padding: 12px 10px;
     font-weight: 600;
     font-size: .88rem;

@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components'
 export interface Props {
   bookHref?: string
   campHref?: string
@@ -30,7 +31,7 @@ const packages = [
       { text: 'Same instructor throughout' },
       { text: 'All premium gear included' },
     ],
-    description: 'The sweet spot — enough to take you from first wave to riding with confidence, plus photos to remember it. The one most students choose.',
+    description: 'The sweet spot: enough to take you from first wave to riding with confidence, plus photos to remember it. The one most students choose.',
     cta: 'Choose Progression',
     featured: true,
   },
@@ -44,7 +45,7 @@ const packages = [
       { text: 'Flexible scheduling', accent: true },
       { text: 'All premium gear included' },
     ],
-    description: 'For those serious about progressing. The best value per session and the deepest transformation — surfing as a real skill, not a one-time experience.',
+    description: 'For those serious about progressing. The best value per session and the deepest transformation. Surfing becomes a real skill, not a one-time experience.',
     cta: 'Choose Elite',
     featured: false,
   },
@@ -72,7 +73,7 @@ const campFeatures = [
       <span class="pp-eyebrow">Prices &amp; Packages</span>
       <h2 class="pp-title">Surf Lesson Prices &amp; Packages</h2>
       <p class="pp-subtitle">
-        Surfing rewards consistency — the more often you paddle out, the faster it clicks.
+        Surfing rewards consistency. The more often you paddle out, the faster it clicks.
         Our packages keep you in the water with the same instructor every session and gear always included.
       </p>
     </div>
@@ -83,9 +84,7 @@ const campFeatures = [
 
           {pkg.featured && (
             <div class="pp-badge" aria-label="Most popular package">
-              <svg width="10" height="10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-              </svg>
+              <Icon name="ph:star-fill" class="pp-badge-icon" aria-hidden="true"/>
               Most Popular
             </div>
           )}
@@ -107,9 +106,7 @@ const campFeatures = [
             <ul class="pp-features" role="list">
               {pkg.features.map(f => (
                 <li class={`pp-feat${f.accent ? ' pp-feat--accent' : ''}`}>
-                  <svg class="pp-check" width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                    <path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <Icon name="ph:check-bold" class="pp-check" aria-hidden="true"/>
                   {f.text}
                 </li>
               ))}
@@ -122,7 +119,7 @@ const campFeatures = [
             <a
               href={bookHref}
               class={`pp-cta${pkg.featured ? ' pp-cta--primary' : ' pp-cta--dark'}`}
-              aria-label={`${pkg.cta} — ${pkg.price}`}
+              aria-label={`${pkg.cta}, ${pkg.price}`}
             >
               {pkg.cta}
             </a>
@@ -141,19 +138,17 @@ const campFeatures = [
 
     <!-- Left: info -->
     <div class="sc-info">
-      <span class="sc-eyebrow">Seasonal · Ages 6–16</span>
+      <span class="sc-eyebrow">Seasonal · Ages 6-16</span>
       <h2 class="sc-title">Cocoa Beach Surf Camp for Kids</h2>
       <p class="sc-body">
-        A full week in the water does what a single lesson can't — genuine skills and
+        A full week in the water does what a single lesson cannot: genuine skills and
         lasting confidence, with the same instructor all week and a 3:1 ratio that keeps
         every child supported and safe.
       </p>
       <ul class="sc-features" role="list">
         {campFeatures.map(f => (
           <li>
-            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <Icon name="ph:check-bold" class="sc-feat-icon" aria-hidden="true"/>
             {f}
           </li>
         ))}
@@ -162,7 +157,7 @@ const campFeatures = [
 
     <!-- Right: rates card -->
     <div class="sc-card" aria-label="Camp rates per week">
-      <p class="sc-card-eyebrow">Camp Rates · Per Week</p>
+      <p class="sc-card-eyebrow">Camp rates, per week</p>
 
       <div class="sc-rates">
         {campRates.map((r, i) => (
@@ -190,17 +185,17 @@ const campFeatures = [
     --brand-dark: var(--teal-dark);
     --brand-text: var(--teal-text);
     --brand-strong:var(--teal-text-strong);   /* teal text on tinted bg — AA 7:1 */
-    --coral:      var(--c-sunrise);            /* decorative only (borders, shadows) */
-    --coral-cta:  var(--c-sunrise-cta);        /* white text on sunrise — AA 5.2:1 */
-    --coral-on-dark:var(--c-sunrise-glow);     /* sunrise text on navy — AA 5.2:1 */
-    --gold:       var(--c-gold-soft);
+    --accent-tint:  rgba(0,188,212,.08);
+    --accent-border:rgba(0,188,212,.22);
+    --on-dark:    var(--accent-on-dark);       /* accent text on navy — AA */
+    --price-dark: var(--c-price-on-dark);      /* prices pop by size, not hue */
     --sand:       var(--c-paper-cool);
     --cream:      var(--c-cream-cool);
     --muted:      var(--c-muted);
     --line:       rgba(0,188,212,.12);
     --line-w:     rgba(255,255,255,.12);
     --maxw:       1180px;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
     color: var(--deep);
   }
 
@@ -224,7 +219,7 @@ const campFeatures = [
     margin-bottom: 14px;
   }
   .pp-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(1.9rem, 4vw, 2.75rem);
     font-weight: 600;
     line-height: 1.1;
@@ -250,7 +245,7 @@ const campFeatures = [
   /* ── Card ──────────────────────────────────────────────── */
   .pp-card {
     position: relative;
-    border-radius: 20px;
+    border-radius: var(--r-md);
     background: #fff;
     border: 1.5px solid var(--line);
     box-shadow: 0 2px 16px -6px rgba(10,58,64,.10);
@@ -262,14 +257,16 @@ const campFeatures = [
     box-shadow: 0 16px 40px -10px rgba(10,58,64,.18);
   }
 
-  /* Featured card gets coral border + stronger lift */
+  /* Featured card: same hue as everything else, raised by weight and depth.
+     Emphasis comes from a solid 2px accent edge and a deeper shadow, never
+     from switching to a second colour. */
   .pp-card--featured {
-    border-color: var(--coral);
+    border-color: var(--brand);
     border-width: 2px;
-    box-shadow: 0 4px 24px -6px rgba(255,106,77,.22);
+    box-shadow: 0 4px 24px -6px rgba(0,188,212,.28);
   }
   .pp-card--featured:hover {
-    box-shadow: 0 20px 48px -10px rgba(255,106,77,.30);
+    box-shadow: 0 20px 48px -10px rgba(0,188,212,.34);
   }
 
   /* Badge */
@@ -278,7 +275,7 @@ const campFeatures = [
     align-items: center;
     justify-content: center;
     gap: 6px;
-    background: var(--coral-cta);
+    background: var(--brand-strong);
     color: #fff;
     font-size: .7rem;
     font-weight: 700;
@@ -291,13 +288,13 @@ const campFeatures = [
   .pp-card-inner { padding: 28px 28px 28px; }
   .pp-card--featured .pp-card-inner { padding-top: 24px; }
 
-  /* Package name */
+  /* Package name. Sentence case: three tracked-out uppercase labels stacked
+     next to the section eyebrow is three more eyebrows, not a card title. */
   .pp-pkg-name {
-    font-size: .88rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
     font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .1em;
+    color: var(--deep);
     margin-bottom: 16px;
   }
 
@@ -307,7 +304,7 @@ const campFeatures = [
   }
   .pp-price {
     display: block;
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(2.6rem, 5vw, 3.2rem);
     font-weight: 700;
     line-height: 1;
@@ -327,7 +324,7 @@ const campFeatures = [
     color: var(--brand-strong);
     font-weight: 700;
     padding: 3px 10px;
-    border-radius: 6px;
+    border-radius: var(--r-sm);
   }
 
   /* Features */
@@ -348,7 +345,8 @@ const campFeatures = [
     font-weight: 500;
     line-height: 1.4;
   }
-  .pp-check { flex-shrink: 0; color: var(--brand); margin-top: 1px; }
+  .pp-check { width: 15px; height: 15px; flex-shrink: 0; color: var(--brand); margin-top: 2px; }
+  .pp-badge-icon { width: 10px; height: 10px; flex-shrink: 0; }
 
   /* Accent feature — highlighted like a selection */
   .pp-feat--accent {
@@ -356,7 +354,7 @@ const campFeatures = [
     color: var(--brand-strong);
     font-weight: 600;
     padding: 6px 10px;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     margin: 0 -10px;
   }
   .pp-feat--accent .pp-check { color: var(--brand); }
@@ -377,7 +375,7 @@ const campFeatures = [
     width: 100%;
     min-height: 48px;
     padding: 13px 20px;
-    border-radius: 50px;
+    border-radius: var(--r-full);
     font-size: .93rem;
     font-weight: 700;
     text-decoration: none;
@@ -387,27 +385,30 @@ const campFeatures = [
   }
   .pp-cta:hover { transform: translateY(-2px); }
   .pp-cta:focus-visible {
-    outline: 3px solid var(--coral);
+    outline: 3px solid var(--brand);
     outline-offset: 3px;
   }
 
+  /* Non-featured: outline. Three solid buttons side by side all shout at the
+     same volume, which is the same as none of them shouting. */
   .pp-cta--dark {
-    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(0,188,212,.30);
+    background: transparent;
+    color: var(--brand-text);
+    border: 2px solid var(--accent-border);
   }
   .pp-cta--dark:hover {
-    box-shadow: 0 8px 24px rgba(0,188,212,.44);
+    border-color: var(--brand);
+    background: var(--accent-tint);
   }
 
+  /* Featured: the only solid fill in the row. */
   .pp-cta--primary {
-    background: var(--coral-cta);
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
     color: #fff;
-    box-shadow: 0 4px 16px -4px rgba(194,65,12,.40);
+    box-shadow: 0 4px 16px rgba(0,188,212,.32);
   }
   .pp-cta--primary:hover {
-    background: #9f3409;
-    box-shadow: 0 8px 24px -6px rgba(194,65,12,.50);
+    box-shadow: 0 8px 24px rgba(0,188,212,.46);
   }
 
   /* ════ SURF CAMP ════════════════════════════════════════ */
@@ -432,11 +433,11 @@ const campFeatures = [
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .22em;
-    color: var(--coral-on-dark);
+    color: var(--on-dark);
     margin-bottom: 14px;
   }
   .sc-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(1.8rem, 3.5vw, 2.5rem);
     font-weight: 600;
     line-height: 1.12;
@@ -466,22 +467,21 @@ const campFeatures = [
     font-weight: 500;
     line-height: 1.5;
   }
-  .sc-features li svg { flex-shrink: 0; color: var(--coral); margin-top: 2px; }
+  .sc-features li :global(.sc-feat-icon) { width: 14px; height: 14px; flex-shrink: 0; color: var(--on-dark); margin-top: 4px; }
 
   /* Rates card */
   .sc-card {
     background: rgba(255,255,255,.07);
     border: 1px solid var(--line-w);
-    border-radius: 20px;
+    border-radius: var(--r-md);
     padding: 36px 32px 32px;
   }
 
   .sc-card-eyebrow {
-    font-size: .68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .22em;
-    color: rgba(255,255,255,.7);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255,255,255,.85);
     margin-bottom: 24px;
   }
 
@@ -500,7 +500,7 @@ const campFeatures = [
 
   .sc-rate-info { display: flex; align-items: baseline; gap: 6px; }
   .sc-rate-name {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.05rem;
     font-weight: 600;
     color: #fff;
@@ -510,10 +510,10 @@ const campFeatures = [
     color: rgba(255,255,255,.72);
   }
   .sc-rate-price {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.6rem;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--price-dark);
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
   }
@@ -527,19 +527,19 @@ const campFeatures = [
     min-height: 52px;
     margin-top: 28px;
     padding: 14px 20px;
-    border-radius: 50px;
-    background: var(--coral-cta);
+    border-radius: var(--r-full);
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
     color: #fff;
     font-size: .93rem;
     font-weight: 700;
     text-decoration: none;
-    box-shadow: 0 4px 20px -4px rgba(194,65,12,.45);
+    box-shadow: 0 4px 20px -4px rgba(0,188,212,.45);
     transition: transform .15s ease-out, box-shadow .2s ease-out, background .18s ease;
   }
   .sc-cta:hover {
-    background: #9f3409;
+    background: linear-gradient(135deg, #26C6DA 0%, var(--brand) 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px -4px rgba(255,106,77,.55);
+    box-shadow: 0 8px 28px -4px rgba(0,188,212,.55);
   }
   .sc-cta:focus-visible {
     outline: 3px solid #fff;

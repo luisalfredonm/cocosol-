@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 export const prerender = true
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Hero from '../components/ui/Hero.astro'
@@ -30,11 +31,16 @@ const gallery = [
 ]
 
 
+// Every figure here is a claim the site already makes elsewhere (the 25 years
+// in WhyChooseUs, the 3:1 ratio in the same component, the Google rating in
+// Testimonials). The previous set carried a "100% ISA Certified" that is not a
+// measurable quantity, and used "25+" twice with two different meanings
+// (countries and years), which made both numbers read as invented.
 const stats = [
-  { value: '500+', label: 'Surfers Trained' },
-  { value: '25+', label: 'Countries Represented' },
-  { value: '4.9★', label: 'Average Rating' },
-  { value: '100%', label: 'ISA Certified' },
+  { value: '500+', label: 'Surfers taught' },
+  { value: '25+',  label: 'Years in Cocoa Beach' },
+  { value: '4.9★', label: 'Google rating' },
+  { value: '3:1',  label: 'Max group ratio' },
 ]
 
 // FAQ de la home = intención comercial (precio, logística, política).
@@ -49,9 +55,40 @@ const faqs = [
   { question: 'What can I expect on a regular day at the school?', answer: 'All Cocoa Beach surf lessons follow the same structure: your instructor meets you at the beach with the boards and all equipment, runs a 15-minute safety briefing on the sand, then guides you in the water for the rest of the session.' },
   { question: 'Am I too old to learn to surf?', answer: 'Surfing has no upper age limit. What matters is comfort in the water and reasonable mobility, not age. Our instructors adjust board size, wave selection and session pace to each person, and a private lesson is usually the best fit for adults who prefer to go at their own speed.' },
   { question: 'Can kids take lessons?', answer: 'Absolutely! We welcome kids from age 6. Our instructors are trained to work with young surfers and ensure a safe, fun experience.' },
-  { question: 'Do your instructors speak Spanish?', answer: 'Yes. Our coaching team is bilingual in English and Spanish, so you can take your lesson in whichever language you are most comfortable with — which matters most during the ocean safety briefing.' },
-  { question: 'What is your cancellation and rescheduling policy?', answer: 'Cancel or reschedule at least 24 hours before your session and there is no charge — full refund or a free reschedule. Inside 24 hours, rescheduling depends on availability and may carry a fee. If we cancel for unsafe ocean or weather conditions, you always get a full refund or a free reschedule.' },
+  { question: 'Do your instructors speak Spanish?', answer: 'Yes. Our coaching team is bilingual in English and Spanish, so you can take your lesson in whichever language you are most comfortable with. That matters most during the ocean safety briefing.' },
+  { question: 'What is your cancellation and rescheduling policy?', answer: 'Cancel or reschedule at least 24 hours before your session and there is no charge: full refund or a free reschedule. Inside 24 hours, rescheduling depends on availability and may carry a fee. If we cancel for unsafe ocean or weather conditions, you always get a full refund or a free reschedule.' },
   { question: 'What sets your surf school apart from others?', answer: 'We are a locally-owned school with certified instructors who know Cocoa Beach inside and out. We keep groups small and focus on real progress, not just fun.' },
+]
+
+const blogPosts = [
+  {
+    href: '/blog/is-cocoa-beach-good-for-surfing',
+    category: 'Destination',
+    title: 'Is Cocoa Beach Good for Surfing? A Local Guide',
+    excerpt: 'Wave conditions, best times of year, beginner spots and what to expect, answered by instructors who surf here every day.',
+    date: 'May 27, 2026',
+    image: blogSeasonImg,
+  },
+  {
+    href: '/blog/beginners-guide-to-surfing',
+    category: 'Beginner Info',
+    title: "The Complete Beginner's Guide to Surfing",
+    excerpt: 'Everything you need before your first surf lesson: the pop-up, the gear, and the five mistakes first-timers make.',
+    date: 'May 27, 2026',
+    image: blogLessonImg,
+  },
+]
+
+const serviceLinks = [
+  { label: 'Private Surf Lessons', href: '/private-surf-lessons-cocoa-beach' },
+  { label: 'Surf Coaching', href: '/surf-coaching-cocoa-beach' },
+  { label: 'Group Surf Lessons', href: '/group-surf-lessons-cocoa-beach' },
+  { label: 'Surf Packages', href: '/surf-packages-cocoa-beach' },
+  { label: 'Kids Surf Lessons', href: '/kids-surf-lessons-cocoa-beach' },
+  { label: 'Surf Camp Cocoa Beach', href: '/surf-camp-cocoa-beach' },
+  { label: 'Surf Lessons Near Orlando', href: '/surf-lessons-near-orlando' },
+  { label: 'Surf School in Cocoa Beach', href: '/best-surf-school-cocoa-beach' },
+  { label: 'Weekly Surf Training Schedule', href: '/surf-training-schedule-cocoa-beach' },
 ]
 ---
 
@@ -61,7 +98,7 @@ const faqs = [
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
   <Hero
     title="Surf Lessons in Cocoa Beach, Florida with Certified Local Instructors"
-    subtitle="Learn to surf where the Atlantic meets one of Florida's most iconic surf towns. Beginners stand up on their first wave — seasoned surfers sharpen their turns."
+    subtitle="Florida's original surf town, taught by certified local instructors. Most beginners stand up on their very first lesson."
     image={heroImg}
     imageAlt="Surf lessons Cocoa Beach instructor coaching a student in the ocean"
     cta={{ label: 'Book Now', href: '/book-now' }}
@@ -70,13 +107,13 @@ const faqs = [
   />
 
   <!-- ── STATS BAR ──────────────────────────────────────────────────────────── -->
-  <section class="bg-white border-b border-gray-100">
+  <section class="bg-white border-b border-gray-100" aria-label="Surf school at a glance">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
         {stats.map(s => (
           <div class="py-7 px-4 text-center">
-            <p class="text-3xl font-extrabold mb-0.5" style="color:var(--teal-text-strong)">{s.value}</p>
-            <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">{s.label}</p>
+            <p class="font-display text-3xl font-bold mb-0.5" style="color:var(--accent-ink-strong)">{s.value}</p>
+            <p class="text-xs text-gray-500 font-medium">{s.label}</p>
           </div>
         ))}
       </div>
@@ -110,33 +147,28 @@ const faqs = [
 
         <!-- Text -->
         <div>
-          <span class="section-label mb-3 block">Welcome to Cocosol</span>
-          <h2 class="text-4xl font-extrabold text-gray-900 leading-tight mb-5">
+          <h2 class="font-display text-4xl font-bold text-gray-900 leading-tight mb-5">
             Learn to Surf in Cocoa Beach with Certified, Bilingual Instructors
           </h2>
           <p class="text-gray-600 leading-relaxed mb-5">
-Cocosol Surf Lessons is a local surf school in Cocoa Beach, Florida. We teach first-timers, families, and experienced surfers who want to level up — and we adapt every session to the real ocean conditions that day and to where you are in your learning.
+            Cocosol Surf Lessons is a local surf school in Cocoa Beach, Florida. We teach first-timers, families, and experienced surfers who want to level up, and we adapt every session to the real ocean conditions that day and to where you are in your learning.
           </p>
           <ul class="space-y-3 mb-8">
-            {['Bilingual & local — clear instruction whether you are from across the country or across the Atlantic', 'Safety-first method — every lesson is built around keeping you confident and in control.', 'You bring yourself. We bring everything else.'].map(i => (
-              <li class="flex items-center gap-3 text-gray-700">
-                <span class="w-5 h-5 rounded-full flex items-center justify-center shrink-0" style="background:var(--teal-tint)">
-                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" style="color:var(--teal-primary)">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
+            {[
+              'Bilingual and local: clear instruction whether you are from across the country or across the Atlantic.',
+              'Safety-first method: every lesson is built around keeping you confident and in control.',
+              'You bring yourself. We bring everything else.',
+            ].map(i => (
+              <li class="flex items-start gap-3 text-gray-700">
+                <span class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style="background:var(--accent-tint)">
+                  <Icon name="ph:check-bold" class="w-3 h-3" style="color:var(--accent)" aria-hidden="true"/>
                 </span>
                 {i}
               </li>
             ))}
           </ul>
 
-          <div class="flex flex-wrap items-center gap-4">
-            <a href="/surf-packages-cocoa-beach" class="btn-primary">View Surf Lessons Options</a>
-            <div class="inline-flex items-center gap-3 rounded-2xl px-5 py-3" style="background:var(--teal-tint); border:1px solid var(--teal-border)">
-              <span class="text-3xl font-extrabold" style="color:var(--teal-text-strong)">25+</span>
-              <span class="text-gray-600 text-sm leading-snug">Years teaching <br/>locally</span>
-            </div>
-          </div>
+          <a href="/surf-packages-cocoa-beach" class="btn-primary">View Surf Lessons</a>
         </div>
 
       </div>
@@ -147,17 +179,19 @@ Cocosol Surf Lessons is a local surf school in Cocoa Beach, Florida. We teach fi
   <LessonsGrid />
 
   <!-- ── WHY CHOOSE US ──────────────────────────────────────────────────────── -->
-  <WhyChooseUs subtitle="Cocoa Beach is Florida's original surf town — and one of the best places on the U.S. East Coast to learn to surf. Gentle, consistent Atlantic waves break over a soft, sandy bottom, giving first-timers the perfect environment to stand up fast and build real confidence. At Cocosol Surf Lessons, we go beyond the basics. Every session is built around safety, technique, and the progression that keeps you coming back for more." />
+  <WhyChooseUs subtitle="Cocoa Beach is Florida's original surf town and one of the best places on the U.S. East Coast to learn to surf. Gentle, consistent Atlantic waves break over a soft, sandy bottom, giving first-timers the perfect environment to stand up fast and build real confidence. At Cocosol Surf Lessons, we go beyond the basics. Every session is built around safety, technique, and the progression that keeps you coming back for more." />
 
   <!-- ── PRICING & SURF CAMP ───────────────────────────────────────────────── -->
   <PricingPackages />
 
   <!-- ── TESTIMONIALS ───────────────────────────────────────────────────────── -->
+  <!-- Quotes trimmed to roughly three lines each. The full reviews live on the
+       Google profile; a landing-page quote is a snippet, not the whole review. -->
   <Testimonials bg="white" items={[
-    { name: 'Stephanie Smith', role: 'Google Review · First-time surfer', text: 'Best experience on our whole vacation! My instructor was awesome — kind and patient. He prepared us fully on land, so when we hit the ocean, everyone stood up. Highly recommend!' },
-    { name: 'Danielle Hodge', role: 'Local Guide · Group booking', text: 'Victor is truly amazing! The whole staff and crew are truly so wonderful. Our non profit planned a surf lesson for youth and adults, and some had never surfed before. They brought boards, set up tents and gave our group an unforgettable experience. 10/10 for being so hands on, encouraging and patient.' },
-    { name: 'Sheindy Reisz', role: 'Google Review · Surf coaching', text: 'Great coach with an awesome vibe. Friendly, patient, and super helpful both in and out of the water. I really appreciated the focus on ocean awareness and reading conditions, not just catching waves. He helps you improve while teaching you to become a more independent surfer. Highly recommend!' },
-    { name: 'Ashton Cooke', role: 'Google Review · Parent', text: 'We have had a great experience with CocoSol. Our daughter has been with them for a little over a year now and she has learned so much from the coaches Victor and Josh. Victor is a very experienced lifeguard and the comfort level I have is unmatched.' },
+    { name: 'Stephanie Smith', role: 'Google Review · First-time surfer', text: 'Best experience on our whole vacation. My instructor was kind and patient, and prepared us fully on land. When we hit the ocean, everyone stood up.' },
+    { name: 'Danielle Hodge', role: 'Local Guide · Group booking', text: 'Our non-profit planned a lesson for youth and adults, most of whom had never surfed. They brought boards, set up tents, and gave our group an unforgettable experience.' },
+    { name: 'Sheindy Reisz', role: 'Google Review · Surf coaching', text: 'I appreciated the focus on ocean awareness and reading conditions, not just catching waves. He helps you improve while teaching you to become an independent surfer.' },
+    { name: 'Ashton Cooke', role: 'Google Review · Parent', text: 'Our daughter has been with CocoSol for a little over a year and has learned so much from Victor and Josh. Victor is a very experienced lifeguard and the comfort level I have is unmatched.' },
   ]}/>
 
   <!-- ── FAQ ───────────────────────────────────────────────────────────────── -->
@@ -167,19 +201,16 @@ Cocosol Surf Lessons is a local surf school in Cocoa Beach, Florida. We teach fi
 
         <!-- Left: header -->
         <div class="md:col-span-2">
-          <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm lg:sticky lg:top-28">
-            <span class="text-xs font-bold px-3 py-1 rounded-full mb-5 tracking-wider uppercase inline-block" style="background:var(--teal-tint); color:var(--teal-text-strong)">FAQ</span>
-            <h2 class="text-3xl font-extrabold text-gray-900 mb-4 leading-snug">
-              Surf School FAQs — Everything You Need to Know
+          <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm lg:sticky lg:top-24">
+            <h2 class="font-display text-3xl font-bold text-gray-900 mb-4 leading-snug">
+              Everything You Need to Know Before Your First Lesson
             </h2>
             <p class="text-gray-500 text-sm leading-relaxed mb-7">
               These are the most common questions we get from students planning their first surf lesson in Cocoa Beach. Can't find your answer? We reply fast on WhatsApp.
             </p>
             <a href="https://wa.me/13213869993"
-              class="inline-flex items-center gap-2 px-5 py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-2xl hover:border-[var(--teal-text)] hover:text-[var(--teal-text)] transition-colors text-sm">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-              </svg>
+              class="inline-flex items-center gap-2 px-5 py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-full hover:border-[var(--accent)] hover:text-[var(--accent-ink)] transition-colors text-sm">
+              <Icon name="ph:whatsapp-logo-fill" class="w-4 h-4" aria-hidden="true"/>
               Contact Us on WhatsApp
             </a>
           </div>
@@ -198,38 +229,14 @@ Cocosol Surf Lessons is a local surf school in Cocoa Beach, Florida. We teach fi
   <section class="py-16 bg-white border-t border-gray-100 defer-section">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
-        <div>
-          <span class="section-label mb-2 block">From the Blog</span>
-          <h2 class="text-3xl font-extrabold text-gray-900">Surf Tips & Cocoa Beach Guides</h2>
-        </div>
-        <a href="/blog" class="shrink-0 inline-flex items-center gap-2 font-semibold text-sm hover:gap-3 transition-all" style="color:var(--teal-text)">
+        <h2 class="font-display text-3xl font-bold text-gray-900">Surf Tips & Cocoa Beach Guides</h2>
+        <a href="/blog" class="shrink-0 inline-flex items-center gap-2 font-semibold text-sm hover:gap-3 transition-all" style="color:var(--accent-ink)">
           All Articles
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
+          <Icon name="ph:caret-right-bold" class="w-4 h-4" aria-hidden="true"/>
         </a>
       </div>
       <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-        {[
-          {
-            href: '/blog/is-cocoa-beach-good-for-surfing',
-            category: 'Destination',
-            categoryColor: 'bg-amber-100 text-amber-700',
-            title: 'Is Cocoa Beach Good for Surfing? A Local Guide',
-            excerpt: "Wave conditions, best times of year, beginner spots and what to expect — the honest answer from instructors who surf here every day.",
-            date: 'May 27, 2026',
-              image: blogSeasonImg,
-          },
-          {
-            href: '/blog/beginners-guide-to-surfing',
-            category: 'Beginner Info',
-            categoryColor: 'bg-green-100 text-green-700',
-            title: "The Complete Beginner's Guide to Surfing",
-            excerpt: "Everything you need before your first surf lesson — the pop-up, gear, the 5 mistakes first-timers make, and how to avoid them.",
-            date: 'May 27, 2026',
-              image: blogLessonImg,
-          },
-        ].map(post => (
+        {blogPosts.map(post => (
           <a href={post.href} class="group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-[#00BCD4]/30 md:hover:shadow-xl transition-all duration-300">
             <div class="overflow-hidden h-48">
               <Image
@@ -244,8 +251,11 @@ Cocosol Surf Lessons is a local surf school in Cocoa Beach, Florida. We teach fi
               />
             </div>
             <div class="flex flex-col flex-1 p-6">
-              <span class={`inline-block self-start text-xs font-bold px-3 py-1 rounded-full mb-3 ${post.categoryColor}`}>{post.category}</span>
-              <h3 class="text-base font-extrabold text-gray-900 mb-2 leading-snug group-hover:text-[var(--teal-text)] transition-colors flex-1">{post.title}</h3>
+              <span
+                class="inline-block self-start text-xs font-semibold px-3 py-1 rounded-full mb-3"
+                style="background:var(--accent-tint); color:var(--accent-ink-strong)"
+              >{post.category}</span>
+              <h3 class="font-display text-base font-bold text-gray-900 mb-2 leading-snug group-hover:text-[var(--accent-ink)] transition-colors flex-1">{post.title}</h3>
               <p class="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
               <p class="text-xs text-gray-600 mt-auto">{post.date}</p>
             </div>
@@ -258,21 +268,11 @@ Cocosol Surf Lessons is a local surf school in Cocoa Beach, Florida. We teach fi
   <!-- ── SEO INTERNAL LINKS ─────────────────────────────────────────────────── -->
   <section class="py-10 bg-gray-50 border-t border-gray-100 defer-section">
     <div class="container mx-auto px-4">
-      <h2 class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-widest">Our Surf Lessons & Packages in Cocoa Beach</h2>
+      <h2 class="font-display text-lg font-bold text-gray-900 mb-4">Our Surf Lessons & Packages in Cocoa Beach</h2>
       <div class="flex flex-wrap gap-2 md:gap-2 gap-y-3">
-        {[
-          { label: 'Private Surf Lessons', href: '/private-surf-lessons-cocoa-beach' },
-          { label: 'Surf Coaching', href: '/surf-coaching-cocoa-beach' },
-          { label: 'Group Surf Lessons', href: '/group-surf-lessons-cocoa-beach' },
-          { label: 'Surf Packages', href: '/surf-packages-cocoa-beach' },
-          { label: 'Kids Surf Lessons', href: '/kids-surf-lessons-cocoa-beach' },
-          { label: 'Surf Camp Cocoa Beach', href: '/surf-camp-cocoa-beach' },
-          { label: 'Surf Lessons Near Orlando', href: '/surf-lessons-near-orlando' },
-          { label: 'Surf School in Cocoa Beach', href: '/best-surf-school-cocoa-beach' },
-          { label: 'Weekly Surf Training Schedule', href: '/surf-training-schedule-cocoa-beach' },
-        ].map(l => (
+        {serviceLinks.map(l => (
           <a href={l.href}
-            class="px-4 py-2 bg-white hover:bg-[#00BCD4]/8 border border-gray-200 hover:border-[#00BCD4]/40 hover:text-[var(--teal-text)] rounded-full text-sm text-gray-600 transition-colors font-medium">
+            class="px-4 py-2 bg-white hover:bg-[#00BCD4]/8 border border-gray-200 hover:border-[#00BCD4]/40 hover:text-[var(--accent-ink)] rounded-full text-sm text-gray-600 transition-colors font-medium">
             {l.label}
           </a>
         ))}

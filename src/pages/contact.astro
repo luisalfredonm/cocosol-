@@ -268,7 +268,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   }
   .ct-hero-inner { position: relative; z-index: 3; max-width: 700px; margin: 0 auto; }
   .ct-hero-inner h1 {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     color: #fff;
     font-size: clamp(2.2rem, 5vw, 3.6rem);
     font-weight: 600;
@@ -305,7 +305,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   .ct-location { background: var(--soft); }
 
   h2 {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(1.8rem, 3.8vw, 2.5rem);
     font-weight: 600;
     line-height: 1.1;
@@ -313,7 +313,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
     margin-bottom: 16px;
   }
   h3 {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.15rem;
     font-weight: 600;
     color: var(--ink);
@@ -330,7 +330,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   /* ── Form card ─────────────────────────────────────────── */
   .ct-form-card {
     background: #fff;
-    border-radius: 26px;
+    border-radius: var(--r-md);
     padding: 40px;
     border: 1px solid var(--line);
     box-shadow: var(--shadow);
@@ -351,8 +351,8 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
     width: 100%;
     padding: 14px 18px;
     border: 1.5px solid var(--line);
-    border-radius: 12px;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    border-radius: var(--r-sm);
+    font-family: var(--font-body);
     font-size: 1rem;
     color: var(--ink);
     background: #fff;
@@ -390,7 +390,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   }
 
   .ct-form-status {
-    border-radius: 10px;
+    border-radius: var(--r-sm);
     padding: 12px 16px;
     font-size: .93rem;
     font-weight: 600;
@@ -406,11 +406,11 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
     align-items: center;
     justify-content: center;
     gap: 9px;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
     font-weight: 700;
     font-size: 1.05rem;
     padding: 17px 32px;
-    border-radius: 999px;
+    border-radius: var(--r-full);
     cursor: pointer;
     border: none;
     transition: transform .2s, box-shadow .2s, background .2s;
@@ -442,7 +442,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   /* WhatsApp card */
   .ct-wa-card {
     background: linear-gradient(145deg, #1ebe5d, #128C7E);
-    border-radius: 26px;
+    border-radius: var(--r-md);
     padding: 28px;
     color: #fff;
     box-shadow: 0 16px 44px -12px rgba(37,211,102,.5);
@@ -461,12 +461,12 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   .ct-wlabel span {
     background: rgba(255,255,255,.2);
     padding: 3px 9px;
-    border-radius: 99px;
+    border-radius: var(--r-full);
   }
   .ct-wa-card h3 { color: #fff; font-size: 1.25rem; margin-bottom: 6px; }
   .ct-wa-card p  { color: rgba(255,255,255,.88); font-size: .95rem; margin-bottom: 20px; line-height: 1.6; }
   .ct-wnum {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.55rem;
     font-weight: 600;
     color: #fff;
@@ -486,7 +486,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
     font-weight: 700;
     font-size: 1rem;
     padding: 14px 22px;
-    border-radius: 999px;
+    border-radius: var(--r-full);
     text-decoration: none;
     transition: transform .2s, box-shadow .2s;
     box-shadow: 0 6px 20px rgba(0,0,0,.12);
@@ -509,7 +509,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   .ct-method:hover { transform: translateY(-3px); }
   .ct-mic {
     width: 46px; height: 46px;
-    border-radius: 13px;
+    border-radius: var(--r-sm);
     background: var(--soft);
     display: grid;
     place-items: center;
@@ -563,7 +563,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
     gap: 9px;
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: var(--r-sm);
     padding: 13px 18px;
     font-weight: 700;
     font-size: .94rem;
@@ -592,7 +592,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
     background: var(--deep);
     color: #fff;
     padding: 10px 18px;
-    border-radius: 12px;
+    border-radius: var(--r-sm);
     font-weight: 600;
     font-size: .94rem;
     margin-bottom: 22px;
@@ -613,7 +613,7 @@ import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
   .ct-addr-item a:hover { color: var(--mid); }
 
   .ct-map-wrap {
-    border-radius: 26px;
+    border-radius: var(--r-md);
     overflow: hidden;
     box-shadow: var(--shadow);
     border: 1px solid var(--line);

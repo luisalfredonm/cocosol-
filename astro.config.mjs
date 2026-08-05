@@ -3,6 +3,7 @@ import { execSync } from "node:child_process";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
+import icon from "astro-icon";
 import vercel from "@astrojs/vercel";
 
 // lastmod por página = fecha del último commit de git que tocó su archivo fuente.
@@ -30,6 +31,9 @@ export default defineConfig({
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
+    // Phosphor via Iconify. Icons are inlined as SVG at build time, so this
+    // adds zero runtime JS. One family, one stroke weight, no hand-drawn paths.
+    icon({ include: { ph: ["*"] } }),
     sitemap({
       // admin is private; api are endpoints — both excluded from the sitemap
       filter: (page) => !page.includes("/admin"),

@@ -1,3 +1,29 @@
+/* ═══ TYPEFACES ══════════════════════════════════════════════════════════════
+   Two faces, both self-hosted from npm (@fontsource-variable). No <link> to
+   Google Fonts, no third-party origin in the critical path.
+
+   Outfit  → display: h1-h3, prices, numbers. Geometric sans with enough
+             character to carry the brand without reading as a system default.
+   Inter   → body: paragraphs, UI, labels.
+
+   Before this file existed in its current form, 24 components declared
+   'Fraunces' and 'Hanken Grotesk' — neither was ever loaded, so every heading
+   silently rendered as Georgia and every body as the OS default. The site
+   looked different on every machine. These two @font-face rules are what makes
+   the type system real.                                                       */
+
+@font-face {
+  font-family: 'Outfit Variable';
+  font-style: normal;
+  /* swap, not optional: headings must render in the brand face even on a cold
+     first visit. Paired with the <link rel=preload> in BaseLayout so the swap
+     window is short. */
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
 /* Only latin subset, font-display:optional removes font from LCP critical chain.
    The metric-matched 'Inter Fallback' below ensures zero CLS on first visit. */
 @font-face {
@@ -25,45 +51,86 @@
 
 @layer base {
   :root {
-    /* ── Brand — electric Atlantic teal (the signature, unchanged) ───────── */
-    --teal-primary:      #00BCD4;  /* Brand accent — buttons, icons, decorative */
-    --teal-dark:         #0097A7;  /* Hover / darker accent */
-    --teal-text:         #00838F;  /* Text on white — 4.8:1 contrast ✓ AA */
-    --teal-text-strong:  #006064;  /* High-emphasis text — 6.5:1 contrast ✓ AAA */
-    --teal-tint:         rgba(0,188,212,.08);  /* Subtle background tint */
-    --teal-border:       rgba(0,188,212,.20);  /* Border / divider accent */
+    /* ═══ TYPE ════════════════════════════════════════════════════════════
+       Use these two tokens only. Never hardcode a font-family in a component:
+       that is exactly how the Fraunces/Hanken ghost fonts happened.          */
+    --font-display: 'Outfit Variable', 'Inter Variable', 'Inter Fallback', system-ui, sans-serif;
+    --font-body:    'Inter Variable', 'Inter Fallback', system-ui, sans-serif;
 
-    /* ═══ ATLANTIC SPACE COAST — palette system ═══════════════════════════
-       Same teal brand, but the surroundings cool down from warm-tropical
-       (Costa Rica) toward cool Atlantic morning light. One source of truth:
-       tweak these to retheme the whole site.                               */
+    /* ═══ RADIUS ══════════════════════════════════════════════════════════
+       Three steps, no exceptions. The page previously shipped twelve
+       (2, 3, 6, 8, 10, 14, 16, 18, 20, 24, 50, 999px) which reads as an
+       accumulation of one-off decisions rather than a system.                */
+    --r-sm:   8px;    /* chips, pills, small tags, inputs */
+    --r-md:   16px;   /* cards, panels, media wells */
+    --r-full: 999px;  /* buttons only */
+
+    /* ═══ ACCENT — one, and only one ══════════════════════════════════════
+       Electric Atlantic teal. Emphasis is expressed with value and weight
+       (solid > outline > text), never by switching hue. The page previously
+       ran five accents in parallel (teal, sunrise, gold, amber, green) and
+       the highest-value CTA was the only orange button on the site.          */
+    --accent:            #00BCD4;  /* brand accent — fills, icons, decorative */
+    --accent-strong:     #0097A7;  /* hover / deeper fill */
+    --accent-ink:        #00838F;  /* accent text on white — 4.8:1 ✓ AA */
+    --accent-ink-strong: #006064;  /* high-emphasis accent text — 6.5:1 ✓ AAA */
+    --accent-on-dark:    #80DEEA;  /* accent text on ink — ✓ AA */
+    --accent-tint:       rgba(0,188,212,.08);
+    --accent-border:     rgba(0,188,212,.20);
+    --accent-line:       rgba(0,188,212,.12);
+
+    /* Legacy aliases — kept so the pages not yet migrated keep compiling.
+       They now resolve to the single accent instead of their old hues. */
+    --teal-primary:      var(--accent);
+    --teal-dark:         var(--accent-strong);
+    --teal-text:         var(--accent-ink);
+    --teal-text-strong:  var(--accent-ink-strong);
+    --teal-tint:         var(--accent-tint);
+    --teal-border:       var(--accent-border);
+
+    /* ═══ ATLANTIC SPACE COAST — surfaces ═════════════════════════════════ */
 
     /* Ink — cool Atlantic night: dark sections + deepest headings */
     --c-ink:          #0C2128;
     --c-ink-soft:     #10303A;     /* lifted ink for gradients */
     --c-heading:      #0E2A33;     /* headings on light surfaces */
 
-    /* Paper — cool morning light (replaces warm cream/sand) */
+    /* Paper — cool morning light */
     --c-paper:        #FFFFFF;
     --c-paper-cool:   #F4F8F9;     /* cool off-white section background */
     --c-cream-cool:   #FBFDFE;     /* cool card surface */
     --c-mist:         #EFF8FA;     /* faint teal-tinted section */
 
-    /* Text — cool neutrals (replace warm greys) */
+    /* Text — cool neutrals */
     --c-text:         #14272E;
     --c-muted:        #586F76;     /* cool blue-grey body copy */
     --c-muted-soft:   #3D565C;     /* stronger muted on light */
 
-    /* Sunrise — Space Coast accent (replaces tropical coral) */
-    --c-sunrise:      #FF7A45;     /* decorative: borders, icons, glows */
-    --c-sunrise-cta:  #C2410C;     /* white text sits on it — AA 5.2:1 */
-    --c-sunrise-ink:  #C2410C;     /* sunrise text on light — AA */
-    --c-sunrise-dark: #9F3409;     /* hover */
-    --c-sunrise-glow: #FF8A5C;     /* sunrise text on dark navy — AA */
+    /* Price — value expressed by size and weight, not by a second hue */
+    --c-price-on-dark:  #FFFFFF;
+    --c-price-on-light: var(--c-ink);
 
-    /* Gold — value spark (prices, rating stars) */
+    /* Gold — reserved exclusively for the review rating star. It is the one
+       place where a second hue carries real meaning (it is what a star IS),
+       so it does not count as a competing accent. */
     --c-gold:         #FFC24B;
-    --c-gold-soft:    #FFD79A;     /* gold on dark surfaces */
+    --c-gold-ink:     #0C2128;  /* text that sits on a --c-gold-soft chip */
+
+    /* ── Deprecated: the sunrise/coral accent ──────────────────────────────
+       Retired in favour of the single-accent lock. Re-pointed at the accent
+       scale so any page still referencing these tokens converges instead of
+       reintroducing orange. Delete once no component references them.        */
+    --c-sunrise:      var(--accent);
+    --c-sunrise-cta:  var(--accent-strong);
+    --c-sunrise-ink:  var(--accent-ink);
+    --c-sunrise-dark: var(--accent-ink-strong);
+    --c-sunrise-glow: var(--accent-on-dark);
+    /* --c-gold-soft was a full second accent system (gold CTAs, gold badges,
+       gold prices, each paired with #3a2400 brown text), not a decorative
+       spark. It lives almost entirely on the dark panels, so it re-points to
+       the light-on-dark accent: same chip-with-dark-text pattern, brand hue.
+       The handful of usages on light surfaces are overridden per component. */
+    --c-gold-soft:    var(--accent-on-dark);
 
     --navy:           #0C2128;
   }
@@ -71,7 +138,13 @@
   html { scroll-behavior: smooth; }
 
   body {
-    @apply font-sans antialiased text-gray-900 bg-white;
+    font-family: var(--font-body);
+    @apply antialiased text-gray-900 bg-white;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
   }
 
   h1 { @apply text-4xl md:text-5xl font-bold leading-tight; }
@@ -80,32 +153,47 @@
 }
 
 @layer components {
+  /* ── Buttons ────────────────────────────────────────────────────────────
+     Three emphasis levels, one hue. Every button is --r-full.               */
   .btn-primary {
-    @apply inline-block text-white font-bold px-6 py-3 rounded-xl transition-all duration-200;
-    background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+    @apply inline-flex items-center justify-center text-white font-bold px-7 py-3.5 transition-all duration-200;
+    border-radius: var(--r-full);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
     box-shadow: 0 4px 14px rgba(0, 188, 212, 0.3);
   }
   .btn-primary:hover {
-    background: linear-gradient(135deg, #26C6DA 0%, #00BCD4 100%);
+    background: linear-gradient(135deg, #26C6DA 0%, var(--accent) 100%);
     box-shadow: 0 6px 20px rgba(0, 188, 212, 0.45);
     transform: translateY(-1px);
   }
+  .btn-primary:active { transform: translateY(0) scale(.98); }
+
+  /* Secondary sits on photography — needs its own scrim to stay legible
+     against whatever the hero image happens to be behind it. */
   .btn-secondary {
-    @apply inline-block bg-white/10 hover:bg-white/20 border border-white text-white font-bold px-6 py-3 rounded-xl transition-all duration-200;
+    @apply inline-flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/70 text-white font-bold px-7 py-3.5 transition-all duration-200;
+    border-radius: var(--r-full);
+    backdrop-filter: blur(6px);
   }
+  .btn-secondary:active { transform: scale(.98); }
+
   .btn-outline {
-    @apply inline-block border-2 border-teal-500 text-teal-700 font-bold px-6 py-3 rounded-xl transition-all duration-200;
+    @apply inline-flex items-center justify-center border-2 font-bold px-7 py-3.5 transition-all duration-200;
+    border-radius: var(--r-full);
+    border-color: var(--accent-border);
+    color: var(--accent-ink);
   }
   .btn-outline:hover {
-    background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
-    @apply text-white border-transparent;
-    box-shadow: 0 4px 14px rgba(0, 188, 212, 0.3);
+    border-color: var(--accent);
+    background: var(--accent-tint);
   }
+  .btn-outline:active { transform: scale(.98); }
+
   .container {
     @apply max-w-6xl mx-auto px-4;
   }
   .section-label {
-    color: var(--teal-text-strong);
+    color: var(--accent-ink-strong);
     @apply font-bold uppercase tracking-widest text-xs;
   }
   .check-item {
@@ -113,7 +201,7 @@
   }
   .check-icon {
     @apply w-5 h-5 shrink-0 mt-0.5;
-    color: var(--teal-primary);
+    color: var(--accent);
   }
   .shadow-brand {
     box-shadow: 0 4px 20px rgba(0, 188, 212, 0.18);
@@ -128,6 +216,13 @@
   }
 }
 
+/* Consistent focus ring across the whole site, one hue. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
 @media (max-width: 767px) {
   .mobile-flat {
     box-shadow: none !important;
@@ -137,4 +232,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

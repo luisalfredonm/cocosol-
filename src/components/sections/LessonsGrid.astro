@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 import privateImg  from '../../assets/images/surf-school-cocoa-beach-private-lesson.webp'
 import groupImg    from '../../assets/images/group-surf-lessons-cocoa-beach-students-beach.webp'
 import coachingImg from '../../assets/images/one-on-one-surf-lessons-cocoa-beach-coaching.webp'
@@ -9,47 +10,55 @@ export interface Props {
 }
 const { bookHref = '/book-now' } = Astro.props
 
+/* Three products, three cells, deliberately unequal. Private is the entry
+   point most first-time visitors take, so it gets the large cell; the other
+   two run as compact horizontal cards beside it. The previous version was a
+   3-column equal grid sitting immediately before two more 3-column equal
+   grids, which flattened the whole middle of the page into one texture. */
 const lessons = [
   {
     img: privateImg,
-    imgAlt: 'Private surf lesson Cocoa Beach — one instructor, one student',
-    badge: 'Fastest Progression',
+    imgAlt: 'Private surf lesson Cocoa Beach, one instructor with one student',
+    badge: 'Fastest progression',
     title: 'Private Surf Lessons',
-    description: 'One instructor, one focus: you. The fastest progression and the most personalized feedback — ideal for individuals, couples, and families.',
+    description: 'One instructor, one focus: you. The fastest progression and the most personalized feedback, ideal for individuals, couples, and families.',
     price: 'From $75',
     priceUnit: '/ person',
     priceNote: null,
     detailHref: '/private-surf-lessons-cocoa-beach',
     detailLabel: 'Private surf lessons',
-    cta: { label: 'Book now', href: bookHref },
+    feature: true,
   },
   {
     img: groupImg,
-    imgAlt: 'Group surf lessons Cocoa Beach — fun social sessions',
-    badge: 'Fun & Social',
+    imgAlt: 'Group surf lessons Cocoa Beach, fun social sessions',
+    badge: 'Fun and social',
     title: 'Group Surf Lessons',
-    description: 'The fun, social way in. Learn alongside others with hands-on attention, thanks to our small-group ratio. Perfect for friends and solo travelers.',
+    description: 'The fun, social way in. Learn alongside others with hands-on attention, thanks to our small-group ratio.',
     price: '$60',
     priceUnit: '/ person',
     priceNote: 'min. 4 people',
     detailHref: '/group-surf-lessons-cocoa-beach',
     detailLabel: 'Group surf lessons',
-    cta: { label: 'Book now', href: bookHref },
+    feature: false,
   },
   {
     img: coachingImg,
-    imgAlt: 'Surf coaching Cocoa Beach — intermediate and advanced surfers',
-    badge: 'Intermediate & Advanced',
+    imgAlt: 'Surf coaching Cocoa Beach for intermediate and advanced surfers',
+    badge: 'Intermediate and advanced',
     title: 'Surf Coaching',
-    description: 'Already riding? Coaching sharpens technique, positioning, timing, and wave selection with real wave-by-wave feedback in real conditions.',
+    description: 'Already riding? Coaching sharpens technique, positioning, and wave selection with real feedback in real conditions.',
     price: 'From $75',
     priceUnit: '/ person',
     priceNote: null,
     detailHref: '/surf-coaching-cocoa-beach',
     detailLabel: 'Surf coaching',
-    cta: { label: 'Book now', href: bookHref },
+    feature: false,
   },
 ]
+
+const featured = lessons.find(l => l.feature)!
+const compact  = lessons.filter(l => !l.feature)
 ---
 
 <section class="lg-section">
@@ -58,33 +67,63 @@ const lessons = [
     <!-- Header -->
     <div class="lg-header">
       <span class="lg-eyebrow">Our Lessons</span>
-      <h2 class="lg-title">
-        Surfing Lessons in<br/>
-        <em>Cocoa Beach</em>
-      </h2>
+      <h2 class="lg-title">Surfing Lessons in <em>Cocoa Beach</em></h2>
       <p class="lg-subtitle">
         Three ways to learn, built around your goals.
         All include full gear and the same step-by-step method.
       </p>
     </div>
 
-    <!-- Cards grid -->
+    <!-- Asymmetric grid: one tall feature cell + two compact cells -->
     <div class="lg-grid">
-      {lessons.map(l => (
-        <article class="lg-card">
 
-          <!-- Image with price overlay -->
+      <article class="lg-card lg-card--feature">
+        <div class="lg-img-wrap">
+          <Image
+            src={featured.img}
+            alt={featured.imgAlt}
+            class="lg-img"
+            widths={[480, 720, 960, 1200]}
+            sizes="(min-width: 1024px) 620px, 92vw"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="lg-price-overlay">
+            <span class="lg-price-amount">{featured.price}</span>
+            <span class="lg-price-unit">{featured.priceUnit}</span>
+            {featured.priceNote && <span class="lg-price-note">{featured.priceNote}</span>}
+          </div>
+        </div>
+
+        <div class="lg-body">
+          <span class="lg-badge">{featured.badge}</span>
+          <h3 class="lg-card-title">{featured.title}</h3>
+          <p class="lg-desc">{featured.description}</p>
+        </div>
+
+        <div class="lg-footer">
+          <a href={bookHref} class="lg-cta-primary">
+            Book Now
+            <Icon name="ph:arrow-right-bold" class="lg-cta-icon" aria-hidden="true"/>
+          </a>
+          <a href={featured.detailHref} class="lg-cta-secondary" aria-label={`${featured.detailLabel} in Cocoa Beach, see details`}>
+            {featured.detailLabel} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+
+      {compact.map(l => (
+        <article class="lg-card lg-card--compact">
           <div class="lg-img-wrap">
             <Image
               src={l.img}
               alt={l.imgAlt}
               class="lg-img"
-              widths={[480, 720, 960]}
-              sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 90vw"
+              widths={[320, 480, 720]}
+              sizes="(min-width: 1024px) 240px, (min-width: 640px) 40vw, 92vw"
               loading="lazy"
               decoding="async"
             />
-            <!-- Price overlay at bottom of image -->
             <div class="lg-price-overlay">
               <span class="lg-price-amount">{l.price}</span>
               <span class="lg-price-unit">{l.priceUnit}</span>
@@ -92,28 +131,26 @@ const lessons = [
             </div>
           </div>
 
-          <!-- Body -->
-          <div class="lg-body">
-            <span class="lg-badge">{l.badge}</span>
-            <h3 class="lg-card-title">{l.title}</h3>
-            <p class="lg-desc">{l.description}</p>
-          </div>
+          <div class="lg-compact-content">
+            <div class="lg-body">
+              <span class="lg-badge">{l.badge}</span>
+              <h3 class="lg-card-title">{l.title}</h3>
+              <p class="lg-desc">{l.description}</p>
+            </div>
 
-          <!-- CTAs -->
-          <div class="lg-footer">
-            <a href={l.cta.href} class="lg-cta-primary">
-              {l.cta.label}
-              <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-            <a href={l.detailHref} class="lg-cta-secondary" aria-label={`${l.detailLabel} in Cocoa Beach — see details`}>
-              {l.detailLabel} <span aria-hidden="true">→</span>
-            </a>
+            <div class="lg-footer">
+              <a href={bookHref} class="lg-cta-primary">
+                Book Now
+                <Icon name="ph:arrow-right-bold" class="lg-cta-icon" aria-hidden="true"/>
+              </a>
+              <a href={l.detailHref} class="lg-cta-secondary" aria-label={`${l.detailLabel} in Cocoa Beach, see details`}>
+                {l.detailLabel} <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
-
         </article>
       ))}
+
     </div>
   </div>
 </section>
@@ -125,15 +162,13 @@ const lessons = [
     --brand:      var(--teal-primary);
     --brand-dark: var(--teal-dark);
     --brand-text: var(--teal-text);
-    --coral:      var(--c-sunrise);       /* decorative only (non-text) */
-    --coral-text: var(--c-sunrise-ink);   /* sunrise text on light — AA 5.2:1 */
     --gray:       var(--c-muted);
     --line:       rgba(0,188,212,.12);
     --maxw:       1180px;
 
     padding: 84px 0 96px;
     background: #fff;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
   }
 
   /* ── Layout ────────────────────────────────────────────── */
@@ -148,19 +183,25 @@ const lessons = [
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .2em;
-    color: var(--coral-text);
+    color: var(--brand-text);
     margin-bottom: 14px;
   }
 
   .lg-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(2rem, 4.5vw, 3rem);
     font-weight: 600;
-    line-height: 1.08;
+    line-height: 1.12;
     color: var(--deep);
     margin-bottom: 18px;
   }
-  .lg-title em { font-style: italic; color: var(--brand-text); }
+  /* Emphasis stays inside the same family. Padding reserve so an italic
+     descender can never be clipped by the tight display leading. */
+  .lg-title em {
+    font-style: italic;
+    color: var(--brand-text);
+    padding-bottom: 1px;
+  }
 
   .lg-subtitle {
     font-size: 1.05rem;
@@ -169,18 +210,20 @@ const lessons = [
     margin: 0;
   }
 
-  /* ── Grid ──────────────────────────────────────────────── */
+  /* ── Asymmetric grid ───────────────────────────────────── */
   .lg-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    grid-template-columns: 1.15fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 24px;
   }
+  .lg-card--feature { grid-row: span 2; }
 
   /* ── Card ──────────────────────────────────────────────── */
   .lg-card {
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
+    border-radius: var(--r-md);
     overflow: hidden;
     border: 1px solid var(--line);
     background: #fff;
@@ -192,10 +235,20 @@ const lessons = [
     box-shadow: 0 20px 48px -12px rgba(10,58,64,.20);
   }
 
+  /* Compact cards run horizontally beside the feature cell */
+  .lg-card--compact { flex-direction: row; }
+  .lg-card--compact .lg-img-wrap { width: 42%; height: auto; flex-shrink: 0; }
+  .lg-compact-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+  }
+
   /* ── Image with overlay ────────────────────────────────── */
   .lg-img-wrap {
     position: relative;
-    height: 240px;
+    height: 300px;
     overflow: hidden;
     flex-shrink: 0;
   }
@@ -224,10 +277,10 @@ const lessons = [
   }
 
   .lg-price-amount {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.7rem;
     font-weight: 700;
-    color: #FFD79A;
+    color: var(--c-price-on-dark);
     line-height: 1;
   }
   .lg-price-unit {
@@ -237,7 +290,7 @@ const lessons = [
   }
   .lg-price-note {
     font-size: .72rem;
-    color: rgba(255,255,255,.60);
+    color: rgba(255,255,255,.65);
     font-weight: 500;
     width: 100%;
     margin-top: -2px;
@@ -251,24 +304,30 @@ const lessons = [
     flex-direction: column;
   }
 
+  /* Sentence-case chip, not a tracked-out uppercase eyebrow. A per-card
+     eyebrow on every card in every section is what made the page read as
+     templated; the differentiator itself is worth keeping. */
   .lg-badge {
     display: inline-block;
-    font-size: .65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .18em;
-    color: var(--coral-text);
-    margin-bottom: 8px;
+    align-self: flex-start;
+    font-size: .74rem;
+    font-weight: 600;
+    color: var(--brand-text);
+    background: rgba(0,188,212,.08);
+    border-radius: var(--r-sm);
+    padding: 3px 9px;
+    margin-bottom: 10px;
   }
 
   .lg-card-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.45rem;
     font-weight: 600;
     line-height: 1.15;
     color: var(--deep);
     margin-bottom: 12px;
   }
+  .lg-card--compact .lg-card-title { font-size: 1.25rem; }
 
   .lg-desc {
     font-size: .93rem;
@@ -277,6 +336,7 @@ const lessons = [
     margin: 0;
     flex: 1;
   }
+  .lg-card--compact .lg-desc { font-size: .88rem; }
 
   /* ── Footer / CTAs ─────────────────────────────────────── */
   .lg-footer {
@@ -294,7 +354,7 @@ const lessons = [
     width: 100%;
     min-height: 48px;
     padding: 13px 20px;
-    border-radius: 50px;
+    border-radius: var(--r-full);
     background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
     color: #fff;
     font-size: .9rem;
@@ -309,15 +369,15 @@ const lessons = [
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0,188,212,.42);
   }
-  .lg-cta-primary:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
-  .lg-cta-primary svg { flex-shrink: 0; }
+  .lg-cta-primary:active { transform: translateY(0) scale(.98); }
+  .lg-cta-primary :global(.lg-cta-icon) { width: 15px; height: 15px; flex-shrink: 0; }
 
   .lg-cta-secondary {
     display: block;
     width: 100%;
     min-height: 44px;
     padding: 11px 20px;
-    border-radius: 50px;
+    border-radius: var(--r-full);
     border: 1.5px solid rgba(0,188,212,.25);
     background: transparent;
     color: var(--brand-text);
@@ -329,19 +389,22 @@ const lessons = [
   }
   .lg-cta-secondary:hover {
     border-color: var(--brand);
-    color: var(--brand-text);
     background: rgba(0,188,212,.06);
   }
-  .lg-cta-secondary:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
 
   /* ── Responsive ────────────────────────────────────────── */
-  @media (max-width: 960px) {
-    .lg-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 1024px) {
+    /* Below two columns the asymmetry stops earning its keep: single stack,
+       compact cards stay horizontal while there is width for it. */
+    .lg-grid { grid-template-columns: 1fr; grid-template-rows: auto; gap: 22px; }
+    .lg-card--feature { grid-row: auto; }
+    .lg-card--compact .lg-img-wrap { width: 38%; }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
     .lg-section { padding: 60px 0 72px; }
     .lg-wrap { padding: 0 20px; }
-    .lg-grid { grid-template-columns: 1fr; }
+    .lg-card--compact { flex-direction: column; }
+    .lg-card--compact .lg-img-wrap { width: 100%; height: 220px; }
     .lg-img-wrap { height: 220px; }
   }
 </style>

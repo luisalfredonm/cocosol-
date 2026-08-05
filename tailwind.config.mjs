@@ -17,7 +17,21 @@ export default {
         navy: { 900: '#0A1628' },
       },
       fontFamily: {
-        sans: ['Inter Variable', 'Inter Fallback', 'system-ui', 'sans-serif'],
+        // Single source of truth lives in global.css :root. These just expose
+        // it to utilities so `font-display` / `font-sans` cannot drift.
+        sans:    ['var(--font-body)'],
+        display: ['var(--font-display)'],
+      },
+      borderRadius: {
+        // The three-step scale. Anything outside it is a bug.
+        sm:     'var(--r-sm)',
+        DEFAULT: 'var(--r-sm)',
+        md:     'var(--r-sm)',
+        lg:     'var(--r-md)',
+        xl:     'var(--r-md)',
+        '2xl':  'var(--r-md)',
+        '3xl':  'var(--r-md)',
+        full:   'var(--r-full)',
       },
     },
   },

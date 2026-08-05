@@ -21,7 +21,7 @@ const { items } = Astro.props
     --deep:  var(--c-ink);
     --gold:  var(--c-gold-soft);
     background: var(--deep);
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
   }
   .tb-grid {
     max-width: 1180px;
@@ -43,7 +43,7 @@ const { items } = Astro.props
     border-right: none;
   }
   .tb-value {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.75rem;
     font-weight: 600;
     color: var(--gold);

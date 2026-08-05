@@ -78,7 +78,7 @@ const faqs = [
           { value: '$75', label: 'lesson from' },
         ].map(s => (
           <div>
-            <p class="text-2xl font-extrabold text-[#FFD79A] mb-1">{s.value}</p>
+            <p class="text-2xl font-extrabold text-white mb-1">{s.value}</p>
             <p class="text-sm text-white/60 font-medium">{s.label}</p>
           </div>
         ))}
@@ -222,7 +222,7 @@ const faqs = [
 </BaseLayout>
 
 <style>
-  .prose h2 { font-family: 'Fraunces', Georgia, serif; color: var(--c-heading); margin-top: 2.5rem; margin-bottom: 1rem; }
+  .prose h2 { font-family: var(--font-display); color: var(--c-heading); margin-top: 2.5rem; margin-bottom: 1rem; }
   .prose h3 { color: var(--c-heading); margin-top: 1.75rem; }
   .prose a { color: #00838F; }
   .prose a:hover { color: #0097A7; }

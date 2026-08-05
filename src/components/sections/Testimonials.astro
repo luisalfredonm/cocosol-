@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components'
+import { EXTERNAL } from '../../lib/seo'
 export interface Testimonial {
   name: string
   role?: string
@@ -25,29 +27,61 @@ const {
   <div class="container mx-auto px-4">
     <div class="grid md:grid-cols-3 gap-6">
       <div class="md:col-span-1 flex flex-col justify-center">
-        <span class="section-label mb-2">Testimonials</span>
-        <h2 class="text-3xl font-bold text-gray-900">{title}</h2>
+        <h2 class="font-display text-3xl font-bold text-gray-900">{title}</h2>
+
+        <!-- The rating IS the link to the reviews: clicking a star rating to
+             read the reviews behind it is the interaction people already
+             expect, so it needs no separate "All reviews" button competing
+             with the booking CTA. The one place a second hue earns its keep:
+             a star that is not gold does not read as a star. -->
+        <a
+          href={EXTERNAL.GOOGLE_REVIEWS}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-2 mt-3 self-start rounded-full transition-colors"
+        >
+          <span class="flex" aria-hidden="true">
+            {[0,1,2,3,4].map(() => (
+              <Icon name="ph:star-fill" class="w-4 h-4" style="color:var(--c-gold)"/>
+            ))}
+          </span>
+          <span class="text-sm font-semibold text-gray-700 group-hover:text-[var(--accent-ink)] underline decoration-transparent group-hover:decoration-current underline-offset-4 transition-colors">
+            4.9 on Google
+          </span>
+          <Icon
+            name="ph:arrow-up-right-bold"
+            class="w-3.5 h-3.5 text-gray-400 group-hover:text-[var(--accent-ink)] transition-colors"
+            aria-hidden="true"
+          />
+          <span class="sr-only">Read all reviews on Google, opens in a new tab</span>
+        </a>
+
         <p class="text-gray-600 mt-3 text-sm">{intro}</p>
-        <a href="/book-now" class="mt-6 btn-outline self-start">All Reviews</a>
+
+        <a href="/book-now" class="mt-6 btn-outline self-start">Book Now</a>
       </div>
       <div class="md:col-span-2 grid sm:grid-cols-2 gap-4">
         {items.map(t => (
-          <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+          <figure class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm flex flex-col">
             <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold text-sm shrink-0 overflow-hidden">
+              <div
+                class="w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-sm shrink-0 overflow-hidden"
+                style="background:var(--accent-tint); color:var(--accent-ink-strong)"
+                aria-hidden="true"
+              >
                 {t.avatar
-                  ? <img src={t.avatar} alt={t.name} class="w-full h-full object-cover" width="40" height="40" loading="lazy"/>
+                  ? <img src={t.avatar} alt="" class="w-full h-full object-cover" width="40" height="40" loading="lazy"/>
                   : t.name.charAt(0)
                 }
               </div>
-              <div>
+              <figcaption>
                 <p class="font-semibold text-gray-900 text-sm">{t.name}</p>
                 {(t.role || t.country) && <p class="text-gray-500 text-xs">{[t.role, t.country].filter(Boolean).join(' · ')}</p>}
-              </div>
-              <svg class="w-5 h-5 text-teal-500 ml-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              </figcaption>
+              <Icon name="ph:quotes-fill" class="w-5 h-5 ml-auto shrink-0" style="color:var(--accent)" aria-hidden="true"/>
             </div>
-            <p class="text-gray-600 text-sm leading-relaxed">{t.text}</p>
-          </div>
+            <blockquote class="text-gray-600 text-sm leading-relaxed">{t.text}</blockquote>
+          </figure>
         ))}
       </div>
     </div>

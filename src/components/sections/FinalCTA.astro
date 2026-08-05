@@ -59,7 +59,7 @@ const { bgImage, bgImageAlt, title, subtitle, primaryCta, secondaryCta, meta } =
     text-align: center;
     color: #fff;
     overflow: hidden;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
   }
 
   /* Background image + overlay */
@@ -89,7 +89,7 @@ const { bgImage, bgImageAlt, title, subtitle, primaryCta, secondaryCta, meta } =
   }
 
   .fc-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 600;
     line-height: 1.1;
@@ -118,7 +118,7 @@ const { bgImage, bgImageAlt, title, subtitle, primaryCta, secondaryCta, meta } =
     justify-content: center;
     min-height: 52px;
     padding: 14px 30px;
-    border-radius: 50px;
+    border-radius: var(--r-full);
     font-size: .95rem;
     font-weight: 800;
     text-decoration: none;
@@ -129,12 +129,12 @@ const { bgImage, bgImageAlt, title, subtitle, primaryCta, secondaryCta, meta } =
 
   .fc-btn--primary {
     background: var(--c-gold-soft);
-    color: #3a2400;
-    box-shadow: 0 8px 28px -6px rgba(255,208,121,.55);
+    color: var(--c-gold-ink);
+    box-shadow: 0 8px 28px -6px rgba(0,188,212,.50);
   }
   .fc-btn--primary:hover {
-    background: #f5c84a;
-    box-shadow: 0 12px 32px -6px rgba(255,208,121,.65);
+    background: #B2EBF2;
+    box-shadow: 0 12px 32px -6px rgba(0,188,212,.60);
   }
 
   .fc-btn--ghost {

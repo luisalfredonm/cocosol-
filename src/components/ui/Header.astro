@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets'
+import { Icon } from 'astro-icon/components'
 import { ROUTES } from '../../lib/seo'
 import logoImg from '../../assets/images/Surf-Lessons-Cocoa-Beach.png'
 const navLinks = [
@@ -36,14 +37,14 @@ const navLinks = [
   <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-teal-600 via-teal-400 to-teal-600 opacity-80"></div>
 
   <div class="container mx-auto px-4 lg:px-6">
-    <div class="flex items-center justify-between h-24">
+    <div class="flex items-center justify-between h-[72px]">
 
       <!-- Logo: properly contained, no overflow tricks -->
       <a href="/" class="flex items-center shrink-0" aria-label="Cocosol Surf Lessons - Home">
         <Image
           src={logoImg}
           alt="Cocosol Surf Lessons"
-          class="w-auto h-16 md:h-20 object-contain"
+          class="w-auto h-12 md:h-14 object-contain"
           width={120}
           height={113}
           widths={[90, 120, 160]}
@@ -61,22 +62,19 @@ const navLinks = [
             {link.children ? (
               <button
                 type="button"
-                class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-semibold text-[16px] leading-5 tracking-wide transition-colors duration-150 px-3 py-7 bg-transparent border-0 cursor-default select-none"
+                class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-semibold text-[16px] leading-5 tracking-wide transition-colors duration-150 px-3 py-6 bg-transparent border-0 cursor-default select-none"
               >
                 {link.label}
-                <svg
+                <Icon
+                  name="ph:caret-down-bold"
                   class="w-3.5 h-3.5 mt-px opacity-60 group-hover:opacity-100 transition-transform duration-200 group-hover:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
-                </svg>
+                  aria-hidden="true"
+                />
               </button>
             ) : (
               <a
                 href={link.href}
-                class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-semibold text-[16px] leading-5 tracking-wide transition-colors duration-150 px-3 py-7"
+                class="flex items-center gap-1 text-gray-700 hover:text-teal-600 font-semibold text-[16px] leading-5 tracking-wide transition-colors duration-150 px-3 py-6"
               >
                 {link.label}
               </a>
@@ -90,9 +88,8 @@ const navLinks = [
                 {link.children.map(child => (
                   <a
                     href={child.href}
-                    class="flex items-center gap-2.5 px-4 py-2.5 text-[14px] font-medium text-gray-600 hover:text-teal-600 hover:bg-teal-50/70 transition-colors mx-1 rounded-xl"
+                    class="block px-4 py-2.5 text-[14px] font-medium text-gray-600 hover:text-teal-600 hover:bg-teal-50/70 transition-colors mx-1 rounded-xl"
                   >
-                    <span class="w-1.5 h-1.5 rounded-full bg-teal-400 shrink-0"></span>
                     {child.label}
                   </a>
                 ))}
@@ -108,9 +105,7 @@ const navLinks = [
           href={ROUTES.BOOK}
           class="hidden md:inline-flex items-center gap-1.5 bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white font-bold text-[14px] tracking-wide px-5 py-2.5 rounded-xl transition-all duration-200 shadow-[0_4px_16px_rgba(0,188,212,0.35)] hover:shadow-[0_6px_22px_rgba(0,188,212,0.5)] hover:-translate-y-px"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
+          <Icon name="ph:calendar-blank" class="w-4 h-4" aria-hidden="true"/>
           Book Now
         </a>
 
@@ -120,12 +115,8 @@ const navLinks = [
           aria-label="Toggle menu"
           aria-expanded="false"
         >
-          <svg id="icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-          <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
+          <Icon id="icon-open" name="ph:list" class="w-5 h-5" aria-hidden="true"/>
+          <Icon id="icon-close" name="ph:x" class="w-5 h-5 hidden" aria-hidden="true"/>
         </button>
       </div>
     </div>
@@ -140,7 +131,7 @@ const navLinks = [
       {navLinks.map(link => (
         <div>
           {link.children ? (
-            <span class="block py-3 px-2 font-semibold text-[15px] text-gray-400 border-b border-gray-100 uppercase tracking-wider text-[11px]">
+            <span class="block py-3 px-2 font-semibold text-[11px] text-gray-400 border-b border-gray-100 uppercase tracking-wider">
               {link.label}
             </span>
           ) : (
@@ -156,9 +147,8 @@ const navLinks = [
               {link.children.map(child => (
                 <a
                   href={child.href}
-                  class="flex items-center gap-2 py-2 text-[14px] text-gray-500 hover:text-teal-600 transition-colors"
+                  class="block py-2 text-[14px] text-gray-500 hover:text-teal-600 transition-colors"
                 >
-                  <span class="w-1.5 h-1.5 rounded-full bg-teal-400 shrink-0"></span>
                   {child.label}
                 </a>
               ))}
@@ -171,16 +161,20 @@ const navLinks = [
       href={ROUTES.BOOK}
       class="mt-4 flex items-center justify-center gap-2 w-full bg-gradient-to-br from-teal-500 to-teal-600 text-white font-bold py-3 rounded-xl shadow-[0_4px_14px_rgba(0,188,212,0.3)] transition-all duration-200"
     >
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-      </svg>
+      <Icon name="ph:calendar-blank" class="w-4 h-4" aria-hidden="true"/>
       Book Now
     </a>
   </div>
 </header>
 
-<!-- Spacer for fixed header -->
-<div class="h-24"></div>
+<!-- Zero-layout sentinel 8px down the document. The header shadow keys off
+     whether this is still on screen, so the browser reports the crossing once
+     instead of us recomputing it on every scroll frame. -->
+<div id="header-sentinel" aria-hidden="true" class="absolute top-2 left-0 w-px h-px pointer-events-none"></div>
+
+<!-- Spacer for fixed header. Must stay in sync with the h-[72px] above and with
+     the `calc(100dvh-72px)` full-height hero in Hero.astro. -->
+<div class="h-[72px]"></div>
 
 <script>
   const toggle = document.getElementById('menu-toggle')
@@ -198,14 +192,15 @@ const navLinks = [
     toggle.setAttribute('aria-expanded', String(!isOpen))
   })
 
-  // Scroll shadow
-  const updateShadow = () => {
-    if (window.scrollY > 8) {
-      header?.classList.add('shadow-md')
-    } else {
-      header?.classList.remove('shadow-md')
-    }
+  // Scroll shadow, driven by IntersectionObserver rather than a scroll
+  // listener: the callback runs only when the sentinel actually crosses the
+  // viewport edge, not on every frame of every scroll.
+  const sentinel = document.getElementById('header-sentinel')
+  if (header && sentinel) {
+    const io = new IntersectionObserver(
+      ([entry]) => header.classList.toggle('shadow-md', !entry.isIntersecting),
+      { threshold: 0 },
+    )
+    io.observe(sentinel)
   }
-  window.addEventListener('scroll', updateShadow, { passive: true })
-  updateShadow()
 </script>

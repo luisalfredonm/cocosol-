@@ -53,7 +53,7 @@ const {
     --maxw:  1180px;
     padding: 84px 0 92px;
     background: var(--deep);
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body);
   }
   .ac-wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
 
@@ -74,10 +74,10 @@ const {
     width: 24px;
     height: 2px;
     background: var(--gold);
-    border-radius: 2px;
+    border-radius: var(--r-full);
   }
   .ac-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(1.8rem, 3.4vw, 2.5rem);
     font-weight: 600;
     line-height: 1.1;
@@ -95,7 +95,7 @@ const {
   .ac-card {
     background: rgba(255,255,255,.055);
     border: 1px solid rgba(255,255,255,.11);
-    border-radius: 18px;
+    border-radius: var(--r-md);
     padding: 30px 28px;
     transition: transform .25s ease, background .25s ease;
   }
@@ -105,7 +105,7 @@ const {
   }
 
   .ac-num {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--gold);
@@ -113,7 +113,7 @@ const {
     margin-bottom: 10px;
   }
   .ac-card-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.3rem;
     font-weight: 600;
     color: #fff;
