@@ -262,6 +262,11 @@ const compact  = lessons.filter(l => !l.feature)
   }
   .lg-card:hover .lg-img { transform: scale(1.06); }
 
+  /* The feature cell's box is much wider/shorter than the source photo
+     (portrait). A center crop chops both kids' heads and the board;
+     shifting focus up keeps faces in frame at every breakpoint. */
+  .lg-card--feature .lg-img { object-position: 50% 25%; }
+
   /* Price overlay at bottom of image */
   .lg-price-overlay {
     position: absolute;
