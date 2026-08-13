@@ -115,12 +115,20 @@ const compact  = lessons.filter(l => !l.feature)
       {compact.map(l => (
         <article class="lg-card lg-card--compact">
           <div class="lg-img-wrap">
+            {/* The image box's height tracks the text column via flex stretch
+                (see .lg-card--compact .lg-img-wrap), so on desktop it ends up
+                much taller than 240px worth of a landscape photo can cover —
+                object-fit:cover then needs far more source width than the
+                displayed 240px alone implies. The 1024px `sizes` bucket is
+                deliberately inflated past the real box width so srcset
+                selection fetches enough resolution for that crop, not just
+                enough for a naively width-matched candidate. */}
             <Image
               src={l.img}
               alt={l.imgAlt}
               class="lg-img"
-              widths={[320, 480, 640]}
-              sizes="(min-width: 1024px) 240px, (min-width: 640px) 40vw, 92vw"
+              widths={[320, 480, 640, 1080]}
+              sizes="(min-width: 1024px) 520px, (min-width: 640px) 40vw, 92vw"
               loading="lazy"
               decoding="async"
             />
