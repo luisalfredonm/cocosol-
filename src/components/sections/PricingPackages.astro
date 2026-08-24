@@ -3,8 +3,13 @@ import { Icon } from 'astro-icon/components'
 export interface Props {
   bookHref?: string
   campHref?: string
+  packagesHref?: string
 }
-const { bookHref = '/book-now', campHref = '/surf-camp-cocoa-beach' } = Astro.props
+const {
+  bookHref = '/book-now',
+  campHref = '/surf-camp-cocoa-beach',
+  packagesHref = '/surf-packages-cocoa-beach',
+} = Astro.props
 
 const packages = [
   {
@@ -76,6 +81,7 @@ const campFeatures = [
         Surfing rewards consistency. The more often you paddle out, the faster it clicks.
         Our packages keep you in the water with the same instructor every session and gear always included.
       </p>
+      <a href={packagesHref} class="pp-details-link">See full pricing &amp; package details</a>
     </div>
 
     <div class="pp-grid">
@@ -171,7 +177,7 @@ const campFeatures = [
         ))}
       </div>
 
-      <a href={campHref} class="sc-cta">Reserve a Camp Spot</a>
+      <a href={campHref} class="sc-cta">Reserve a Cocoa Beach Surf Camp Spot</a>
     </div>
 
   </div>
@@ -233,6 +239,16 @@ const campFeatures = [
     max-width: 580px;
     margin: 0 auto;
   }
+  .pp-details-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--brand-strong);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .pp-details-link:hover { color: var(--brand-dark); }
 
   /* Grid - center if 3 cols can't be equal */
   .pp-grid {
