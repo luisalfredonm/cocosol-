@@ -10,6 +10,7 @@ import type { ImageMetadata } from 'astro'
 import imgSurf    from '../assets/images/surf-school-cocoa-beach-surf-instructor-student.webp'
 import imgBeginner from '../assets/images/surf-school-cocoa-beach-beginner-lesson.webp'
 import imgStudents from '../assets/images/surf-school-cocoa-beach-students.webp'
+import imgLaunchDay from '../assets/images/surf-lesson-student-cocoa-beach-launch-day.webp'
 
 const seo = seoData.blog
 
@@ -38,6 +39,17 @@ const posts: Post[] = [
     image: imgSurf,
     imageAlt: 'Surf instructor and student at Cocoa Beach Florida',
     featured: true,
+  },
+  {
+    slug: '/blog/watch-rocket-launch-cocoa-beach',
+    category: 'Destination',
+    title: 'How to Watch a Rocket Launch from Cocoa Beach (and Surf the Same Day)',
+    excerpt: 'The best launch viewing spots near Cocoa Beach and Cape Canaveral, how to track the schedule, what to do when a launch scrubs, and how to plan a surf lesson around liftoff.',
+    date: 'Sep 10, 2026',
+    readTime: '7 min read',
+    image: imgLaunchDay,
+    imageAlt: 'Surf student carrying a soft-top board into the waves at Cocoa Beach',
+    featured: false,
   },
   {
     slug: '/blog/beginners-guide-to-surfing',

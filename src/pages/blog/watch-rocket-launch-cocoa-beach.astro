@@ -1,0 +1,259 @@
+---
+export const prerender = true
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import NeedHelp from '../../components/sections/NeedHelp.astro'
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
+import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro'
+import FAQSchema from '../../components/seo/FAQSchema.astro'
+import { gitDateISO } from '../../lib/gitDate'
+
+const datePublished = '2026-09-10'
+const dateModified = gitDateISO('src/pages/blog/watch-rocket-launch-cocoa-beach.astro', datePublished)
+
+const seo = {
+  title: 'Watch a Rocket Launch from Cocoa Beach & Surf the Same Day',
+  description: 'Where to watch a rocket launch from Cocoa Beach and Cape Canaveral, how to track the launch schedule, what to do if it scrubs, and how to fit in a surf lesson.',
+  slug: '/blog/watch-rocket-launch-cocoa-beach',
+  keyfocus: 'watch rocket launch cocoa beach',
+  synonyms: ['rocket launch viewing cocoa beach', 'where to watch rocket launch cocoa beach', 'cape canaveral rocket launch viewing', 'spacex launch cocoa beach'],
+  image: '/images/student-from-our-surf-school-in-Cocoa-Beach.webp',
+}
+
+const faqs = [
+  { q: 'Can you see rocket launches from Cocoa Beach?', a: 'Yes. The launch pads at Cape Canaveral Space Force Station and Kennedy Space Center sit less than 20 miles north of the Cocoa Beach Pier. On a clear day you can watch the rocket climb from any beach along the coast, and night launches are visible from much farther away.' },
+  { q: 'Where is the best place to watch a launch near Cocoa Beach?', a: 'Jetty Park in Port Canaveral is the closest public beach to the pads on the south side. Cherie Down Park in Cape Canaveral and the Cocoa Beach Pier are easier to park at and less crowded. For a view straight across the water at Kennedy Space Center, drive to Space View Park in Titusville.' },
+  { q: 'How do I find out when the next rocket launch is?', a: 'Check a launch schedule the week of your trip. Spaceflight Now, Florida Today\'s Space Coast launch schedule and Next Spaceflight all list upcoming Florida launches with their times. Check again on the morning of launch day, because dates and times change often.' },
+  { q: 'What happens if a launch is scrubbed?', a: 'A scrub means the launch is called off for that window, usually because of weather or a technical issue, and it moves to a later window, often the next day. Scrubs are common. Plan the day so a scrub doesn\'t ruin it: the beach and your surf lesson are still there.' },
+  { q: 'Can I surf and watch a rocket launch on the same day?', a: 'Yes. A surf lesson runs 1 to 2 hours, so it fits easily around a launch. For an evening or night launch, surf in the morning. For an early-morning launch, watch from the beach first and book a late-morning lesson. We teach daily from 9 AM to 5 PM.' },
+  { q: 'Will I hear a sonic boom?', a: 'Sometimes. When a SpaceX Falcon 9 booster flies back to land at Cape Canaveral, it makes sonic booms you can hear across the Cocoa Beach area a few minutes after liftoff. Many boosters land on a drone ship far out at sea instead, and those you won\'t hear.' },
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms} type="article">
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'Watch a Rocket Launch from Cocoa Beach',href:seo.slug}]} />
+  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished={datePublished} dateModified={dateModified} image={seo.image} authorName="Victor Nuñez" />
+  <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a }))} />
+
+  <!-- HERO -->
+  <section class="bg-gray-900 py-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-25" style="background-image: url('/images/student-from-our-surf-school-in-Cocoa-Beach.webp'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
+    <div class="relative z-10 container mx-auto px-4">
+      <div class="max-w-3xl">
+        <nav class="flex items-center gap-2 text-sm text-white/50 mb-6">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <span>/</span>
+          <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+          <span>/</span>
+          <span class="text-white/80">Watch a Rocket Launch</span>
+        </nav>
+        <span class="inline-block bg-amber-500/20 text-amber-300 text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase border border-amber-500/30">
+          Destination Guide
+        </span>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
+          How to Watch a Rocket Launch from Cocoa Beach (and Surf the Same Day)
+        </h1>
+        <p class="text-white/70 text-lg leading-relaxed mb-6">
+          The best viewing spots, how to track the schedule, what to do when a launch scrubs, and how to plan a surf lesson around liftoff.
+        </p>
+        <div class="flex items-center gap-4 text-sm text-white/50">
+          <span>By <a href="/instructors/victor-nunez" class="text-white/70 hover:text-white underline decoration-dotted underline-offset-2 transition-colors">Victor Nuñez</a></span>
+          <span>·</span>
+          <span>Sep 10, 2026</span>
+          <span>·</span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto prose prose-gray prose-lg">
+
+        <p class="lead text-xl text-gray-600 leading-relaxed font-normal mb-8">
+          Cocoa Beach sits a few miles south of one of the busiest spaceports in the world. Rockets go up from Cape Canaveral most weeks, and you can watch them from the same sand where you'd take a surf lesson. Here's how to do both in one day.
+        </p>
+
+        <h2>Can You See a Rocket Launch from Cocoa Beach?</h2>
+        <p>
+          Yes. The launch pads at Cape Canaveral Space Force Station and Kennedy Space Center are less than 20 miles north of the Cocoa Beach Pier, with nothing but ocean and flat coastline in between. On a clear day you'll see the rocket rise above the horizon, arc out over the Atlantic and climb until it's a bright dot. Night launches light up the whole sky and are visible up and down the coast.
+        </p>
+        <p>
+          You don't need tickets, a special spot or binoculars to enjoy it. Any beach access in Cape Canaveral or Cocoa Beach with a clear view north works. The spots below just get you closer or make the day easier.
+        </p>
+
+        <h2>Best Places to Watch a Launch Near Cocoa Beach</h2>
+
+        <h3>Jetty Park, Port Canaveral</h3>
+        <p>
+          The closest public beach to the pads on the south side, at the mouth of Port Canaveral. You get an unobstructed view north over the water, a fishing pier, restrooms and food nearby. It's the most popular spot for a reason, which also means the parking lot fills up well before big launches. There's a parking fee, so check the park's site before you go.
+        </p>
+
+        <h3>Cherie Down Park, Cape Canaveral</h3>
+        <p>
+          A quieter beach park in Cape Canaveral with a boardwalk and a wide stretch of sand. The view north is almost as good as Jetty Park with a fraction of the crowd. A good choice for families who want a calmer evening launch.
+        </p>
+
+        <h3>Cocoa Beach Pier and the Beach Accesses</h3>
+        <p>
+          The pier gives you height and a long view up the coast, plus restaurants if the launch slips by an hour. Any of the public beach accesses along A1A in Cocoa Beach work too. You're a little farther from the pads, but you'll still see the whole climb, and it's the easiest option if you're already staying in Cocoa Beach.
+        </p>
+
+        <h3>Space View Park, Titusville</h3>
+        <p>
+          If you want the closest view across the water, Space View Park in Titusville faces Kennedy Space Center across the Indian River. It's about 45 minutes' drive north of Cocoa Beach and gets packed for crewed missions and first flights, so arrive early.
+        </p>
+
+        <h3>Kennedy Space Center Visitor Complex</h3>
+        <p>
+          For some launches, the Visitor Complex sells viewing packages with commentary and closer vantage points. They sell out for high-profile missions. If a launch lines up with your visit, it's worth checking.
+        </p>
+
+        <h2>How to Know When the Next Launch Is</h2>
+        <p>
+          Launch dates move. A mission listed for Tuesday can slide to Thursday, and the exact time is often confirmed only a day or two out. Use a live schedule rather than anything you read weeks in advance:
+        </p>
+        <ul>
+          <li><strong>Spaceflight Now</strong> keeps a launch schedule with times and pad locations.</li>
+          <li><strong>Florida Today</strong> publishes a Space Coast launch schedule aimed at people watching locally, including viewing tips.</li>
+          <li><strong>Next Spaceflight</strong> and similar trackers show countdowns and send updates when a launch moves.</li>
+        </ul>
+        <p>
+          Check the week of your trip to plan, then check again the morning of launch day. Many launches have a window rather than a fixed time, so be at your spot a bit before the window opens.
+        </p>
+
+        <h2>What to Expect on Launch Day</h2>
+        <ul>
+          <li><strong>You'll see it before you hear it.</strong> From Cocoa Beach the rumble reaches you roughly a minute after liftoff, once the rocket is already well into its climb.</li>
+          <li><strong>Twilight launches are the most spectacular.</strong> When a rocket launches just before sunrise or just after sunset, the sun lights up the exhaust plume high in the sky while it's dark on the ground. Locals call it a "jellyfish."</li>
+          <li><strong>Listen for sonic booms.</strong> When a Falcon 9 booster returns to land at Cape Canaveral, you'll hear a double or triple boom a few minutes after launch. Boosters that land on a drone ship at sea don't produce booms you can hear from the beach.</li>
+          <li><strong>Crowds depend on the mission.</strong> A routine satellite launch might draw a handful of people to the beach. A crewed mission or a new rocket can fill every parking lot on the coast.</li>
+        </ul>
+
+        <h2>Scrubs Happen. Plan for Them.</h2>
+        <p>
+          A scrub means the launch is called off for that window. Weather, winds high above the Cape, a boat in the hazard zone or a sensor reading can all trigger one, sometimes with seconds left on the clock. It usually moves to the next available window, often the following day.
+        </p>
+        <p>
+          The trick is to not build your whole day around the launch alone. If you're at the beach anyway, a scrub costs you nothing. That's exactly why a launch and a surf lesson pair so well: one is guaranteed, the other is a bonus.
+        </p>
+
+        <h2>How to Fit a Surf Lesson Around a Launch</h2>
+        <p>
+          A surf lesson runs 1 to 2 hours, and we teach daily from 9 AM to 5 PM at beach accesses between Cape Canaveral and South Cocoa Beach, the same stretch of coast you'd watch the launch from. Here's how to plan around the launch time:
+        </p>
+        <div class="not-prose overflow-x-auto my-8">
+          <table class="w-full text-left text-sm border border-gray-200 rounded-xl overflow-hidden">
+            <thead class="bg-gray-50 text-gray-900">
+              <tr>
+                <th class="px-4 py-3 font-bold">Launch time</th>
+                <th class="px-4 py-3 font-bold">Best plan</th>
+              </tr>
+            </thead>
+            <tbody class="text-gray-600 divide-y divide-gray-100">
+              <tr>
+                <td class="px-4 py-3 font-semibold text-gray-900">Early morning (before 9 AM)</td>
+                <td class="px-4 py-3">Watch from the beach, grab breakfast, then take a late-morning lesson.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-gray-900">Midday</td>
+                <td class="px-4 py-3">Take a 9 AM lesson so you're done and dry with time to get to your viewing spot.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-gray-900">Afternoon</td>
+                <td class="px-4 py-3">Surf in the morning, lunch by the pier, then head to Jetty Park or Cherie Down Park early.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-gray-900">Evening or night</td>
+                <td class="px-4 py-3">Surf any time during the day, have dinner, then watch the launch from the beach.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-gray-900">Scrubbed</td>
+                <td class="px-4 py-3">You still had a surf day. Check the new window and try again.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          If a launch window overlaps your lesson, you might catch it from the water. There's nothing quite like sitting on a board and watching a rocket climb up the coast. Mention the launch when you book and we'll plan the session with you.
+        </p>
+        <p>
+          New to surfing? Our <a href="/group-surf-lessons-cocoa-beach">group surf lessons</a> are the easiest way to try it with friends, and <a href="/private-surf-lessons-cocoa-beach">private surf lessons in Cocoa Beach</a> give you one-on-one coaching if you want to make the most of a short visit. Traveling with children? See our <a href="/kids-surf-lessons-cocoa-beach">kids surf lessons</a>.
+        </p>
+
+        <div class="not-prose bg-[#EFF9FB] rounded-2xl p-8 border border-[#00BCD4]/20 my-10">
+          <h3 class="text-xl font-bold text-[#0E2A33] mb-3">Make it a Space Coast day</h3>
+          <p class="text-gray-600 mb-5">Surf in the morning, watch a rocket go up in the evening. All gear included, certified local instructors.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/book-now" class="inline-flex items-center px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-xl hover:bg-[#0097A7] transition-colors">
+              Book a Lesson
+            </a>
+            <a href="/surf-packages-cocoa-beach" class="inline-flex items-center px-6 py-3 border-2 border-[#00BCD4]/40 text-[#00838F] font-semibold rounded-xl hover:border-[#00BCD4] transition-colors">
+              View Prices
+            </a>
+          </div>
+        </div>
+
+        <h2>Coming from Orlando?</h2>
+        <p>
+          Cocoa Beach is about an hour east of Orlando on the Beachline (SR 528), which makes a launch day an easy trip from the theme parks. If you're driving over, read our guide to <a href="/surf-lessons-near-orlando">surf lessons near Orlando</a> for timing and logistics.
+        </p>
+
+        <h2>Quick Summary</h2>
+        <ul>
+          <li><strong>Can you see it?</strong> Yes. The pads are less than 20 miles north of the Cocoa Beach Pier.</li>
+          <li><strong>Best spots:</strong> Jetty Park, Cherie Down Park, the Cocoa Beach Pier, or Space View Park in Titusville for the closest view.</li>
+          <li><strong>Schedule:</strong> Check Spaceflight Now or Florida Today the week of your trip and again on launch morning.</li>
+          <li><strong>Scrubs:</strong> Common. Keep the day flexible and don't plan it around the launch alone.</li>
+          <li><strong>Surf too:</strong> A 1 to 2 hour lesson fits around almost any launch time.</li>
+        </ul>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- FAQ SECTION -->
+  <section class="py-16 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <h2 class="text-2xl font-extrabold text-gray-900 mb-8">Rocket Launches in Cocoa Beach: FAQ</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="font-bold text-gray-900 mb-2">{faq.q}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERNAL LINKS -->
+  <section class="py-12 bg-white border-t border-gray-100">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocosol Surf Lessons</h2>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { l: 'Group Surf Lessons', h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Private Surf Lessons', h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Kids Surf Lessons', h: '/kids-surf-lessons-cocoa-beach' },
+          { l: 'Book a Lesson', h: '/book-now' },
+          { l: 'Surfing Near Orlando', h: '/blog/surfing-near-orlando' },
+          { l: 'Is Cocoa Beach Good for Surfing?', h: '/blog/is-cocoa-beach-good-for-surfing' },
+        ].map(x => (
+          <a href={x.h} class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-sm text-gray-600 font-medium hover:border-[#00BCD4]/50 hover:text-[#00838F] transition-colors">{x.l}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <NeedHelp />
+</BaseLayout>
+
+<style>
+  .prose h2 { font-family: var(--font-display); color: var(--c-heading); margin-top: 2.5rem; margin-bottom: 1rem; }
+  .prose h3 { color: var(--c-heading); margin-top: 1.75rem; }
+  .prose a { color: #00838F; }
+  .prose a:hover { color: #0097A7; }
+</style>
