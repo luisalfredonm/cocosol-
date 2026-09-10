@@ -58,7 +58,7 @@ export const SEO: Record<string, PageSEO> = {
   '/group-surf-lessons-cocoa-beach': {
     title: 'Group Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
     description:
-      'Fun group surf lessons in Cocoa Beach with small classes and certified local instructors. All gear included -- great for friends and solo travelers.',
+      'Fun group surf lessons in Cocoa Beach with small classes and certified local instructors. All gear included. Great for friends and solo travelers.',
     keyfocus: 'group surf lessons cocoa beach',
     synonyms: ['beginner group surf lessons cocoa beach'],
     related: ['surf lessons for friends cocoa beach', 'solo traveler surf lessons cocoa beach'],
@@ -125,20 +125,6 @@ export const SEO: Record<string, PageSEO> = {
     keyfocus: 'surf lessons near orlando',
     synonyms: ['surf lessons near kennedy space center', 'surf lessons space coast'],
     related: ['things to do near orlando beaches', 'surf lessons near disney'],
-    ogImage: '/images/hero-home.jpg',
-  },
-
-  '/surfing-cocoa-beach': {
-    title: 'Surfing in Cocoa Beach: Is It Good for Surfing? | Guide',
-    description:
-      'Is Cocoa Beach good for surfing? A local guide to waves, best times, beginner spots and what to expect, plus where to take your first lesson.',
-    keyfocus: 'is cocoa beach good for surfing',
-    synonyms: ['surfing in cocoa beach', 'cocoa beach surf'],
-    related: [
-      'best time to surf cocoa beach',
-      'cocoa beach surf report beginners',
-      'where to surf in cocoa beach',
-    ],
     ogImage: '/images/hero-home.jpg',
   },
 
@@ -213,33 +199,8 @@ export const seoData: Record<string, PageSEOWithRoute> = {
     related: ['surf lessons cocoa beach', 'surf camp cocoa beach'],
     ogImage: '/images/hero-home.jpg',
   }),
-  isCocoaBeachGoodForSurfing: withRoute('/blog/is-cocoa-beach-good-for-surfing', {
-    title: 'Is Cocoa Beach Good for Surfing? A Local Guide',
-    description:
-      'The honest breakdown on Cocoa Beach surf conditions, best times of year, beginner spots and what local instructors say about Florida\'s most surf-friendly coast.',
-    keyfocus: 'is cocoa beach good for surfing',
-    synonyms: ['cocoa beach surf conditions', 'surfing in cocoa beach', 'cocoa beach waves for beginners'],
-    related: ['surf lessons cocoa beach', 'best time to surf cocoa beach'],
-    ogImage: '/images/surf-school-cocoa-beach-surf-instructor-student.webp',
-  }),
-  beginnersGuideToSurfing: withRoute('/blog/beginners-guide-to-surfing', {
-    title: "The Complete Beginner's Guide to Surfing",
-    description:
-      'Everything you need to know before you get in the water, the pop-up, gear, the 5 mistakes beginners make, and why a lesson beats trying it alone every time.',
-    keyfocus: 'beginners guide to surfing',
-    synonyms: ['how to start surfing', 'learn to surf guide', 'surfing for beginners'],
-    related: ['surf lessons cocoa beach', 'private surf lessons cocoa beach'],
-    ogImage: '/images/surf-school-cocoa-beach-beginner-lesson.webp',
-  }),
-  surfingNearOrlando: withRoute('/blog/surfing-near-orlando', {
-    title: 'Surfing Near Orlando, Best Spots & How to Get There',
-    description:
-      'Cocoa Beach is just 60 minutes from Orlando. Here\'s how to add a surf lesson to your Central Florida trip, without losing a full day to travel.',
-    keyfocus: 'surfing near orlando',
-    synonyms: ['surf lessons near orlando', 'surf near orlando florida', 'cocoa beach from orlando'],
-    related: ['surf lessons cocoa beach', 'things to do near orlando'],
-    ogImage: '/images/surf-school-cocoa-beach-students.webp',
-  }),
+  // Los posts del blog definen su SEO dentro de su propio .astro (title,
+  // description, FAQs y fechas juntos), así que no se duplican aquí.
 }
 
 export const ROUTES = {
