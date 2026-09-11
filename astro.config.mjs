@@ -35,8 +35,13 @@ export default defineConfig({
     // adds zero runtime JS. One family, one stroke weight, no hand-drawn paths.
     icon({ include: { ph: ["*"] } }),
     sitemap({
-      // admin is private; api are endpoints — both excluded from the sitemap
-      filter: (page) => !page.includes("/admin"),
+      // admin is private; api are endpoints — both excluded from the sitemap.
+      // privacy-policy and terms-of-use are noindex: listing them here sends
+      // Google contradictory signals ("submitted URL marked noindex" in GSC).
+      filter: (page) =>
+        !page.includes("/admin") &&
+        !page.includes("/privacy-policy") &&
+        !page.includes("/terms-of-use"),
       serialize(item) {
         const lastmod = gitLastmod(item.url);
         if (lastmod) item.lastmod = lastmod;
