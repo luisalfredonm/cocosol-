@@ -46,9 +46,11 @@ export const SEO: Record<string, PageSEO> = {
   },
 
   '/private-surf-lessons-cocoa-beach': {
-    title: 'Private Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
+    // GSC (jun-sep 2026): 404 impresiones, 0 clics en pos. 24. Precio y
+    // rating en el snippet para diferenciarse de los listados de la página 2-3.
+    title: 'Private Surf Lessons in Cocoa Beach | 1-on-1 From $75',
     description:
-      '1-on-1 private surf lessons in Cocoa Beach with a dedicated certified instructor. Fastest progression, all gear included. Book your private lesson.',
+      'One-on-one surf lessons in Cocoa Beach with your own certified instructor. The fastest way to stand up and progress, all gear included. Rated 4.9 on Google.',
     keyfocus: 'private surf lessons cocoa beach',
     synonyms: ['1 on 1 surf lessons cocoa beach', 'private surf instructor cocoa beach'],
     related: ['couples surf lessons cocoa beach', 'family surf lessons cocoa beach'],
@@ -182,9 +184,11 @@ export const seoData: Record<string, PageSEOWithRoute> = {
     ogImage: '/images/surf-school-cocoa-beach-beginner-lesson.webp',
   }),
   kidsSurfLessons: withRoute('/kids-surf-lessons-cocoa-beach', {
-    title: 'Kids Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
+    // GSC (jun-sep 2026): "cocoa beach surf lessons for kids" en pos. 8.6 con
+    // 0 clics. Edad, ratio y precio son lo que un padre compara en el snippet.
+    title: 'Kids Surf Lessons in Cocoa Beach (Ages 6-16) | From $60',
     description:
-      'Safe kids surf lessons in Cocoa Beach with certified instructors, small ratios and all gear included. Beginner-friendly for young surfers.',
+      'Kids surf lessons in Cocoa Beach for ages 6-16. Max 3 kids per certified instructor, all gear and a safety briefing included. Group from $60, private $75.',
     keyfocus: 'kids surf lessons cocoa beach',
     synonyms: ['children surf lessons cocoa beach', 'surf lessons for kids cocoa beach'],
     related: ['kids surf camp cocoa beach', 'beginner surf lessons cocoa beach'],
