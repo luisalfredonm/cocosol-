@@ -68,7 +68,7 @@ try {
                 value={value}
                 checked={config.provider === value}
                 style="accent-color:#00BCD4;cursor:pointer"
-                class="pvss-provider-radio"
+                class="provider-radio"
               />
               <span style="font-size:13px;font-weight:500;color:#475569">{label}</span>
             </label>
@@ -221,7 +221,7 @@ try {
     toggleProvider(activeProvider)
 
     // Radio change listeners
-    document.querySelectorAll('.pvss-provider-radio').forEach(function(radio) {
+    document.querySelectorAll('.provider-radio').forEach(function(radio) {
       radio.addEventListener('change', function() {
         toggleProvider(this.value)
       })

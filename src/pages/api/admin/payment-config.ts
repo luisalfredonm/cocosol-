@@ -47,8 +47,6 @@ export const GET: APIRoute = async ({ request }) => {
         provider: 'on-site',
         paypal_client_id: '',
         paypal_secret: '',
-        credomatic_api_key: '',
-        credomatic_secret: '',
         debug: error.message
       }), {
         status: 200,
@@ -59,7 +57,7 @@ export const GET: APIRoute = async ({ request }) => {
     const config = data && data.length > 0 ? data[0] : null
 
     if (!config) {
-      return new Response(JSON.stringify({ provider: 'on-site', paypal_client_id: '', paypal_secret: '', credomatic_api_key: '', credomatic_secret: '' }), {
+      return new Response(JSON.stringify({ provider: 'on-site', paypal_client_id: '', paypal_secret: '' }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       })
@@ -75,8 +73,6 @@ export const GET: APIRoute = async ({ request }) => {
       provider: 'on-site',
       paypal_client_id: '',
       paypal_secret: '',
-      credomatic_api_key: '',
-      credomatic_secret: '',
       error: err.message
     }), {
       status: 200,
@@ -100,7 +96,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json()
     console.log('[PaymentConfig POST] Body:', body)
-    const { provider, paypal_client_id, paypal_secret, paypal_sandbox, credomatic_api_key, credomatic_secret } = body
+    const { provider, paypal_client_id, paypal_secret, paypal_sandbox } = body
 
     // Validate provider
     if (!['on-site', 'paypal', 'square'].includes(provider)) {

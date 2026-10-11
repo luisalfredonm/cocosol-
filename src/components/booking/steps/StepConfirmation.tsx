@@ -15,7 +15,7 @@ interface Props {
   totalAmount: number
   items: CheckoutItem[]
   contact: ContactInfo
-  provider?: 'on-site' | 'paypal' | 'credomatic'
+  provider?: 'on-site' | 'paypal' | 'square'
 }
 
 export default function StepConfirmation({ bookingIds, totalAmount, items, contact, provider = 'on-site' }: Props) {

@@ -1,4 +1,4 @@
--- Pura Vida Surf School - Booking Schema
+-- Cocosol Surf Lessons - Booking Schema
 -- Run this in your Supabase SQL editor
 
 CREATE TABLE IF NOT EXISTS bookings (

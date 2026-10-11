@@ -1,4 +1,4 @@
--- Pura Vida Surf School - Clean New Supabase Setup
+-- Cocosol Surf Lessons - Clean New Supabase Setup
 -- Use this for a fresh Supabase project for lessons/packages.
 -- Safe to re-run: it uses IF NOT EXISTS, ON CONFLICT, and ALTER ADD COLUMN guards.
 

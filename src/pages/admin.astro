@@ -8,7 +8,7 @@ import BookingSettings from '../components/admin/BookingSettings.astro'
 import '../styles/global.css'
 
 const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD ?? 'admin'
-const authCookie = Astro.cookies.get('pvss_admin')
+const authCookie = Astro.cookies.get('cocosol_admin')
 const isAuthenticated = authCookie?.value === ADMIN_PASSWORD
 
 const DOW_LABELS = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -116,7 +116,7 @@ if (Astro.request.method === 'POST') {
   if (action === 'login') {
     const password = form.get('password') as string
     if (password === ADMIN_PASSWORD) {
-      Astro.cookies.set('pvss_admin', ADMIN_PASSWORD, {
+      Astro.cookies.set('cocosol_admin', ADMIN_PASSWORD, {
         httpOnly: true, secure: true, sameSite: 'lax', maxAge: 60 * 60 * 8, path: '/',
       })
     }
@@ -355,7 +355,7 @@ if (Astro.request.method === 'POST') {
 }
 
 if (Astro.url.searchParams.get('logout') === '1') {
-  Astro.cookies.delete('pvss_admin', { path: '/' })
+  Astro.cookies.delete('cocosol_admin', { path: '/' })
   return Astro.redirect('/admin')
 }
 
@@ -377,8 +377,8 @@ const activeTab = Astro.url.searchParams.get('tab') ?? 'bookings'
 const statusFilter = Astro.url.searchParams.get('status') ?? ''
 const dateFilter = Astro.url.searchParams.get('date') ?? ''
 const rangeFilter = Astro.url.searchParams.get('range') ?? 'upcoming'
-// Today's date in Costa Rica time, as YYYY-MM-DD to compare against booking_date
-const todayCR = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Costa_Rica' })
+// Today's date in Florida (Eastern) time, as YYYY-MM-DD to compare against booking_date
+const todayET = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' })
 // When viewing past bookings, show the most recent first; ignore range if a specific date is set
 const pastFirst = rangeFilter === 'past' && !dateFilter
 
@@ -390,8 +390,8 @@ if (isAuthenticated && isSupabaseConfigured) {
   // Bookings query - apply the temporal range (unless a specific date is requested)
   let bookingsQuery = supabase.from('bookings').select('*')
   if (!dateFilter) {
-    if (rangeFilter === 'upcoming') bookingsQuery = bookingsQuery.gte('booking_date', todayCR)
-    else if (rangeFilter === 'past') bookingsQuery = bookingsQuery.lt('booking_date', todayCR)
+    if (rangeFilter === 'upcoming') bookingsQuery = bookingsQuery.gte('booking_date', todayET)
+    else if (rangeFilter === 'past') bookingsQuery = bookingsQuery.lt('booking_date', todayET)
   }
   bookingsQuery = bookingsQuery
     .order('booking_date', { ascending: !pastFirst })

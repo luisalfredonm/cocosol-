@@ -201,30 +201,6 @@ export const POST: APIRoute = async ({ request }) => {
     })
   }
 
-  // Handle Credomatic payment (placeholder - awaiting API)
-  if (paymentProvider === 'credomatic') {
-    const { data: bookings, error: dbError } = await insertBookings(
-      baseBookingRows.map(row => ({
-        ...row,
-        status: 'pending',
-        payment_method: 'credomatic',
-      })),
-      null
-    )
-
-    if (dbError || !bookings || bookings.length === 0) return json({ error: 'Failed to save bookings' }, 500)
-
-    const bookingIds = bookings.map(b => b.id)
-    return json({
-      bookingId: bookingIds[0],
-      bookingIds,
-      checkoutId,
-      clientSecret: null,
-      totalAmount,
-      provider: 'credomatic',
-    })
-  }
-
   // Handle PayPal payment (with credentials)
   if (paymentProvider === 'paypal' && paypalClientId && paypalSecret) {
     let paypalOrderId = ''
