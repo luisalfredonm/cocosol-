@@ -4,3 +4,29 @@ Disallow: /admin
 Disallow: /api/
 
 Sitemap: https://cocosolsurf.com/sitemap-index.xml
+
+# AI retrieval bots — explicitly allowed
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+Disallow: /api/

@@ -35,6 +35,7 @@ const jsonLd = {
     : { '@type': 'Organization', name: 'Cocosol Surf Lessons', url: site },
   publisher: {
     '@type': 'Organization',
+    '@id': `${site}/#business`,
     name: 'Cocosol Surf Lessons',
     url: site,
     logo: {
@@ -45,6 +46,7 @@ const jsonLd = {
   mainEntityOfPage: {
     '@type': 'WebPage',
     '@id': url,
+    isPartOf: { '@id': `${site}/#website` },
   },
 }
 ---

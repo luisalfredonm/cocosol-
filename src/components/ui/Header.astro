@@ -131,9 +131,9 @@ const navLinks = [
       {navLinks.map(link => (
         <div>
           {link.children ? (
-            <span class="block py-3 px-2 font-semibold text-[11px] text-gray-400 border-b border-gray-100 uppercase tracking-wider">
+            <a href={link.href} class="block py-3 px-2 font-semibold text-[14px] text-gray-700 border-b border-gray-100 hover:text-teal-600 transition-colors">
               {link.label}
-            </span>
+            </a>
           ) : (
             <a
               href={link.href}

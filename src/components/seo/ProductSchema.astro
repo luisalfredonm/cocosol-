@@ -15,7 +15,7 @@ const jsonLd = {
   name,
   description,
   ...(image ? { image: image.startsWith('http') ? image : `${site}${image}` } : {}),
-  provider: { '@type': 'LocalBusiness', name: 'Cocosol Surf Lessons', url: site },
+  provider: { '@type': 'LocalBusiness', '@id': `${site}/#business`, name: 'Cocosol Surf Lessons', url: site },
   areaServed: { '@type': 'Place', name: 'Cocoa Beach, Florida, USA' },
   offers: {
     '@type': 'Offer',
