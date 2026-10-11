@@ -45,6 +45,16 @@
   line-gap-override: 0%;
 }
 
+/* Metric-matched fallback — reduces CLS from Outfit swap (headings/display) */
+@font-face {
+  font-family: 'Outfit Fallback';
+  src: local('Arial');
+  size-adjust: 103.4%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -54,7 +64,7 @@
     /* ═══ TYPE ════════════════════════════════════════════════════════════
        Use these two tokens only. Never hardcode a font-family in a component:
        that is exactly how the Fraunces/Hanken ghost fonts happened.          */
-    --font-display: 'Outfit Variable', 'Inter Variable', 'Inter Fallback', system-ui, sans-serif;
+    --font-display: 'Outfit Variable', 'Outfit Fallback', 'Inter Variable', 'Inter Fallback', system-ui, sans-serif;
     --font-body:    'Inter Variable', 'Inter Fallback', system-ui, sans-serif;
 
     /* ═══ RADIUS ══════════════════════════════════════════════════════════
