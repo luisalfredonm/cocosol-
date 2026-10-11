@@ -1,0 +1,216 @@
+---
+export const prerender = true
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import NeedHelp from '../../components/sections/NeedHelp.astro'
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
+import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro'
+import FAQSchema from '../../components/seo/FAQSchema.astro'
+import { gitDateISO } from '../../lib/gitDate'
+
+const datePublished = '2026-10-11'
+const dateModified = gitDateISO('src/pages/blog/plan-a-cocoa-beach-surf-trip.astro', datePublished)
+
+const seo = {
+  title: 'Plan a Cocoa Beach Surf Trip: Season, Lessons, Itinerary',
+  description: 'How to plan a surf trip to Cocoa Beach, Florida: best time to go, how many lessons to book, a 3-day itinerary, what to pack, and how to add Orlando or a rocket launch.',
+  slug: '/blog/plan-a-cocoa-beach-surf-trip',
+  keyfocus: 'plan a cocoa beach surf trip',
+  synonyms: ['cocoa beach surf trip', 'cocoa beach surf vacation', 'surf trip florida', 'cocoa beach trip planner', 'things to do in cocoa beach surfing'],
+  image: '/images/surf-school-cocoa-beach-students.webp',
+}
+
+const faqs = [
+  { q: 'How many days do you need for a surf trip to Cocoa Beach?', a: 'Three days is a good minimum. It gives you a first lesson to learn the basics, a second to repeat them with confidence, and a free day for the beach, the pier or a rocket launch. If surfing is the main goal of the trip, five to seven days lets you progress from whitewater to unbroken waves.' },
+  { q: 'What is the best time to plan a surf trip to Cocoa Beach?', a: 'Summer (June to August) has the warmest water and the gentlest waves, so it is the best window for beginners. Fall (September to November) has warm water, cleaner swells and fewer crowds, so it is the best overall. Winter brings bigger, colder surf, and spring is quiet and good for lessons.' },
+  { q: 'Do I need to bring a surfboard to Cocoa Beach?', a: 'No. Boards, leashes and rash guards are included in every Cocosol surf lesson, so beginners can travel with nothing but a swimsuit, a towel and sunscreen.' },
+  { q: 'How many surf lessons should I book on a trip?', a: 'For a beginner, two or three lessons on consecutive days is the sweet spot. The first teaches the basics, and the next ones turn them into muscle memory, which is when it starts to feel like real surfing. A lesson package is usually the best value if you plan to surf more than once.' },
+  { q: 'Can I combine a surf trip with Orlando or the theme parks?', a: 'Yes. Cocoa Beach is about 60 minutes from Orlando, so many families add a surf lesson to a Central Florida trip. Book a morning lesson, then drive back or stay on the coast for the evening.' },
+  { q: 'Is Cocoa Beach good for a family surf trip?', a: 'Yes. The waves break gently over a sandy bottom, which makes it one of the more forgiving places on the East Coast for first-timers and kids. We offer kids surf lessons and a kids surf camp for ages 6 to 16, as well as group and private lessons for families.' },
+]
+---
+
+<BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms} type="article">
+  <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'Plan a Cocoa Beach Surf Trip',href:seo.slug}]} />
+  <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished={datePublished} dateModified={dateModified} image={seo.image} authorName="Victor Nuñez" />
+  <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a }))} />
+
+  <!-- HERO -->
+  <section class="bg-gray-900 py-20 relative overflow-hidden">
+    <img src="/images/surf-school-cocoa-beach-students.webp" alt="Surf students walking into the water at Cocoa Beach, Florida" class="absolute inset-0 w-full h-full object-cover opacity-25" loading="eager" fetchpriority="high" width="1200" height="630" />
+    <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
+    <div class="relative z-10 container mx-auto px-4">
+      <div class="max-w-3xl">
+        <nav class="flex items-center gap-2 text-sm text-white/50 mb-6">
+          <a href="/" class="hover:text-white transition-colors">Home</a>
+          <span>/</span>
+          <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+          <span>/</span>
+          <span class="text-white/80">Plan a Surf Trip</span>
+        </nav>
+        <span class="inline-block bg-amber-500/20 text-amber-300 text-xs font-bold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase border border-amber-500/30">
+          Destination Guide
+        </span>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
+          How to Plan a Cocoa Beach Surf Trip
+        </h1>
+        <p class="text-white/70 text-lg leading-relaxed mb-6">
+          When to go, how many lessons to book, a simple 3-day itinerary, what to pack, and how to fit in Orlando or a rocket launch.
+        </p>
+        <div class="flex items-center gap-4 text-sm text-white/50">
+          <span>By <a href="/instructors/victor-nunez" class="text-white/70 hover:text-white underline decoration-dotted underline-offset-2 transition-colors">Victor Nuñez</a></span>
+          <span>·</span>
+          <time datetime={datePublished}>{new Date(datePublished + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+          {dateModified !== datePublished && <span class="text-white/35">· Updated {new Date(dateModified + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>}
+          <span>·</span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto prose prose-gray prose-lg">
+
+        <p class="lead text-xl text-gray-600 leading-relaxed font-normal mb-8">
+          Cocoa Beach is the easiest place on Florida's east coast to turn a beach trip into a surf trip. The waves are gentle, the water is warm for most of the year, and you can learn on your first morning without owning any gear. Here is how to plan it.
+        </p>
+
+        <div class="not-prose bg-[#EFF9FB] rounded-2xl p-6 border border-[#00BCD4]/20 mb-10">
+          <h2 class="text-lg font-bold text-[#0E2A33] mb-3">The short version</h2>
+          <ul class="list-disc pl-5 space-y-1.5 text-gray-700">
+            <li><strong>Best time:</strong> June to August for beginners, September to November for the best overall surf.</li>
+            <li><strong>How long:</strong> 3 days minimum, 5 to 7 if surfing is the point of the trip.</li>
+            <li><strong>Lessons:</strong> 2 or 3 on consecutive days, with all gear included.</li>
+            <li><strong>Bring:</strong> swimsuit, towel, reef-safe sunscreen and water. We provide the rest.</li>
+          </ul>
+        </div>
+
+        <h2>When to Go</h2>
+        <p>
+          Cocoa Beach has surf all year, so the question is what kind of trip you want.
+        </p>
+        <ul>
+          <li><strong>Summer (June to August):</strong> water around 84 to 86°F and small, steady waves, usually 1 to 2 feet. This is the easiest window for first-timers and for kids.</li>
+          <li><strong>Fall (September to November):</strong> warm water, cleaner Atlantic swells and thinner crowds. It is the best overall season, and a great one for beginners who want to keep progressing.</li>
+          <li><strong>Winter (December to February):</strong> bigger, more powerful surf and cooler water, roughly 62 to 68°F. Better for experienced surfers, and you will want a shorty wetsuit.</li>
+          <li><strong>Spring (March to May):</strong> fewer people, warming water and manageable waves. A quiet, good time for lessons.</li>
+        </ul>
+        <p>
+          For a deeper look at conditions by season, read our guide on <a href="/blog/is-cocoa-beach-good-for-surfing">whether Cocoa Beach is good for surfing</a>.
+        </p>
+
+        <h2>How Long to Stay and How Many Lessons to Book</h2>
+        <p>
+          A single lesson is enough to stand up on a wave, but it is the second and third sessions that make it stick. If you only have a weekend, book a lesson on each morning. If you have a week, a <a href="/surf-packages-cocoa-beach">lesson package</a> gives you more water time at a lower price per session.
+        </p>
+        <p>
+          Choose the format that fits your group:
+        </p>
+        <ul>
+          <li><a href="/private-surf-lessons-cocoa-beach">Private lessons</a> for the fastest progress and one-on-one attention.</li>
+          <li><a href="/group-surf-lessons-cocoa-beach">Group lessons</a> for friends and families who want to share the experience.</li>
+          <li><a href="/kids-surf-lessons-cocoa-beach">Kids surf lessons</a> and the <a href="/surf-camp-cocoa-beach">surf camp in Cocoa Beach</a> for ages 6 to 16.</li>
+          <li><a href="/surf-coaching-cocoa-beach">Surf coaching</a> if you already surf and want to improve.</li>
+        </ul>
+
+        <h2>A Simple 3-Day Itinerary</h2>
+
+        <h3>Day 1: Arrive and learn the basics</h3>
+        <p>
+          Arrive in the morning if you can and book your first lesson. You will learn ocean safety, the pop-up and how to read the waves, and most people ride their first wave on the same day. Spend the afternoon at the beach and walk the Cocoa Beach Pier.
+        </p>
+
+        <h3>Day 2: Second lesson and progress</h3>
+        <p>
+          Surf again in the morning. Repeating the basics on day two is when they turn into muscle memory, and you start catching more waves with less effort. Take the afternoon easy, since surfing is more tiring than it looks.
+        </p>
+
+        <h3>Day 3: Space Coast day</h3>
+        <p>
+          Keep the middle of the day free for the rest of the Space Coast. If there is a launch scheduled, our guide to <a href="/blog/watch-rocket-launch-cocoa-beach">watching a rocket launch from Cocoa Beach</a> covers the best viewing spots and how to plan a lesson around liftoff. Port Canaveral and Kennedy Space Center are both a short drive away.
+        </p>
+
+        <h2>Adding Orlando to Your Trip</h2>
+        <p>
+          Cocoa Beach is about 60 minutes from Orlando, which makes it an easy add-on to a theme-park week. A morning lesson fits comfortably into a day trip, and you can be back in Orlando by the evening. Our guide to <a href="/blog/surfing-near-orlando">surfing near Orlando</a> explains the drive and how to fit a lesson into your schedule, or see our <a href="/surf-lessons-near-orlando">surf lessons near Orlando</a> page.
+        </p>
+
+        <h2>What to Pack</h2>
+        <ul>
+          <li>Swimsuit or board shorts</li>
+          <li>A towel and a change of dry clothes</li>
+          <li>Reef-safe sunscreen, a hat and sunglasses for after the lesson</li>
+          <li>A refillable water bottle</li>
+          <li>A shorty wetsuit if you are visiting between December and February</li>
+        </ul>
+        <p>
+          You do not need to bring a board. Boards, leashes and rash guards are included with every Cocosol lesson.
+        </p>
+
+        <div class="not-prose bg-[#EFF9FB] rounded-2xl p-8 border border-[#00BCD4]/20 my-10">
+          <h3 class="text-xl font-bold text-[#0E2A33] mb-3">Start planning your Cocoa Beach surf trip</h3>
+          <p class="text-gray-600 mb-5">Pick your dates, choose a lesson and book online. All gear is included and certified local instructors teach every session.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/book-now" class="inline-flex items-center px-6 py-3 bg-[#00BCD4] text-white font-bold rounded-xl hover:bg-[#0097A7] transition-colors">
+              Book a Lesson
+            </a>
+            <a href="/surf-packages-cocoa-beach" class="inline-flex items-center px-6 py-3 border-2 border-[#00BCD4]/40 text-[#00838F] font-semibold rounded-xl hover:border-[#00BCD4] transition-colors">
+              See Packages
+            </a>
+          </div>
+        </div>
+
+        <h2>Before You Go</h2>
+        <p>
+          Check the forecast and the launch schedule the week of your trip, book your lessons ahead so you get the days and times you want, and arrive a little early on the first morning to cover the safety briefing without rushing. If you have never surfed, our <a href="/blog/beginners-guide-to-surfing">beginner's guide on how to surf</a> is worth reading on the flight.
+        </p>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- FAQ SECTION -->
+  <section class="py-16 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <h2 class="text-2xl font-extrabold text-gray-900 mb-8">Planning a Cocoa Beach Surf Trip: FAQ</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="font-bold text-gray-900 mb-2">{faq.q}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERNAL LINKS -->
+  <section class="py-12 bg-white border-t border-gray-100">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-5">More from Cocosol Surf Lessons</h2>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { l: 'Book a Lesson', h: '/book-now' },
+          { l: 'Surf Packages & Pricing', h: '/surf-packages-cocoa-beach' },
+          { l: 'Surf Camp Cocoa Beach', h: '/surf-camp-cocoa-beach' },
+          { l: 'How to Surf: Beginner Guide', h: '/blog/beginners-guide-to-surfing' },
+          { l: 'Is Cocoa Beach Good for Surfing?', h: '/blog/is-cocoa-beach-good-for-surfing' },
+          { l: 'Watch a Rocket Launch', h: '/blog/watch-rocket-launch-cocoa-beach' },
+        ].map(x => (
+          <a href={x.h} class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-sm text-gray-600 font-medium hover:border-[#00BCD4]/50 hover:text-[#00838F] transition-colors">{x.l}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <NeedHelp />
+</BaseLayout>
+
+<style>
+  .prose h2 { font-family: var(--font-display); color: var(--c-heading); margin-top: 2.5rem; margin-bottom: 1rem; }
+  .prose h3 { color: var(--c-heading); margin-top: 1.75rem; }
+  .prose a { color: #00838F; }
+  .prose a:hover { color: #0097A7; }
+</style>

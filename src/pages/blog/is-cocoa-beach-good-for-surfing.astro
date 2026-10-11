@@ -65,7 +65,7 @@ const faqs = [
           <time datetime={datePublished}>{new Date(datePublished + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
           {dateModified !== datePublished && <span class="text-white/35">· Updated {new Date(dateModified + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>}
           <span>·</span>
-          <span>7 min read</span>
+          <span>8 min read</span>
         </div>
       </div>
     </div>
@@ -90,6 +90,21 @@ const faqs = [
         <p>
           It's not a heavy reef break. It's not a hollow barrel beach. It's a consistent, learnable, surf-able stretch of Florida coast, exactly what most people want when they're trying to actually get good at surfing rather than just survive it.
         </p>
+
+        <h2>Cocoa Beach Surf at a Glance</h2>
+        <div class="not-prose overflow-x-auto my-6">
+          <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
+            <tbody class="divide-y divide-gray-100">
+              <tr><th scope="row" class="text-left bg-gray-50 px-4 py-3 font-semibold text-gray-800 w-2/5">Typical wave size</th><td class="px-4 py-3 text-gray-700">1 to 3 feet, 3 to 5 feet during fall swells</td></tr>
+              <tr><th scope="row" class="text-left bg-gray-50 px-4 py-3 font-semibold text-gray-800">Bottom</th><td class="px-4 py-3 text-gray-700">Soft sand, no reef</td></tr>
+              <tr><th scope="row" class="text-left bg-gray-50 px-4 py-3 font-semibold text-gray-800">Water temperature</th><td class="px-4 py-3 text-gray-700">About 62°F in winter to 85°F in summer</td></tr>
+              <tr><th scope="row" class="text-left bg-gray-50 px-4 py-3 font-semibold text-gray-800">Best season for beginners</th><td class="px-4 py-3 text-gray-700">Summer (June to August)</td></tr>
+              <tr><th scope="row" class="text-left bg-gray-50 px-4 py-3 font-semibold text-gray-800">Best season overall</th><td class="px-4 py-3 text-gray-700">Fall (September to November)</td></tr>
+              <tr><th scope="row" class="text-left bg-gray-50 px-4 py-3 font-semibold text-gray-800">Wetsuit</th><td class="px-4 py-3 text-gray-700">Shorty only from December to February</td></tr>
+              <tr><th scope="row" class="text-left bg-gray-50 px-4 py-3 font-semibold text-gray-800">Lifeguards</th><td class="px-4 py-3 text-gray-700">Around the pier area in peak season</td></tr>
+            </tbody>
+          </table>
+        </div>
 
         <h2>Best Time of Year to Surf Cocoa Beach</h2>
 
@@ -119,6 +134,20 @@ const faqs = [
         </p>
         <p>
           For surf lessons, we work the stretch south of the pier where the break is most forgiving and consistent, enough wave to practice on, not so much that first-timers feel overwhelmed.
+        </p>
+
+        <h2>How to Check the Cocoa Beach Surf Report</h2>
+        <p>
+          Before you paddle out, look at four things in any surf forecast:
+        </p>
+        <ul>
+          <li><strong>Wave height:</strong> 1 to 2 feet is ideal for beginners. Over 4 feet is for experienced surfers.</li>
+          <li><strong>Swell period:</strong> a longer period (more seconds between waves) means more powerful, better-organized waves. Short-period chop is weaker and messier.</li>
+          <li><strong>Wind:</strong> light winds, or winds blowing offshore (from land toward the sea), keep the surface clean. Strong onshore wind makes it choppy.</li>
+          <li><strong>Tide:</strong> sandbars break differently at low and high tide, so a spot that is flat at one tide can be good at another.</li>
+        </ul>
+        <p>
+          If the forecast looks unclear, ask a local instructor. We check conditions every morning and move the lesson to the best stretch of beach for that day's swell.
         </p>
 
         <h2>Is It Good Compared to Other Florida Beaches?</h2>
@@ -191,11 +220,12 @@ const faqs = [
         {[
           { l: 'Private Surf Lessons', h: '/private-surf-lessons-cocoa-beach' },
           { l: 'Group Surf Lessons', h: '/group-surf-lessons-cocoa-beach' },
-          { l: 'Surf Camp for Kids', h: '/surf-camp-cocoa-beach' },
+          { l: 'Surf Camp Cocoa Beach', h: '/surf-camp-cocoa-beach' },
           { l: 'Book a Lesson', h: '/book-now' },
           { l: 'Beginner\'s Guide to Surfing', h: '/blog/beginners-guide-to-surfing' },
           { l: 'Surfing Near Orlando', h: '/blog/surfing-near-orlando' },
           { l: 'Watch a Rocket Launch from Cocoa Beach', h: '/blog/watch-rocket-launch-cocoa-beach' },
+          { l: 'Plan a Cocoa Beach Surf Trip', h: '/blog/plan-a-cocoa-beach-surf-trip' },
         ].map(x => (
           <a href={x.h} class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-full text-sm text-gray-600 font-medium hover:border-[#00BCD4]/50 hover:text-[#00838F] transition-colors">{x.l}</a>
         ))}
