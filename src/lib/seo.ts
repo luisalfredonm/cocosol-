@@ -27,7 +27,7 @@ export const SEO: Record<string, PageSEO> = {
     // LessonsGrid.astro, que sostienen las mismas variantes.
     title: 'Surf Lessons in Cocoa Beach, Florida | Cocosol Surf Lessons',
     description:
-      'Learn to surf in Cocoa Beach, Florida with certified local instructors. Small-group surfing lessons, all gear included and real progression. Book today!',
+      'Surf lessons in Cocoa Beach, Florida from $60. Certified local instructors, small groups and all gear included. Rated 4.9 on Google. Book online today!',
     keyfocus: 'surf lessons cocoa beach',
     synonyms: [
       'surf school cocoa beach',
@@ -58,9 +58,11 @@ export const SEO: Record<string, PageSEO> = {
   },
 
   '/group-surf-lessons-cocoa-beach': {
-    title: 'Group Surf Lessons in Cocoa Beach | Cocosol Surf Lessons',
+    // GSC (jun-oct 2026): 642 impresiones, 3 clics, pos. 22. Precio en el
+    // título para diferenciarse; la posición es el problema real (contenido/enlaces).
+    title: 'Group Surf Lessons in Cocoa Beach | From $60 Per Person',
     description:
-      'Fun group surf lessons in Cocoa Beach with small classes and certified local instructors. All gear included. Great for friends and solo travelers.',
+      'Group surf lessons in Cocoa Beach from $60. Small classes, certified local instructors and all gear included. Great for friends, families and solo travelers.',
     keyfocus: 'group surf lessons cocoa beach',
     synonyms: ['beginner group surf lessons cocoa beach'],
     related: ['surf lessons for friends cocoa beach', 'solo traveler surf lessons cocoa beach'],
@@ -68,9 +70,9 @@ export const SEO: Record<string, PageSEO> = {
   },
 
   '/surf-coaching-cocoa-beach': {
-    title: 'Surf Coaching in Cocoa Beach | Intermediate & Advanced',
+    title: 'Surf Coaching in Cocoa Beach, FL | From $75 per Session',
     description:
-      'Surf coaching in Cocoa Beach for intermediate and advanced surfers. Improve technique, wave selection and positioning with local expert coaches.',
+      'Surf coaching in Cocoa Beach for intermediate and advanced surfers from $75. Improve technique, wave selection and positioning with local expert coaches.',
     keyfocus: 'surf coaching cocoa beach',
     synonyms: ['advanced surf lessons cocoa beach', 'surf coach cocoa beach'],
     related: ['intermediate surf lessons cocoa beach', 'improve surfing technique florida'],
@@ -78,9 +80,9 @@ export const SEO: Record<string, PageSEO> = {
   },
 
   '/surf-camp-cocoa-beach': {
-    title: 'Surf Camp in Cocoa Beach (Ages 6-16) | Cocosol Surf Lessons',
+    title: 'Surf Camp in Cocoa Beach (Ages 6-16) | $350 per Week',
     description:
-      'Kids surf camp in Cocoa Beach for ages 6-16. Daily lessons, 3:1 ratio, all gear and safety briefing included. Book your summer surf camp week.',
+      'Kids surf camp in Cocoa Beach for ages 6-16, $350 per week. Daily lessons, 3:1 ratio, all gear and safety briefing included. Reserve your summer camp week.',
     keyfocus: 'surf camp cocoa beach',
     synonyms: [
       'summer surf camp cocoa beach',
@@ -121,9 +123,11 @@ export const SEO: Record<string, PageSEO> = {
   },
 
   '/surf-lessons-near-orlando': {
-    title: 'Surf Lessons Near Orlando | Cocoa Beach Surf School',
+    // GSC (jun-oct 2026): 1.069 impresiones, 11 clics (1%), pos. 15. Distancia
+    // y precio en el snippet responden la duda del turista de Orlando.
+    title: 'Surf Lessons Near Orlando | Just 1 Hour Away in Cocoa Beach',
     description:
-      'Visiting Orlando? Learn to surf an hour away in Cocoa Beach. Certified instructors, beginner-friendly waves, all gear included. Book your lesson.',
+      'Staying in Orlando? Take a surf lesson just 60 minutes away in Cocoa Beach. Beginner-friendly waves, certified instructors and all gear included. From $60.',
     keyfocus: 'surf lessons near orlando',
     synonyms: ['surf lessons near kennedy space center', 'surf lessons space coast'],
     related: ['things to do near orlando beaches', 'surf lessons near disney'],
@@ -175,9 +179,9 @@ export const seoData: Record<string, PageSEOWithRoute> = {
   surfLessons: withRoute('/'),
   surfLessonsNearOrlando: withRoute('/surf-lessons-near-orlando'),
   surfPrices: withRoute('/surf-packages-cocoa-beach', {
-    title: 'Surf Lesson Prices & Packages in Cocoa Beach | Cocosol',
+    title: 'Surf Lesson Prices in Cocoa Beach | Packages From $260',
     description:
-      'Transparent surf lesson prices in Cocoa Beach. Private, group and multi-session packages available. All gear included with no hidden fees.',
+      'Surf lesson prices in Cocoa Beach: group from $60, private from $75, multi-session packages from $260. All gear included, no hidden fees.',
     keyfocus: 'surf lesson prices cocoa beach',
     synonyms: ['surf packages cocoa beach', 'surf lesson cost cocoa beach'],
     related: ['private surf lessons cocoa beach', 'group surf lessons cocoa beach'],
