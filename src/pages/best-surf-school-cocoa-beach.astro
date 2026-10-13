@@ -3,10 +3,19 @@ export const prerender = true
 import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema.astro'
+import FAQSchema from '../components/seo/FAQSchema.astro'
 import { seoData, CONTACT } from '../lib/seo'
 import victorImg from '../assets/images/Victor.png'
 
 const seo = seoData.aboutUs
+
+const faqs = [
+  { question: 'What makes Cocosol the best surf school in Cocoa Beach?', answer: 'Cocosol Surf Lessons combines ISA-certified instruction, a maximum 3:1 student-to-instructor ratio, bilingual (English and Spanish) coaching, and over 25 years of surf teaching experience. We are rated 4.9 out of 5 from 90 Google reviews and most first-time students stand up in their very first lesson.' },
+  { question: 'Are Cocosol surf instructors certified?', answer: 'Yes. All Cocosol instructors hold ISA (International Surfing Association) certification. Lead instructor Victor Nuñez is also a certified lifeguard and CPR-trained, with 25+ years of teaching experience on both Costa Rica\'s Pacific coast and Florida\'s Space Coast.' },
+  { question: 'How long has Cocosol been teaching surf lessons in Cocoa Beach?', answer: 'Cocosol Surf Lessons was founded by Victor Nuñez in 2022. Victor brings over 25 years of surf instruction experience to every session, teaching everyone from complete beginners to performance-level surfers.' },
+  { question: 'Is Cocosol a good surf school for beginners?', answer: 'Absolutely. Most complete beginners stand up on their board in their very first lesson. Every lesson includes a beach safety briefing, all gear, and dedicated instruction from a certified instructor in small groups with a maximum 3:1 ratio.' },
+  { question: 'Does Cocosol offer surf lessons for kids?', answer: 'Yes. We teach kids from age 6. Boards are sized to each child, the pace is adjusted to their comfort level, and parents are welcome in the water. Our kids surf camp runs weekly Monday through Friday for ages 6–16.' },
+]
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
@@ -14,6 +23,7 @@ const seo = seoData.aboutUs
     { name: 'Home', href: '/' },
     { name: 'About Cocosol', href: '/best-surf-school-cocoa-beach' },
   ]} />
+  <FAQSchema slot="head" items={faqs} />
 
   <!-- HERO -->
   <section class="ab-hero">

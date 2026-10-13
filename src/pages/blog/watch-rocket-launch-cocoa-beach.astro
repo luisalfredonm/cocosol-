@@ -6,6 +6,7 @@ import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro'
 import BlogPostingSchema from '../../components/seo/BlogPostingSchema.astro'
 import FAQSchema from '../../components/seo/FAQSchema.astro'
 import { gitDateISO } from '../../lib/gitDate'
+import { Image } from 'astro:assets'
 
 const datePublished = '2026-09-10'
 const dateModified = gitDateISO('src/pages/blog/watch-rocket-launch-cocoa-beach.astro', datePublished)
@@ -36,7 +37,7 @@ const faqs = [
 
   <!-- HERO -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
-    <img src="/images/student-from-our-surf-school-in-Cocoa-Beach.webp" alt="Surf student at Cocosol Surf Lessons, Cocoa Beach, Florida" class="absolute inset-0 w-full h-full object-cover opacity-25" loading="eager" fetchpriority="high" width="1200" height="630" />
+    <Image src="/images/student-from-our-surf-school-in-Cocoa-Beach.webp" alt="Surf student at Cocosol Surf Lessons, Cocoa Beach, Florida" width={1200} height={630} widths={[640, 1280]} sizes="100vw" loading="eager" fetchpriority="high" quality={40} class="absolute inset-0 w-full h-full object-cover opacity-25" />
     <div class="absolute inset-0 bg-gradient-to-b from-gray-900/70 to-gray-900/95"></div>
     <div class="relative z-10 container mx-auto px-4">
       <div class="max-w-3xl">
