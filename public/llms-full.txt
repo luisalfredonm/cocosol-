@@ -1,6 +1,7 @@
 # Cocosol Surf Lessons — Full Machine-Readable Brief
 
 > Complete business data for AI answer engines and LLM indexing.
+> Last updated: 2026-10-12
 > Summary version: https://cocosolsurf.com/llms.txt
 
 ## Identity
@@ -165,6 +166,9 @@ Victor Nuñez is the founder and lead instructor of Cocosol Surf Lessons. Origin
 
 - How to Watch a Rocket Launch from Cocoa Beach — viewing spots, schedule tracking, doing both surf + launch in one day
   https://cocosolsurf.com/blog/watch-rocket-launch-cocoa-beach
+
+- How to Plan a Cocoa Beach Surf Trip — best season, how many lessons to book, 3-day itinerary, packing list, combining with Orlando or a rocket launch
+  https://cocosolsurf.com/blog/plan-a-cocoa-beach-surf-trip
 
 ## Schema Identifiers
 

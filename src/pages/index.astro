@@ -39,7 +39,7 @@ const gallery = [
 // (countries and years), which made both numbers read as invented.
 const stats = [
   { value: '500+', label: 'Surfers taught' },
-  { value: '25+',  label: 'Years in Cocoa Beach' },
+  { value: '25+',  label: 'Years Teaching Surfing' },
   { value: '4.9★', label: 'Google rating' },
   { value: '3:1',  label: 'Max group ratio' },
 ]
@@ -94,7 +94,6 @@ const serviceLinks = [
 ---
 
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms}>
-  <BreadcrumbSchema slot="head" items={[{ name: 'Home', href: '/' }]} />
   <FAQSchema slot="head" items={faqs} />
 
   <!-- ── HERO ──────────────────────────────────────────────────────────────── -->

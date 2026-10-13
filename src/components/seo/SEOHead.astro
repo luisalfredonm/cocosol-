@@ -28,7 +28,9 @@ const jsonLd = {
       email: 'info@cocosolsurf.com',
       image: ogImage,
       logo: `${site}/images/logo-schema.png`,
-      priceRange: '$60-$900',
+      priceRange: '$60–$1,280',
+      paymentAccepted: 'Cash, PayPal, Credit Card',
+      languagesSpoken: ['en', 'es'],
       currenciesAccepted: 'USD',
       address: { '@type': 'PostalAddress', streetAddress: '632 Adams Ave', addressLocality: 'Cape Canaveral', addressRegion: 'FL', postalCode: '32920', addressCountry: 'US' },
       geo: { '@type': 'GeoCoordinates', latitude: 28.3907408, longitude: -80.5971515 },
@@ -38,13 +40,13 @@ const jsonLd = {
       // desambiguan la entidad para el Knowledge Graph - verificar cualquier ID
       // nuevo contra wbgetentities antes de añadirlo.
       areaServed: [
-        { '@type': 'City', name: 'Cocoa Beach',          '@id': 'https://www.wikidata.org/wiki/Q852653' },
-        { '@type': 'City', name: 'Cape Canaveral',       '@id': 'https://www.wikidata.org/wiki/Q966657' },
-        { '@type': 'City', name: 'Satellite Beach',      '@id': 'https://www.wikidata.org/wiki/Q2107439' },
-        { '@type': 'City', name: 'Indialantic',          '@id': 'https://www.wikidata.org/wiki/Q1013985' },
-        { '@type': 'City', name: 'Melbourne Beach',      '@id': 'https://www.wikidata.org/wiki/Q1013994' },
-        { '@type': 'City', name: 'Indian Harbour Beach', '@id': 'https://www.wikidata.org/wiki/Q994766' },
-        { '@type': 'City', name: 'South Patrick Shores', '@id': 'https://www.wikidata.org/wiki/Q2464039' },
+        { '@type': 'City', name: 'Cocoa Beach',          '@id': 'https://www.wikidata.org/entity/Q852653' },
+        { '@type': 'City', name: 'Cape Canaveral',       '@id': 'https://www.wikidata.org/entity/Q966657' },
+        { '@type': 'City', name: 'Satellite Beach',      '@id': 'https://www.wikidata.org/entity/Q2107439' },
+        { '@type': 'City', name: 'Indialantic',          '@id': 'https://www.wikidata.org/entity/Q1013985' },
+        { '@type': 'City', name: 'Melbourne Beach',      '@id': 'https://www.wikidata.org/entity/Q1013994' },
+        { '@type': 'City', name: 'Indian Harbour Beach', '@id': 'https://www.wikidata.org/entity/Q994766' },
+        { '@type': 'City', name: 'South Patrick Shores', '@id': 'https://www.wikidata.org/entity/Q2464039' },
       ],
       sameAs: [
         'https://www.facebook.com/profile.php?id=61578460115625',

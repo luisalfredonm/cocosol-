@@ -32,6 +32,7 @@ const prices = priceOffers.map((o) => Number(o.price))
 const offerCatalogJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
+  '@id': `${site}/surf-packages-cocoa-beach#service`,
   name: 'Surf Lessons & Packages in Cocoa Beach',
   serviceType: 'Surf lessons',
   provider: { '@type': 'LocalBusiness', '@id': `${site}/#business`, name: 'Cocosol Surf Lessons', url: site },
