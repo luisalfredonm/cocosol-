@@ -67,6 +67,7 @@ const trustItems = [
 ]
 
 const faqs = [
+  { question: 'How much do surf lessons cost in Cocoa Beach?', answer: 'Surf lessons at Cocosol Surf Lessons start at $75 per person for a one-hour private lesson, dropping to $70 each for two guests and $65 each for three. Group lessons (4 or more) are $60 per person. Surf coaching is $75, the kids surf camp is $350 per week, and lesson packs are $260 for four lessons, $475 for six and $1,280 for sixteen. All gear is included.' },
   { question: "What's included in the price?", answer: "Every price includes a premium surfboard sized to you, a leash, a UV-protection rash guard, surf wax, reef-friendly mineral sunscreen, and a full beach safety briefing. The Progression and Elite packs also include one and two professional photography sessions respectively. All you bring is a swimsuit and a towel. We handle everything else." },
   { question: 'Do you offer discounts for families or groups?', answer: 'Yes, group lessons start at $60 per person (vs. $75 for private), and our surf camp has multi-kid family rates ($350 for 1 child, $650 for 2 kids, $900 for 3 kids per week). For larger family bookings or corporate groups, message us on WhatsApp and we\'ll put together a tailored quote.' },
   { question: "What's your cancellation and weather policy?", answer: "If the ocean isn't safe or suitable for learning, we'll always offer to reschedule. Your lesson is never lost to bad weather. For personal cancellations, we ask for at least 24 hours' notice to reschedule without a fee. Message us as soon as plans change and we'll work it out." },
@@ -364,7 +365,11 @@ const faqs = [
         {[
           { l: 'Cocoa Beach Surf Lessons',         h: '/' },
           { l: 'Private Surf Lessons Cocoa Beach', h: '/private-surf-lessons-cocoa-beach' },
+          { l: 'Group Surf Lessons Cocoa Beach',   h: '/group-surf-lessons-cocoa-beach' },
+          { l: 'Kids Surf Lessons Cocoa Beach',    h: '/kids-surf-lessons-cocoa-beach' },
+          { l: 'Surf Camp Cocoa Beach',            h: '/surf-camp-cocoa-beach' },
           { l: 'Surf Coaching Cocoa Beach',        h: '/surf-coaching-cocoa-beach' },
+          { l: 'Surf Lessons Near Orlando',        h: '/surf-lessons-near-orlando' },
           { l: 'Surf School in Cocoa Beach',       h: '/best-surf-school-cocoa-beach' },
         ].map(x => (
           <a href={x.h} data-astro-prefetch="viewport" class="sp-link">{x.l}</a>

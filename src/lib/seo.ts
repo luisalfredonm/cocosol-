@@ -75,7 +75,7 @@ export const SEO: Record<string, PageSEO> = {
   '/surf-coaching-cocoa-beach': {
     title: 'Surf Coaching in Cocoa Beach, FL | From $75 per Session',
     description:
-      'Surf coaching in Cocoa Beach for intermediate and advanced surfers from $75. Improve technique, wave selection and positioning with local expert coaches.',
+      'Surf coaching in Cocoa Beach for intermediate and advanced surfers from $75. Improve technique and wave selection, with video analysis from local expert coaches.',
     keyfocus: 'surf coaching cocoa beach',
     synonyms: ['advanced surf lessons cocoa beach', 'surf coach cocoa beach'],
     related: ['intermediate surf lessons cocoa beach', 'improve surfing technique florida'],
