@@ -29,7 +29,7 @@ const faqs = [
   { q: 'Can I take a surf lesson as a day trip from Orlando?', a: 'Absolutely. A surf lesson takes 1 to 2 hours, which means you can drive from Orlando in the morning, take your lesson, grab lunch on the beach, and be back by mid-afternoon. Many guests combine it with a visit to the Kennedy Space Center, which is minutes away.' },
   { q: 'Is Cocoa Beach a good place to learn to surf near Orlando?', a: 'Yes. It\'s the best option near Orlando. The waves at Cocoa Beach are gentle and consistent, the bottom is sandy (no sharp reef), and the area has established surf schools with certified instructors. You\'ll stand up on your first lesson at the same beach where Ron Jon\'s has been selling surf gear since 1963.' },
   { q: 'Is there surfing near Disney World?', a: 'Disney World is in Kissimmee, about 75 miles from the beach. The closest Atlantic surf is at Cocoa Beach (1 hr 15 min) or New Smyrna Beach (about 1.5 hours). For families visiting Disney who want to add a surf day, Cocoa Beach is the standard choice. It\'s the easiest route and has the most surf infrastructure.' },
-  { q: 'What is the best surf school near Orlando?', a: 'Cocosol Surf Lessons in Cocoa Beach is a certified local school about one hour from Orlando. We offer private lessons ($75/person), group lessons ($60/person), surf coaching for intermediate and advanced surfers, and a kids surf camp. All gear is included in every session.' },
+  { q: 'What is the best surf school near Orlando?', a: 'Cocosol Surf Lessons in Cocoa Beach is a certified local <a href="/best-surf-school-cocoa-beach" class="font-semibold text-[#00838F] underline underline-offset-2">surf school</a> about one hour from Orlando. We offer private lessons ($75/person), group lessons ($60/person), surf coaching for intermediate and advanced surfers, and a kids surf camp. All gear is included in every session.' },
   { q: 'How do I get from Orlando to Cocoa Beach?', a: 'Drive east on SR 528 (Beachline Expressway) directly to Cocoa Beach, about 60 miles, 1 hour without traffic. Public transit exists but is slow and impractical for a surf trip. Rideshare (Uber/Lyft) works but expensive for a day trip. Most guests drive their rental car or their own vehicle.' },
 ]
 ---
@@ -37,7 +37,7 @@ const faqs = [
 <BaseLayout title={seo.title} description={seo.description} slug={seo.slug} keyfocus={seo.keyfocus} image={seo.image} synonyms={seo.synonyms} type="article">
   <BreadcrumbSchema slot="head" items={[{name:'Home',href:'/'},{name:'Blog',href:'/blog'},{name:'Surfing Near Orlando',href:seo.slug}]} />
   <BlogPostingSchema slot="head" title={seo.title} description={seo.description} slug={seo.slug} datePublished={datePublished} dateModified={dateModified} image={seo.image} authorName="Victor Nuñez" />
-  <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a }))} />
+  <FAQSchema slot="head" items={faqs.map(f => ({ question: f.q, answer: f.a.replace(/<[^>]+>/g, '') }))} />
 
   <!-- HERO -->
   <section class="bg-gray-900 py-20 relative overflow-hidden">
@@ -198,7 +198,7 @@ const faqs = [
         {faqs.map(faq => (
           <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
             <h3 class="font-bold text-gray-900 mb-2">{faq.q}</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
+            <p class="text-gray-600 text-sm leading-relaxed" set:html={faq.a} />
           </div>
         ))}
       </div>

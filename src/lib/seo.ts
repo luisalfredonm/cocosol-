@@ -1,6 +1,9 @@
 // SEO configuration for Cocosol Surf Lessons (Cocoa Beach, FL).
 // One canonical keyword intent per route to avoid cannibalization:
-// - "surf lessons" + "surf school cocoa beach" live on the home page.
+// - "surf lessons" (and "surfing lessons") live on the home page.
+// - "surf school" + "best surf school" live on /best-surf-school-cocoa-beach
+//   (GSC jun-oct 2026: that page ranks ~11.6 for them; the home sat at 25-30).
+//   The home links there with a "surf school" anchor instead of competing.
 // - "surf camp" + "summer surf camp" live on /surf-camp-cocoa-beach.
 // - "surf lessons near me" is handled through GBP, LocalBusiness schema,
 //   and consistent NAP instead of a dedicated landing page.
@@ -30,10 +33,10 @@ export const SEO: Record<string, PageSEO> = {
       'Surf lessons in Cocoa Beach, Florida from $60. Certified local instructors, small groups and all gear included. Rated 4.9 on Google. Book online today!',
     keyfocus: 'surf lessons cocoa beach',
     synonyms: [
-      'surf school cocoa beach',
       'surfing lessons cocoa beach',
       'cocoa beach florida surfing lessons',
       'cocoa beach surf lessons',
+      'surf lessons cocoa beach fl',
       'surfing lessons cocoa beach fl',
       'cocoa beach pier surf lessons',
     ],
@@ -113,11 +116,20 @@ export const SEO: Record<string, PageSEO> = {
   },
 
   '/best-surf-school-cocoa-beach': {
-    title: 'Best Surf School in Cocoa Beach | About Cocosol',
+    // GSC (jun-oct 2026): 362 impresiones, 7 clics, pos. 11.6. Es la página
+    // que rankea mejor para "surf school"; la home deja de competir por esa
+    // keyword. "cocoa beach surf school" (pos. 30) y "surf school cocoa beach"
+    // (pos. 25) se mueven aquí desde la home.
+    title: 'Best Surf School in Cocoa Beach | Rated 4.9 on Google',
     description:
-      'Cocosol is a local surf school in Cocoa Beach, FL with 25+ years teaching. Certified, bilingual instructors and small groups. Meet the team.',
+      'Cocosol is a family-run surf school in Cocoa Beach, FL. ISA-certified bilingual instructors, max 3:1 groups and 25+ years of teaching experience.',
     keyfocus: 'best surf school cocoa beach',
-    synonyms: ['surf schools cocoa beach', 'top surf school cocoa beach'],
+    synonyms: [
+      'surf school cocoa beach',
+      'cocoa beach surf school',
+      'surf schools cocoa beach',
+      'top surf school cocoa beach',
+    ],
     related: ['certified surf instructors cocoa beach', 'bilingual surf instructors florida'],
     ogImage: '/images/surf-school-cocoa-beach-surf-instructor-student.webp',
   },
